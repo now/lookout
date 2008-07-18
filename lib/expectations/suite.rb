@@ -1,6 +1,9 @@
 class Expectations::Suite
   
   include Mocha::Standalone
+  class << self
+    attr_accessor :silent
+  end
   
   def initialize
     @do_not_run = false
