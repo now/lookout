@@ -20,6 +20,10 @@ module Expectations::MockRecorder
     subject
   end
   
+  def verify
+    true
+  end
+
   def mocha_error_message(ex)
     ex.message
   end

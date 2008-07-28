@@ -6,7 +6,7 @@ module Expectations::RecordedExpectation
       warn_for_expects do
         instance_exec(expected.subject, &block) if block
       end
-      if mocha_verify
+      if expected.verify! && mocha_verify
         self.extend(Expectations::Results::Fulfilled)
       else
         self.extend(Expectations::Results::StateBasedFailure)
