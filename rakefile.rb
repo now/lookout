@@ -26,15 +26,12 @@ task :readme do
   %x[erb README_TEMPLATE > README]
 end
 
-
 desc "Upload RDoc to RubyForge"
 task :publish_rdoc do
   Rake::Task[:readme].invoke
   Rake::Task[:rdoc].invoke
   Rake::SshDirPublisher.new("jaycfields@rubyforge.org", "/var/www/gforge-projects/expectations", "doc").upload
 end
-
-Gem::manage_gems
 
 specification = Gem::Specification.new do |s|
   s.name   = "expectations"
