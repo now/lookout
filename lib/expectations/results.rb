@@ -4,23 +4,23 @@ module Expectations::Results
   def initialize(file, line)
     self.line, self.file = line, file
   end
-  
+
   def fulfilled?
     self.is_a?(Expectations::Results::Fulfilled)
   end
-  
+
   def failure?
     self.is_a?(Expectations::Results::StateBasedFailure) || self.is_a?(Expectations::Results::BehaviorBasedFailure)
   end
-  
+
   def error?
     self.is_a?(Expectations::Results::Error)
   end
-  
+
   def self.included(klass)
     klass.extend ClassMethods
   end
-  
+
   module ClassMethods
     def char(arg)
       define_method :char do

@@ -14,7 +14,7 @@ Expectations do
     results << Object.new.extend(Expectations::Results::Fulfilled)
     results.errors.size
   end
-  
+
   expect Expectations::SuiteResults.new(Silent).not.to.have.succeeded? do |results|
     results << Object.new.extend(Expectations::Results::StateBasedFailure)
     results << Object.new.extend(Expectations::Results::Fulfilled)
@@ -24,10 +24,10 @@ Expectations do
     results << Object.new.extend(Expectations::Results::BehaviorBasedFailure)
     results << Object.new.extend(Expectations::Results::Fulfilled)
   end
-  
+
   expect Expectations::SuiteResults.new(Silent).to.have.succeeded? do |results|
     results << Object.new.extend(Expectations::Results::Fulfilled)
     results << Object.new.extend(Expectations::Results::Fulfilled)
   end
-  
+
 end

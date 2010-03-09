@@ -29,18 +29,18 @@ class Expectations::SuiteResults
   def failures
     expectations.select { |expectation| expectation.failure? }
   end
-  
+
   def print_results(benchmark)
     run_time = benchmark.real
     run_time = 0.001 if run_time < 0.001
     out.puts "\nFinished in #{run_time.to_s.gsub(/(\d*)\.(\d{0,5}).*/,'\1.\2')} seconds"
     if succeeded?
-      print_success 
+      print_success
     else
       print_fail
     end
   end
-  
+
   def print_success
     out.puts "\nSuccess: #{fulfilled.size} fulfilled"
   end
@@ -69,7 +69,7 @@ class Expectations::SuiteResults
   def write_junit_xml(path)
     FileUtils.rm_rf path if File.exist?(path)
     FileUtils.mkdir_p path
-    grouped_expectations = expectations.inject({}) do |result, expectation| 
+    grouped_expectations = expectations.inject({}) do |result, expectation|
       result[expectation.file] = [] if result[expectation.file].nil?
       result[expectation.file] << expectation
       result

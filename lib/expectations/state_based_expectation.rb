@@ -16,7 +16,7 @@ module Expectations::StateBasedExpectation
     rescue Exception => ex
       return self.extend(Expectations::Results::Fulfilled) if expected == ex.class
       self.extend(Expectations::Results::Error)
-      self.exception = ex 
+      self.exception = ex
       self.message = "expected: <#{expected.inspect}> got: <#{ex.class.inspect}>" if expected.is_a?(Class) && expected < StandardError
       return self
     ensure

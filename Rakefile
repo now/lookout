@@ -37,23 +37,23 @@ end
 
 specification = Gem::Specification.new do |s|
   s.name   = "expectations"
-  s.summary = "A lightweight unit testing framework. Tests (expectations) will be written as follows 
-  expect 2 do 
-    1 + 1 
-  end 
+  s.summary = "A lightweight unit testing framework. Tests (expectations) will be written as follows
+  expect 2 do
+    1 + 1
+  end
 
-  expect NoMethodError do 
-    Object.invalid_method_call 
+  expect NoMethodError do
+    Object.invalid_method_call
   end."
   s.version = "1.2.1"
   s.author = 'Jay Fields'
-  s.description = "A lightweight unit testing framework. Tests (expectations) will be written as follows 
-  expect 2 do 
-    1 + 1 
-  end 
+  s.description = "A lightweight unit testing framework. Tests (expectations) will be written as follows
+  expect 2 do
+    1 + 1
+  end
 
-  expect NoMethodError do 
-    Object.invalid_method_call 
+  expect NoMethodError do
+    Object.invalid_method_call
   end."
   s.homepage = 'http://expectations.rubyforge.org'
   s.rubyforge_project = 'expectations'

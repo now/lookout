@@ -7,29 +7,29 @@ class Object
       expects_method.bind(self).call(*args)
     end
   end
-  
+
   module ExpectationsExpectsMethod
     def expects(*args)
       Expectations::StandardError.print "expects method called from #{caller[2].chomp(":in `__instance_exec0'")}\n"
       MochaExpectsMethod.instance_method(:expects).bind(self).call(*args)
     end
   end
-  
+
   attr_accessor :__which_expects__
   include MochaExpectsMethod
   include ExpectationsExpectsMethod
   def expects(*args)
     (__which_expects__ || MochaExpectsMethod).instance_method(:expects).bind(self).call(*args)
   end
-  
+
   def to
     Expectations::Recorder.new(self)
   end
-  
+
   def not
     Not.new(self)
   end
-  
+
   def not!
     !self
   end
@@ -45,7 +45,7 @@ class Object
       @subject.send(sym,*args,&blk).not!
     end
   end
-  
+
   def expectations_equal_to(other)
     self == other
   end
