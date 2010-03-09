@@ -7,7 +7,7 @@ module Expectations::StateBasedRecorder
   end
 
   def failure_message
-    "expected #{subject} #{@message_parts.join(" ")}"
+    "expected #{subject} #{message_parts.join(" ")}"
   end
 
   def method_stack
@@ -19,8 +19,8 @@ module Expectations::StateBasedRecorder
   end
 
   def method_missing(sym, *args)
-    @message_parts << "#{sym}"
-    args.each { |arg| @message_parts << arg.inspect }
+    message_parts << "#{sym}"
+    args.each { |arg| message_parts << arg.inspect }
     method_stack << [sym, args]
     self
   end
