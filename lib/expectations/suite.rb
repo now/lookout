@@ -2,7 +2,7 @@
 
 class Expectations::Suite
 
-  include Mocha::Standalone
+  include Mocha::API
   class << self
     attr_accessor :silent
   end
