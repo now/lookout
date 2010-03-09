@@ -36,9 +36,9 @@ module Expectations::Results
     char "F"
     attr_writer :message
     def message
-      return @message if @message
-      result = "expected: <#{expected.inspect}> got: <#{actual.inspect}>"
-      result += "\nstring details: #{expected.diff(actual)}" if expected.is_a?(String) && actual.is_a?(String)
+      return @message if instance_variable_defined? :@message and @message
+      result = "%p≠%p" % [expected, actual]
+      result += ":#{expected.diff(actual)}" if expected.is_a? String and actual.is_a? String
       result
     end
   end

@@ -17,7 +17,7 @@ module Expectations::StateBasedExpectation
       return self.extend(Expectations::Results::Fulfilled) if expected == ex.class
       self.extend(Expectations::Results::Error)
       self.exception = ex
-      self.message = "expected: <#{expected.inspect}> got: <#{ex.class.inspect}>" if expected.is_a?(Class) && expected < StandardError
+      self.message = "%p≠%p" % [ex.class, expected] if expected.is_a? Class and expected < StandardError
       return self
     ensure
       mocha_teardown

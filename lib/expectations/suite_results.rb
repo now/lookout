@@ -50,19 +50,15 @@ class Expectations::SuiteResults
     out.puts "\n--Errors--" if errors.any?
     errors.each do |error|
       out.puts " #{error.file}:#{error.line}:in `expect'" if ENV["TM_MODE"]
-      out.puts "file <#{error.file}>"
-      out.puts "line <#{error.line}>"
-      out.puts "error <#{error.exception.message}>"
-      out.puts "trace #{filter_backtrace(error.exception.backtrace)}"
+      out.puts('%s:%d: %s' % [error.file, error.line, error.exception.message])
+      out.puts "Trace #{filter_backtrace(error.exception.backtrace)}"
       out.puts "#{error.message}" if error.message && error.message.any?
       out.puts "\n"
     end
     out.puts "\n--Failures--" if failures.any?
     failures.each do |failure|
       out.puts " #{failure.file}:#{failure.line}:in `expect'" if ENV["TM_MODE"]
-      out.puts "file <#{failure.file}>"
-      out.puts "line <#{failure.line}>"
-      out.puts "#{failure.message}\n\n"
+      out.puts("%s:%d: %s\n\n" % [failure.file, failure.line, failure.message])
     end
   end
 
