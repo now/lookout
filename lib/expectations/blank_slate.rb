@@ -22,8 +22,9 @@ class Expectations::BlankSlate
     # Hide the method named +name+ in the BlankSlate class.  Don't
     # hide +instance_eval+ or any method beginning with "__".
     def hide(name)
-      if instance_methods.include?(name.to_s) and
-        name !~ /^(__|instance_eval|extend|is_a?)/
+      method_name = RUBY_VERSION < '1.9' ? name.to_s : name.to_sym
+      if instance_methods.include?(method_name) and
+        name !~ /^(?:__|(?:instance_eval|extend|is_a\?|object_id)$)/
         @hidden_methods ||= {}
         @hidden_methods[name.to_sym] = instance_method(name)
         undef_method name
