@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Expectations::SuiteRunner
   include Singleton
   attr_accessor :suite

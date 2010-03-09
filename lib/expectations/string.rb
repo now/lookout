@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class String
   def diff(other)
     (0..self.size).inject("") do |result, index|

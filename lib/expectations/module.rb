@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Module
   
   def expectations_equal_to(other)

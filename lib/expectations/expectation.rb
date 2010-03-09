@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Expectations::Expectation
   include Mocha::Standalone
   attr_accessor :expected, :block, :file, :line, :actual

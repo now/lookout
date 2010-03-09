@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 module Expectations::DelegateRecorder
   attr_accessor :delegation_result
   

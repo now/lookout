@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #!/usr/bin/env ruby
 #--
 # Copyright 2004, 2006 by Jim Weirich (jim@weirichhouse.org).

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Expectations::StandardError
   class << self
     attr_accessor :outlet

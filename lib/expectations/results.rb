@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 module Expectations::Results
   def initialize(file, line)
     self.line, self.file = line, file

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 module Expectations::StateBasedExpectation
   def execute
     begin

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Object
   module MochaExpectsMethod
     expects_method = Object.instance_method(:expects)
