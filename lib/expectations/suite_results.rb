@@ -89,7 +89,10 @@ class Expectations::SuiteResults
   end
 
   def filter_backtrace(trace)
-    patterns_to_strip = [/\/expectations\/lib\/expectations\//, /\/lib\/ruby\/1\.8\//]
+    patterns_to_strip = [
+      /\/expectations(?:-\d+\.\d+\.\d+)?\/lib\/expectations\//,
+      /\/lib\/ruby\/(?:gems\/)?\d\.\d\//
+    ]
     result = patterns_to_strip.inject(trace) do |result, element|
       result = result.select { |line| line !~ element}
     end
