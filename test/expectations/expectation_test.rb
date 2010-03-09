@@ -27,4 +27,7 @@ Expectations do
     Expectations::Expectation.new(String, nil, nil) { Object.no_method }.execute.actual
   end
 
+  Expectations::Expectation.new(nil, nil, nil).to.delegate(:ignore).to(:stub_everything) do |o|
+    o.ignore
+  end
 end

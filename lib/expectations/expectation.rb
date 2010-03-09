@@ -18,6 +18,10 @@ class Expectations::Expectation
     super
   end
 
+  def ignore
+    stub_everything
+  end
+
   def warn_for_expects
     Object.__which_expects__ = ExpectationsExpectsMethod
     yield
