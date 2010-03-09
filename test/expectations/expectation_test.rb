@@ -30,4 +30,16 @@ Expectations do
   Expectations::Expectation.new(nil, nil, nil).to.delegate(:ignore).to(:stub_everything) do |o|
     o.ignore
   end
+
+  expect Expectations::StateBasedRecorder do
+    ''.to.have.to_s == ''
+  end
+
+  expect Expectations::Results::StateBasedFailure do
+    Expectations::Expectation.new('foo'.to.have.to_s == 'bar', nil, nil).execute
+  end
+
+  expect Expectations::Results::Fulfilled do
+    Expectations::Expectation.new('foo'.to.have.to_s == 'foo', nil, nil).execute
+  end
 end
