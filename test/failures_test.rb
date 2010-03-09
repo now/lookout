@@ -9,12 +9,6 @@ Expectations do
     suite.execute(Silent).expectations.first
   end
 
-  expect Expectations::Results::Error do
-    suite = Expectations::Suite.new
-    suite.expect(ArgumentError) { Object.no_method }
-    suite.execute(Silent).expectations.first
-  end
-
   expect Expectations::Results::BehaviorBasedFailure do
     Expectations::StandardError.silence
     suite = Expectations::Suite.new
