@@ -33,7 +33,7 @@ class Expectations::SuiteResults
   def print_results(benchmark)
     run_time = benchmark.real
     run_time = 0.001 if run_time < 0.001
-    out.puts "\nFinished in #{run_time.to_s.gsub(/(\d*)\.(\d{0,5}).*/,'\1.\2')} seconds"
+    out.puts("\nFinished in %.5f" % [run_time])
     if succeeded?
       print_success
     else
@@ -51,7 +51,7 @@ class Expectations::SuiteResults
     errors.each do |error|
       out.puts " #{error.file}:#{error.line}:in `expect'" if ENV["TM_MODE"]
       out.puts('%s:%d: %s' % [error.file, error.line, error.exception.message])
-      out.puts "Trace #{filter_backtrace(error.exception.backtrace).join('')}"
+      out.puts "#{filter_backtrace(error.exception.backtrace).join("\n")}"
       out.puts "#{error.message}" if error.message && error.message.any?
       out.puts "\n"
     end
@@ -97,7 +97,7 @@ class Expectations::SuiteResults
       result = result.select { |line| line !~ element}
     end
     result.collect do |line|
-      "\n  #{line}"
+      "\tfrom #{line}"
     end
   end
 end
