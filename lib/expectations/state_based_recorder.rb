@@ -7,7 +7,7 @@ module Expectations::StateBasedRecorder
   end
 
   def failure_message
-    "expected #{subject} #{message_parts.join(" ")}"
+    "Expected #{subject} #{message_parts.join(" ")}"
   end
 
   def method_stack
