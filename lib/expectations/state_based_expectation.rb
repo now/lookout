@@ -5,7 +5,7 @@ module Expectations::StateBasedExpectation
     begin
       mocha_setup
       warn_for_expects do
-        self.actual = instance_eval(&block)
+        self.actual = block ? instance_eval(&block) : false
       end
       mocha_verify
       if expected.expectations_equal_to(actual)

@@ -26,7 +26,16 @@ class Expectations::Suite
   end
 
   def expect(expected, &block)
-    expectations << Expectations::Expectation.new(expected, *caller.first.match(/\A(.+):(\d+)\Z/)[1..2], &block)
+    file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
+
+    if block.nil? and not expected.is_a? Expectations::Recorder
+      expected = Expectations::Recorder.new(expected)
+      expected.extend(Expectations::StateBasedRecorder)
+    end
+
+    expectations << Expectations::Expectation.new(expected, file, line, &block)
+
+    expected
   end
 
   def do_not_run

@@ -120,6 +120,12 @@ Expectations do
     process.finished = true
   end
 
+  expect Expectations::Results::Fulfilled do
+    suite = Expectations::Suite.new
+    suite.expect(NoMethodError) { Object.no_method }
+    suite.execute(Silent).expectations.first
+  end
+
   expect nil.to.be.nil?
   expect Object.not.to.be.nil?
 
