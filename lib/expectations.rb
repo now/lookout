@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations
-end
+require 'expectations/version'
 
 def Expectations(&block)
   Expectations::SuiteRunner.suite_eval(&block)

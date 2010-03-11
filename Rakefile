@@ -1,73 +1,60 @@
 # -*- coding: utf-8 -*-
 
-require 'rubygems'
+$:.unshift File.expand_path("../lib", __FILE__)
+
 require 'rake/gempackagetask'
-require 'rake/rdoctask'
-require 'rake/contrib/sshpublisher'
 require 'rake/testtask'
+require 'rubygems/dependency_installer'
+require 'yard'
+require 'expectations/version'
 
-task :default => [:test]
-
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-end
-
-desc 'Generate RDoc'
-Rake::RDocTask.new do |task|
-  task.main = 'README'
-  task.title = 'expectations'
-  task.rdoc_dir = 'doc'
-  task.options << "--line-numbers" << "--inline-source"
-  task.rdoc_files.include('README', 'lib/**/*.rb')
-end
-
-desc "Generate README"
-task :readme do
-  %x[erb README_TEMPLATE > README]
-end
-
-desc "Upload RDoc to RubyForge"
-task :publish_rdoc do
-  Rake::Task[:readme].invoke
-  Rake::Task[:rdoc].invoke
-  Rake::SshDirPublisher.new("jaycfields@rubyforge.org", "/var/www/gforge-projects/expectations", "doc").upload
-end
+task :default => :test
 
 specification = Gem::Specification.new do |s|
-  s.name   = "expectations"
-  s.summary = "A lightweight unit testing framework. Tests (expectations) will be written as follows
+  s.name   = 'nexpectations'
+  s.summary = 'A lightweight unit testing framework.'
+  s.version = Expectations::Version
+  s.author = 'Nikolai Weibull'
+  s.email = 'now@bitwi.se'
+  s.homepage = 'http://github.com/now/nexpectations'
+  s.description = <<EOD
+nexpectations is a lightweight unit testing framework based on expectations by
+Jay Fields. Tests (expectations) are written as follows
   expect 2 do
     1 + 1
   end
 
-  expect NoMethodError do
-    Object.invalid_method_call
-  end."
-  s.version = "1.2.1"
-  s.author = 'Jay Fields'
-  s.description = "A lightweight unit testing framework. Tests (expectations) will be written as follows
-  expect 2 do
-    1 + 1
-  end
+  expect(2) == 1 + 1
+
+  expect 2.to.be == 1 + 1
 
   expect NoMethodError do
     Object.invalid_method_call
-  end."
-  s.homepage = 'http://expectations.rubyforge.org'
-  s.rubyforge_project = 'expectations'
+  end.
+EOD
 
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README']
-  s.rdoc_options << '--title' << 'expectations' << '--main' << 'README' << '--line-numbers'
+  s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*$']
 
-  s.email = 'ruby@jayfields.com'
-  s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*$', 'rakefile.rb'].to_a
-  s.add_dependency('mocha', '>= 0.5.5')
+  s.add_runtime_dependency 'mocha', '>= 0.9.8'
+
+  s.add_development_dependency 'yard', '>= 0.2.3.5'
 end
 
-Rake::GemPackageTask.new(specification) do |package|
-  package.need_zip = false
-  package.need_tar = false
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/**/*.rb']
+end
+
+YARD::Rake::YardocTask.new
+
+Rake::GemPackageTask.new(specification) do |g|
+  desc 'Run :package and install the resulting gem'
+  task :install => :package do
+    Gem::DependencyInstaller.new.install File.join(g.package_dir, g.gem_file)
+  end
+end
+
+desc 'Generate README'
+task :readme do
+  %x[erb README_TEMPLATE > README]
 end
