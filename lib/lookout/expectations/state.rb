@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::StateBasedExpectation
+module Lookout::Expectations::State
   def execute
     begin
       mocha_setup

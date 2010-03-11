@@ -10,8 +10,8 @@ class Lookout::Expectation
     self.expected, self.block = expected, block
     self.file, self.line = file, line.to_i
     case
-      when expected.is_a?(Lookout::Recorder) then extend(Lookout::RecordedExpectation)
-      else extend(Lookout::StateBasedExpectation)
+      when expected.is_a?(Lookout::Recorder) then extend(Lookout::Expectations::Behavior)
+      else extend(Lookout::Expectations::State)
     end
   end
 

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::RecordedExpectation
+require 'mocha'
+
+module Lookout::Expectations::Behavior
   def execute
     begin
       mocha_setup
