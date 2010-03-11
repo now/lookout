@@ -53,8 +53,3 @@ Rake::GemPackageTask.new(specification) do |g|
     Gem::DependencyInstaller.new.install File.join(g.package_dir, g.gem_file)
   end
 end
-
-desc 'Generate README'
-task :readme do
-  %x[erb README_TEMPLATE > README]
-end

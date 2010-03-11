@@ -42,11 +42,7 @@ You may use, copy and redistribute this library under the same
 
 == Usage
 
-Lookout can be used for state based and behavior based testing.  Here are some
-examples taken from Lookout’s own tests:
-
-<%= File.readlines(File.join(File.dirname(__FILE__), "test/successes_test.rb").
-         collect{ |line| "\t#{line}" }.join %>
+See Lookout’s own test directory for examples.
 
 == Contributors
 
