@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+require 'benchmark'
+require 'mocha'
+
 class Expectations::Suite
 
   include Mocha::API

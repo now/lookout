@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'mocha'
+
 class Expectations::Expectation
   include Mocha::API
   attr_accessor :expected, :block, :file, :line, :actual

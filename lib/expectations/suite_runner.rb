@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'singleton'
+
 class Expectations::SuiteRunner
   include Singleton
   attr_accessor :suite
