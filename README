@@ -1,4 +1,4 @@
-= Lookout
+# Lookout #
 
 Lookout is a lightweight unit testing framework. Tests (expectations) can be
 written as follows
@@ -27,24 +27,25 @@ expectations code base after Subversion revision r76 are due to
 {Nikolai Weibull}[http://bitwi.se].
 
 
-== Installation
+## Installation ##
 
 Install Lookout with
 
  % gem install expectations
 
 
-== License
+## License ##
 
 You may use, copy and redistribute this library under the same
 {terms}[http://www.ruby-lang.org/en/LICENSE.txt]. as Ruby itself.
 
 
-== Usage
+## Usage ##
 
 See Lookout’s own test directory for examples.
 
-== Contributors
+
+## Contributors ##
 
 • Jay Fields
 • Matt Mower
