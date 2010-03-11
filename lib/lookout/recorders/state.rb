@@ -7,7 +7,7 @@ module Lookout::Recorders::State
   end
 
   def failure_message
-    "Expected #{subject} #{message_parts.join(" ")}"
+    "expected #{subject} #{message_parts.join(" ")}"
   end
 
   def method_stack
