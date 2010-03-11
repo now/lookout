@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Expectations::Recorder < Expectations::BlankSlate
+class Lookout::Recorder < Lookout::BlankSlate
 
   attr_reader :subject
   def initialize(subject)
@@ -8,25 +8,25 @@ class Expectations::Recorder < Expectations::BlankSlate
   end
 
   def receive(meth)
-    extend Expectations::MockRecorder
+    extend Lookout::MockRecorder
     receive!(meth)
     self
   end
 
   def have
-    extend Expectations::StateBasedRecorder
+    extend Lookout::StateBasedRecorder
     message_parts << "to have"
     self
   end
 
   def be
-    extend Expectations::StateBasedRecorder
+    extend Lookout::StateBasedRecorder
     message_parts << "to be"
     self
   end
 
   def delegate(method)
-    extend Expectations::DelegateRecorder
+    extend Lookout::DelegateRecorder
     delegate!(method)
     self
   end
@@ -36,7 +36,7 @@ class Expectations::Recorder < Expectations::BlankSlate
   end
 
   def not!
-    extend Expectations::ReverseResult
+    extend Lookout::ReverseResult
   end
 
   def verify!

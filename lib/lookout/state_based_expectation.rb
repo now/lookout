@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::StateBasedExpectation
+module Lookout::StateBasedExpectation
   def execute
     begin
       mocha_setup
@@ -9,13 +9,13 @@ module Expectations::StateBasedExpectation
       end
       mocha_verify
       if expected.expectations_equal_to(actual)
-        self.extend(Expectations::Results::Fulfilled)
+        self.extend(Lookout::Results::Fulfilled)
       else
-        self.extend(Expectations::Results::StateBasedFailure)
+        self.extend(Lookout::Results::StateBasedFailure)
       end
     rescue Exception => ex
-      return self.extend(Expectations::Results::Fulfilled) if expected == ex.class
-      self.extend(Expectations::Results::Error)
+      return self.extend(Lookout::Results::Fulfilled) if expected == ex.class
+      self.extend(Lookout::Results::Error)
       self.exception = ex
       self.message = "%p≠%p" % [ex.class, expected] if expected.is_a? Class and expected < StandardError
       return self

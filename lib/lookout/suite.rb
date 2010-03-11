@@ -3,7 +3,7 @@
 require 'benchmark'
 require 'mocha'
 
-class Expectations::Suite
+class Lookout::Suite
 
   include Mocha::API
   class << self
@@ -15,10 +15,10 @@ class Expectations::Suite
   end
 
   def xml(string)
-    Expectations::XmlString.new(string)
+    Lookout::XmlString.new(string)
   end
 
-  def execute(out=STDOUT, suite_result = Expectations::SuiteResults.new(out))
+  def execute(out=STDOUT, suite_result = Lookout::SuiteResults.new(out))
     return suite_result if @do_not_run
     benchmark = Benchmark.measure do
       expectations_for(ENV["LINE"]).each { |expectation| suite_result << expectation.execute }
@@ -31,12 +31,12 @@ class Expectations::Suite
   def expect(expected, &block)
     file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
 
-    if block.nil? and not expected.is_a? Expectations::Recorder
-      expected = Expectations::Recorder.new(expected)
-      expected.extend(Expectations::StateBasedRecorder)
+    if block.nil? and not expected.is_a? Lookout::Recorder
+      expected = Lookout::Recorder.new(expected)
+      expected.extend(Lookout::StateBasedRecorder)
     end
 
-    expectations << Expectations::Expectation.new(expected, file, line, &block)
+    expectations << Lookout::Expectation.new(expected, file, line, &block)
 
     expected
   end

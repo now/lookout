@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::DelegateRecorder
+module Lookout::DelegateRecorder
   attr_accessor :delegation_result
 
   def delegate!(meth)

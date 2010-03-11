@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::ReverseResult
+module Lookout::ReverseResult
 
   def verify!
     not verify

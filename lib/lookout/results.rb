@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::Results
+module Lookout::Results
   def initialize(file, line)
     self.line, self.file = line, file
   end
 
   def fulfilled?
-    self.is_a?(Expectations::Results::Fulfilled)
+    self.is_a?(Lookout::Results::Fulfilled)
   end
 
   def failure?
-    self.is_a?(Expectations::Results::StateBasedFailure) || self.is_a?(Expectations::Results::BehaviorBasedFailure)
+    self.is_a?(Lookout::Results::StateBasedFailure) || self.is_a?(Lookout::Results::BehaviorBasedFailure)
   end
 
   def error?
-    self.is_a?(Expectations::Results::Error)
+    self.is_a?(Lookout::Results::Error)
   end
 
   def self.included(klass)
@@ -30,9 +30,9 @@ module Expectations::Results
   end
 end
 
-module Expectations::Results
+module Lookout::Results
   module StateBasedFailure
-    include Expectations::Results
+    include Lookout::Results
     char "F"
     attr_writer :message
     def message
@@ -44,25 +44,25 @@ module Expectations::Results
   end
 end
 
-module Expectations::Results
+module Lookout::Results
   module BehaviorBasedFailure
     attr_accessor :message
-    include Expectations::Results
+    include Lookout::Results
     char "F"
   end
 end
 
-module Expectations::Results
+module Lookout::Results
   module Fulfilled
-    include Expectations::Results
+    include Lookout::Results
     char "."
   end
 end
 
-module Expectations::Results
+module Lookout::Results
   module Error
     attr_accessor :exception, :message
-    include Expectations::Results
+    include Lookout::Results
     char "E"
   end
 end

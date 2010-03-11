@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::RecordedExpectation
+module Lookout::RecordedExpectation
   def execute
     begin
       mocha_setup
@@ -13,16 +13,16 @@ module Expectations::RecordedExpectation
         Mocha::Mockery.instance.__send__(:add_mock, expected.subject)
       end
       if expected.verify! && mocha_verify
-        self.extend(Expectations::Results::Fulfilled)
+        self.extend(Lookout::Results::Fulfilled)
       else
-        self.extend(Expectations::Results::StateBasedFailure)
+        self.extend(Lookout::Results::StateBasedFailure)
         self.message = expected.failure_message
       end
     rescue Mocha::ExpectationError => ex
-      self.extend(Expectations::Results::BehaviorBasedFailure)
+      self.extend(Lookout::Results::BehaviorBasedFailure)
       self.message = expected.mocha_error_message(ex)
     rescue Exception => ex
-      self.extend(Expectations::Results::Error)
+      self.extend(Lookout::Results::Error)
       self.exception = ex
     ensure
       mocha_teardown

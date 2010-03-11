@@ -10,22 +10,22 @@ class Object
     end
   end
 
-  module ExpectationsExpectsMethod
+  module LookoutExpectsMethod
     def expects(*args)
-      Expectations::StandardError.print "expects method called from #{caller[2].chomp(":in `__instance_exec0'")}\n"
+      Lookout::StandardError.print "expects method called from #{caller[2].chomp(":in `__instance_exec0'")}\n"
       MochaExpectsMethod.instance_method(:expects).bind(self).call(*args)
     end
   end
 
   attr_accessor :__which_expects__
   include MochaExpectsMethod
-  include ExpectationsExpectsMethod
+  include LookoutExpectsMethod
   def expects(*args)
     (__which_expects__ || MochaExpectsMethod).instance_method(:expects).bind(self).call(*args)
   end
 
   def to
-    Expectations::Recorder.new(self)
+    Lookout::Recorder.new(self)
   end
 
   def not

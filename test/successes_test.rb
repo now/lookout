@@ -120,8 +120,8 @@ Expectations do
     process.finished = true
   end
 
-  expect Expectations::Results::Fulfilled do
-    suite = Expectations::Suite.new
+  expect Lookout::Results::Fulfilled do
+    suite = Lookout::Suite.new
     suite.expect(NoMethodError) { Object.no_method }
     suite.execute(Silent).expectations.first
   end

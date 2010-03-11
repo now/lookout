@@ -2,12 +2,12 @@
 
 require 'singleton'
 
-class Expectations::SuiteRunner
+class Lookout::SuiteRunner
   include Singleton
   attr_accessor :suite
 
   def initialize
-    self.suite = Expectations::Suite.new
+    self.suite = Lookout::Suite.new
     at_exit do
       exit 1 unless suite.execute.succeeded?
     end

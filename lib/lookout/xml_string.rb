@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Expectations::XmlString < String
+class Lookout::XmlString < String
 
   def expectations_equal_to(other)
     not Regexp.new(Regexp.escape(normalize(self))).match(normalize(other)).nil?

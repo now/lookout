@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::MockRecorder
+module Lookout::MockRecorder
 
   def receive!(method)
     method_stack << [:expects, [method]]

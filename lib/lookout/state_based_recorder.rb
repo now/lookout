@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Expectations::StateBasedRecorder
+module Lookout::StateBasedRecorder
 
   def verify
     method_stack.inject(subject) { |result, element| result.send element.first, *element.last }
@@ -15,7 +15,7 @@ module Expectations::StateBasedRecorder
   end
 
   def message_parts
-    @message_parts ||= self.is_a?(Expectations::ReverseResult) ? [:not] : []
+    @message_parts ||= self.is_a?(Lookout::ReverseResult) ? [:not] : []
   end
 
   def method_missing(sym, *args)

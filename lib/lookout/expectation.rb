@@ -2,7 +2,7 @@
 
 require 'mocha'
 
-class Expectations::Expectation
+class Lookout::Expectation
   include Mocha::API
   attr_accessor :expected, :block, :file, :line, :actual
 
@@ -10,13 +10,13 @@ class Expectations::Expectation
     self.expected, self.block = expected, block
     self.file, self.line = file, line.to_i
     case
-      when expected.is_a?(Expectations::Recorder) then extend(Expectations::RecordedExpectation)
-      else extend(Expectations::StateBasedExpectation)
+      when expected.is_a?(Lookout::Recorder) then extend(Lookout::RecordedExpectation)
+      else extend(Lookout::StateBasedExpectation)
     end
   end
 
   def mock(*args)
-    Expectations::StandardError.print "mock method called from #{caller.first.chomp(":in `__instance_exec0'")}\n"
+    Lookout::StandardError.print "mock method called from #{caller.first.chomp(":in `__instance_exec0'")}\n"
     super
   end
 
@@ -25,7 +25,7 @@ class Expectations::Expectation
   end
 
   def warn_for_expects
-    Object.__which_expects__ = ExpectationsExpectsMethod
+    Object.__which_expects__ = LookoutExpectsMethod
     yield
   ensure
     Object.__which_expects__ = MochaExpectsMethod

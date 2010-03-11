@@ -6,19 +6,19 @@ require 'rake/gempackagetask'
 require 'rake/testtask'
 require 'rubygems/dependency_installer'
 require 'yard'
-require 'expectations/version'
+require 'lookout/version'
 
 task :default => :test
 
 specification = Gem::Specification.new do |s|
-  s.name   = 'nexpectations'
-  s.summary = 'A lightweight unit testing framework.'
-  s.version = Expectations::Version
+  s.name   = 'lookout'
+  s.summary = 'A lightweight unit testing framework based on expectations.'
+  s.version = Lookout::Version
   s.author = 'Nikolai Weibull'
   s.email = 'now@bitwi.se'
-  s.homepage = 'http://github.com/now/nexpectations'
+  s.homepage = 'http://github.com/now/lookout'
   s.description = <<EOD
-nexpectations is a lightweight unit testing framework based on expectations by
+Lookout is a lightweight unit testing framework based on expectations by
 Jay Fields. Tests (expectations) are written as follows
   expect 2 do
     1 + 1

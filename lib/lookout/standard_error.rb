@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Expectations::StandardError
+class Lookout::StandardError
   class << self
     attr_accessor :outlet
   end
@@ -19,6 +19,6 @@ class Expectations::StandardError
   def self.print_suggestion
     return if @suggestion_printed
     @suggestion_printed = true
-    outlet.print "Expectations allows you to to create multiple mock expectations, but suggests that you write another test instead.\n"
+    outlet.print "Lookout allows you to to create multiple mock expectations, but suggests that you write another test instead.\n"
   end
 end

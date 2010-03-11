@@ -1,6 +1,7 @@
-= expectations
+= Lookout
 
-expectations is a lightweight unit testing framework. Tests (expectations) can be written as follows
+Lookout is a lightweight unit testing framework. Tests (expectations) can be
+written as follows
 
   expect 2 do
     1 + 1
@@ -10,40 +11,52 @@ expectations is a lightweight unit testing framework. Tests (expectations) can b
     Object.invalid_method_call
   end.
 
-expectations is designed to encourage unit testing best practices such as
-  - discourage setting more than one expectation at a time
-  - promote maintainability by not providing a setup or teardown method
-  - provide one syntax for setting up state based or behavior based expectation
-  - focus on readability by providing no mechanism for describing an expectation other than the code in the expectation.
+Lookout is designed to encourage unit testing best practices such as
 
-Mocking is done utilizing Mocha[http://mocha.rubyforge.org]
+  - Discourage setting more than one expectation at a time
+  - Promote maintainability by not providing a setup or teardown method
+  - Provide one syntax for setting up state based or behavior based expectation
+  - Focus on readability by providing no mechanism for describing an
+    expectation other than the code in the expectation.
 
-by {Jay Fields}[http://blog.jayfields.com]
+Mocking is done utilizing Mocha[http://mocha.rubyforge.org].
 
-== Download and Installation
+Lookout is heavily based on {expectations}[http://expectations.rubyforge.org],
+by {Jay Fields}[http://blog.jayfields.com].  Modifications done to the
+expectations code base after Subversion revision r76 are due to
+{Nikolai Weibull}[http://bitwi.se].
 
-You can download expectations from here[http://rubyforge.org/projects/expectations] or install it with the following command.
 
- $ gem install expectations
+== Installation
+
+Install Lookout with
+
+ % gem install expectations
+
 
 == License
 
-You may use, copy and redistribute this library under the same terms as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt).
+You may use, copy and redistribute this library under the same
+{terms}[http://www.ruby-lang.org/en/LICENSE.txt]. as Ruby itself.
 
-== TextMate
-
-The following code can be used as a new command in TextMate for running an individual expectation.
-
-  export LINE="$TM_LINE_NUMBER"
-  export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
-  "${TM_RUBY:-ruby}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb"
 
 == Usage
 
-expectations can be used for state based and behavior based testing.
+Lookout can be used for state based and behavior based testing.  Here are some
+examples taken from Lookout’s own tests:
 
-<%= File.readlines(File.dirname(__FILE__) + "/test/successes_test.rb").collect { |line| "\t#{line}"}.join %>
+<%= File.readlines(File.join(File.dirname(__FILE__), "test/successes_test.rb").
+         collect{ |line| "\t#{line}" }.join %>
 
 == Contributors
 
-Matt Mower, Ola Bini, George Malamidis, Brian Guthrie, Philippe Hanrigou, Steve McLarnon, Rubikitch, Subhash Gupta, Holger Kohnen
+• Jay Fields
+• Matt Mower
+• Ola Bini
+• George Malamidis
+• Brian Guthrie
+• Philippe Hanrigou
+• Steve McLarnon
+• Rubikitch
+• Subhash Gupta
+• Holger Kohnen

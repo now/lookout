@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Expectations::SuiteResults
+class Lookout::SuiteResults
   attr_accessor :out, :expectations
 
   def initialize(out)
