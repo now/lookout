@@ -42,7 +42,7 @@ end
 
 Rake::TestTask.new do |t|
   t.libs << 'test'
-  t.test_files = FileList['test/**/*.rb']
+  t.pattern = 'test/**/*.rb'
 end
 
 YARD::Rake::YardocTask.new
