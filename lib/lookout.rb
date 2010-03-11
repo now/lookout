@@ -2,15 +2,13 @@
 
 module Lookout
   autoload :BlankSlate,             'lookout/blank_slate'
-  autoload :DelegateRecorder,       'lookout/delegate_recorder'
   autoload :Expectation,            'lookout/expectation'
   autoload :Expectations,           'lookout/expectations'
-  autoload :MockRecorder,           'lookout/mock_recorder'
   autoload :Recorder,               'lookout/recorder'
+  autoload :Recorders,              'lookout/recorders'
   autoload :Results,                'lookout/results'
   autoload :ReverseResult,          'lookout/reverse_result'
   autoload :StandardError,          'lookout/standard_error'
-  autoload :StateBasedRecorder,     'lookout/state_based_recorder'
   autoload :Suite,                  'lookout/suite'
   autoload :SuiteResults,           'lookout/suite_results'
   autoload :Version,                'lookout/version'

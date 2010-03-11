@@ -31,7 +31,7 @@ Expectations do
     o.ignore
   end
 
-  expect Lookout::StateBasedRecorder do
+  expect Lookout::Recorders::State do
     ''.to.have.to_s == ''
   end
 

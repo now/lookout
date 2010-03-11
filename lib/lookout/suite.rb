@@ -33,7 +33,7 @@ class Lookout::Suite
 
     if block.nil? and not expected.is_a? Lookout::Recorder
       expected = Lookout::Recorder.new(expected)
-      expected.extend(Lookout::StateBasedRecorder)
+      expected.extend(Lookout::Recorders::State)
     end
 
     expectations << Lookout::Expectation.new(expected, file, line, &block)

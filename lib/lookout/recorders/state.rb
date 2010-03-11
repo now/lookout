@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::StateBasedRecorder
+module Lookout::Recorders::State
 
   def verify
     method_stack.inject(subject) { |result, element| result.send element.first, *element.last }

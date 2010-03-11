@@ -8,25 +8,25 @@ class Lookout::Recorder < Lookout::BlankSlate
   end
 
   def receive(meth)
-    extend Lookout::MockRecorder
+    extend Lookout::Recorders::Reception
     receive!(meth)
     self
   end
 
   def have
-    extend Lookout::StateBasedRecorder
+    extend Lookout::Recorders::State
     message_parts << "to have"
     self
   end
 
   def be
-    extend Lookout::StateBasedRecorder
+    extend Lookout::Recorders::State
     message_parts << "to be"
     self
   end
 
   def delegate(method)
-    extend Lookout::DelegateRecorder
+    extend Lookout::Recorders::Delegation
     delegate!(method)
     self
   end
