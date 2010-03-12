@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::SuiteResults
-  attr_accessor :out, :expectations
-
   def initialize(out)
-    self.out, self.expectations = out, []
+    @out, @expectations = out, []
     out.print "Expectations "
   end
 
-  def <<(expectation_result)
-    out.print expectation_result.char
-    self.expectations << expectation_result
+  def <<(result)
+    out.print result.char
+    expectations << result
     self
   end
 
@@ -41,27 +39,6 @@ class Lookout::SuiteResults
     end
   end
 
-  def print_success
-    out.puts "\nSuccess: #{fulfilled.size} fulfilled"
-  end
-
-  def print_fail
-    out.puts "\nFailure: #{failures.size} failed, #{errors.size} errors, #{fulfilled.size} fulfilled"
-    out.puts "\n--Errors--" if errors.any?
-    errors.each do |error|
-      out.puts " #{error.file}:#{error.line}:in `expect'" if ENV["TM_MODE"]
-      out.puts('%s:%d: %s' % [error.file, error.line, error.exception.message])
-      out.puts "#{filter_backtrace(error.exception.backtrace).join("\n")}"
-      out.puts "#{error.message}" if error.message && error.message.any?
-      out.puts "\n"
-    end
-    out.puts "\n--Failures--" if failures.any?
-    failures.each do |failure|
-      out.puts " #{failure.file}:#{failure.line}:in `expect'" if ENV["TM_MODE"]
-      out.puts("%s:%d: %s\n\n" % [failure.file, failure.line, failure.message])
-    end
-  end
-
   def write_junit_xml(path)
     FileUtils.rm_rf path if File.exist?(path)
     FileUtils.mkdir_p path
@@ -85,6 +62,33 @@ class Lookout::SuiteResults
         end
         file << %[</testsuite>]
       end
+    end
+  end
+
+  attr_reader :expectations
+
+private
+
+  attr_reader :out
+
+  def print_success
+    out.puts "\nSuccess: #{fulfilled.size} fulfilled"
+  end
+
+  def print_fail
+    out.puts "\nFailure: #{failures.size} failed, #{errors.size} errors, #{fulfilled.size} fulfilled"
+    out.puts "\n--Errors--" if errors.any?
+    errors.each do |error|
+      out.puts " #{error.file}:#{error.line}:in `expect'" if ENV["TM_MODE"]
+      out.puts('%s:%d: %s' % [error.file, error.line, error.exception.message])
+      out.puts "#{filter_backtrace(error.exception.backtrace).join("\n")}"
+      out.puts "#{error.message}" if error.message && error.message.any?
+      out.puts "\n"
+    end
+    out.puts "\n--Failures--" if failures.any?
+    failures.each do |failure|
+      out.puts " #{failure.file}:#{failure.line}:in `expect'" if ENV["TM_MODE"]
+      out.puts("%s:%d: %s\n\n" % [failure.file, failure.line, failure.message])
     end
   end
 
