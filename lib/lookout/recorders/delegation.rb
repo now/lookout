@@ -8,7 +8,7 @@ module Lookout::Recorders::Delegation
     recorder = self
     mod = Module.new do
       define_method meth do |*args|
-        recorder.delegation_result = super
+        recorder.delegation_result = super(*args)
       end
     end
     subject.extend mod
