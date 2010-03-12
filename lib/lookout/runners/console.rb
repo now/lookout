@@ -2,7 +2,7 @@
 
 require 'singleton'
 
-class Lookout::SuiteRunner
+class Lookout::Runners::Console
   include Singleton
   attr_accessor :suite
 

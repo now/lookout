@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::SuiteResults
+class Lookout::Suite::Results
   def initialize(out)
     @out, @expectations = out, []
     out.print "Expectations "

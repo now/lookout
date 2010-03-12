@@ -87,7 +87,7 @@ Expectations do
     suite.execute(Silent, o)
   end
 
-  expect Lookout::SuiteResults do
+  expect Lookout::Suite::Results do
     suite = Lookout::Suite.new
     suite.do_not_run
     suite.execute(Silent)

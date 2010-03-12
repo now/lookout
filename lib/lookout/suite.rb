@@ -4,8 +4,10 @@ require 'benchmark'
 require 'mocha'
 
 class Lookout::Suite
-
   include Mocha::API
+
+  autoload :Results, 'lookout/suite/results'
+
   class << self
     attr_accessor :silent
   end
@@ -18,7 +20,7 @@ class Lookout::Suite
     Lookout::XmlString.new(string)
   end
 
-  def execute(out=STDOUT, suite_result = Lookout::SuiteResults.new(out))
+  def execute(out=STDOUT, suite_result = Lookout::Suite::Results.new(out))
     return suite_result if @do_not_run
     benchmark = Benchmark.measure do
       expectations_for(ENV["LINE"]).each { |expectation| suite_result << expectation.execute }
