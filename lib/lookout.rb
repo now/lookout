@@ -11,6 +11,7 @@ module Lookout
   autoload :Runners,                'lookout/runners'
   autoload :StandardError,          'lookout/standard_error'
   autoload :Suite,                  'lookout/suite'
+  autoload :UI,                     'lookout/ui'
   autoload :Version,                'lookout/version'
   autoload :XmlString,              'lookout/xml_string'
 end

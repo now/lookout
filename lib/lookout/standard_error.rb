@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::StandardError
-  class << self
-    attr_accessor :outlet
-  end
-
-  self.outlet = STDERR
-
   def self.silence
-    self.outlet = Silent
+    $VERBOSE = nil
   end
 
   def self.print(string)
     print_suggestion
-    outlet.print string
+    warn string
   end
 
   def self.print_suggestion
     return if @suggestion_printed
     @suggestion_printed = true
-    outlet.print "Lookout allows you to to create multiple mock expectations, but suggests that you write another test instead.\n"
+    warn "Lookout allows you to to create multiple mock expectations, but suggests that you write another test instead.\n"
   end
 end

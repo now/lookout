@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class Silent
-  def self.print(arg)
+  def self.start
   end
 
-  def self.puts(arg=nil)
+  def self.report(result)
+  end
+
+  def self.summarize(results, time)
   end
 end

@@ -20,14 +20,17 @@ class Lookout::Suite
     Lookout::XmlString.new(string)
   end
 
-  def execute(out=STDOUT, suite_result = Lookout::Suite::Results.new(out))
-    return suite_result if @do_not_run
-    benchmark = Benchmark.measure do
-      expectations_for(ENV["LINE"]).each { |expectation| suite_result << expectation.execute }
-    end
-    suite_result.print_results(benchmark)
-    suite_result.write_junit_xml(ENV["JUnitXmlPath"]) unless ENV["JUnitXmlPath"].nil?
-    suite_result
+  def execute(ui = Lookout::UI::Console.new, results = Lookout::Suite::Results.new)
+    return results if @do_not_run
+    ui.start
+    ui.summarize results, Benchmark.realtime{
+      expectations_for(ENV["LINE"]).each do |expectation|
+        result = expectation.execute
+        ui.report result
+        results << result
+      end
+    }
+    results
   end
 
   def expect(expected, &block)
