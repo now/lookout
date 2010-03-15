@@ -123,7 +123,7 @@ Expectations do
   expect Lookout::Results::Fulfilled do
     suite = Lookout::Suite.new
     suite.expect(NoMethodError) { Object.no_method }
-    suite.execute(Silent).expectations.first
+    suite.execute(Lookout::UI::Silent).expectations.first
   end
 
   expect nil.to.be.nil?

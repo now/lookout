@@ -6,20 +6,20 @@ Expectations do
 
   expect true do
     suite = Lookout::Suite.new
-    suite.execute(Silent).succeeded?
+    suite.execute(Lookout::UI::Silent).succeeded?
   end
 
   expect true do
     suite = Lookout::Suite.new
     suite.expect(1) { 2 }
     suite.do_not_run
-    suite.execute(Silent).succeeded?
+    suite.execute(Lookout::UI::Silent).succeeded?
   end
 
   expect false do
     suite = Lookout::Suite.new
     suite.expect(1) { 2 }
-    suite.execute(Silent).succeeded?
+    suite.execute(Lookout::UI::Silent).succeeded?
   end
 
   expect false do
@@ -28,7 +28,7 @@ Expectations do
     suite.expect suite.mock.to.receive(:some_method) do |some_mock|
       # some_method is not called
     end
-    suite.execute(Silent).succeeded?
+    suite.execute(Lookout::UI::Silent).succeeded?
   end
 
   expect Mocha::Mock do
@@ -84,12 +84,12 @@ Expectations do
   expect o = Object.new do
     suite = Lookout::Suite.new
     suite.do_not_run
-    suite.execute(Silent, o)
+    suite.execute(Lookout::UI::Silent, o)
   end
 
   expect Lookout::Suite::Results do
     suite = Lookout::Suite.new
     suite.do_not_run
-    suite.execute(Silent)
+    suite.execute(Lookout::UI::Silent)
   end
 end

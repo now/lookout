@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Silent
+class Lookout::UI::Silent
   def self.start
   end
 
