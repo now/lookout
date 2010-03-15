@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require File.dirname(__FILE__) + "/../test_helper"
+require 'lookout'
 
 Expectations do
   expect Lookout::XmlString.new("<foo>bar</foo>").to.be.expectations_equal_to("<foo>bar</foo>")

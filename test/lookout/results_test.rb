@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require File.dirname(__FILE__) + "/../test_helper"
+require 'lookout'
 
 Expectations do
   expect Object.new.extend(Lookout::Results::Fulfilled).to.have.char == "."
