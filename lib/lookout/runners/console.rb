@@ -1,23 +1,20 @@
 # -*- coding: utf-8 -*-
 
-require 'singleton'
+module Lookout::Runners::Console
+  def self.suite_eval(&block)
+    setup
+    @suite.instance_eval(&block)
+  rescue
+    @suite.do_not_run
+    raise
+  end
 
-class Lookout::Runners::Console
-  include Singleton
-  attr_accessor :suite
-
-  def initialize
-    self.suite = Lookout::Suite.new
+  def self.setup
+    return if instance_variable_defined? :@suite
+    @suite = Lookout::Suite.new
     at_exit do
-      exit 1 unless suite.execute.succeeded?
+      exit 1 unless @suite.execute.succeeded?
     end
   end
-
-  def self.do_not_run
-    self.instance.suite.do_not_run
-  end
-
-  def self.suite_eval(&block)
-    self.instance.suite.instance_eval(&block)
-  end
+  private_class_method :setup
 end

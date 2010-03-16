@@ -24,7 +24,4 @@ require 'lookout/string'
 
 def Expectations(&block)
   Lookout::Runners::Console.suite_eval(&block)
-rescue
-  Lookout::Runners::Console.do_not_run
-  raise
 end
