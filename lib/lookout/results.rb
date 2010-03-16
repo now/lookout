@@ -16,24 +16,11 @@ module Lookout::Results
   def error?
     self.is_a?(Lookout::Results::Error)
   end
-
-  def self.included(klass)
-    klass.extend ClassMethods
-  end
-
-  module ClassMethods
-    def char(arg)
-      define_method :char do
-        arg
-      end
-    end
-  end
 end
 
 module Lookout::Results
   module StateBasedFailure
     include Lookout::Results
-    char "F"
     attr_writer :message
     def message
       return @message if instance_variable_defined? :@message and @message
@@ -48,14 +35,12 @@ module Lookout::Results
   module BehaviorBasedFailure
     attr_accessor :message
     include Lookout::Results
-    char "F"
   end
 end
 
 module Lookout::Results
   module Fulfilled
     include Lookout::Results
-    char "."
   end
 end
 
@@ -63,6 +48,5 @@ module Lookout::Results
   module Error
     attr_accessor :exception, :message
     include Lookout::Results
-    char "E"
   end
 end

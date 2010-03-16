@@ -10,7 +10,11 @@ class Lookout::UI::Console
   end
 
   def report(result)
-    print result.char
+    print case
+    when result.error? then 'E'
+    when result.failure? then 'F'
+    else '.'
+    end
   end
 
   def summarize(results, time)
