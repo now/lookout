@@ -41,7 +41,7 @@ class Lookout::Suite
       expected.extend(Lookout::Recorders::State)
     end
 
-    expectations << Lookout::Expectation.new(expected, file, line, &block)
+    expectations << Lookout::Expectation.on(expected, file, line, &block)
 
     expected
   end

@@ -5,6 +5,5 @@ module Lookout::Results::Error
 
   is :error
 
-  attr_accessor :exception
-  private :exception=
+  attr_reader :exception
 end

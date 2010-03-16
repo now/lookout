@@ -7,7 +7,6 @@ module Lookout::Result
         type == is
       end
     end
-    attr_accessor :message
-    private :message=
+    attr_reader :message
   end
 end
