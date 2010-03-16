@@ -10,11 +10,14 @@ module Lookout
   autoload :Results,                'lookout/results'
   autoload :ReverseResult,          'lookout/reverse_result'
   autoload :Runners,                'lookout/runners'
-  autoload :StandardError,          'lookout/standard_error'
   autoload :Suite,                  'lookout/suite'
   autoload :UI,                     'lookout/ui'
   autoload :Version,                'lookout/version'
   autoload :XmlString,              'lookout/xml_string'
+
+  def self.warn(message, invoker)
+    Kernel.warn "\n%s: %s" % [invoker.sub(/:in `__instance_exec\d+'$/, ""), message]
+  end
 end
 
 require 'lookout/object'

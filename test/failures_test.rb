@@ -10,7 +10,7 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::Behavior do
-    Lookout::StandardError.silence
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect mock.to.receive(:dial).with("2125551212").times(2) do |phone|
       phone.dial("2125551212")
@@ -21,7 +21,7 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::Behavior do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect mock.to.receive(:dial).with("2125551212").times(2) do |phone|
       phone.dial("2125551212")
@@ -30,7 +30,7 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::Behavior do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(Object.to.receive(:deal)) {  }
     suite.execute(Lookout::UI::Silent).expectations.first
@@ -43,7 +43,7 @@ Expectations do
   end
 
   expect Lookout::Results::Error do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(2) do
       Object.expects(:bar).returns 2
@@ -53,7 +53,7 @@ Expectations do
   end
 
   expect Lookout::Results::Error do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(1) do
       Object.expects(:give_me_three).with(3).returns 1
@@ -63,7 +63,7 @@ Expectations do
   end
 
   expect Lookout::Results::Error do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(1) do
       Object.expects(:foo)
@@ -72,7 +72,7 @@ Expectations do
   end
 
   expect Lookout::Results::Error do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(1) do
       mock(:foo => 1)
@@ -81,7 +81,7 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::Behavior do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(Object.to.receive(:foo)) do
       Object.foo
@@ -91,7 +91,7 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::Behavior do
-    Lookout::StandardError.stubs(:print)
+    $VERBOSE = nil
     suite = Lookout::Suite.new
     suite.expect(Object.to.receive(:foo)) do
       Object.foo

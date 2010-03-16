@@ -16,7 +16,7 @@ module Lookout::Expectation
   end
 
   def mock(*args)
-    Lookout::StandardError.print "mock method called from #{caller.first.chomp(":in `__instance_exec0'")}\n"
+    Lookout.warn 'Use stubs, not mocks, inside tests', caller.first
     super
   end
 
