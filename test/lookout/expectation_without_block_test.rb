@@ -3,7 +3,7 @@
 require 'lookout'
 
 Expectations do
-  expect Lookout::Results::StateBasedFailure do
+  expect Lookout::Results::Failures::State do
     suite = Lookout::Suite.new
     suite.expect(3) == 4
     suite.execute(Lookout::UI::Silent)
@@ -24,7 +24,7 @@ Expectations do
     suite.expectations.first
   end
 
-  expect Lookout::Results::StateBasedFailure do
+  expect Lookout::Results::Failures::State do
     suite = Lookout::Suite.new
     suite.expect('bar') =~ /foo/
     suite.execute(Lookout::UI::Silent)

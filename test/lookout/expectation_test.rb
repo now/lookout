@@ -3,7 +3,7 @@
 require 'lookout'
 
 Expectations do
-  expect Lookout::Results::StateBasedFailure do
+  expect Lookout::Results::Failures::State do
     Lookout::Expectation.new(1, nil, nil) { 2 }.execute
   end
 
@@ -35,7 +35,7 @@ Expectations do
     ''.to.have.to_s == ''
   end
 
-  expect Lookout::Results::StateBasedFailure do
+  expect Lookout::Results::Failures::State do
     Lookout::Expectation.new('foo'.to.have.to_s == 'bar', nil, nil).execute
   end
 

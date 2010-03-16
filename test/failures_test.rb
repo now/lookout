@@ -3,13 +3,13 @@
 require 'lookout'
 
 Expectations do
-  expect Lookout::Results::StateBasedFailure do
+  expect Lookout::Results::Failures::State do
     suite = Lookout::Suite.new
     suite.expect(2) { 3 }
     suite.execute(Lookout::UI::Silent).expectations.first
   end
 
-  expect Lookout::Results::BehaviorBasedFailure do
+  expect Lookout::Results::Failures::Behavior do
     Lookout::StandardError.silence
     suite = Lookout::Suite.new
     suite.expect mock.to.receive(:dial).with("2125551212").times(2) do |phone|
@@ -20,7 +20,7 @@ Expectations do
     suite.execute(Lookout::UI::Silent).expectations.first
   end
 
-  expect Lookout::Results::BehaviorBasedFailure do
+  expect Lookout::Results::Failures::Behavior do
     Lookout::StandardError.stubs(:print)
     suite = Lookout::Suite.new
     suite.expect mock.to.receive(:dial).with("2125551212").times(2) do |phone|
@@ -29,7 +29,7 @@ Expectations do
     suite.execute(Lookout::UI::Silent).expectations.first
   end
 
-  expect Lookout::Results::BehaviorBasedFailure do
+  expect Lookout::Results::Failures::Behavior do
     Lookout::StandardError.stubs(:print)
     suite = Lookout::Suite.new
     suite.expect(Object.to.receive(:deal)) {  }
@@ -80,7 +80,7 @@ Expectations do
     suite.execute(Lookout::UI::Silent).expectations.first
   end
 
-  expect Lookout::Results::BehaviorBasedFailure do
+  expect Lookout::Results::Failures::Behavior do
     Lookout::StandardError.stubs(:print)
     suite = Lookout::Suite.new
     suite.expect(Object.to.receive(:foo)) do
@@ -90,7 +90,7 @@ Expectations do
     suite.execute(Lookout::UI::Silent).expectations.first
   end
 
-  expect Lookout::Results::BehaviorBasedFailure do
+  expect Lookout::Results::Failures::Behavior do
     Lookout::StandardError.stubs(:print)
     suite = Lookout::Suite.new
     suite.expect(Object.to.receive(:foo)) do

@@ -15,16 +15,16 @@ module Lookout::Expectations::Behavior
         Mocha::Mockery.instance.__send__(:add_mock, expected.subject)
       end
       if expected.verify! && mocha_verify
-        self.extend(Lookout::Results::Fulfilled)
+        extend Lookout::Results::Fulfilled
       else
-        self.extend(Lookout::Results::StateBasedFailure)
+        extend Lookout::Results::Failures::State
         self.message = expected.failure_message
       end
     rescue Mocha::ExpectationError => ex
-      self.extend(Lookout::Results::BehaviorBasedFailure)
+      extend Lookout::Results::Failures::Behavior
       self.message = expected.mocha_error_message(ex)
     rescue Exception => ex
-      self.extend(Lookout::Results::Error)
+      extend Lookout::Results::Error
       self.exception = ex
     ensure
       mocha_teardown

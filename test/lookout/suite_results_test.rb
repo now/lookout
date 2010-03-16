@@ -16,12 +16,12 @@ Expectations do
   end
 
   expect Lookout::Suite::Results.new.not.to.have.succeeded? do |results|
-    results << Object.new.extend(Lookout::Results::StateBasedFailure)
+    results << Object.new.extend(Lookout::Results::Failures::State)
     results << Object.new.extend(Lookout::Results::Fulfilled)
   end
 
   expect Lookout::Suite::Results.new.not.to.have.succeeded? do |results|
-    results << Object.new.extend(Lookout::Results::BehaviorBasedFailure)
+    results << Object.new.extend(Lookout::Results::Failures::Behavior)
     results << Object.new.extend(Lookout::Results::Fulfilled)
   end
 

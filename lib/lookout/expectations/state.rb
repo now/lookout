@@ -9,13 +9,13 @@ module Lookout::Expectations::State
       end
       mocha_verify
       if expected.expectations_equal_to(actual)
-        self.extend(Lookout::Results::Fulfilled)
+        extend Lookout::Results::Fulfilled
       else
-        self.extend(Lookout::Results::StateBasedFailure)
+        extend Lookout::Results::Failures::State
       end
     rescue Exception => ex
-      return self.extend(Lookout::Results::Fulfilled) if expected == ex.class
-      self.extend(Lookout::Results::Error)
+      return extend(Lookout::Results::Fulfilled) if expected == ex.class
+      extend Lookout::Results::Error
       self.exception = ex
       self.message = "%p≠%p" % [ex.class, expected] if expected.is_a? Class and expected < StandardError
       return self

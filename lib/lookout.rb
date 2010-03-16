@@ -6,6 +6,7 @@ module Lookout
   autoload :Expectations,           'lookout/expectations'
   autoload :Recorder,               'lookout/recorder'
   autoload :Recorders,              'lookout/recorders'
+  autoload :Result,                 'lookout/result'
   autoload :Results,                'lookout/results'
   autoload :ReverseResult,          'lookout/reverse_result'
   autoload :Runners,                'lookout/runners'
