@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module Lookout
-  autoload :BlankSlate,             'lookout/blank_slate'
+  autoload :Aphonic,                'lookout/aphonic'
   autoload :Expectation,            'lookout/expectation'
   autoload :Expectations,           'lookout/expectations'
   autoload :Recorder,               'lookout/recorder'

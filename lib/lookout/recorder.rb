@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Recorder < Lookout::BlankSlate
+class Lookout::Recorder < Lookout::Aphonic
 
   attr_reader :subject
   def initialize(subject)
