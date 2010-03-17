@@ -6,7 +6,7 @@ class Lookout::UI::Console
   end
 
   def start
-    print 'Expectations '
+    print 'Expectations'
   end
 
   def report(result)
@@ -18,21 +18,18 @@ class Lookout::UI::Console
   end
 
   def summarize(results, time)
-    @io.print "\nFinished in %f: " % [time]
-    first = true
-    [:errors, :failures, :fulfillments].each do |type|
-      next unless (size = results.send(type).size) > 0
-      @io.print '%s%d %s' % [first ? "" : ', ', size, type]
-      first = false
-    end
-    @io.puts
+    @io.printf "\nRan for %.3f seconds: %s\n", time,
+      [:errors, :failures, :fulfillments].inject([]){ |result, type|
+        next result unless (size = results.send(type).size) > 0
+        result << '%d %s' % [size, type]
+      }.join(', ')
     summarize_group results, :errors do |error|
-      @io.puts '%s:%d: %s' % [error.file, error.line, error.exception.message]
-      @io.puts filter_backtrace(error.exception.backtrace).join("\n")
+      print_message error.file, error.line, exception_message(error.exception)
+      print_backtrace error.exception.backtrace
       @io.puts error.message if error.message and not error.message.empty?
     end
     summarize_group results, :failures do |failure|
-      @io.puts '%s:%d: %s' % [failure.file, failure.line, failure.message]
+      print_message failure.file, failure.line, failure.message
     end
     @io.flush
   end
@@ -47,17 +44,36 @@ private
   def summarize_group(results, type)
     group = results.send(type)
     return if group.empty?
-    @io.puts '--%s--' % [type.to_s.capitalize]
+    @io.printf "\n%s\n%s\n\n", type.to_s.capitalize, '-' * type.to_s.length
     group.each do |item|
       yield item
       @io.puts
     end
   end
 
-  def filter_backtrace(trace)
-    [
+  def print_message(file, line, message)
+    @io.printf "%s:%d: %s\n", file, line, message
+  end
+
+  def exception_message(error)
+    case
+    when error.class == RuntimeError && error.message.empty?
+      'unhandled error'
+    when error.message.empty?
+      error.class.name
+    when error.class.name.empty?
+      error.message
+    else
+      '%s (%s)' % [error.message.chomp("\n"), error.class.name]
+    end
+  end
+
+  def print_backtrace(trace)
+    @io.puts [
       %r{/lib/ruby/},
-      %r{lib/expectations/}
-    ].inject(trace){ |r, p| r.reject{ |l| l =~ p } }.map{ |l| "\tfrom #{l}" }
+      %r{lib/lookout/}
+    ].inject(trace){ |r, path| r.reject{ |location| location =~ path } }.
+      map{ |location| "\tfrom #{location}" }.
+      join("\n")
   end
 end
