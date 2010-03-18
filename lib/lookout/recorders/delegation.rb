@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::Delegation
-  attr_accessor :delegation_result
+  Expected = Object.new.freeze
 
-  def delegate!(meth)
-    @meth = meth
+  attr_writer :result
+
+  def delegate!(method)
+    @method = method
     recorder = self
-    mod = Module.new do
-      define_method meth do |*args|
-        recorder.delegation_result = super(*args)
+    subject.extend Module.new{
+      define_method method do |*args|
+        recorder.result = super(*args)
       end
-    end
-    subject.extend mod
+    }
   end
 
   def to(receiver)
@@ -20,22 +21,23 @@ module Lookout::Recorders::Delegation
   end
 
   def subject!
-    @subject_mock = Object.new
-    @subject_mock.expects(@meth).returns(:a_delegated_return_value)
-    subject.stubs(@receiver).returns(@subject_mock)
+    mock = Object.new
+    mock.expects(@method).returns(Expected)
+    subject.stubs(@receiver).returns(mock)
     subject
   end
 
   def verify
-    :a_delegated_return_value == delegation_result
+    @result == Expected
   end
 
   def failure_message
-    "expected #{subject}.#{@meth} to return the value of #{subject}.#{@receiver}.#{@meth}; however, #{subject}.#{@meth} returned #{delegation_result.inspect}"
+    'expected %s.%s to return value of %s.%s.%s, not %p' %
+      [subject, @method, subject, @receiver, @method, @result]
   end
 
-  def mocha_error_message(ex)
-    "expected #{subject} to delegate #{@meth} to #{@receiver}; however, #{subject}.#{@meth} was never called -- #{ex}"
+  def mocha_error_message(e)
+    'expected %s to delegate %s to %s; however, %s.%s was never called: %s' %
+      [subject, @method, @receiver, subject, @method, e]
   end
-
 end
