@@ -7,10 +7,6 @@ class Lookout::Suite
 
   autoload :Results, 'lookout/suite/results'
 
-  class << self
-    attr_accessor :silent
-  end
-
   def initialize
     @do_not_run = false
   end
