@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::Reception
+  def methods
+    @methods ||= Lookout::Tape.new
+  end
 
   def receive!(method)
-    method_stack << [:expects, [method]]
+    methods.record :expects, [method]
     self
   end
 
-  def method_stack
-    @method_stack ||= []
-  end
-
-  def method_missing(sym, *args)
-    super if method_stack.empty?
-    method_stack << [sym, args]
+  def method_missing(method, *args)
+    super if methods.empty?
+    methods.record method, args
     self
   end
 
   def subject!
-    method_stack.inject(subject) { |result, element| result.send element.first, *element.last }
+    # TODO: This is another way of getting the subject into the mockery:
+    # @subject = Mocha::Mockery.instance.unnamed_mock if subject.is_a? Mocha::Mock
+    methods.play_for subject
     subject
   end
 
@@ -29,5 +30,4 @@ module Lookout::Recorders::Reception
   def mocha_error_message(ex)
     ex.message
   end
-
 end

@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorder < Lookout::Aphonic
-
   attr_reader :subject
+
   def initialize(subject)
     @subject = subject
   end
 
-  def receive(meth)
+  def not!
+    extend Lookout::ReverseResult
+  end
+
+  def receive(method)
     extend Lookout::Recorders::Reception
-    receive!(meth)
+    receive! method
     self
   end
 
@@ -27,7 +31,7 @@ class Lookout::Recorder < Lookout::Aphonic
 
   def delegate(method)
     extend Lookout::Recorders::Delegation
-    delegate!(method)
+    delegate! method
     self
   end
 
@@ -35,12 +39,7 @@ class Lookout::Recorder < Lookout::Aphonic
     subject
   end
 
-  def not!
-    extend Lookout::ReverseResult
-  end
-
   def verify!
     verify
   end
-
 end

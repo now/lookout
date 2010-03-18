@@ -1,28 +1,26 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::State
-
-  def verify
-    method_stack.inject(subject) { |result, element| result.send element.first, *element.last }
-  end
-
-  def failure_message
-    "expected #{subject} #{message_parts.join(" ")}"
-  end
-
-  def method_stack
-    @method_stack ||= []
+  def methods
+    @methods ||= Lookout::Tape.new
   end
 
   def message_parts
     @message_parts ||= self.is_a?(Lookout::ReverseResult) ? [:not] : []
   end
 
-  def method_missing(sym, *args)
-    message_parts << "#{sym}"
-    args.each { |arg| message_parts << arg.inspect }
-    method_stack << [sym, args]
+  def method_missing(method, *args)
+    message_parts << method.to_s
+    args.each{ |arg| message_parts << arg.inspect }
+    methods.record method, args
     self
   end
 
+  def verify
+    methods.play_for(subject)
+  end
+
+  def failure_message
+    "expected #{subject} #{message_parts.join(' ')}"
+  end
 end

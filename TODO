@@ -1,0 +1,8 @@
+Another way of getting the subject into the mockery is to recreate it in
+Reception:
+
+@subject = Mocha::Mockery.instance.unnamed_mock if subject.is_a? Mocha::Mock
+
+Is this perfectly safe?  I mean, people might be creating named mocks with
+mock('name'), which won’t make it through if we do it this way, but that’s not
+really very important.

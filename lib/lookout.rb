@@ -11,6 +11,7 @@ module Lookout
   autoload :ReverseResult,          'lookout/reverse_result'
   autoload :Runners,                'lookout/runners'
   autoload :Suite,                  'lookout/suite'
+  autoload :Tape,                   'lookout/tape'
   autoload :UI,                     'lookout/ui'
   autoload :Version,                'lookout/version'
   autoload :XmlString,              'lookout/xml_string'
