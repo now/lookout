@@ -9,7 +9,6 @@ class Object
       expects_method.bind(self).call(*args)
     end
   end
-
   module LookoutExpectsMethod
     def expects(*args)
       Lookout.warn 'Expect only one thing per test', caller[2]
@@ -17,9 +16,11 @@ class Object
     end
   end
 
-  attr_accessor :__which_expects__
-  include MochaExpectsMethod
   include LookoutExpectsMethod
+  include MochaExpectsMethod
+
+  attr_accessor :__which_expects__
+
   def expects(*args)
     (__which_expects__ || MochaExpectsMethod).instance_method(:expects).bind(self).call(*args)
   end
