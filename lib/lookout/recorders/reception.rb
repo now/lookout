@@ -17,8 +17,6 @@ module Lookout::Recorders::Reception
   end
 
   def subject!
-    # TODO: This is another way of getting the subject into the mockery:
-    # @subject = Mocha::Mockery.instance.unnamed_mock if subject.is_a? Mocha::Mock
     methods.play_for subject
     subject
   end
