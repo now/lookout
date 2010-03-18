@@ -8,10 +8,7 @@ class Lookout::Expectations::Behavior
     warn_for_expects do
       instance_exec(expected.subject, &@block) if @block
     end
-    if expected.subject.is_a? Mocha::Mock and
-       not Mocha::Mockery.instance.mocks.include? expected.subject
-      Mocha::Mockery.instance.__send__(:add_mock, expected.subject)
-    end
+    add_mock_recorders_to_mockery
     if expected.verify! and mocha_verify
       extend Lookout::Results::Fulfilled
     else
@@ -24,5 +21,13 @@ class Lookout::Expectations::Behavior
   rescue Exception => e
     extend Lookout::Results::Error
     @exception = e
+  end
+
+private
+
+  def add_mock_recorders_to_mockery
+    return unless expected.subject.is_a? Mocha::Mock and
+                  not Mocha::Mockery.instance.mocks.include? expected.subject
+    Mocha::Mockery.instance.__send__(:add_mock, expected.subject)
   end
 end
