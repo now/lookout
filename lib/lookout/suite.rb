@@ -8,11 +8,29 @@ class Lookout::Suite
   autoload :Results, 'lookout/suite/results'
 
   def initialize
+    @expectations = []
     @do_not_run = false
   end
 
   def xml(string)
     Lookout::XmlString.new(string)
+  end
+
+  def expect(expected, &block)
+    file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
+
+    if block.nil? and not expected.is_a? Lookout::Recorder
+      expected = Lookout::Recorder.new(expected)
+      expected.extend Lookout::Recorders::State
+    end
+
+    expectations << Lookout::Expectation.on(expected, file, line, &block)
+
+    expected
+  end
+
+  def do_not_run
+    @do_not_run = true
   end
 
   def execute(ui = Lookout::UI::Console.new, results = Lookout::Suite::Results.new)
@@ -28,30 +46,10 @@ class Lookout::Suite
     results
   end
 
-  def expect(expected, &block)
-    file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
-
-    if block.nil? and not expected.is_a? Lookout::Recorder
-      expected = Lookout::Recorder.new(expected)
-      expected.extend(Lookout::Recorders::State)
-    end
-
-    expectations << Lookout::Expectation.on(expected, file, line, &block)
-
-    expected
-  end
-
-  def do_not_run
-    @do_not_run = true
-  end
-
   def expectations_for(line)
     return expectations if line.nil?
-    [expectations.inject { |result, expectation| expectation.line > line.to_i ? result : expectation }]
+    [expectations.inject{ |result, expectation| expectation.line > line.to_i ? result : expectation }]
   end
 
-  def expectations
-    @expectations ||= []
-  end
-
+  attr_reader :expectations
 end
