@@ -14,6 +14,7 @@ module Lookout
   autoload :Suite,                  'lookout/suite'
   autoload :Tape,                   'lookout/tape'
   autoload :UI,                     'lookout/ui'
+  autoload :Utilities,              'lookout/utilities'
   autoload :Version,                'lookout/version'
   autoload :XmlString,              'lookout/xml_string'
 
@@ -28,7 +29,6 @@ require 'lookout/object'
 require 'lookout/module'
 require 'lookout/regexp'
 require 'lookout/range'
-require 'lookout/string'
 
 def Expectations(&block)
   Lookout::Runners::Console.suite_eval(&block)

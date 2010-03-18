@@ -3,7 +3,7 @@
 require 'lookout'
 
 Expectations do
-  expect "fo[o|a], mismatch at index 2\nTrailing expected: < bar baz>\nTrailing actual: < bar bat>" do
-    "foo bar baz".diff("foa bar bat")
+  expect 'fo[o bar baz|a bar bat]' do
+    Lookout::Utilities.diff('foo bar baz', 'foa bar bat')
   end
 end
