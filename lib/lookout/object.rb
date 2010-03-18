@@ -2,16 +2,15 @@
 
 class Object
   module MochaExpectsMethod
-    expects_method = Object.instance_method(:expects)
-    define_method :expects do |*args|
-      expects_method.bind(self).call(*args)
-    end
+    define_method :expects, Object.instance_method(:expects)
   end
 
   module LookoutExpectsMethod
+    include MochaExpectsMethod
+
     def expects(*args)
       Lookout.warn 'expect only one thing per test', caller[2]
-      MochaExpectsMethod.instance_method(:expects).bind(self).call(*args)
+      super
     end
   end
 
