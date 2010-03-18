@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::ReverseResult
-
+module Lookout::Negated
   def verify!
     not verify
   end
-
 end

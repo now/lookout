@@ -8,7 +8,7 @@ class Lookout::Recorder < Lookout::Aphonic
   end
 
   def not!
-    extend Lookout::ReverseResult
+    extend Lookout::Negated
   end
 
   def receive(method)

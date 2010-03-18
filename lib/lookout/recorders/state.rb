@@ -6,7 +6,7 @@ module Lookout::Recorders::State
   end
 
   def message_parts
-    @message_parts ||= self.is_a?(Lookout::ReverseResult) ? [:not] : []
+    @message_parts ||= self.is_a?(Lookout::Negated) ? ['not'] : []
   end
 
   def method_missing(method, *args)
