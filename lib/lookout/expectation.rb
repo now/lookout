@@ -16,7 +16,7 @@ module Lookout::Expectation
   end
 
   def mock(*args)
-    Lookout.warn 'Use stubs, not mocks, inside tests', caller.first
+    Lookout.warn 'use stubs, not mocks, inside tests', caller.first
     super
   end
 
