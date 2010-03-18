@@ -26,9 +26,7 @@ module Lookout::Expectation
 
   def execute
     mocha_setup
-    warn_for_expects do
-      execute_in_mocha
-    end
+    execute_in_mocha
     self
   ensure
     mocha_teardown

@@ -5,7 +5,9 @@ class Lookout::Expectations::Behavior
 
   def execute_in_mocha
     expected.subject!
-    instance_exec(expected.subject, &block) if block
+    warn_for_expects do
+      instance_exec(expected.subject, &block) if block
+    end
     if expected.subject.is_a? Mocha::Mock and
        not Mocha::Mockery.instance.mocks.include? expected.subject
       Mocha::Mockery.instance.__send__(:add_mock, expected.subject)
