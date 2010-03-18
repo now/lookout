@@ -4,6 +4,7 @@ module Lookout
   autoload :Aphonic,                'lookout/aphonic'
   autoload :Expectation,            'lookout/expectation'
   autoload :Expectations,           'lookout/expectations'
+  autoload :Not,                    'lookout/not'
   autoload :Recorder,               'lookout/recorder'
   autoload :Recorders,              'lookout/recorders'
   autoload :Result,                 'lookout/result'

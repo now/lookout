@@ -29,23 +29,11 @@ class Object
   end
 
   def not
-    Not.new(self)
+    Lookout::Not.new(self)
   end
 
   def not!
     !self
-  end
-
-  class Not
-    private(*instance_methods.select{ |name| name !~ /(^__|^\W|^binding$)/ })
-
-    def initialize(subject)
-      @subject = subject
-    end
-
-    def method_missing(name, *args, &block)
-      @subject.send(name, *args, &block).not!
-    end
   end
 
   def expectations_equal_to(other)
