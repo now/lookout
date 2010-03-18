@@ -36,8 +36,8 @@ module Lookout::Recorders::Delegation
       [subject, @method, subject, @receiver, @method, @result]
   end
 
-  def mocha_error_message(e)
+  def mocha_error_message(error)
     'expected %s to delegate %s to %s; however, %s.%s was never called: %s' %
-      [subject, @method, @receiver, subject, @method, e]
+      [subject, @method, @receiver, subject, @method, error]
   end
 end

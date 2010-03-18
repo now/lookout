@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'mocha'
-
 class Object
   module MochaExpectsMethod
     expects_method = Object.instance_method(:expects)

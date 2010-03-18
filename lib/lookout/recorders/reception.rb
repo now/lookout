@@ -25,7 +25,7 @@ module Lookout::Recorders::Reception
     true
   end
 
-  def mocha_error_message(ex)
-    ex.message
+  def mocha_error_message(error)
+    error.message
   end
 end
