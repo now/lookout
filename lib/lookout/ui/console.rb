@@ -11,9 +11,9 @@ class Lookout::UI::Console
 
   def report(result)
     print case
-    when result.error? then 'E'
+    when result.fulfilled? then '.'
     when result.failure? then 'F'
-    else '.'
+    else 'E'
     end
   end
 
