@@ -9,6 +9,7 @@ class Object
       expects_method.bind(self).call(*args)
     end
   end
+
   module LookoutExpectsMethod
     def expects(*args)
       Lookout.warn 'Expect only one thing per test', caller[2]
