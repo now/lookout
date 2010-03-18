@@ -5,10 +5,10 @@ require 'lookout'
 Expectations do
   expect true do
     object = Object.new
-    object.expectations_equal_to object
+    Lookout::Literals.equalify(object) == object
   end
 
   expect false do
-    Object.new.expectations_equal_to Object.new
+    Lookout::Literals.equalify(Object.new) == Object.new
   end
 end

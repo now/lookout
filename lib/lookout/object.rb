@@ -20,7 +20,7 @@ class Object
   attr_accessor :__which_expects__
 
   def expects(*args)
-    (__which_expects__ || MochaExpectsMethod).instance_method(:expects).bind(self).call(*args)
+    (__which_expects__ or MochaExpectsMethod).instance_method(:expects).bind(self).call(*args)
   end
 
   def to
@@ -33,10 +33,6 @@ class Object
 
   def not!
     !self
-  end
-
-  def expectations_equal_to(other)
-    self == other
   end
 
   unless defined? instance_exec

@@ -4,14 +4,18 @@ require 'lookout'
 
 Expectations do
   expect true do
-    /foo/.expectations_equal_to "foo"
+    Lookout::Literals.equalify(/foo/) == 'foo'
   end
 
   expect true do
-    /foo/.expectations_equal_to /foo/
+    Lookout::Literals.equalify(/foo/) == /foo/
   end
 
   expect false do
-    /foo/.expectations_equal_to /bar/
+    Lookout::Literals.equalify(/foo/) == 'bar'
+  end
+
+  expect false do
+    Lookout::Literals.equalify(/foo/) == /bar/
   end
 end

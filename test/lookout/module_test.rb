@@ -4,14 +4,14 @@ require 'lookout'
 
 Expectations do
   expect true do
-    String.expectations_equal_to "foo"
-  end
-
-  expect false do
-    String.expectations_equal_to 0
+    Lookout::Literals.equalify(String) == 'foo'
   end
 
   expect true do
-    String.expectations_equal_to String
+    Lookout::Literals.equalify(String) == String
+  end
+
+  expect false do
+    Lookout::Literals.equalify(String) == 0
   end
 end

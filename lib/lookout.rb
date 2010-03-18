@@ -4,6 +4,7 @@ module Lookout
   autoload :Aphonic,                'lookout/aphonic'
   autoload :Expectation,            'lookout/expectation'
   autoload :Expectations,           'lookout/expectations'
+  autoload :Literals,               'lookout/literals'
   autoload :Not,                    'lookout/not'
   autoload :Recorder,               'lookout/recorder'
   autoload :Recorders,              'lookout/recorders'
@@ -26,9 +27,6 @@ end
 require 'mocha'
 
 require 'lookout/object'
-require 'lookout/module'
-require 'lookout/regexp'
-require 'lookout/range'
 
 def Expectations(&block)
   Lookout::Runners::Console.suite_eval(&block)

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::XmlString < String
-
-  def expectations_equal_to(other)
+  def ==(other)
     not Regexp.new(Regexp.escape(normalize(self))).match(normalize(other)).nil?
   end
 

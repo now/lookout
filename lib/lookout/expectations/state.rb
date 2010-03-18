@@ -8,7 +8,7 @@ class Lookout::Expectations::State
       @actual = @block ? instance_eval(&@block) : false
     end
     mocha_verify
-    extend expected.expectations_equal_to(actual) ?
+    extend expected == actual ?
       Lookout::Results::Fulfilled :
       Lookout::Results::Failures::State
   rescue Exception => e

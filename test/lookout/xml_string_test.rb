@@ -3,52 +3,52 @@
 require 'lookout'
 
 Expectations do
-  expect Lookout::XmlString.new("<foo>bar</foo>").to.be.expectations_equal_to("<foo>bar</foo>")
-  expect Lookout::XmlString.new("<foo>not bar</foo>").not.to.be.expectations_equal_to("<foo>bar</foo>")
-  expect Lookout::XmlString.new("<not-foo>bar</not-foo>").not.to.be.expectations_equal_to("<foo>bar</foo>")
+  expect Lookout::XmlString.new("<foo>bar</foo>").to.be.==("<foo>bar</foo>")
+  expect Lookout::XmlString.new("<foo>not bar</foo>").not.to.be.==("<foo>bar</foo>")
+  expect Lookout::XmlString.new("<not-foo>bar</not-foo>").not.to.be.==("<foo>bar</foo>")
 
   expect true do
-    Lookout::XmlString.new("<foo>bar</foo>").expectations_equal_to "  <foo>bar</foo>  "
+    Lookout::XmlString.new("<foo>bar</foo>") == "  <foo>bar</foo>  "
   end
 
   expect true do
-    Lookout::XmlString.new("  <foo>bar</foo>  ").expectations_equal_to "<foo>bar</foo>"
+    Lookout::XmlString.new("  <foo>bar</foo>  ") == "<foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<foo>bar</foo>").expectations_equal_to "<foo>bar</foo>\n"
+    Lookout::XmlString.new("<foo>bar</foo>") == "<foo>bar</foo>\n"
   end
 
   expect true do
-    Lookout::XmlString.new("\n<foo>bar</foo>").expectations_equal_to "<foo>bar</foo>"
+    Lookout::XmlString.new("\n<foo>bar</foo>") == "<foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("\t<foo>bar</foo>").expectations_equal_to "<foo>bar</foo>"
+    Lookout::XmlString.new("\t<foo>bar</foo>") == "<foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<foo>bar</foo>").expectations_equal_to "<foo>bar</foo>\t"
+    Lookout::XmlString.new("<foo>bar</foo>") == "<foo>bar</foo>\t"
   end
 
   expect true do
-    Lookout::XmlString.new("<a>\n<foo>bar</foo>").expectations_equal_to "<a><foo>bar</foo>"
+    Lookout::XmlString.new("<a>\n<foo>bar</foo>") == "<a><foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<a>\n<foo>\t \n bar</foo>").expectations_equal_to "<a><foo>\t \n bar</foo>"
+    Lookout::XmlString.new("<a>\n<foo>\t \n bar</foo>") == "<a><foo>\t \n bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<a>\n<foo>\t \n bar</foo>\n \t </a>").expectations_equal_to "<a><foo>\t \n bar</foo></a>"
+    Lookout::XmlString.new("<a>\n<foo>\t \n bar</foo>\n \t </a>") == "<a><foo>\t \n bar</foo></a>"
   end
 
   expect true do
-    Lookout::XmlString.new("<fragment>content</fragment>").expectations_equal_to "<container><fragment>content</fragment></container>"
+    Lookout::XmlString.new("<fragment>content</fragment>") ==  "<container><fragment>content</fragment></container>"
   end
 
   expect true do
-    Lookout::XmlString.new('<?xml version="1.0"?>').expectations_equal_to '<?xml version="1.0"?>'
+    Lookout::XmlString.new('<?xml version="1.0"?>') == '<?xml version="1.0"?>'
   end
 
   expect "[as xml] <fragment>content</fragment>" do
