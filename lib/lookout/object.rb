@@ -37,14 +37,14 @@ class Object
   end
 
   class Not
-    private(*instance_methods.select { |m| m !~ /(^__|^\W|^binding$)/ })
+    private(*instance_methods.select{ |name| name !~ /(^__|^\W|^binding$)/ })
 
     def initialize(subject)
       @subject = subject
     end
 
-    def method_missing(sym, *args, &blk)
-      @subject.send(sym,*args,&blk).not!
+    def method_missing(name, *args, &block)
+      @subject.send(name, *args, &block).not!
     end
   end
 
@@ -52,29 +52,24 @@ class Object
     self == other
   end
 
-  unless defined? instance_exec # 1.9
-    module InstanceExecMethods #:nodoc:
-    end
+  unless defined? instance_exec
+    InstanceExecMethods = Module.new
     include InstanceExecMethods
 
-    # Evaluate the block with the given arguments within the context of
-    # this object, so self is set to the method receiver.
-    #
-    # From Mauricio's http://eigenclass.org/hiki/bounded+space+instance_exec
     def instance_exec(*args, &block)
       begin
-        old_critical, Thread.critical = Thread.critical, true
+        saved_critical, Thread.critical = Thread.critical, true
         n = 0
-        n += 1 while respond_to?(method_name = "__instance_exec#{n}")
-        InstanceExecMethods.module_eval { define_method(method_name, &block) }
+        n += 1 while respond_to?(name = "__instance_exec#{n}")
+        InstanceExecMethods.module_eval{ define_method name, &block }
       ensure
-        Thread.critical = old_critical
+        Thread.critical = saved_critical
       end
 
       begin
-        send(method_name, *args)
+        send(name, *args)
       ensure
-        InstanceExecMethods.module_eval { remove_method(method_name) } rescue nil
+        InstanceExecMethods.module_eval{ remove_method name } rescue nil
       end
     end
   end
