@@ -32,7 +32,7 @@ module Lookout::Expectation
     mocha_teardown
   end
 
-  attr_reader :file, :line, :expected
+  attr_reader :expected, :file, :line
 
 private
 
