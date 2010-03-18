@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'mocha'
-
 module Lookout::Expectation
   include Mocha::API
 

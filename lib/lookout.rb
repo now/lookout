@@ -21,6 +21,8 @@ module Lookout
   end
 end
 
+require 'mocha'
+
 require 'lookout/object'
 require 'lookout/module'
 require 'lookout/regexp'

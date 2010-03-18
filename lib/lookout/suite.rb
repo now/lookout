@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 require 'benchmark'
-require 'mocha'
 
 class Lookout::Suite
   include Mocha::API
