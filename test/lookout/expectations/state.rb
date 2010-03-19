@@ -53,4 +53,9 @@ Expectations do
     suite.execute(Lookout::UI::Silent).expectations.first
   end
 
+  expect Lookout::Results::Fulfilled do
+    suite = Lookout::Suite.new
+    suite.expect(NoMethodError) { Object.no_method }
+    suite.execute(Lookout::UI::Silent).expectations.first
+  end
 end

@@ -3,128 +3,138 @@
 require 'lookout'
 
 Expectations do
-  # State based expectation where a value equals another value
+  # State-based Expectations
+
+  # Determine if the result equals a value.
   expect 2 do
     1 + 1
   end
 
-  # State based expectation where an exception is expected. Simply expect the Class of the intended exception
-  expect NoMethodError do
-    Object.no_method
-  end
-
-  # Behavior based test using a traditional mock
-  expect mock.to.receive(:dial).with("2125551212").times(2) do |phone|
-    phone.dial("2125551212")
-    phone.dial("2125551212")
-  end
-
-  # Behavior based test using a stub
-  expect stub.to.receive(:dial).with("2125551212").times(2) do |phone|
-    phone.dial("2125551212")
-    phone.dial("2125551212")
-  end
-
-  # Behavior based test using a stub_everything
-  expect stub_everything.to.receive(:dial).with("2125551212").times(2) do |phone|
-    phone.dial("2125551212")
-    phone.dial("2125551212")
-  end
-
-  # Behavior based test on a concrete mock
-  expect Object.to.receive(:deal) do
-    Object.deal
-  end
-
-  # State based test utilizing a stub
+  # Determine if the result, retrieved through a stub, equals a value.
   expect 2 do
     stub(:two => 2).two
   end
 
-  # State based test matching a Regexp
+  # Match against a Regexp.
   expect /a string/ do
     "a string"
   end
 
-  # State based test checking if actual is in the expected Range
+  # Match inside a Range.
   expect 1..5 do
     3
   end
 
-  # State based test to determine if the object is an instance of the module
+  # Verify that the result is an Enumerable.
   expect Enumerable do
     []
   end
 
-  # State based test to determine if the object is an instance of the class
+  # Verify that the result is a String.
   expect String do
     "a string"
   end
 
-  # State based test to determine if the modules are the same
+  # Determine equality of modules.
   expect Enumerable do
     Enumerable
   end
 
-  # State based test to determine if the classes are the same
+  # Determine equality of classes.
   expect String do
     String
   end
 
-  # State based test with XML strings, whitespace between tags is ignored
-  expect xml("<a><foo>bar</foo></a>") do
+  # Verify that the result is truthful.
+  expect true do
+    1
+  end
+
+  # Verify that the result is “falseful”.
+  expect false do
+    nil
+  end
+
+  # Verify that the result is actually true.
+  expect TrueClass do
+    true
+  end
+
+  # Verify that the result is actually false.
+  expect FalseClass do
+    false
+  end
+
+  # Match XML contents, ignoring whitespace between tags.
+  expect xml('<a><foo>bar</foo></a>') do
     "<a>\n\t<foo>bar</foo>  \n</a>"
   end
 
-  # State based test with XML strings, whitespace between tags is ignored
-  expect xml(<<-eos) do
+  # Match XML contents, ignoring whitespace between tags.
+  expect xml(<<-EOX) do
     <one>
-    <two>
-    <three>4</three>
-    <five> 6 </five>
-    </two>
+      <two>
+        <three>4</three>
+        <five> 6 </five>
+      </two>
     </one>
-    eos
-    "<one><two><three>4</three>
-    <five> 6 </five>
-    </two></one>"
+  EOX
+    '<one><two><three>4</three>
+     <five> 6 </five>
+     </two></one>'
   end
 
-  # this is normally defined in the file specific to the class
-  klass = Class.new do
-    def save(arg)
-      record.save(arg)
-    end
-  end
-  # State based delegation test
-  expect klass.new.to.delegate(:save).to(:record) do |instance|
-    instance.save(1)
+  # Verify that an exception is raised.
+  expect NoMethodError do
+    Object.no_method
   end
 
-  # this is normally defined in the file specific to the class
-  klass = Class.new do
-    attr_accessor :started
-  end
-  # State based fluent interface boolean test using to be
-  expect klass.new.to.be.started do |process|
-    process.started = true
+  # State-based Fluent Boolean Expectations
+
+  # Expect an object to “be” something.
+  klass = Class.new{ attr_accessor :running }
+  expect klass.new.to.be.running do |process|
+    process.running = true
   end
 
-  # this is normally defined in the file specific to the class
-  klass = Class.new do
-    attr_accessor :finished
-  end
-  # State based fluent interface boolean test using to have
+  # Expect an object to “have” something.
+  klass = Class.new{ attr_accessor :finished }
   expect klass.new.to.have.finished do |process|
     process.finished = true
   end
 
-  expect Lookout::Results::Fulfilled do
-    suite = Lookout::Suite.new
-    suite.expect(NoMethodError) { Object.no_method }
-    suite.execute(Lookout::UI::Silent).expectations.first
+  # Expect nil to be nil.
+  expect nil.to.be.nil?
+
+  # Expect Object not to be nil.
+  expect Object.not.to.be.nil?
+
+  # State-based Delegation Expectations
+
+  # Expect #save to delegate to #record.
+  expect Class.new{ def save(arg) record.save(arg) end }.
+           new.to.delegate(:save).to(:record) do |instance|
+    instance.save(1)
   end
 
-  expect nil.to.be.nil?
-  expect Object.not.to.be.nil?
+  # Behavior-based Expectations
+
+  # Use a mock to verify that a method is called appropriately.
+  expect mock.to.receive(:dial).with('2125551212').times(2) do |phone|
+    phone.dial('2125551212')
+    phone.dial('2125551212')
+  end
+
+  # Use a stub that ignores all calls to verify that a method is called
+  # appropriately.  Any other calls made are ignored.
+  expect stub_everything.to.receive(:dial).with('2125551212').times(2) do |phone|
+    phone.dial('2125551212')
+    phone.hangup
+    phone.dial('2125551212')
+  end
+
+  # Use a contrete mock to verify that a method is called.
+  expect Object.to.receive(:deal) do
+    Object.deal
+  end
 end
