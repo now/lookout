@@ -9,7 +9,7 @@ module Lookout::Literals
   end
 
   def self.equalify(value)
-    type = [value, *value.class.ancestors].find{ |type| @literals[type] }
+    type = value.class.ancestors.find{ |type| @literals[type] }
     value.extend @literals[type] if type
     value
   end
