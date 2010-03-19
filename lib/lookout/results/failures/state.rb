@@ -7,7 +7,7 @@ module Lookout::Results::Failures::State
 
   def message
     return @message if instance_variable_defined? :@message and @message
-    result = '%p≠%p' % [expected, actual]
+    result = '%p≠%p' % [actual, expected]
     diff = Lookout::Utilities.diff(expected, actual)
     result << ': ' << diff if diff
     result
