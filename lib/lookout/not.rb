@@ -7,6 +7,8 @@ class Lookout::Not
     @subject = subject
   end
 
+private
+
   def method_missing(name, *args, &block)
     @subject.send(name, *args, &block).not!
   end
