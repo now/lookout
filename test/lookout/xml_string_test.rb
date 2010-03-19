@@ -3,56 +3,55 @@
 require 'lookout'
 
 Expectations do
-  expect Lookout::XmlString.new("<foo>bar</foo>").to.be.==("<foo>bar</foo>")
-  expect Lookout::XmlString.new("<foo>not bar</foo>").not.to.be.==("<foo>bar</foo>")
-  expect Lookout::XmlString.new("<not-foo>bar</not-foo>").not.to.be.==("<foo>bar</foo>")
+  expect Lookout::XML.new("<foo>bar</foo>").to.be.==("<foo>bar</foo>")
+  expect Lookout::XML.new("<foo>not bar</foo>").not.to.be.==("<foo>bar</foo>")
+  expect Lookout::XML.new("<not-foo>bar</not-foo>").not.to.be.==("<foo>bar</foo>")
 
   expect true do
-    Lookout::XmlString.new("<foo>bar</foo>") == "  <foo>bar</foo>  "
-  end
-
-  expect true do
-    Lookout::XmlString.new("  <foo>bar</foo>  ") == "<foo>bar</foo>"
+    Lookout::XML.new("<foo>bar</foo>") == "  <foo>bar</foo>  "
   end
 
   expect true do
-    Lookout::XmlString.new("<foo>bar</foo>") == "<foo>bar</foo>\n"
+    Lookout::XML.new("  <foo>bar</foo>  ") == "<foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("\n<foo>bar</foo>") == "<foo>bar</foo>"
+    Lookout::XML.new("<foo>bar</foo>") == "<foo>bar</foo>\n"
   end
 
   expect true do
-    Lookout::XmlString.new("\t<foo>bar</foo>") == "<foo>bar</foo>"
+    Lookout::XML.new("\n<foo>bar</foo>") == "<foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<foo>bar</foo>") == "<foo>bar</foo>\t"
+    Lookout::XML.new("\t<foo>bar</foo>") == "<foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<a>\n<foo>bar</foo>") == "<a><foo>bar</foo>"
+    Lookout::XML.new("<foo>bar</foo>") == "<foo>bar</foo>\t"
   end
 
   expect true do
-    Lookout::XmlString.new("<a>\n<foo>\t \n bar</foo>") == "<a><foo>\t \n bar</foo>"
+    Lookout::XML.new("<a>\n<foo>bar</foo>") == "<a><foo>bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<a>\n<foo>\t \n bar</foo>\n \t </a>") == "<a><foo>\t \n bar</foo></a>"
+    Lookout::XML.new("<a>\n<foo>\t \n bar</foo>") == "<a><foo>\t \n bar</foo>"
   end
 
   expect true do
-    Lookout::XmlString.new("<fragment>content</fragment>") ==  "<container><fragment>content</fragment></container>"
+    Lookout::XML.new("<a>\n<foo>\t \n bar</foo>\n \t </a>") == "<a><foo>\t \n bar</foo></a>"
   end
 
   expect true do
-    Lookout::XmlString.new('<?xml version="1.0"?>') == '<?xml version="1.0"?>'
+    Lookout::XML.new("<fragment>content</fragment>") ==  "<container><fragment>content</fragment></container>"
   end
 
-  expect "[as xml] <fragment>content</fragment>" do
-    Lookout::XmlString.new("  \t<fragment>content</fragment>\n  ").inspect
+  expect true do
+    Lookout::XML.new('<?xml version="1.0"?>') == '<?xml version="1.0"?>'
   end
 
+  expect 'xml(<fragment>content</fragment>)' do
+    Lookout::XML.new("  \t<fragment>content</fragment>\n  ").inspect
+  end
 end

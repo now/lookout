@@ -17,7 +17,7 @@ module Lookout
   autoload :UI,                     'lookout/ui'
   autoload :Utilities,              'lookout/utilities'
   autoload :Version,                'lookout/version'
-  autoload :XmlString,              'lookout/xml_string'
+  autoload :XML,                    'lookout/xml'
 
   def self.warn(message, invoker)
     Kernel.warn "\n%s: %s" % [invoker.sub(/:in `__instance_exec\d+'$/, ""), message]

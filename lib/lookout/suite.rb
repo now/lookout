@@ -13,7 +13,7 @@ class Lookout::Suite
   end
 
   def xml(string)
-    Lookout::XmlString.new(string)
+    Lookout::XML.new(string)
   end
 
   def expect(expected, &block)
