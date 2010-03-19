@@ -5,13 +5,13 @@ module Lookout::Recorders::State
     @methods ||= Lookout::Tape.new
   end
 
-  def message_parts
-    @message_parts ||= self.is_a?(Lookout::Negated) ? ['not'] : []
+  def description
+    @description ||= []
   end
 
   def method_missing(method, *args)
-    message_parts << method.to_s
-    args.each{ |arg| message_parts << arg.inspect }
+    description << method.to_s
+    args.each{ |arg| description << arg.inspect }
     methods.record method, args
     self
   end
@@ -20,7 +20,7 @@ module Lookout::Recorders::State
     methods.play_for(subject)
   end
 
-  def failure_message
-    "expected #{subject} #{message_parts.join(' ')}"
+  def message
+    "expected #{subject} #{description.join(' ')}"
   end
 end

@@ -9,10 +9,10 @@ class Lookout::Expectations::Behavior
       instance_exec(expected.subject, &@block) if @block
     end
     add_mock_recorders_to_mockery
-    if expected.verify! and mocha_verify
+    if expected.verify and mocha_verify
       extend Lookout::Results::Fulfilled
     else
-      @message = expected.failure_message
+      @message = expected.message
       extend Lookout::Results::Failures::State
     end
   rescue Mocha::ExpectationError => e

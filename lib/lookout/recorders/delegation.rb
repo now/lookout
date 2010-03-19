@@ -31,7 +31,7 @@ module Lookout::Recorders::Delegation
     @result == Expected
   end
 
-  def failure_message
+  def message
     'expected %s.%s to return value of %s.%s.%s, not %p' %
       [subject, @method, subject, @receiver, @method, @result]
   end

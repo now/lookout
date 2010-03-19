@@ -8,7 +8,9 @@ class Lookout::Recorder < Lookout::Aphonic
   end
 
   def not!
-    extend Lookout::Negated
+    extend Lookout::Negated, Lookout::Recorders::State
+    description << 'not'
+    self
   end
 
   def receive(method)
@@ -19,13 +21,13 @@ class Lookout::Recorder < Lookout::Aphonic
 
   def have
     extend Lookout::Recorders::State
-    message_parts << "to have"
+    description << 'to have'
     self
   end
 
   def be
     extend Lookout::Recorders::State
-    message_parts << "to be"
+    description << 'to be'
     self
   end
 
@@ -37,9 +39,5 @@ class Lookout::Recorder < Lookout::Aphonic
 
   def subject!
     subject
-  end
-
-  def verify!
-    verify
   end
 end
