@@ -3,7 +3,6 @@
 require 'lookout'
 
 Expectations do
-
   # State based expectation where a value equals another value
   expect 2 do
     1 + 1
@@ -128,5 +127,4 @@ Expectations do
 
   expect nil.to.be.nil?
   expect Object.not.to.be.nil?
-
 end
