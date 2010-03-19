@@ -20,3 +20,9 @@ Lookout::Literals.register Module.new{
     self === other or super
   end
 }, Module, Range, Regexp
+
+Lookout::Literals.register Module.new {
+  def ==(other)
+    super(!!other)
+  end
+}, TrueClass, FalseClass
