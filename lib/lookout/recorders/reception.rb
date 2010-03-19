@@ -1,6 +1,21 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::Reception
+  def subject!
+    methods.play_for subject
+    subject
+  end
+
+  def verify
+    true
+  end
+
+  def mocha_error_message(error)
+    error.message
+  end
+
+private
+
   def methods
     @methods ||= Lookout::Tape.new
   end
@@ -14,18 +29,5 @@ module Lookout::Recorders::Reception
     super if methods.empty?
     methods.record method, args
     self
-  end
-
-  def subject!
-    methods.play_for subject
-    subject
-  end
-
-  def verify
-    true
-  end
-
-  def mocha_error_message(error)
-    error.message
   end
 end

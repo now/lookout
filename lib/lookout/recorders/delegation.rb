@@ -5,16 +5,6 @@ module Lookout::Recorders::Delegation
 
   attr_writer :result
 
-  def delegate!(method)
-    @method = method
-    recorder = self
-    subject.extend Module.new{
-      define_method method do |*args|
-        recorder.result = super(*args)
-      end
-    }
-  end
-
   def to(receiver)
     @receiver = receiver
     self
@@ -39,5 +29,17 @@ module Lookout::Recorders::Delegation
   def mocha_error_message(error)
     'expected %s to delegate %s to %s; however, %s.%s was never called: %s' %
       [subject, @method, @receiver, subject, @method, error]
+  end
+
+private
+
+  def delegate!(method)
+    @method = method
+    recorder = self
+    subject.extend Module.new{
+      define_method method do |*args|
+        recorder.result = super(*args)
+      end
+    }
   end
 end
