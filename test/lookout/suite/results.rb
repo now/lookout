@@ -29,5 +29,4 @@ Expectations do
     results << Object.new.extend(Lookout::Results::Fulfilled)
     results << Object.new.extend(Lookout::Results::Fulfilled)
   end
-
 end

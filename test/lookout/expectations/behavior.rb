@@ -26,7 +26,7 @@ Expectations do
   expect [Lookout::Results::Failures::Behavior] do
     $VERBOSE = nil
     suite = Lookout::Suite.new
-    suite.expect(Object.to.receive(:deal)) {  }
+    suite.expect(Object.to.receive(:deal)){ }
     suite.execute(Lookout::UI::Silent).entries
   end
 

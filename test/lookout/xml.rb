@@ -44,7 +44,7 @@ Expectations do
   end
 
   expect true do
-    Lookout::XML.new("<fragment>content</fragment>") ==  "<container><fragment>content</fragment></container>"
+    Lookout::XML.new("<fragment>content</fragment>") == "<container><fragment>content</fragment></container>"
   end
 
   expect true do
