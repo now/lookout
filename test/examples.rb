@@ -10,10 +10,16 @@ Expectations do
     1 + 1
   end
 
+  # Short form of previous expectation.
+  expect(2) == 1 + 1
+
   # Determine if the result, retrieved through a stub, equals a value.
   expect 2 do
     stub(:two => 2).two
   end
+
+  # Short form of previous expectation.
+  expect(2) == stub(:two => 2).two
 
   # Match against a Regexp.
   expect /a string/ do
