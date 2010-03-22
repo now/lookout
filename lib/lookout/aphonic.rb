@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Aphonic
+  Methods = [
+    :__id__, :__send__, :object_id, # Methods that must be defined
+    :extend, :is_a? # Methods that we need
+  ]
+
   def self.silence(name)
     undef_method name if
       instance_methods.include?(RUBY_VERSION < '1.9' ? name.to_s : name.to_sym) and
-      name !~ /^(?:__|(?:instance_eval|extend|is_a\?|object_id)$)/
+      not Methods.include? name.to_sym
   end
 
   instance_methods.each do |name|
