@@ -7,7 +7,7 @@ class Lookout::Recorder < Lookout::Aphonic
     @subject = subject
   end
 
-  def not!
+  def not
     extend Lookout::Negated, Lookout::Recorders::State
     description << 'not'
     self

@@ -31,10 +31,6 @@ class Object
     Lookout::Not.new(self)
   end
 
-  def not!
-    !self
-  end
-
   unless defined? instance_exec
     InstanceExecMethods = Module.new
     include InstanceExecMethods

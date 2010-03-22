@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Not
-  private(*instance_methods.select{ |name| name !~ /(^__|^\W|^binding$)/ })
-
+class Lookout::Not < Lookout::Aphonic
   def initialize(subject)
     @subject = subject
   end
 
-private
-
-  def method_missing(name, *args, &block)
-    @subject.send(name, *args, &block).not!
+  def to
+    @subject.to.not
   end
 end
