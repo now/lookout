@@ -31,13 +31,4 @@ module Lookout::Expectation
   end
 
   attr_reader :expected, :file, :line
-
-private
-
-  def warn_for_expects
-    Object.__which_expects__ = LookoutExpectsMethod
-    yield
-  ensure
-    Object.__which_expects__ = MochaExpectsMethod
-  end
 end

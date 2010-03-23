@@ -5,7 +5,7 @@ class Lookout::Expectations::Behavior
 
   def execute_in_mocha
     expected.subject!
-    warn_for_expects do
+    Object.warn_for_expects do
       instance_exec expected.subject, &@block if @block
     end
     add_mock_recorders_to_mockery

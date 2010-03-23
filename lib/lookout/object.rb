@@ -1,26 +1,20 @@
 # -*- coding: utf-8 -*-
 
 class Object
-  module MochaExpectsMethod
-    define_method :expects, Object.instance_method(:expects)
-  end
-
-  module LookoutExpectsMethod
-    include MochaExpectsMethod
-
+  include Module.new{
     def expects(*args)
-      Lookout.warn 'expect only one thing per test', caller[2]
+      Lookout.warn 'expect only one thing per test', caller[2] if Object.__lookout_warn_for_expects
       super
     end
-  end
+  }
 
-  include LookoutExpectsMethod
-  include MochaExpectsMethod
+  attr_accessor :__lookout_warn_for_expects
 
-  attr_accessor :__which_expects__
-
-  def expects(*args)
-    (__which_expects__ or MochaExpectsMethod).instance_method(:expects).bind(self).call(*args)
+  def warn_for_expects
+    Object.__lookout_warn_for_expects = true
+    yield
+  ensure
+    Object.__lookout_warn_for_expects = false
   end
 
   def to

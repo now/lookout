@@ -4,7 +4,7 @@ class Lookout::Expectations::State
   include Lookout::Expectation
 
   def execute_in_mocha
-    warn_for_expects do
+    Object.warn_for_expects do
       @actual = @block ? instance_eval(&@block) : false
     end
     mocha_verify
