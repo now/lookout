@@ -56,15 +56,16 @@ private
   end
 
   def exception_message(error)
+    message = error.message.to_str
     case
-    when error.class == RuntimeError && error.message.empty?
+    when error.class == RuntimeError && message.empty?
       'unhandled error'
-    when error.message.empty?
+    when message.empty?
       error.class.name
     when error.class.name.empty?
-      error.message
+      message
     else
-      '%s (%s)' % [error.message.chomp("\n"), error.class.name]
+      '%s (%s)' % [message.chomp("\n"), error.class.name]
     end
   end
 
