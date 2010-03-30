@@ -10,19 +10,58 @@ module Lookout::Literals
 
   def self.equalify(value)
     type = value.class.ancestors.find{ |type| @literals[type] }
-    value.extend @literals[type] if type
+    return @literals[type].new(value) if type
     value
   end
 end
 
-Lookout::Literals.register Module.new{
+module Lookout::Literal
+  def initialize(value)
+    @value = value
+  end
+
+  def inspect
+    @value.inspect
+  end
+
+  def to_s
+    @value.to_s
+  end
+end
+
+Lookout::Literals.register Class.new{
+  include Lookout::Literal
+
   def ==(other)
-    self === other or super
+    @value === other || @value == other
   end
 }, Module, Range, Regexp
 
-Lookout::Literals.register Module.new {
+Lookout::Literals.register Class.new{
+  include Lookout::Literal
+
   def ==(other)
-    super(!!other)
+    @value == !!other
   end
 }, TrueClass, FalseClass
+
+Lookout::Literals.register Class.new{
+  include Lookout::Literal
+
+  def ==(other)
+    return false unless other.is_a? Array and @value.size == other.size
+    @value.each_with_index do |v, i|
+      return false unless Lookout::Literals.equalify(v) == other[i]
+    end
+    true
+  end
+}, Array
+
+Lookout::Literals.register Class.new{
+  include Lookout::Literal
+
+  def ==(other)
+    return false unless other.is_a? Hash and @value.size == other.size
+    @value.all?{ |k, v| Lookout::Literals.equalify(v) == other[k] }
+  end
+}, Hash

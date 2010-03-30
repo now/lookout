@@ -19,7 +19,7 @@ class Lookout::Suite
   def expect(expected, &block)
     file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
 
-    Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
+    expected = Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
 
     if block.nil? and not expected.is_a? Lookout::Recorder
       expected = Lookout::Recorder.new(expected)
