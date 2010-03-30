@@ -12,6 +12,8 @@ class Lookout::Suite
     @do_not_run = false
   end
 
+  alias_method :ignore, :stub_everything
+
   def xml(string)
     Lookout::XML.new(string)
   end

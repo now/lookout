@@ -18,9 +18,7 @@ module Lookout::Expectation
     super
   end
 
-  def ignore
-    stub_everything
-  end
+  alias_method :ignore, :stub_everything
 
   def execute
     mocha_setup

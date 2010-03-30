@@ -27,6 +27,10 @@ module Lookout::Literal
   def to_s
     @value.to_s
   end
+
+  def method_missing(method, *args, &block)
+    @value.send(method, *args, &block)
+  end
 end
 
 Lookout::Literals.register Class.new{
