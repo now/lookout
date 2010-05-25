@@ -28,6 +28,8 @@ module Lookout::Literal
     @value.to_s
   end
 
+private
+
   def method_missing(method, *args, &block)
     @value.send(method, *args, &block)
   end
