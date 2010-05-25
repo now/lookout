@@ -20,6 +20,10 @@ class Lookout::Suite::Results
     all?{ |expectation| expectation.fulfilled? }
   end
 
+  def size
+    @expectations.size
+  end
+
   def fulfillments
     select{ |expectation| expectation.fulfilled? }
   end

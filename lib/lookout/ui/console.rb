@@ -6,19 +6,16 @@ class Lookout::UI::Console
   end
 
   def start
-    print 'Expectations'
   end
 
   def report(result)
-    print case
-    when result.fulfilled? then '.'
-    when result.failure? then 'F'
-    else 'E'
-    end
   end
 
   def summarize(results, time)
-    @io.printf "\nRan for %.3f seconds: %s\n", time,
+    return if results.succeeded?
+    @io.printf "Ran %d expectations in %.3f seconds: %s\n",
+      results.size,
+      time,
       [:errors, :failures, :fulfillments].inject([]){ |result, type|
         next result unless (size = results.send(type).size) > 0
         result << '%d %s' % [size, type]
@@ -44,7 +41,7 @@ private
   def summarize_group(results, type)
     group = results.send(type)
     return if group.empty?
-    @io.printf "\n%s\n%s\n\n", type.to_s.capitalize, '-' * type.to_s.length
+    @io.printf "\n%s\n\n", type.to_s.upcase
     group.each do |item|
       yield item
       @io.puts
