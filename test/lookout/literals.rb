@@ -51,4 +51,12 @@ Expectations do
   expect false do
     Lookout::Literals.equalify(/foo/) == /bar/
   end
+
+  expect false do
+    Lookout::Literals.equalify(Module).eql? RuntimeError
+  end
+
+  expect false do
+    Lookout::Literals.equalify(true).eql? RuntimeError
+  end
 end

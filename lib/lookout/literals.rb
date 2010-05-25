@@ -36,6 +36,10 @@ end
 Lookout::Literals.register Class.new{
   include Lookout::Literal
 
+  def eql?(other)
+    @value.eql? other
+  end
+
   def ==(other)
     @value === other || @value == other
   end
