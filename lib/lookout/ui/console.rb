@@ -33,11 +33,6 @@ class Lookout::UI::Console
 
 private
 
-  def print(string)
-    @io.print string
-    @io.flush
-  end
-
   def summarize_group(results, type)
     group = results.send(type)
     return if group.empty?
