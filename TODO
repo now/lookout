@@ -1,9 +1,27 @@
-delegate! can be replaced with
-def delegate(super)
-  extend Lookout::Recorders::Delegation
-  delegate(method)
-end
-
-and then have delegate in Delegation return self.
-
 Replace mock with mock('mock')?
+
+Thoughts on mocking:
+
+stub(Class).method
+
+reads better than
+
+Class.stubs(:method)
+
+Perhaps even
+
+Class.stub.method
+
+would work, but if we use
+
+stub(Class).method
+
+we won’t have to add methods to Class.
+
+The stubbing will be controlled by the suite and a new registry/space/mockery
+will be created for each expectation.
+
+We also want stubs to be able to act as nil objects, that is, always returning
+themselves (or instances of their class) on calls, so that chaining works.
+
+Also, only allow one expectation per mock, many stubs, though.
