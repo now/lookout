@@ -27,10 +27,6 @@ Expectations do
     Lookout::Expectation.on(String, nil, nil){ Object.no_method }.execute.actual
   end
 
-  Lookout::Expectation.on(nil, nil, nil).to.delegate(:ignore).to(:stub_everything) do |o|
-    o.ignore
-  end
-
   expect Lookout::Recorders::State do
     ''.to.have.to_s == ''
   end

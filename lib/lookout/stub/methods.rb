@@ -5,14 +5,15 @@ class Lookout::Stub::Methods
     @methods = []
   end
 
-  # TODO: Should we do this here, or should this work like #undefine, below?
-  def <<(method)
-    @methods << method.define
+  def define(object, method, &body)
+    @methods << Lookout::Stub::Method.new(object, method, &body).define
+    self
   end
 
   def undefine
     @methods.each do |method|
       method.undefine
     end
+    self
   end
 end

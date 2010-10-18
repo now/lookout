@@ -3,11 +3,8 @@
 class Lookout::Expectations::State
   include Lookout::Expectation
 
-  def execute_in_mocha
-    Object.warn_for_expects do
-      @actual = @block ? instance_eval(&@block) : false
-    end
-    mocha_verify
+  def execute_with_stubs
+    @actual = @block ? instance_eval(&@block) : false
     extend expected == actual ?
       Lookout::Results::Fulfilled :
       Lookout::Results::Failures::State

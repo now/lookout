@@ -13,10 +13,9 @@ class Lookout::Recorder < Lookout::Aphonic
     self
   end
 
-  def receive(method)
+  def receive
     extend Lookout::Recorders::Reception
-    receive! method
-    self
+    receive!
   end
 
   def have
@@ -37,7 +36,7 @@ class Lookout::Recorder < Lookout::Aphonic
     self
   end
 
-  def subject!
+  def subject!(mocks, stubs)
     subject
   end
 end

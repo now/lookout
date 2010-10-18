@@ -35,8 +35,6 @@ EOD
 
   s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*$']
 
-  s.add_runtime_dependency 'mocha', '>= 0.9.8'
-
   s.add_development_dependency 'yard', '>= 0.2.3.5'
 end
 

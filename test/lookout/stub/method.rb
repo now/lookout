@@ -15,6 +15,12 @@ Expectations do
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).define.undefine }.a
   end
 
+=begin
+  expect Class.new{ def a() 1 end }.new.to.have.a.equal?(2) do |o|
+    Lookout::Stub::Method.new(o, :a).define.undefine
+  end
+=end
+
   expect 1 do
     o = Object.new
     class << o; def a() 1 end; end

@@ -20,13 +20,7 @@ module Lookout
   autoload :Utilities, 'lookout/utilities'
   autoload :Version, 'lookout/version'
   autoload :XML, 'lookout/xml'
-
-  def self.warn(message, invoker)
-    Kernel.warn "\n%s: %s" % [invoker.sub(/:in `__instance_exec\d+'$/, ""), message]
-  end
 end
-
-require 'mocha'
 
 require 'lookout/object'
 

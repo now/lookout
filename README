@@ -19,8 +19,6 @@ Lookout is designed to encourage unit testing best practices such as
   - Focus on readability by providing no mechanism for describing an
     expectation other than the code in the expectation.
 
-Mocking is done utilizing Mocha[http://mocha.rubyforge.org].
-
 Lookout is heavily based on {expectations}[http://expectations.rubyforge.org],
 by {Jay Fields}[http://blog.jayfields.com].  Modifications done to the
 expectations code base after Subversion revision r76 are due to

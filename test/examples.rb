@@ -10,16 +10,10 @@ Expectations do
     1 + 1
   end
 
-  # Short form of previous expectation.
-  expect(2) == 1 + 1
-
   # Determine if the result, retrieved through a stub, equals a value.
   expect 2 do
-    stub(:two => 2).two
+    Object.new.tap{ |o| stub(o).two{ 2 } }.two
   end
-
-  # Short form of previous expectation.
-  expect(2) == stub(:two => 2).two
 
   # Match against a Regexp.
   expect /a string/ do
@@ -126,21 +120,21 @@ Expectations do
   # Behavior-based Expectations
 
   # Use a mock to verify that a method is called appropriately.
-  expect mock.to.receive(:dial).with('2125551212').times(2) do |phone|
+  expect mock.to.receive.dial('2125551212').twice do |phone|
     phone.dial('2125551212')
     phone.dial('2125551212')
   end
 
   # Use a stub that ignores all calls to verify that a method is called
   # appropriately.  Any other calls made are ignored.
-  expect stub_everything.to.receive(:dial).with('2125551212').times(2) do |phone|
+  expect stub.to.receive.dial('2125551212').twice do |phone|
     phone.dial('2125551212')
     phone.hangup
     phone.dial('2125551212')
   end
 
   # Use a contrete mock to verify that a method is called.
-  expect Object.to.receive(:deal) do
+  expect Object.to.receive.deal do
     Object.deal
   end
 end

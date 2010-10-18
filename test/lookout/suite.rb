@@ -3,7 +3,6 @@
 require 'lookout'
 
 Expectations do
-
   expect true do
     suite = Lookout::Suite.new
     suite.execute(Lookout::UI::Silent).succeeded?
@@ -20,19 +19,6 @@ Expectations do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }
     suite.execute(Lookout::UI::Silent).succeeded?
-  end
-
-  expect false do
-    suite = Lookout::Suite.new
-    suite.expect(true){ true }
-    suite.expect suite.mock.to.receive(:some_method) do |some_mock|
-      # some_method is not called
-    end
-    suite.execute(Lookout::UI::Silent).succeeded?
-  end
-
-  expect Mocha::Mock do
-    Lookout::Suite.new.mock
   end
 
   expect 3 do
@@ -81,6 +67,7 @@ Expectations do
     suite.expectations.first.file
   end
 
+  # TODO: This local variable here isn’t good.
   expect o = Object.new do
     suite = Lookout::Suite.new
     suite.do_not_run
@@ -91,35 +78,5 @@ Expectations do
     suite = Lookout::Suite.new
     suite.do_not_run
     suite.execute(Lookout::UI::Silent)
-  end
-
-  # Tests for #expect without block
-
-  expect Lookout::Results::Failures::State do
-    suite = Lookout::Suite.new
-    suite.expect(3) == 4
-    suite.execute(Lookout::UI::Silent)
-    suite.expectations.first
-  end
-
-  expect Lookout::Results::Fulfilled do
-    suite = Lookout::Suite.new
-    suite.expect(3) == 3
-    suite.execute(Lookout::UI::Silent)
-    suite.expectations.first
-  end
-
-  expect Lookout::Results::Fulfilled do
-    suite = Lookout::Suite.new
-    suite.expect('foo bar') =~ /foo/
-    suite.execute(Lookout::UI::Silent)
-    suite.expectations.first
-  end
-
-  expect Lookout::Results::Failures::State do
-    suite = Lookout::Suite.new
-    suite.expect('bar') =~ /foo/
-    suite.execute(Lookout::UI::Silent)
-    suite.expectations.first
   end
 end

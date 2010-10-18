@@ -10,10 +10,14 @@ module Lookout::Recorders::Delegation
     self
   end
 
-  def subject!
+  def subject!(mocks, stubs)
     mock = Object.new
-    mock.expects(@method).returns(Expected)
-    subject.stubs(@receiver).returns(mock)
+    mocks.define(mock, @method) do
+      Expected
+    end
+    stubs.define(subject, @receiver) do
+      mock
+    end
     subject
   end
 
@@ -26,7 +30,7 @@ module Lookout::Recorders::Delegation
       [subject, @method, subject, @receiver, @method, @result]
   end
 
-  def mocha_error_message(error)
+  def mocking_error_message(error)
     'expected %s to delegate %s to %s; however, %s.%s was never called: %s' %
       [subject, @method, @receiver, subject, @method, error]
   end

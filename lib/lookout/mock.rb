@@ -1,40 +1,41 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Mock
-  autoload :API, 'lookout/mock/api'
   autoload :Method, 'lookout/mock/method'
   autoload :Methods, 'lookout/mock/methods'
   autoload :Object, 'lookout/mock/object'
 
   Error = Class.new(StandardError)
 
-  class << self
-    include API
-
-    def ing(&block)
-      instance_eval(&block).tap{ verify }
-    ensure
-      reset
+  # TODO: Rename to Methods.
+  class Store
+    def initialize
+      @method = nil
     end
 
-    # TODO: Only allow one method to be mocked.  We only want one thing to be
-    # verified in each test, so that makes sense.
-    def method(object, method, *args, &block)
-      Method.new(object, method, *args, &block).tap{ |m| methods << m }
+    def define(object, method, *args, &block)
+      # TODO: Improve on this error class/message.
+      raise RuntimeError, 'mock already established' if defined? @method and @method
+      @method = Method.new(object, method, *args, &block).define
     end
 
     def verify
-      methods.verify
+      @method.verify if @method
+      self
     end
 
-    def reset
-      @methods = Methods.new
+    def undefine
+      @method.undefine if @method
+      self
     end
+  end
 
-  private
-
-    def methods
-      @methods ||= Methods.new
+  class << self
+    def ing
+      store = Store.new
+      yield store
+    ensure
+      store.undefine
     end
   end
 end
