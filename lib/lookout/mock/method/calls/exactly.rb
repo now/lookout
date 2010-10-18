@@ -13,7 +13,7 @@ class Lookout::Mock::Method::Calls::Exactly
   format  2,  0, 'expected %s to be called twice'
   format  2,  1, 'expected %s to be called twice, but was only called once'
   format  2, -1, 'expected %s to be called twice, not %d times'
-  format -1, -1, 'expected %s to be called %d times, not %d times'
+  format(-1, -1, 'expected %s to be called %d times, not %d times')
 
   def initialize(method, limit)
     raise ArgumentError, 'limit must be >= 0' unless limit >= 0

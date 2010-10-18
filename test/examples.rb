@@ -15,8 +15,9 @@ Expectations do
     Object.new.tap{ |o| stub(o).two{ 2 } }.two
   end
 
-  # Match against a Regexp.
-  expect /a string/ do
+  # Match against a Regexp.  Please note the use of parentheses to silence
+  # warnings.
+  expect(/a string/) do
     "a string"
   end
 

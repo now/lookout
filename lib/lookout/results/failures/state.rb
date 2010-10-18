@@ -5,6 +5,7 @@ module Lookout::Results::Failures::State
 
   is :failure
 
+  undef message
   def message
     return @message if instance_variable_defined? :@message and @message
     result = '%p≠%p' % [actual, expected]

@@ -34,7 +34,7 @@ class Lookout::Stub::Method
   end
 
   def call(*args)
-    yield *@yield.next if block_given?
+    yield(*@yield.next) if block_given?
     @body.call(*args)
   end
 
@@ -52,7 +52,7 @@ private
       alias_method stash, method if
         method_defined? method or private_method_defined? method
       define_method method do |*args, &block|
-        stub.call *args, &block
+        stub.call(*args, &block)
       end
       send visibility, method
     end

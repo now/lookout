@@ -40,6 +40,7 @@ end
 
 Rake::TestTask.new do |t|
   t.libs << 'test'
+  t.ruby_opts << '-w'
   t.pattern = 'test/**/*.rb'
 end
 
