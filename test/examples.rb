@@ -18,7 +18,7 @@ Expectations do
   # Match against a Regexp.  Please note the use of parentheses to silence
   # warnings.
   expect(/a string/) do
-    "a string"
+    'a string'
   end
 
   # Match inside a Range.
@@ -33,7 +33,7 @@ Expectations do
 
   # Verify that the result is a String.
   expect String do
-    "a string"
+    'a string'
   end
 
   # Determine equality of modules.

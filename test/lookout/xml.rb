@@ -3,36 +3,36 @@
 require 'lookout'
 
 Expectations do
-  expect Lookout::XML.new("<foo>bar</foo>").to.be.==("<foo>bar</foo>")
-  expect Lookout::XML.new("<foo>not bar</foo>").not.to.be.==("<foo>bar</foo>")
-  expect Lookout::XML.new("<not-foo>bar</not-foo>").not.to.be.==("<foo>bar</foo>")
+  expect Lookout::XML.new('<foo>bar</foo>').to.be.==('<foo>bar</foo>')
+  expect Lookout::XML.new('<foo>not bar</foo>').not.to.be.==('<foo>bar</foo>')
+  expect Lookout::XML.new('<not-foo>bar</not-foo>').not.to.be.==('<foo>bar</foo>')
 
   expect true do
-    Lookout::XML.new("<foo>bar</foo>") == "  <foo>bar</foo>  "
+    Lookout::XML.new('<foo>bar</foo>') == '  <foo>bar</foo>  '
   end
 
   expect true do
-    Lookout::XML.new("  <foo>bar</foo>  ") == "<foo>bar</foo>"
+    Lookout::XML.new('  <foo>bar</foo>  ') == '<foo>bar</foo>'
   end
 
   expect true do
-    Lookout::XML.new("<foo>bar</foo>") == "<foo>bar</foo>\n"
+    Lookout::XML.new('<foo>bar</foo>') == "<foo>bar</foo>\n"
   end
 
   expect true do
-    Lookout::XML.new("\n<foo>bar</foo>") == "<foo>bar</foo>"
+    Lookout::XML.new("\n<foo>bar</foo>") == '<foo>bar</foo>'
   end
 
   expect true do
-    Lookout::XML.new("\t<foo>bar</foo>") == "<foo>bar</foo>"
+    Lookout::XML.new("\t<foo>bar</foo>") == '<foo>bar</foo>'
   end
 
   expect true do
-    Lookout::XML.new("<foo>bar</foo>") == "<foo>bar</foo>\t"
+    Lookout::XML.new('<foo>bar</foo>') == "<foo>bar</foo>\t"
   end
 
   expect true do
-    Lookout::XML.new("<a>\n<foo>bar</foo>") == "<a><foo>bar</foo>"
+    Lookout::XML.new("<a>\n<foo>bar</foo>") == '<a><foo>bar</foo>'
   end
 
   expect true do
@@ -44,7 +44,7 @@ Expectations do
   end
 
   expect true do
-    Lookout::XML.new("<fragment>content</fragment>") == "<container><fragment>content</fragment></container>"
+    Lookout::XML.new('<fragment>content</fragment>') == '<container><fragment>content</fragment></container>'
   end
 
   expect true do

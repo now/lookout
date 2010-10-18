@@ -12,7 +12,7 @@ class Lookout::Expectations::State
     return extend(Lookout::Results::Fulfilled) if expected.eql? e.class
     extend Lookout::Results::Error
     @exception = e
-    @message = "%p≠%p" % [e.class, expected] if expected.is_a? Class and expected < StandardError
+    @message = '%p≠%p' % [e.class, expected] if expected.is_a? Class and expected < StandardError
   end
 
   attr_reader :actual

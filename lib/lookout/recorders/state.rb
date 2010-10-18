@@ -11,7 +11,7 @@ module Lookout::Recorders::State
   end
 
   def message
-    "expected #{subject} #{description.join(' ')}"
+    'expected %s %s' % [subject, description.join(' ')]
   end
 
 private

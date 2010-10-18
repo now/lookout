@@ -40,7 +40,7 @@ class Lookout::Suite
     return results if @do_not_run
     ui.start
     ui.summarize results, Benchmark.realtime{
-      expectations_for(ENV["LINE"]).each do |expectation|
+      expectations_for(ENV['LINE']).each do |expectation|
         result = expectation.execute
         ui.report result
         results << result

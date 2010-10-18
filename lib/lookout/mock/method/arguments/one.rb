@@ -6,6 +6,6 @@ class Lookout::Mock::Method::Arguments::Any
   end
 
   def to_s
-    "arg"
+    'arg'
   end
 end
