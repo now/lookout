@@ -5,11 +5,11 @@ class Lookout::Recorder < Lookout::Aphonic
 
   def initialize(subject)
     @subject = subject
+    @negated = false
   end
 
   def not
-    extend Lookout::Negated, Lookout::Recorders::State
-    description << 'not'
+    @negated = true
     self
   end
 
@@ -20,12 +20,14 @@ class Lookout::Recorder < Lookout::Aphonic
 
   def have
     extend Lookout::Recorders::State
+    negate if @negated
     description << 'to have'
     self
   end
 
   def be
     extend Lookout::Recorders::State
+    negate if @negated
     description << 'to be'
     self
   end

@@ -17,7 +17,7 @@ module Lookout::Recorders::Reception
 private
 
   def receive!
-    @method = MethodRecorder.new(self)
+    @method = MethodRecorder.new(self, @negated)
   end
 
   def methods
@@ -31,8 +31,8 @@ private
   end
 
   class MethodRecorder < Lookout::Aphonic
-    def initialize(recorder)
-      @recorder = recorder
+    def initialize(recorder, negated)
+      @recorder, @negated = recorder, negated
     end
 
     def method_missing(method, *args, &body)
@@ -41,7 +41,7 @@ private
     end
 
     def define(mocks)
-      mocks.define(@recorder.subject, @method, *@args, &@body)
+      mocks.define(@recorder.subject, @method, *@args, &@body).tap{ |m| m.never if @negated }
     end
   end
 end

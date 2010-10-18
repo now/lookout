@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::State
+  def negate
+    extend Lookout::Negated
+    description << 'not'
+  end
+
   def verify
     methods.play_for(subject)
   end
