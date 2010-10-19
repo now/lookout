@@ -21,7 +21,7 @@ private
   end
 
   def methods
-    @methods ||= Lookout::Tape.new
+    @methods ||= Lookout::Recorder::Tape.new
   end
 
   def method_missing(method, *args, &block)

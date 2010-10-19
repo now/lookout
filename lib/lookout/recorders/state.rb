@@ -19,7 +19,7 @@ module Lookout::Recorders::State
 private
 
   def methods
-    @methods ||= Lookout::Tape.new
+    @methods ||= Lookout::Recorder::Tape.new
   end
 
   def description

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Tape
+class Lookout::Recorder::Tape
   Method = Struct.new(:name, :args)
 
   def initialize

@@ -6,6 +6,6 @@ class Object
   end
 
   def not
-    Lookout::Not.new(self)
+    Lookout::Recorder::Not.new(self)
   end
 end
