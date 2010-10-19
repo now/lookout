@@ -7,7 +7,6 @@ class Lookout::Mock::Method < Lookout::Stub::Method
   def initialize(object, method, *args, &body)
     super object, method, &body
     @args = Arguments.new(*args)
-    # TODO: Should this be #once?
     at_least_once
   end
 
