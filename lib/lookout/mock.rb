@@ -35,7 +35,7 @@ module Lookout::Mock
       store = Store.new
       yield store
     ensure
-      store.undefine
+      store.undefine if store
     end
   end
 end

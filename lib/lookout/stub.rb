@@ -11,7 +11,7 @@ module Lookout::Stub
       methods = Methods.new
       yield methods
     ensure
-      methods.undefine
+      methods.undefine if methods
     end
   end
 end
