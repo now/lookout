@@ -59,7 +59,7 @@ class Lookout::Mock::Method < Lookout::Stub::Method
   end
 
   def to_s
-    '%s.%s%s' % [@object.inspect, @method, @args]
+    '%p.%s%p' % [@object, @method, @args]
   end
 
 private

@@ -2,15 +2,14 @@
 
 class Lookout::Mock::Method::Arguments::List
   def initialize(args)
-    # TODO: Look for any regexes to match against
-    @args = args
+    @args = args.map{ |arg| Lookout::Literals.equalify(arg) }
   end
 
   def ==(other)
     @args == other
   end
 
-  def to_s
-    @args.map(&:to_s).join(', ')
+  def inspect
+    @args.map{ |arg| arg.inspect }.join(', ')
   end
 end

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method::Arguments::Any
+class Lookout::Mock::Method::Arguments::Anything
   def ==(other)
     true
   end
 
   def inspect
-    '*args, &block'
+    'arg'
   end
 end

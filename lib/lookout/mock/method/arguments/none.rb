@@ -5,7 +5,7 @@ class Lookout::Mock::Method::Arguments::None
     other.empty?
   end
 
-  def to_s
+  def inspect
     ""
   end
 end

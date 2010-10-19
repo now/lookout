@@ -5,7 +5,7 @@ class Lookout::Mock::Method::Arguments::Any
     other.count == 1
   end
 
-  def to_s
+  def inspect
     'arg'
   end
 end

@@ -136,4 +136,20 @@ Expectations do
   expect Object.to.receive.deal do
     Object.deal
   end
+
+  # Expect a new object to receive #deal with any arguments.
+  expect Object.new.to.receive.deal do |o|
+    o.deal(1, 2, 3)
+  end
+
+  # Expect a new object to receive #deal without arguments.
+  expect Object.new.to.receive.deal(without_arguments) do |o|
+    o.deal
+  end
+
+  # Expect a new object to receive #deal with any argument, 1, and any
+  # argument.
+  expect Object.new.to.receive.deal(arg, 1, arg) do |o|
+    o.deal :a, 1, :b
+  end
 end
