@@ -10,6 +10,10 @@ class Lookout::Stub::Object < Lookout::Aphonic
     Lookout::Not.new(self)
   end
 
+  def inspect
+    'stub'
+  end
+
   def respond_to?(method, include_private = false)
     true
   end

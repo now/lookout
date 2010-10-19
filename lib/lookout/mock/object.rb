@@ -8,6 +8,11 @@ class Lookout::Mock::Object < Lookout::Aphonic
   def not
     Lookout::Not.new(self)
   end
+
+  def inspect
+    'mock'
+  end
+
 =begin
   def method_missing(method, *args, &block)
     # TODO: Report unexpected invocation errors.
