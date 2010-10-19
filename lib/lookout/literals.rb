@@ -28,6 +28,10 @@ module Lookout::Literal
     @value.to_s
   end
 
+  def is_a?(type)
+    @value.is_a?(type)
+  end
+
 private
 
   def method_missing(method, *args, &block)
