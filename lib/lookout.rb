@@ -6,7 +6,6 @@ module Lookout
   autoload :Expectations, 'lookout/expectations'
   autoload :Literals, 'lookout/literals'
   autoload :Mock, 'lookout/mock'
-  autoload :Negated, 'lookout/negated'
   autoload :Not, 'lookout/not'
   autoload :Recorder, 'lookout/recorder'
   autoload :Recorders, 'lookout/recorders'

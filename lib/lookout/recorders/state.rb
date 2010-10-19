@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::State
+  autoload :Negated, 'lookout/recorders/state/negated'
+
   def negate
-    extend Lookout::Negated
+    extend Negated
     description << 'not'
   end
 
