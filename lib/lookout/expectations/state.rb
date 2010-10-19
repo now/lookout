@@ -4,7 +4,7 @@ class Lookout::Expectations::State
   include Lookout::Expectation
 
   def execute_with_stubs
-    @actual = @block ? instance_eval(&@block) : false
+    @actual = @block ? instance_exec(expected, &@block) : false
     extend expected == actual ?
       Lookout::Results::Fulfilled :
       Lookout::Results::Failures::State

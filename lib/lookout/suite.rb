@@ -24,9 +24,9 @@ class Lookout::Suite
 
   def expect(expected, &block)
     file, colon, line = *caller.first.rpartition(':')
-    Lookout::Literals.equalify(expected){ |equalified|
-      expectations << Lookout::Expectation.on(equalified, file, line, &block)
-    }
+    expected = Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
+    expectations << Lookout::Expectation.on(expected, file, line, &block)
+    expected
   end
 
   def do_not_run
