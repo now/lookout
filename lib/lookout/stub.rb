@@ -7,7 +7,7 @@ module Lookout::Stub
   autoload :Object, 'lookout/stub/object'
 
   class << self
-    def bing
+    def methods
       methods = Methods.new
       yield methods
     ensure

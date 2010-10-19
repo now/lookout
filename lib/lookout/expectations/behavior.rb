@@ -4,7 +4,7 @@ class Lookout::Expectations::Behavior
   include Lookout::Expectation
 
   def execute_with_stubs
-    Lookout::Mock.ing do |mocks|
+    Lookout::Mock.methods do |mocks|
       expected.subject! mocks, @stubs
       instance_exec expected.subject, &@block if @block
       if expected.verify and mocks.verify

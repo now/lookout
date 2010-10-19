@@ -12,7 +12,7 @@ module Lookout::Expectation
   end
 
   def execute
-    Lookout::Stub.bing do |@stubs|
+    Lookout::Stub.methods do |@stubs|
       execute_with_stubs
     end
     @stubs = nil
