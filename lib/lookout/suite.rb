@@ -23,10 +23,10 @@ class Lookout::Suite
   end
 
   def expect(expected, &block)
-    file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
-    expected = Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
-    expectations << Lookout::Expectation.on(expected, file, line, &block)
-    expected
+    file, colon, line = *caller.first.rpartition(':')
+    Lookout::Literals.equalify(expected){ |equalified|
+      expectations << Lookout::Expectation.on(equalified, file, line, &block)
+    }
   end
 
   def do_not_run

@@ -9,6 +9,7 @@ module Lookout::Literals
   end
 
   def self.equalify(value)
+    return value if value.is_a? Lookout::Recorder
     type = value.class.ancestors.find{ |type| @literals[type] }
     return @literals[type].new(value) if type
     value
