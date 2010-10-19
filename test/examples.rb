@@ -93,14 +93,12 @@ Expectations do
   # State-based Fluent Boolean Expectations
 
   # Expect an object to “be” something.
-  klass = Class.new{ attr_accessor :running }
-  expect klass.new.to.be.running do |process|
+  expect(Class.new{ attr_accessor :running }.new.to.be.running) do |process|
     process.running = true
   end
 
   # Expect an object to “have” something.
-  klass = Class.new{ attr_accessor :finished }
-  expect klass.new.to.have.finished do |process|
+  expect(Class.new{ attr_accessor :finished }.new.to.have.finished) do |process|
     process.finished = true
   end
 
