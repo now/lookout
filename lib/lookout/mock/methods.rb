@@ -2,9 +2,12 @@
 
 class Lookout::Mock::Methods < Lookout::Stub::Methods
   def define(object, method, *args, &block)
-    # TODO: Improve on this error class/message.
-    raise RuntimeError, 'mock already established' unless @methods.empty?
-    Lookout::Mock::Method.new(object, method, *args, &block).define.tap{ |m| @methods << m }
+    method = Lookout::Mock::Method.new(object, method, *args, &block)
+    raise RuntimeError,
+      '%s: cannot create mock as a mock has already been created: %s' %
+        [method, @methods.first] unless @methods.empty?
+    @methods << method.define
+    method
   end
 
   def verify
