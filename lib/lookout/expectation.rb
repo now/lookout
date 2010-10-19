@@ -22,14 +22,14 @@ module Lookout::Expectation
   def stub(*args)
     raise ArgumentError,
       'wrong number of arguments (%d for 1)' % args.length unless args.count < 2
-    args.length > 0 ? MethodRecorder.new(@stubs, args[0]) : Lookout::Stub::Object.new
+    args.length > 0 ? Method.new(@stubs, args[0]) : Lookout::Stub::Object.new
   end
 
   attr_reader :expected, :file, :line
 
 private
 
-  class MethodRecorder < Lookout::Aphonic
+  class Method < Lookout::Aphonic
     undef extend
     undef is_a?
 

@@ -2,22 +2,19 @@
 
 module Lookout::Recorders::Reception
   def subject!(mocks, stubs)
-    methods.play_for @method.define(mocks)
+    @mock = @method.define(mocks)
+    methods.play_for @mock
     subject
   end
 
   def verify
-    true
-  end
-
-  def mocking_error_message(error)
-    error.message
+    @mock.verify
   end
 
 private
 
   def receive!
-    @method = MethodRecorder.new(self, @negated)
+    @method = Method.new(self, @negated)
   end
 
   def methods
@@ -30,7 +27,7 @@ private
     self
   end
 
-  class MethodRecorder < Lookout::Aphonic
+  class Method < Lookout::Aphonic
     undef extend
     undef is_a?
 

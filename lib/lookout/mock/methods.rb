@@ -9,11 +9,4 @@ class Lookout::Mock::Methods < Lookout::Stub::Methods
     @methods << method.define
     method
   end
-
-  def verify
-    @methods.each do |method|
-      method.verify
-    end
-    self
-  end
 end

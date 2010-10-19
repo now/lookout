@@ -7,18 +7,15 @@ class Lookout::Expectations::Behavior
     Lookout::Mock.methods do |mocks|
       expected.subject! mocks, @stubs
       instance_exec expected.subject, &@block if @block
-      if expected.verify and mocks.verify
-        extend Lookout::Results::Fulfilled
-      else
-        @message = expected.message
-        extend Lookout::Results::Failures::State
-      end
+      expected.verify
     end
+    extend Lookout::Results::Fulfilled
+  rescue Lookout::Recorders::State::Error => e
+    extend Lookout::Results::Failures::State
+    @message = e.message
   rescue Lookout::Mock::Error => e
     extend Lookout::Results::Failures::Behavior
-    # TODO: Abolish this.  If delegation expectations need to go, so be it.
-    # TODO: Delegation should throw error.
-    @message = expected.mocking_error_message(e)
+    @message = e.message
   rescue Exception => e
     extend Lookout::Results::Error
     @exception = e

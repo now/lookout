@@ -4,13 +4,4 @@ module Lookout::Results::Failures::State
   extend Lookout::Result
 
   is :failure
-
-  undef message
-  def message
-    return @message if instance_variable_defined? :@message and @message
-    result = '%p≠%p' % [actual, expected]
-    diff = Lookout::Utilities.diff(expected, actual)
-    result << ': ' << diff if diff
-    result
-  end
 end

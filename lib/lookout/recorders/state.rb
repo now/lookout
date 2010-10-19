@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::State
-  autoload :Negated, 'lookout/recorders/state/negated'
-
-  def negate
-    extend Negated
-    description << 'not'
-  end
+  Error = Class.new(StandardError)
 
   def verify
-    methods.play_for(subject)
-  end
-
-  def message
-    'expected %s %s' % [subject, description.join(' ')]
+    methods.play_for(subject) ^ @negated or
+      raise Error,
+        case [@negated, @verb]
+        when [true, :be]    then 'expected %p not to be %s'
+        when [true, :have]  then 'expected %p not to have %s'
+        when [false, :be]   then 'expected %p to be %s'
+        when [false, :have] then 'expected %p to have %s'
+        end % [subject, description.join(' ')]
   end
 
 private

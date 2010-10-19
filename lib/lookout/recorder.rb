@@ -21,17 +21,15 @@ class Lookout::Recorder < Lookout::Aphonic
     receive!
   end
 
-  def have
+  def be
     extend Lookout::Recorders::State
-    negate if @negated
-    description << 'to have'
+    @verb = :be
     self
   end
 
-  def be
+  def have
     extend Lookout::Recorders::State
-    negate if @negated
-    description << 'to be'
+    @verb = :have
     self
   end
 

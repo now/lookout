@@ -5,9 +5,15 @@ class Lookout::Expectations::State
 
   def execute_with_stubs
     @actual = @block ? instance_exec(expected, &@block) : false
-    extend expected == actual ?
-      Lookout::Results::Fulfilled :
-      Lookout::Results::Failures::State
+    if expected == actual
+      extend Lookout::Results::Fulfilled
+    else
+      extend Lookout::Results::Failures::State
+      @message = ('%p≠%p' % [actual, expected]).tap{ |message|
+        diff = Lookout::Utilities.diff(expected, actual)
+        message << ': ' << diff if diff
+      }
+    end
   rescue Exception => e
     return extend(Lookout::Results::Fulfilled) if expected.eql? e.class
     extend Lookout::Results::Error
