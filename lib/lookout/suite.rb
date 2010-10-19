@@ -24,11 +24,8 @@ class Lookout::Suite
 
   def expect(expected, &block)
     file, line = *caller.first.match(/\A(.+):(\d+)/)[1..2]
-
     expected = Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
-
     expectations << Lookout::Expectation.on(expected, file, line, &block)
-
     expected
   end
 
@@ -41,9 +38,7 @@ class Lookout::Suite
     ui.start
     ui.summarize results, Benchmark.realtime{
       expectations_for(ENV['LINE']).each do |expectation|
-        result = expectation.execute
-        ui.report result
-        results << result
+        results << expectation.execute.tap{ |result| ui.report result }
       end
     }
     results
