@@ -15,19 +15,10 @@ Expectations do
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).define.undefine }.a
   end
 
-=begin
-  expect Class.new{ def a() 1 end }.new.to.have.a.equal?(2) do |o|
+  expect Class.new{ def a() 1 end }.new.to.have.a.equal?(1) do |o|
     Lookout::Stub::Method.new(o, :a).define.undefine
   end
-=end
 
-  expect 1 do
-    o = Object.new
-    class << o; def a() 1 end; end
-    Lookout::Stub::Method.new(o, :a).define.undefine
-    o.a
-  end
-  
   # NOTE: Ruby returs NoMethodError when trying to invoke private methods.
   expect NoMethodError do
     o = Object.new
