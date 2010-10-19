@@ -67,8 +67,7 @@ Expectations do
     suite.expectations.first.file
   end
 
-  # TODO: This local variable here isn’t good.
-  expect o = Object.new do
+  expect Object.new do |o|
     suite = Lookout::Suite.new
     suite.do_not_run
     suite.execute(Lookout::UI::Silent, o)
