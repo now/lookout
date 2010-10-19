@@ -21,12 +21,11 @@ class Lookout::UI::Console
         result << '%d %s' % [size, type]
       }.join(', ')
     summarize_group results, :errors do |error|
-      print_message error.file, error.line, exception_message(error.exception)
-      print_backtrace error.exception.backtrace
-      @io.puts error.message if error.message and not error.message.empty?
+      result error, error.message, exception_message(error.exception)
+      backtrace error.exception.backtrace
     end
     summarize_group results, :failures do |failure|
-      print_message failure.file, failure.line, failure.message
+      result failure, failure.message
     end
     @io.flush
   end
@@ -43,8 +42,8 @@ private
     end
   end
 
-  def print_message(file, line, message)
-    @io.printf "%s:%d: %s\n", file, line, message
+  def result(result, *parts)
+    @io.printf "%s:%d: %s\n", result.file, result.line, parts.join(': ')
   end
 
   def exception_message(error)
@@ -61,7 +60,7 @@ private
     end
   end
 
-  def print_backtrace(trace)
+  def backtrace(trace)
     @io.puts [
       %r{/lib/ruby/},
       %r{lib/lookout/}
