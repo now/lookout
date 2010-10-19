@@ -43,7 +43,7 @@ private
   end
 
   def result(result, *parts)
-    @io.printf "%s:%d: %s\n", result.file, result.line, parts.join(': ')
+    @io.printf "%s:%d: %s\n", result.file, result.line, parts.compact.join(': ')
   end
 
   def exception_message(error)
