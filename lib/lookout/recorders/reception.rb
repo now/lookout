@@ -31,6 +31,9 @@ private
   end
 
   class MethodRecorder < Lookout::Aphonic
+    undef extend
+    undef is_a?
+
     def initialize(recorder, negated)
       @recorder, @negated = recorder, negated
     end

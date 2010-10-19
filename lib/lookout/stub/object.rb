@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# TODO: This class should respond to #inspect.
-class Lookout::Stub::Object < Lookout::Aphonic
-  def to
-    Lookout::Recorder.new(self)
-  end
-
-  def not
-    Lookout::Not.new(self)
-  end
-
+class Lookout::Stub::Object
   def inspect
     'stub'
   end

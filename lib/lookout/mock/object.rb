@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Object < Lookout::Aphonic
+  undef extend
+  undef is_a?
+
   def to
     Lookout::Recorder.new(self)
   end
@@ -13,9 +16,8 @@ class Lookout::Mock::Object < Lookout::Aphonic
     'mock'
   end
 
-=begin
   def method_missing(method, *args, &block)
-    # TODO: Report unexpected invocation errors.
+    raise Lookout::Mock::Method::Calls::Error,
+      'unexpected call to %s' % Lookout::Mock::Method.new(self, method)
   end
-=end
 end

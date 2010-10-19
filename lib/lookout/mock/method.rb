@@ -4,8 +4,8 @@ class Lookout::Mock::Method < Lookout::Stub::Method
   autoload :Arguments, 'lookout/mock/method/arguments'
   autoload :Calls, 'lookout/mock/method/calls'
 
-  def initialize(object, method, *args)
-    super object, method
+  def initialize(object, method, *args, &body)
+    super object, method, &body
     @args = Arguments.new(*args)
     # TODO: Should this be #once?
     at_least_once

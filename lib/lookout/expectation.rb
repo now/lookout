@@ -30,6 +30,9 @@ module Lookout::Expectation
 private
 
   class MethodRecorder < Lookout::Aphonic
+    undef extend
+    undef is_a?
+
     def initialize(stubs, object)
       @stubs, @object = stubs, object
     end
