@@ -26,38 +26,38 @@ Expectations do
     suite.expect(1){ 2 }
     suite.expect(1){ 2 }
     suite.expect(1){ 2 }
-    suite.expectations_for(nil).size
+    suite.count
   end
 
   expect 1 do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }
     suite.expect(1){ 2 }
-    suite.expectations_for(__LINE__ - 1).size
+    suite.each(__LINE__ - 1).count
   end
 
   expect __LINE__ + 2 do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }
-    suite.expectations.first.line
+    suite.first.line
   end
 
   expect __LINE__ + 2 do
     suite = Lookout::Suite.new
     suite.expect(1){ raise }
-    suite.expectations.first.line
+    suite.first.line
   end
 
   expect __FILE__ do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }
-    suite.expectations.first.file
+    suite.first.file
   end
 
   expect __FILE__ do
     suite = Lookout::Suite.new
     suite.expect(1){ raise }
-    suite.expectations.first.file
+    suite.first.file
   end
 
   expect Object.new do |o|

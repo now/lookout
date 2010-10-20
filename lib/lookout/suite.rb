@@ -5,6 +5,8 @@ require 'benchmark'
 class Lookout::Suite
   autoload :Results, 'lookout/suite/results'
 
+  include Enumerable
+
   def initialize
     @expectations = []
     @do_not_run = false
@@ -33,7 +35,7 @@ class Lookout::Suite
   def expect(expected, &block)
     file, colon, line = *caller.first.rpartition(':')
     expected = Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
-    expectations << Lookout::Expectation.on(expected, file, line, &block)
+    @expectations << Lookout::Expectation.on(expected, file, line, &block)
     expected
   end
 
@@ -45,17 +47,23 @@ class Lookout::Suite
     return results if @do_not_run
     ui.start
     ui.summarize results, Benchmark.realtime{
-      expectations_for(ENV['LINE']).each do |expectation|
+      each(ENV['LINE'] ? ENV['LINE'].to_i : nil) do |expectation|
         results << expectation.execute.tap{ |result| ui.report result }
       end
     }
     results
   end
 
-  def expectations_for(line)
-    return expectations if line.nil?
-    Array(expectations.inject{ |result, expectation| expectation.line > line.to_i ? result : expectation })
+  def each(line = nil)
+    return Enumerable::Enumerator.new(self, :each, line) unless block_given?
+    if line
+      expectation = @expectations.reverse.find{ |e| e.line <= line } and
+        yield expectation
+    else
+      @expectations.each do |expectation|
+        yield expectation
+      end
+    end
+    self
   end
-
-  attr_reader :expectations
 end
