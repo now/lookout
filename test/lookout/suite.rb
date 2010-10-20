@@ -36,13 +36,6 @@ Expectations do
     suite.expectations_for(__LINE__ - 1).size
   end
 
-  expect :expected do
-    suite = Lookout::Suite.new
-    suite.expect(1){ 2 }
-    suite.expect(:expected) { 2 }
-    suite.expectations_for(__LINE__ - 1).first.expected
-  end
-
   expect __LINE__ + 2 do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }

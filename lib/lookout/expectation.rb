@@ -25,7 +25,7 @@ module Lookout::Expectation
     args.length > 0 ? Method.new(@stubs, args[0]) : Lookout::Stub::Object.new
   end
 
-  attr_reader :expected, :file, :line
+  attr_reader :file, :line
 
 private
 
