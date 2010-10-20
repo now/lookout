@@ -23,10 +23,6 @@ Expectations do
     Lookout::Expectation.on(NoMethodError, nil, nil){ Object.no_method }.execute
   end
 
-  expect nil do
-    Lookout::Expectation.on(String, nil, nil){ Object.no_method }.execute.actual
-  end
-
   expect Lookout::Recorders::State do
     ''.to.have.to_s == ''
   end

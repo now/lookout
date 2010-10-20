@@ -4,7 +4,7 @@ class Lookout::Expectations::State
   include Lookout::Expectation
 
   def execute_with_stubs
-    @actual = @block ? instance_exec(expected, &@block) : false
+    actual = @block ? instance_exec(expected, &@block) : false
     if expected == actual
       extend Lookout::Results::Fulfilled
     else
@@ -20,6 +20,4 @@ class Lookout::Expectations::State
     @exception = e
     @message = '%p≠%p' % [e.class, expected] if expected.is_a? Class and expected < StandardError
   end
-
-  attr_reader :actual
 end
