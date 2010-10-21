@@ -2,9 +2,9 @@
 
 module Lookout
   autoload :Aphonic, 'lookout/aphonic'
+  autoload :Equality, 'lookout/equality'
   autoload :Expectation, 'lookout/expectation'
   autoload :Expectations, 'lookout/expectations'
-  autoload :Literals, 'lookout/literals'
   autoload :Mock, 'lookout/mock'
   autoload :Recorder, 'lookout/recorder'
   autoload :Recorders, 'lookout/recorders'

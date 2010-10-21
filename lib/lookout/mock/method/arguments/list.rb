@@ -2,11 +2,11 @@
 
 class Lookout::Mock::Method::Arguments::List
   def initialize(args)
-    @args = args.map{ |arg| Lookout::Literals.equalify(arg) }
+    @args = args
   end
 
   def ==(other)
-    @args == other
+    Lookout::Equality.equal?(@args, other)
   end
 
   def inspect

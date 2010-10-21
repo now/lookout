@@ -152,4 +152,12 @@ Expectations do
   expect Object.new.to.receive.deal(arg, 1, arg) do |o|
     o.deal :a, 1, :b
   end
+
+  expect StandardError.new('message') do
+    raise StandardError.new('message')
+  end
+
+  expect StandardError.new(/mess/) do
+    raise StandardError.new('message')
+  end
 end

@@ -33,8 +33,7 @@ class Lookout::Suite
   end
 
   def expect(expected, &block)
-    file, colon, line = *caller.first.rpartition(':')
-    expected = Lookout::Literals.equalify(expected) unless expected.is_a? Lookout::Recorder
+    file, colon, line = caller.first.rpartition(':')
     @expectations << Lookout::Expectation.on(expected, file, line, &block)
     expected
   end
