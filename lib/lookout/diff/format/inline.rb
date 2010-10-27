@@ -20,7 +20,7 @@ private
   class ToS
     def initialize(from, to, operations)
       @from, @to = from, to
-      @to_s = operations.same? ? '' : operations.map{ |o| o.apply(self) }.join('')
+      @to_s = operations.map{ |o| o.apply(self) }.join('').freeze
     end
 
     def delete(operation)

@@ -25,12 +25,6 @@ class Lookout::Diff::Operations
     self
   end
 
-  def same?
-    return false if operations.size != 1
-    operation = operations.first
-    operation.is_a? Equal and operation.from == operation.to
-  end
-
 private
 
   def operations

@@ -3,7 +3,7 @@
 require 'lookout'
 
 Expectations do
-  expect '' do
+  expect 'one two three' do
     Lookout::Diff::Format::Inline.diff('one two three',
                                        'one two three')
   end

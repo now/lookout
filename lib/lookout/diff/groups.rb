@@ -21,7 +21,11 @@ class Lookout::Diff::Groups
   end
 
   def same?
-    @operations.same?
+    return false if groups.size != 1
+    operations = groups.first
+    return false if operations.size != 1
+    operation = operations.first
+    operation.is_a? Lookout::Diff::Operations::Equal and operation.from == operation.to
   end
 
 private
