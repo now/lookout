@@ -10,17 +10,6 @@ class Lookout::Diff::Algorithm::Difflib
   end
 
   def each
-    matches.each do |match|
-      yield match
-    end
-    self
-  end
-
-private
-
-  def matches
-    return @matches if defined? @matches
-    matches = []
     stack = [Position.origin(@from, @to, &@is_junk)]
     until stack.empty?
       case item = stack.pop
@@ -31,9 +20,9 @@ private
         stack.push match
         stack.push item.end_at(match) if item.begins_before? match
       when Lookout::Diff::Match
-        matches << item
+        yield item
       end
     end
-    @matches = matches
+    self
   end
 end
