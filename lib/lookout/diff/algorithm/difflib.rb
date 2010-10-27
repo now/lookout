@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Matches
-  autoload :From, 'lookout/diff/matches/from'
-  autoload :Position, 'lookout/diff/matches/position'
-  autoload :To, 'lookout/diff/matches/to'
+class Lookout::Diff::Algorithm::Difflib
+  autoload :Position, 'lookout/diff/algorithm/difflib/position'
 
   include Enumerable
 

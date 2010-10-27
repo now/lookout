@@ -7,7 +7,7 @@ class Lookout::Diff::Blocks
 
   class << self
     def diff(from, to, &is_junk)
-      new(from.size, to.size, Lookout::Diff::Matches.new(from, to, &is_junk))
+      new(from.size, to.size, Lookout::Diff::Algorithm::Difflib.new(from, to, &is_junk))
     end
   end
 

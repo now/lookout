@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Matches::Position
+class Lookout::Diff::Algorithm::Difflib::Position
+  autoload :From, 'lookout/diff/algorithm/difflib/position/from'
+  autoload :To, 'lookout/diff/algorithm/difflib/position/to'
+
   class << self
     def origin(from, to)
-      to = Lookout::Diff::Matches::To.new(to)
-      new(Lookout::Diff::Matches::From.new(from),
+      to = To.new(to)
+      new(From.new(from),
           to,
           block_given? ?
             to.indexes.reduce({}){ |j, (k, v)| j[k] = yield(k); j } :

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Matches::To < Lookout::Diff::Matches::From
+class Lookout::Diff::Algorithm::Difflib::Position::To <
+      Lookout::Diff::Algorithm::Difflib::Position::From
   def initialize(items, range = 0...items.size, indexes = nil)
     super items, range
     @indexes = indexes
