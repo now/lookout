@@ -60,7 +60,7 @@ Expectations do
   expect Lookout::Diff::Algorithm::Difflib::Position.new(Lookout::Diff::Algorithm::Difflib::Position::From.new('dabcX', 4...5),
                                                          Lookout::Diff::Algorithm::Difflib::Position::To.new('ddabcY', 5...6),
                                                          {}) do
-    Lookout::Diff::Algorithm::Difflib::Position.origin('dabcX', 'ddabcY').begin_at(Lookout::Diff::Match.new(1, 2, 3))
+    Lookout::Diff::Algorithm::Difflib::Position.origin('dabcX', 'ddabcY').begin_after(Lookout::Diff::Match.new(1, 2, 3))
   end
 
   expect Lookout::Diff::Algorithm::Difflib::Position.new(Lookout::Diff::Algorithm::Difflib::Position::From.new('abcdd', 0...1),

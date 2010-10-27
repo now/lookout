@@ -34,7 +34,7 @@ class Lookout::Diff::Algorithm::Difflib::Position
     from.end >= match.from + match.size and to.end >= match.to + match.size
   end
 
-  def begin_at(match)
+  def begin_after(match)
     self.class.new(from.begin_at(match.from + match.size),
                    to.begin_at(match.to + match.size),
                    junk)

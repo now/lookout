@@ -21,15 +21,19 @@ private
   def matches
     return @matches if defined? @matches
     matches = []
-    queue = [Position.origin(@from, @to, &@is_junk)]
-    until queue.empty?
-      position = queue.pop
-      match = position.match
-      next if match.empty?
-      queue.push position.end_at(match) if position.begins_before? match
-      matches << match
-      queue.push position.begin_at(match) if position.ends_after? match
+    stack = [Position.origin(@from, @to, &@is_junk)]
+    until stack.empty?
+      case item = stack.pop
+      when Position
+        match = item.match
+        next if match.empty?
+        stack.push item.begin_after(match) if item.ends_after? match
+        stack.push match
+        stack.push item.end_at(match) if item.begins_before? match
+      when Lookout::Diff::Match
+        matches << item
+      end
     end
-    @matches = matches.sort
+    @matches = matches
   end
 end
