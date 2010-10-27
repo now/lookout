@@ -10,7 +10,7 @@ class Lookout::Diff::Operations
 
   class << self
     def diff(from, to, &is_junk)
-      new(Lookout::Diff::Blocks.diff(from, to, &is_junk))
+      new(Lookout::Diff::Algorithm::Difflib.new(from, to, &is_junk))
     end
   end
 
