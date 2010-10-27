@@ -8,6 +8,7 @@ module Lookout::Recorders::Delegation
 
   def to(receiver)
     @receiver = receiver
+    @result = nil
     self
   end
 

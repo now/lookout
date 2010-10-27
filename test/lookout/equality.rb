@@ -3,36 +3,25 @@
 require 'lookout'
 
 Expectations do
-  expect '[A|a]bc' do
+  expect '[-A-]{+a+}bc' do
     Lookout::Equality.diff('abc', 'Abc')
   end
 
-  expect '[A|a]bc' do
-    Lookout::Equality.diff('abc', 'Abc')
-  end
-
-  expect 'a[B|b]c' do
+  expect 'a[-B-]{+b+}c' do
     Lookout::Equality.diff('abc', 'aBc')
   end
 
-  expect 'ab[C|c]' do
+  expect 'ab[-C-]{+c+}' do
     Lookout::Equality.diff('abc', 'abC')
   end
 
-  expect 'abcdefg[H|h]ij' do
-    Lookout::Equality.diff('abcdefghij', 'abcdefgHij')
-  end
-
-  expect 'abc…fgh[I|i]j' do
-    Lookout::Equality.diff('abcdefghij', 'abcdefghIj')
-  end
-
-  expect 'a[B|b]cde…hij' do
-    Lookout::Equality.diff('abcdefghij', 'aBcdefghij')
-  end
-
-  expect 'a[BCD…GHI|bcd…ghi]j' do
-    Lookout::Equality.diff('abcdefghij', 'aBCDEFGHIj')
+  expect <<EOD.chomp do
+@@ -1,2 +1,2 @@
+-def
++abc
+ ghi
+EOD
+    Lookout::Equality.diff("abc\nghi", "def\nghi")
   end
 
   expect true do

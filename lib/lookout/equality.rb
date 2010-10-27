@@ -41,7 +41,9 @@ class Lookout::Equality::Object
   end
 
   def message(expected, actual)
-    format(expected, actual) + ((diff = diff(expected, actual)) ? ': %s' % diff : "")
+    format = format(expected, actual)
+    return format unless diff = diff(expected, actual)
+    (diff.include?("\n") ? "%s\n%s" : '%s: %s') % [format, diff]
   end
 
   def diff(expected, actual)
@@ -73,24 +75,11 @@ end
 class Lookout::Equality::String < Lookout::Equality::Object
   Lookout::Equality.register self, String
 
-  def diff(a, b)
-    return unless b.is_a? String
-    inequal = (0..a.size).find{ |i| a[i] != b[i] } || a.size
-    equal = (inequal+1..a.size).find{ |i| a[i] == b[i] }
-    equal = (equal and a.size == b.size and a[equal..-1] == b[equal..-1]) ? equal : b.size
-    parts(a[0, inequal], b[inequal..equal-1], a[inequal..equal-1], a[equal..-1])
-  end
-
-private
-
-  def parts(before, left, right, after)
-    '%s[%s|%s]%s' % [before, left, right, after].map{ |part| elide(part) }
-  end
-
-  def elide(part)
-    return "" unless part
-    return part if part.length <= 7
-    '%s…%s' % [part[0..2], part[-3..-1]]
+  def diff(expected, actual)
+    (expected.include? "\n" or actual.include? "\n") ?
+     Lookout::Diff::Format::Unified.diff(actual.split("\n"),
+                                         expected.split("\n")).to_a.join("\n") :
+     Lookout::Diff::Format::Inline.diff(actual, expected)
   end
 end
 
