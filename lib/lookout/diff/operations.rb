@@ -19,26 +19,17 @@ class Lookout::Diff::Operations
   end
 
   def each
-    operations.each do |operation|
-      yield operation
+    from = to = 0
+    @matches.each do |match|
+      type = typeify(from, to, match)
+      yield type.new(from...match.from, to...match.to) unless type == Equal
+      from, to = match.from + match.size, match.to + match.size
+      yield Equal.new(match.from...from, match.to...to) unless match.empty?
     end
     self
   end
 
 private
-
-  def operations
-    return @operations if defined? @operations
-    operations = []
-    from = to = 0
-    @matches.each do |match|
-      type = typeify(from, to, match)
-      operations << type.new(from...match.from, to...match.to) if type != Equal
-      from, to = match.from + match.size, match.to + match.size
-      operations << Equal.new(match.from...from, match.to...to) unless match.empty?
-    end
-    @operations = operations
-  end
 
   def typeify(from, to, match)
     if    from < match.from and to < match.to then Replace
