@@ -32,7 +32,7 @@ class Lookout::Diff::Groups
       end
     end
     if group.empty?
-      yield [Lookout::Diff::Operations::Equal.new(0...0, 0...0)]
+      yield Lookout::Diff::Operations::Empty
     elsif saved
       yield saved
     else

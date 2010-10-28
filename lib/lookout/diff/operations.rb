@@ -8,6 +8,8 @@ class Lookout::Diff::Operations
 
   include Enumerable
 
+  Empty = [Lookout::Diff::Operations::Equal.new(0...0, 0...0)].freeze
+
   class << self
     def diff(from, to, &is_junk)
       new(Lookout::Diff::Algorithm::Difflib.new(from, to, &is_junk))
