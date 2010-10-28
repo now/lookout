@@ -17,6 +17,10 @@ module Lookout::Diff::Operation
     self
   end
 
+  def parity?
+    false
+  end
+
   def ==(other)
     from == other.from and to == other.to
   end

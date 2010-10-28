@@ -21,12 +21,8 @@ class Lookout::Diff::Format::Unified
       yield Group.new(@from, @to, saved).to_s if saved
       saved = operations
     end
-    if saved and
-       (saved.size != 1 or
-        not (saved.first.is_a? Lookout::Diff::Operations::Equal and
-             saved.first.from == saved.first.to))
-      yield Group.new(@from, @to, saved).to_s
-    end
+    yield Group.new(@from, @to, saved).to_s if
+      saved and not (saved.size == 1 and saved.first.parity?)
     self
   end
 
@@ -34,15 +30,7 @@ private
 
   class Group
     def initialize(from, to, operations)
-      @from, @to = from, to
-      @lines = ['@@ -%d,%d +%d,%d @@' %
-                [operations.first.from.begin + 1,
-                 operations.last.from.end - operations.first.from.begin,
-                 operations.first.to.begin + 1,
-                 operations.last.to.end - operations.first.to.begin]]
-      operations.each do |operation|
-        @lines.concat operation.apply(self)
-      end
+      @from, @to, @operations = from, to, operations
     end
 
     def delete(operation)
@@ -62,7 +50,15 @@ private
     end
 
     def to_s
-      @lines.join("\n")
+      lines = ['@@ -%d,%d +%d,%d @@' %
+               [@operations.first.from.begin + 1,
+                @operations.last.from.end - @operations.first.from.begin,
+                @operations.first.to.begin + 1,
+                @operations.last.to.end - @operations.first.to.begin]]
+      @operations.each do |operation|
+        lines.concat operation.apply(self)
+      end
+      lines.join("\n")
     end
 
   private

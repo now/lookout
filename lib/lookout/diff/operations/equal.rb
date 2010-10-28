@@ -4,7 +4,7 @@ class Lookout::Diff::Operations::Equal
   include Lookout::Diff::Operation
 
   def foldable?(window)
-    @from.end - @from.begin > window
+    from.end - from.begin > window
   end
 
   def >>(size)
@@ -15,6 +15,10 @@ class Lookout::Diff::Operations::Equal
   def <<(size)
     self.class.new(from.begin...[from.end, from.begin + size].min,
                    to.begin...[to.end, to.begin + size].min)
+  end
+
+  def parity?
+    from == to
   end
 
   def apply(object)
