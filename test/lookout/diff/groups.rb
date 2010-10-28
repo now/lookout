@@ -11,6 +11,26 @@ Expectations do
     Lookout::Diff::Groups.diff('abc', 'abc').to_a
   end
 
+  expect [[Lookout::Diff::Operations::Equal.new(4...7, 4...7)]] do
+    Lookout::Diff::Groups.diff('abcdefg', 'abcdefg').to_a
+  end
+
+  expect [[Lookout::Diff::Operations::Replace.new(0...1, 0...1),
+           Lookout::Diff::Operations::Equal.new(1...4, 1...4)]] do
+    Lookout::Diff::Groups.diff('Abcdefg', 'abcdefg').to_a
+  end
+
+  expect [[Lookout::Diff::Operations::Replace.new(0...1, 0...1),
+           Lookout::Diff::Operations::Equal.new(1...4, 1...4)]] do
+    Lookout::Diff::Groups.diff('Abcdefgh', 'abcdefgh').to_a
+  end
+
+  expect [[Lookout::Diff::Operations::Equal.new(4...7, 4...7),
+           Lookout::Diff::Operations::Replace.new(7...8, 7...8),
+           Lookout::Diff::Operations::Equal.new(8...11, 8...11)]] do
+    Lookout::Diff::Groups.diff('abcdefgHijklmno', 'abcdefghijklmno').to_a
+  end
+
   expect [[Lookout::Diff::Operations::Equal.new(0...1, 0...1),
            Lookout::Diff::Operations::Replace.new(1...2, 1...2),
            Lookout::Diff::Operations::Equal.new(2...5, 2...5)],

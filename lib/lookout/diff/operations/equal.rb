@@ -3,8 +3,8 @@
 class Lookout::Diff::Operations::Equal
   include Lookout::Diff::Operation
 
-  def adjustable?
-    true
+  def foldable?(window)
+    @from.end - @from.begin > window
   end
 
   def >>(size)

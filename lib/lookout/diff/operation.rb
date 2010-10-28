@@ -5,12 +5,16 @@ module Lookout::Diff::Operation
     @from, @to = from, to
   end
 
-  def adjustable?
+  def foldable?(window)
     false
   end
 
-  def size
-    @from.end - @from.begin
+  def >>(size)
+    self
+  end
+
+  def <<(size)
+    self
   end
 
   def ==(other)

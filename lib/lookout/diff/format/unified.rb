@@ -16,9 +16,16 @@ class Lookout::Diff::Format::Unified
   end
 
   def each
-    return self if @groups.same?
+    saved = nil
     @groups.each do |operations|
-      yield Group.new(@from, @to, operations).to_s
+      yield Group.new(@from, @to, saved).to_s if saved
+      saved = operations
+    end
+    if saved and
+       (saved.size != 1 or
+        not (saved.first.is_a? Lookout::Diff::Operations::Equal and
+             saved.first.from == saved.first.to))
+      yield Group.new(@from, @to, saved).to_s
     end
     self
   end
