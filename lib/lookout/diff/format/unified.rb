@@ -16,13 +16,10 @@ class Lookout::Diff::Format::Unified
   end
 
   def each
-    saved = nil
     @groups.each do |operations|
-      yield Group.new(@from, @to, saved).to_s if saved
-      saved = operations
+      group = Group.new(@from, @to, operations)
+      yield group.to_s unless group.empty?
     end
-    yield Group.new(@from, @to, saved).to_s if
-      saved and not (saved.size == 1 and saved.first.parity?)
     self
   end
 
@@ -31,6 +28,10 @@ private
   class Group
     def initialize(from, to, operations)
       @from, @to, @operations = from, to, operations
+    end
+
+    def empty?
+      @operations.size == 1 and @operations.first.parity?
     end
 
     def delete(operation)
