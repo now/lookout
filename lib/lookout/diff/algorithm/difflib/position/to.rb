@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Algorithm::Difflib::Position::To <
-      Lookout::Diff::Algorithm::Difflib::Position::From
+      Lookout::Diff::Range
   def initialize(items, range = 0...items.size, indexes = nil)
     super items, range
     @indexes = indexes
+  end
+
+  def each_index(item)
+    indexes[item].each do |index|
+      next if index < range.begin
+      break if index > range.end
+      yield index
+    end
   end
 
   def indexes
@@ -21,12 +29,16 @@ class Lookout::Diff::Algorithm::Difflib::Position::To <
     @indexes
   end
 
-  def begin_at(beginning)
-    self.class.new(items, beginning...range.end, indexes)
+  def begin_after(other)
+    self.class.new(items, other.range.end + 1..range.end, indexes)
   end
 
-  def end_at(ending)
-    self.class.new(items, range.begin...ending, indexes)
+  def end_before(other)
+    self.class.new(items, range.begin...other.range.begin, indexes)
+  end
+
+  def at(range)
+    Lookout::Diff::Range.new(items, range)
   end
 
   def ==(other)

@@ -3,40 +3,53 @@
 require 'lookout'
 
 Expectations do
-  expect [Lookout::Diff::Match.new(0, 0, 2),
-          Lookout::Diff::Match.new(3, 2, 2),
-          Lookout::Diff::Match.new(5, 4, 0)] do
+  expect [Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 0..1),
+                                   Lookout::Diff::Range.new('abcd', 0..1)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 3..4),
+                                   Lookout::Diff::Range.new('abcd', 2..3)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 5...5),
+                                   Lookout::Diff::Range.new('abcd', 4...4))] do
     Lookout::Diff::Algorithm::Difflib.new('abxcd', 'abcd').to_a
   end
 
-  expect [Lookout::Diff::Match.new(0, 0, 1),
-          Lookout::Diff::Match.new(2, 2, 1),
-          Lookout::Diff::Match.new(4, 3, 2),
-          Lookout::Diff::Match.new(6, 5, 0)] do
+  expect [Lookout::Diff::Match.new(Lookout::Diff::Range.new('acbxcd', 0..0),
+                                   Lookout::Diff::Range.new('aybcd', 0..0)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('acbxcd', 2..2),
+                                   Lookout::Diff::Range.new('aybcd', 2..2)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('acbxcd', 4..5),
+                                   Lookout::Diff::Range.new('aybcd', 3..4)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('acbxcd', 6...6),
+                                   Lookout::Diff::Range.new('aybcd', 5...5))] do
     Lookout::Diff::Algorithm::Difflib.new('acbxcd', 'aybcd').to_a
   end
 
-  expect [Lookout::Diff::Match.new(1, 0, 2),
-          Lookout::Diff::Match.new(4, 3, 2),
-          Lookout::Diff::Match.new(6, 6, 0)] do
+  expect [Lookout::Diff::Match.new(Lookout::Diff::Range.new('qabxcd', 1..2),
+                                   Lookout::Diff::Range.new('abycdf', 0..1)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('qabxcd', 4..5),
+                                   Lookout::Diff::Range.new('abycdf', 3..4)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('qabxcd', 6...6),
+                                   Lookout::Diff::Range.new('abycdf', 6...6))] do
     Lookout::Diff::Algorithm::Difflib.new('qabxcd', 'abycdf').to_a
   end
 
-  expect [Lookout::Diff::Match.new(1, 0, 2),
-          Lookout::Diff::Match.new(4, 3, 2),
-          Lookout::Diff::Match.new(6, 6, 0)] do
-    Lookout::Diff::Algorithm::Difflib.new('qabxcd', 'abycdf').to_a
-  end
-
-  expect [Lookout::Diff::Match.new(0, 0, 2),
-          Lookout::Diff::Match.new(3, 2, 2),
-          Lookout::Diff::Match.new(5, 4, 0)] do
+  expect [Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 0..1),
+                                   Lookout::Diff::Range.new('abcd', 0..1)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 3..4),
+                                   Lookout::Diff::Range.new('abcd', 2..3)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 5...5),
+                                   Lookout::Diff::Range.new('abcd', 4...4)),] do
     Lookout::Diff::Algorithm::Difflib.new('abxcd', 'abcd').to_a
   end
 
-  expect [Lookout::Diff::Match.new(0, 0, 8),
-          Lookout::Diff::Match.new(8, 17, 21),
-          Lookout::Diff::Match.new(29, 38, 0)] do
+  # 0, 0, 8
+  # 8, 17, 21
+  # 29, 38, 0
+  expect [Lookout::Diff::Match.new(Lookout::Diff::Range.new('private Thread currentThread;', 0..7),
+                                   Lookout::Diff::Range.new('private volatile Thread currentThread;', 0..7)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('private Thread currentThread;', 8..28),
+                                   Lookout::Diff::Range.new('private volatile Thread currentThread;', 17..37)),
+          Lookout::Diff::Match.new(Lookout::Diff::Range.new('private Thread currentThread;', 29...29),
+                                   Lookout::Diff::Range.new('private volatile Thread currentThread;', 38...38))] do
     Lookout::Diff::Algorithm::Difflib.new('private Thread currentThread;',
                                           'private volatile Thread currentThread;'){ |c|
       c == ' '[0]

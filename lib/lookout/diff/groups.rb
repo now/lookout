@@ -31,11 +31,9 @@ class Lookout::Diff::Groups
         group << operation
       end
     end
-    if group.empty?
-      yield Lookout::Diff::Operations::Empty
-    elsif saved
+    if saved
       yield saved
-    else
+    elsif not group.empty?
       group[-1] = group[-1] << @context
       yield group
     end

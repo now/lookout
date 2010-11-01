@@ -5,19 +5,19 @@ class Lookout::Diff::Format::Unified
 
   class << self
     def diff(from, to, context = 3, &is_junk)
-      new(from, to, Lookout::Diff::Groups.diff(from, to, context, &is_junk))
+      new(Lookout::Diff::Groups.diff(from, to, context, &is_junk))
     end
   end
 
   # TODO: Format shouldn’t have access to from and to.  Operations should be
   # referencing these objects.
-  def initialize(from, to, groups)
-    @from, @to, @groups = from, to, groups
+  def initialize(groups)
+    @groups = groups
   end
 
   def each
     @groups.each do |operations|
-      group = Group.new(@from, @to, operations)
+      group = Group.new(operations)
       yield group.to_s unless group.empty?
     end
     self
@@ -26,8 +26,8 @@ class Lookout::Diff::Format::Unified
 private
 
   class Group
-    def initialize(from, to, operations)
-      @from, @to, @operations = from, to, operations
+    def initialize(operations)
+      @operations = operations
     end
 
     def empty?
@@ -35,15 +35,15 @@ private
     end
 
     def delete(operation)
-      mark('-', @from[operation.from])
+      mark('-', operation.from)
     end
 
     def equal(operation)
-      mark(' ', @from[operation.from])
+      mark(' ', operation.from)
     end
 
     def insert(operation)
-      mark('+', @to[operation.to])
+      mark('+', operation.to)
     end
 
     def replace(operation)
@@ -53,9 +53,9 @@ private
     def to_s
       lines = ['@@ -%d,%d +%d,%d @@' %
                [@operations.first.from.begin + 1,
-                @operations.last.from.end - @operations.first.from.begin,
+                @operations.last.from.end - @operations.first.from.begin + 1,
                 @operations.first.to.begin + 1,
-                @operations.last.to.end - @operations.first.to.begin]]
+                @operations.last.to.end - @operations.first.to.begin + 1]]
       @operations.each do |operation|
         lines.concat operation.apply(self)
       end
@@ -64,8 +64,8 @@ private
 
   private
 
-    def mark(mark, items)
-      items.map{ |item| '%s%s' % [mark, item] }
+    def mark(mark, range)
+      range.map{ |item| '%s%s' % [mark, item] }
     end
   end
 end

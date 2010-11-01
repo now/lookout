@@ -4,17 +4,17 @@ class Lookout::Diff::Operations::Equal
   include Lookout::Diff::Operation
 
   def foldable?(window)
-    from.end - from.begin > window
+    from.size > window
   end
 
   def >>(size)
-    self.class.new([from.begin, from.end - size].max...from.end,
-                   [to.begin, to.end - size].max...to.end)
+    self.class.new(from.begin_at([from.begin, from.end - size + 1].max),
+                   to.begin_at([to.begin, to.end - size + 1].max))
   end
 
   def <<(size)
-    self.class.new(from.begin...[from.end, from.begin + size].min,
-                   to.begin...[to.end, to.begin + size].min)
+    self.class.new(from.end_at([from.end, from.begin + size - 1].min),
+                   to.end_at([to.end, to.begin + size - 1].min))
   end
 
   def parity?

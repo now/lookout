@@ -3,51 +3,74 @@
 require 'lookout'
 
 Expectations do
-  expect [[Lookout::Diff::Operations::Equal.new(0...0, 0...0)]] do
+  expect [] do
     Lookout::Diff::Groups.diff('', '').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Equal.new(0...3, 0...3)]] do
+  expect [[Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('abc', 0..2),
+                                                Lookout::Diff::Range.new('abc', 0..2))]] do
     Lookout::Diff::Groups.diff('abc', 'abc').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Equal.new(4...7, 4...7)]] do
+  expect [[Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('abcdefg', 4..6),
+                                                Lookout::Diff::Range.new('abcdefg', 4..6))]] do
     Lookout::Diff::Groups.diff('abcdefg', 'abcdefg').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Replace.new(0...1, 0...1),
-           Lookout::Diff::Operations::Equal.new(1...4, 1...4)]] do
+  expect [[Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new('Abcdefg', 0..0),
+                                                  Lookout::Diff::Range.new('abcdefg', 0..0)),
+           Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('Abcdefg', 1..3),
+                                                Lookout::Diff::Range.new('abcdefg', 1..3))]] do
     Lookout::Diff::Groups.diff('Abcdefg', 'abcdefg').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Replace.new(0...1, 0...1),
-           Lookout::Diff::Operations::Equal.new(1...4, 1...4)]] do
+  expect [[Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new('Abcdefgh', 0..0),
+                                                  Lookout::Diff::Range.new('abcdefgh', 0..0)),
+           Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('Abcdefgh', 1..3),
+                                                Lookout::Diff::Range.new('abcdefgh', 1..3))]] do
     Lookout::Diff::Groups.diff('Abcdefgh', 'abcdefgh').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Equal.new(4...7, 4...7),
-           Lookout::Diff::Operations::Replace.new(7...8, 7...8),
-           Lookout::Diff::Operations::Equal.new(8...11, 8...11)]] do
+  expect [[Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('abcdefgHijklmno', 4..6),
+                                                Lookout::Diff::Range.new('abcdefghijklmno', 4..6)),
+           Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new('abcdefgHijklmno', 7..7),
+                                                  Lookout::Diff::Range.new('abcdefghijklmno', 7..7)),
+           Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('abcdefgHijklmno', 8..10),
+                                                Lookout::Diff::Range.new('abcdefghijklmno', 8..10))]] do
     Lookout::Diff::Groups.diff('abcdefgHijklmno', 'abcdefghijklmno').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Equal.new(0...1, 0...1),
-           Lookout::Diff::Operations::Replace.new(1...2, 1...2),
-           Lookout::Diff::Operations::Equal.new(2...5, 2...5)],
-          [Lookout::Diff::Operations::Equal.new(8...11, 8...11),
-            Lookout::Diff::Operations::Replace.new(11...12, 11...12),
-            Lookout::Diff::Operations::Equal.new(12...13, 12...13),
-            Lookout::Diff::Operations::Delete.new(13...16, 13...13),
-            Lookout::Diff::Operations::Equal.new(16...17, 13...14),
-            Lookout::Diff::Operations::Replace.new(17...18, 14...15),
-            Lookout::Diff::Operations::Equal.new(18...20, 15...17)]] do
+  expect [[Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('123456789abcdefghijk', 0..0),
+                                                Lookout::Diff::Range.new('1i3456789abXdhYjk', 0..0)),
+           Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new('123456789abcdefghijk', 1..1),
+                                                  Lookout::Diff::Range.new('1i3456789abXdhYjk', 1..1)),
+           Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('123456789abcdefghijk', 2..4),
+                                                Lookout::Diff::Range.new('1i3456789abXdhYjk', 2..4))],
+          [Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('123456789abcdefghijk', 8..10),
+                                                Lookout::Diff::Range.new('1i3456789abXdhYjk', 8..10)),
+            Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new('123456789abcdefghijk', 11..11),
+                                                   Lookout::Diff::Range.new('1i3456789abXdhYjk', 11..11)),
+            Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('123456789abcdefghijk', 12..12),
+                                                 Lookout::Diff::Range.new('1i3456789abXdhYjk', 12..12)),
+            Lookout::Diff::Operations::Delete.new(Lookout::Diff::Range.new('123456789abcdefghijk', 13..15),
+                                                  Lookout::Diff::Range.new('1i3456789abXdhYjk', 13...13)),
+            Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('123456789abcdefghijk', 16..16),
+                                                 Lookout::Diff::Range.new('1i3456789abXdhYjk', 13..13)),
+            Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new('123456789abcdefghijk', 17..17),
+                                                   Lookout::Diff::Range.new('1i3456789abXdhYjk', 14..14)),
+            Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new('123456789abcdefghijk', 18..19),
+                                                 Lookout::Diff::Range.new('1i3456789abXdhYjk', 15..16))]] do
     Lookout::Diff::Groups.diff('123456789abcdefghijk', '1i3456789abXdhYjk').to_a
   end
 
-  expect [[Lookout::Diff::Operations::Insert.new(0...0, 0...1),
-          Lookout::Diff::Operations::Equal.new(0...1, 1...2),
-          Lookout::Diff::Operations::Replace.new(1...3, 2...3),
-          Lookout::Diff::Operations::Equal.new(3...4, 3...4)]] do
-    Lookout::Diff::Groups.diff(%w(one two three four), %w(zero one tree four)).to_a
+  expect [[Lookout::Diff::Operations::Insert.new(Lookout::Diff::Range.new(%w[one two three four], 0...0),
+                                                 Lookout::Diff::Range.new(%w[zero one tree four], 0..0)),
+          Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new(%w[one two three four], 0..0),
+                                               Lookout::Diff::Range.new(%w[zero one tree four], 1..1)),
+          Lookout::Diff::Operations::Replace.new(Lookout::Diff::Range.new(%w[one two three four], 1..2),
+                                                 Lookout::Diff::Range.new(%w[zero one tree four], 2..2)),
+          Lookout::Diff::Operations::Equal.new(Lookout::Diff::Range.new(%w[one two three four], 3..3),
+                                               Lookout::Diff::Range.new(%w[zero one tree four], 3..3))]] do
+    Lookout::Diff::Groups.diff(%w[one two three four], %w[zero one tree four]).to_a
   end
 end

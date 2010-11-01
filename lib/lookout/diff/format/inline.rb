@@ -3,12 +3,12 @@
 class Lookout::Diff::Format::Inline
   class << self
     def diff(from, to, &is_junk)
-      new(from, to, Lookout::Diff::Operations.diff(from, to, &is_junk)).to_s
+      new(Lookout::Diff::Operations.diff(from, to, &is_junk)).to_s
     end
   end
 
-  def initialize(from, to, operations)
-    @to_s = ToS.new(from, to, operations).to_s
+  def initialize(operations)
+    @to_s = ToS.new(operations).to_s
   end
 
   def to_s
@@ -18,21 +18,20 @@ class Lookout::Diff::Format::Inline
 private
 
   class ToS
-    def initialize(from, to, operations)
-      @from, @to = from, to
+    def initialize(operations)
       @to_s = operations.map{ |o| o.apply(self) }.join('').freeze
     end
 
     def delete(operation)
-      '[-%s-]' % @from[operation.from]
+      '[-%s-]' % operation.from.to_items
     end
 
     def equal(operation)
-      @from[operation.from]
+      operation.from.to_items
     end
 
     def insert(operation)
-      '{+%s+}' % @to[operation.to]
+      '{+%s+}' % operation.to.to_items
     end
 
     def replace(operation)

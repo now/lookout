@@ -26,7 +26,7 @@ module Lookout::Diff::Operation
   end
 
   def inspect
-    '%s.new(%p, %p)' % [self.class, from, to]
+    '#<%s %p,%p>' % [self.class, from, to]
   end
 
   attr_reader :from, :to

@@ -3,31 +3,36 @@
 class Lookout::Diff::Match
   include Comparable
 
-  def initialize(from, to, size)
-    @from, @to, @size = from, to, size
+  def initialize(from, to)
+    @from, @to = from, to
   end
-
-  def <=>(other)
-    [from <=> other.from,
-     to <=> other.to,
-     size <=> other.size].find{ |d| d.nonzero? } or 0
-  end
-
-  attr_reader :from, :to, :size
 
   def empty?
-    size.zero?
+    from.empty?
+  end
+
+  def size
+    from.size
   end
 
   def +(other)
-    self.class.new(from, to, size + other.size)
+    self.class.new(from + other.from, to + other.to)
   end
 
   def touches?(other)
-    from + size == other.from and to + size == other.to
+    from.end + 1 == other.from.begin and to.end + 1 == other.to.begin
+  end
+
+  def <=>(other)
+    [from.begin <=> other.from.begin,
+     from.end <=> other.from.end,
+     to.begin <=> other.to.begin,
+     to.end <=> other.to.end].find{ |d| d.nonzero? } or 0
   end
 
   def inspect
-    '%s.new(%d, %d, %d)' % [self.class, from, to, size]
+    '#<%s %p==%p>' % [self.class, from, to]
   end
+
+  attr_reader :from, :to
 end

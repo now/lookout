@@ -10,7 +10,8 @@ class Lookout::Diff::Algorithm::Difflib
   end
 
   def each
-    current = Lookout::Diff::Match.new(0, 0, 0)
+    current = Lookout::Diff::Match.new(Lookout::Diff::Range.new(@from, 0...0),
+                                       Lookout::Diff::Range.new(@to, 0...0))
     stack = [Position.origin(@from, @to, &@is_junk)]
     until stack.empty?
       case item = stack.pop
@@ -19,7 +20,7 @@ class Lookout::Diff::Algorithm::Difflib
         next if match.empty?
         stack.push item.begin_after(match) if item.ends_after? match
         stack.push match
-        stack.push item.end_at(match) if item.begins_before? match
+        stack.push item.end_before(match) if item.begins_before? match
       when Lookout::Diff::Match
         if current.touches? item
           current += item
@@ -30,7 +31,8 @@ class Lookout::Diff::Algorithm::Difflib
       end
     end
     yield current unless current.empty?
-    yield Lookout::Diff::Match.new(@from.size, @to.size, 0)
+    yield Lookout::Diff::Match.new(current.from.at(@from.size...@from.size),
+                                   current.to.at(@to.size...@to.size))
     self
   end
 end
