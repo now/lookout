@@ -3,12 +3,6 @@
 class Lookout::Diff::Format::Unified
   include Enumerable
 
-  class << self
-    def diff(from, to, context = 3, &is_junk)
-      new(Lookout::Diff::Groups.diff(from, to, context, &is_junk))
-    end
-  end
-
   # TODO: Format shouldn’t have access to from and to.  Operations should be
   # referencing these objects.
   def initialize(groups)

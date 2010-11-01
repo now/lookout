@@ -8,17 +8,12 @@ class Lookout::Diff::Operations
 
   include Enumerable
 
-  class << self
-    def diff(from, to, &is_junk)
-      new(Lookout::Diff::Algorithm::Difflib.new(from, to, &is_junk))
-    end
-  end
-
   def initialize(matches)
     @matches = matches
   end
 
   def each
+    # TODO: Use #reduce?
     from = to = 0
     @matches.each do |match|
       type = typeify(from, to, match)

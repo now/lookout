@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Format::Inline
-  class << self
-    def diff(from, to, &is_junk)
-      new(Lookout::Diff::Operations.diff(from, to, &is_junk)).to_s
-    end
-  end
-
   def initialize(operations)
     @to_s = ToS.new(operations).to_s
   end

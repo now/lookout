@@ -4,12 +4,16 @@ require 'lookout'
 
 Expectations do
   expect 'one two three' do
-    Lookout::Diff::Format::Inline.diff('one two three',
-                                       'one two three')
+    Lookout::Diff::Format::Inline.
+      new(Lookout::Diff::Operations.
+            new(Lookout::Diff::Algorithm::Difflib.new('one two three',
+                                                      'one two three'))).to_s
   end
 
   expect 'one t[-w-]{+o+}o three' do
-    Lookout::Diff::Format::Inline.diff('one two three',
-                                       'one too three')
+    Lookout::Diff::Format::Inline.
+      new(Lookout::Diff::Operations.
+            new(Lookout::Diff::Algorithm::Difflib.new('one two three',
+                                                      'one too three'))).to_s
   end
 end

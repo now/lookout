@@ -3,12 +3,6 @@
 class Lookout::Diff::Groups
   include Enumerable
 
-  class << self
-    def diff(from, to, context = 3, &is_junk)
-      new(Lookout::Diff::Operations.diff(from, to, &is_junk), context)
-    end
-  end
-
   def initialize(operations, context = 3)
     @operations, @context = operations, context
   end
