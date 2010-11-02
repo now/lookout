@@ -99,6 +99,15 @@ class Lookout::Equality::Array < Lookout::Equality::Object
     end
     true
   end
+
+  def diff(expected, actual)
+    return if expected.size == 1
+    Lookout::Diff::Formats::Unified.
+      new(Lookout::Diff::Groups.
+            new(Lookout::Diff::Operations.
+                  new(Lookout::Diff::Algorithms::Difflib.
+                        new(actual, expected)))).to_a.join("\n")
+  end
 end
 
 class Lookout::Equality::Hash < Lookout::Equality::Object
