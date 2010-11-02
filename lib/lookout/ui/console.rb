@@ -22,7 +22,7 @@ class Lookout::UI::Console
       }.join(', ')
     summarize_group results, :errors do |error|
       result error, error.message, exception_message(error.exception)
-      backtrace error.exception.backtrace
+      @io.puts Lookout::UI::Formatters::Backtrace.new(error.exception.backtrace)
     end
     summarize_group results, :failures do |failure|
       result failure, failure.message
@@ -58,14 +58,5 @@ private
     else
       '%s (%s)' % [message.chomp("\n"), error.class.name]
     end
-  end
-
-  def backtrace(trace)
-    @io.puts [
-      %r{/lib/ruby/}#,
-      #%r{lib/lookout/}
-    ].inject(trace){ |r, path| r.reject{ |location| location =~ path } }.
-      map{ |location| "\tfrom #{location}" }.
-      join("\n")
   end
 end

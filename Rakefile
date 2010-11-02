@@ -42,6 +42,7 @@ Rake::TestTask.new do |t|
   t.libs << 'test'
   t.ruby_opts << '-w'
   t.pattern = 'test/**/*.rb'
+  ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'] = ''
 end
 
 YARD::Rake::YardocTask.new
