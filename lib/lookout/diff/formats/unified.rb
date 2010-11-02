@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Format::Unified
+class Lookout::Diff::Formats::Unified
   include Enumerable
 
   def initialize(groups)

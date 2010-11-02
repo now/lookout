@@ -4,7 +4,7 @@ require 'lookout'
 
 Expectations do
   expect '' do
-    Lookout::Diff::Format::Unified.
+    Lookout::Diff::Formats::Unified.
       new(Lookout::Diff::Groups.
             new(Lookout::Diff::Operations.
                   new(Lookout::Diff::Algorithms::Difflib.
@@ -21,7 +21,7 @@ Expectations do
 +tree
  four
 EOD
-    Lookout::Diff::Format::Unified.
+    Lookout::Diff::Formats::Unified.
       new(Lookout::Diff::Groups.
             new(Lookout::Diff::Operations.
                   new(Lookout::Diff::Algorithms::Difflib.
@@ -37,7 +37,7 @@ EOD
  2
  3
 EOD
-    Lookout::Diff::Format::Unified.
+    Lookout::Diff::Formats::Unified.
       new(Lookout::Diff::Groups.
             new(Lookout::Diff::Operations.
                   new(Lookout::Diff::Algorithms::Difflib.

@@ -77,13 +77,13 @@ class Lookout::Equality::String < Lookout::Equality::Object
 
   def diff(expected, actual)
     (expected.include? "\n" or actual.include? "\n") ?
-     Lookout::Diff::Format::Unified.
+     Lookout::Diff::Formats::Unified.
        new(Lookout::Diff::Groups.
              new(Lookout::Diff::Operations.
                    new(Lookout::Diff::Algorithms::Difflib.
                          new(actual.split("\n"),
                              expected.split("\n"))))).to_a.join("\n") :
-     Lookout::Diff::Format::Inline.
+     Lookout::Diff::Formats::Inline.
        new(Lookout::Diff::Operations.
              new(Lookout::Diff::Algorithms::Difflib.new(actual, expected))).to_s
   end

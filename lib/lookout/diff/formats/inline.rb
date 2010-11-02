@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Format::Inline
+class Lookout::Diff::Formats::Inline
   def initialize(operations)
     @to_s = ToS.new(operations).to_s
   end
