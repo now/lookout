@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'benchmark'
-
 class Lookout::Suite
   autoload :Results, 'lookout/suite/results'
 
@@ -45,7 +43,7 @@ class Lookout::Suite
   def execute(ui = Lookout::UI::Console.new, results = Lookout::Suite::Results.new)
     return results if @do_not_run
     ui.start
-    ui.summarize results, Benchmark.realtime{
+    ui.summarize results, Lookout::Benchmark.time{
       each(ENV['LINE'] ? ENV['LINE'].to_i : nil) do |expectation|
         results << expectation.execute.tap{ |result| ui.report result }
       end

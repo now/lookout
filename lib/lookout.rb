@@ -2,6 +2,7 @@
 
 module Lookout
   autoload :Aphonic, 'lookout/aphonic'
+  autoload :Benchmark, 'lookout/benchmark'
   autoload :Diff, 'lookout/diff'
   autoload :Equality, 'lookout/equality'
   autoload :Expectation, 'lookout/expectation'
