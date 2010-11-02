@@ -47,11 +47,6 @@ class Lookout::Diff::Range
     self.class.new(items, range.begin..index)
   end
 
-  # TODO: Check use
-  def [](index)
-    items[index]
-  end
-
   def each
     range.each do |index|
       yield items[index]
@@ -70,12 +65,14 @@ class Lookout::Diff::Range
     items[range]
   end
 
-  # TODO: Check use
+  def [](index)
+    items[index]
+  end
+
   def begin
     range.begin
   end
 
-  # TODO: Check use
   def end
     range.end
   end

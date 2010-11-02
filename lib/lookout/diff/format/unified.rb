@@ -3,8 +3,6 @@
 class Lookout::Diff::Format::Unified
   include Enumerable
 
-  # TODO: Format shouldn’t have access to from and to.  Operations should be
-  # referencing these objects.
   def initialize(groups)
     @groups = groups
   end

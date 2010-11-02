@@ -13,7 +13,6 @@ class Lookout::Diff::Operations
   end
 
   def each
-    # TODO: Use #reduce?
     from = to = 0
     @matches.each do |match|
       type = typeify(from, to, match)
