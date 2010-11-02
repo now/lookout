@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect false do
     Lookout::Diff::Operations::Delete.new(Lookout::Diff::Range.new('', 0...0),

@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 
+$:.unshift File.expand_path('../lib', __FILE__)
+
 require 'rake/gempackagetask'
 require 'rake/testtask'
 require 'rubygems/dependency_installer'
 require 'yard'
 
-specification = Gem::Specification.load(File.join(File.dirname(__FILE__),
-                                                  'lookout.gemspec'))
+require 'lookout/rake/tasks/test'
+
+spec = Gem::Specification.load(File.expand_path('../lookout.gemspec', __FILE__))
 
 task :default => :test
 
-Rake::TestTask.new do |t|
-  t.libs << 'test'
-  t.ruby_opts << '-w'
-  t.pattern = 'test/**/*.rb'
+Lookout::Rake::Tasks::Test.new do |t|
   ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'] = ''
 end
 
 YARD::Rake::YardocTask.new
 
-Rake::GemPackageTask.new(specification) do |g|
+Rake::GemPackageTask.new(spec) do |g|
   desc 'Run :package and install the resulting gem'
   task :install => :package do
     Gem::DependencyInstaller.new.install File.join(g.package_dir, g.gem_file)

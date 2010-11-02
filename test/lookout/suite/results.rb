@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect 1 do
     results = Lookout::Suite::Results.new

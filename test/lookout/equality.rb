@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect nil do
     Lookout::Equality.diff('abc', 1)

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect Lookout::Results::Failures::State do
     Lookout::Expectation.on(1, nil, nil){ 2 }.execute

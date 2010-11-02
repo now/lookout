@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect Lookout::Diff::Range.new('').to.be.empty?
   expect Lookout::Diff::Range.new('a', 0..-1).to.be.empty?

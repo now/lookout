@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect nil do
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).define }.a

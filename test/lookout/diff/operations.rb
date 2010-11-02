@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect [] do
     Lookout::Diff::Operations.new(Lookout::Diff::Algorithms::Difflib.new('',

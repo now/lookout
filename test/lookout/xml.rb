@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect Lookout::XML.new('<foo>bar</foo>').to.be.==('<foo>bar</foo>')
   expect Lookout::XML.new('<foo>not bar</foo>').not.to.be.==('<foo>bar</foo>')

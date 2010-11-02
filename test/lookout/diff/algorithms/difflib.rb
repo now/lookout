@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect [Lookout::Diff::Match.new(Lookout::Diff::Range.new('abxcd', 0..1),
                                    Lookout::Diff::Range.new('abcd', 0..1)),

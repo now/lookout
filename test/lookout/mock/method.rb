@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect Lookout::Mock::Method do
     Lookout::Mock::Method.new(stub, :a).never.verify

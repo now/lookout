@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect [Lookout::Results::Failures::Behavior] do
     suite = Lookout::Suite.new

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect Object.new.extend(Lookout::Results::Fulfilled).not.to.be.error?
   expect Object.new.extend(Lookout::Results::Fulfilled).not.to.be.failure?

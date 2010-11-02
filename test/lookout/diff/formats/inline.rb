@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
-
 Expectations do
   expect 'one two three' do
     Lookout::Diff::Formats::Inline.
