@@ -4,8 +4,8 @@ require 'lookout'
 
 Expectations do
   expect [] do
-    Lookout::Diff::Operations.new(Lookout::Diff::Algorithm::Difflib.new('',
-                                                                        '')).to_a
+    Lookout::Diff::Operations.new(Lookout::Diff::Algorithms::Difflib.new('',
+                                                                         '')).to_a
   end
 
   expect [Lookout::Diff::Operations::Delete.new(Lookout::Diff::Range.new('qabxcd', 0..0),
@@ -18,7 +18,7 @@ Expectations do
                                                Lookout::Diff::Range.new('abycdf', 3..4)),
           Lookout::Diff::Operations::Insert.new(Lookout::Diff::Range.new('qabxcd', 6...6),
                                                 Lookout::Diff::Range.new('abycdf', 5..5))] do
-    Lookout::Diff::Operations.new(Lookout::Diff::Algorithm::Difflib.new('qabxcd',
-                                                                        'abycdf')).to_a
+    Lookout::Diff::Operations.new(Lookout::Diff::Algorithms::Difflib.new('qabxcd',
+                                                                         'abycdf')).to_a
   end
 end

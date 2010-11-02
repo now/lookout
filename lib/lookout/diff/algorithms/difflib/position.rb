@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Algorithm::Difflib::Position
-  autoload :To, 'lookout/diff/algorithm/difflib/position/to'
+class Lookout::Diff::Algorithms::Difflib::Position
+  autoload :To, 'lookout/diff/algorithms/difflib/position/to'
 
   class << self
     def origin(from, to)

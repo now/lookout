@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Algorithm::Difflib
-  autoload :Position, 'lookout/diff/algorithm/difflib/position'
+class Lookout::Diff::Algorithms::Difflib
+  autoload :Position, 'lookout/diff/algorithms/difflib/position'
 
   include Enumerable
 
