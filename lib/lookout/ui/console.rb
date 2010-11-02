@@ -21,8 +21,7 @@ class Lookout::UI::Console
         result << '%d %s' % [size, type]
       }.join(', ')
     summarize_group results, :errors do |error|
-      result error, error.message, exception_message(error.exception)
-      @io.puts Lookout::UI::Formatters::Backtrace.new(error.exception.backtrace)
+      result error, error.message, Lookout::UI::Formatters::Exception.new(error.exception)
     end
     summarize_group results, :failures do |failure|
       result failure, failure.message
@@ -44,19 +43,5 @@ private
 
   def result(result, *parts)
     @io.printf "%s:%d: %s\n", result.file, result.line, parts.compact.join(': ')
-  end
-
-  def exception_message(error)
-    message = error.message.to_str
-    case
-    when error.class == RuntimeError && message.empty?
-      'unhandled error'
-    when message.empty?
-      error.class.name
-    when error.class.name.empty?
-      message
-    else
-      '%s (%s)' % [message.chomp("\n"), error.class.name]
-    end
   end
 end

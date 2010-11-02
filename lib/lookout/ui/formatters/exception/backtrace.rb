@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::UI::Formatters::Backtrace
+class Lookout::UI::Formatters::Exception::Backtrace
   def initialize(backtrace, filter = ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'].nil?)
     @backtrace, @filter = backtrace, filter
   end
