@@ -10,7 +10,7 @@ class Lookout::UI::Formatters::Exception
   def message
     message = @exception.message.to_str
     if @exception.class == RuntimeError and message.empty?
-      'unhandled error'
+      'unhandled exception'
     elsif message.empty?
       @exception.class.name
     elsif @exception.class.name.empty?
