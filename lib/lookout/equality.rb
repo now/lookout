@@ -121,11 +121,10 @@ class Lookout::Equality::Hash < Lookout::Equality::Object
 
   def diff(expected, actual)
     return if expected.size == 1 or not actual.is_a? Hash
-    Lookout::Diff::Formats::Unified.
-      new(Lookout::Diff::Groups.
-            new(Lookout::Diff::Operations.
-                  new(Lookout::Diff::Algorithms::Difflib.
-                        new(array(actual), array(expected))))).to_a.join("\n")
+    Lookout::Diff::Formats::Hash.
+      new(Lookout::Diff::Operations.
+            new(Lookout::Diff::Algorithms::Difflib.
+                  new(array(actual), array(expected)))).to_a.join("\n")
   end
 
 private

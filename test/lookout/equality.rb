@@ -54,10 +54,8 @@ EOD
   end
 
   expect <<EOD.chomp do
-@@ -1,2 +1,2 @@
 -"def" => 1
 +"abc" => 1
- "ghi" => 2
 EOD
     Lookout::Equality.diff({'abc' => 1, 'ghi' => 2}, {'def' => 1, 'ghi' => 2})
   end
