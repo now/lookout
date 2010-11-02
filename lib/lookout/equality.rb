@@ -76,6 +76,7 @@ class Lookout::Equality::String < Lookout::Equality::Object
   Lookout::Equality.register self, String
 
   def diff(expected, actual)
+    return unless actual.is_a? String
     (expected.include? "\n" or actual.include? "\n") ?
      Lookout::Diff::Formats::Unified.
        new(Lookout::Diff::Groups.
@@ -101,7 +102,7 @@ class Lookout::Equality::Array < Lookout::Equality::Object
   end
 
   def diff(expected, actual)
-    return if expected.size == 1
+    return if expected.size == 1 or not actual.is_a? Array
     Lookout::Diff::Formats::Unified.
       new(Lookout::Diff::Groups.
             new(Lookout::Diff::Operations.
@@ -116,6 +117,21 @@ class Lookout::Equality::Hash < Lookout::Equality::Object
   def equal?(expected, actual)
     return false unless other.is_a? Hash and expected.size == actual.size
     expected.all?{ |k, v| Lookout::Equality.equal? v, actual[k] }
+  end
+
+  def diff(expected, actual)
+    return if expected.size == 1 or not actual.is_a? Hash
+    Lookout::Diff::Formats::Unified.
+      new(Lookout::Diff::Groups.
+            new(Lookout::Diff::Operations.
+                  new(Lookout::Diff::Algorithms::Difflib.
+                        new(array(actual), array(expected))))).to_a.join("\n")
+  end
+
+private
+
+  def array(hash)
+    hash.to_a.sort_by{ |k, v| k }.map{ |k, v| '%p => %p' % [k, v] }
   end
 end
 
