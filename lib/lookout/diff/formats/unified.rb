@@ -8,9 +8,9 @@ class Lookout::Diff::Formats::Unified
   end
 
   def each
-    @groups.each do |operations|
-      group = Group.new(operations)
-      yield group.to_s unless group.empty?
+    @groups.each do |group|
+      next if group.parity?
+      yield Group.new(group).to_s
     end
     self
   end
@@ -18,12 +18,8 @@ class Lookout::Diff::Formats::Unified
 private
 
   class Group
-    def initialize(operations)
-      @operations = operations
-    end
-
-    def empty?
-      @operations.size == 1 and @operations.first.parity?
+    def initialize(group)
+      @group = group
     end
 
     def delete(operation)
@@ -44,11 +40,9 @@ private
 
     def to_s
       lines = ['@@ -%d,%d +%d,%d @@' %
-               [@operations.first.from.begin + 1,
-                @operations.last.from.end - @operations.first.from.begin + 1,
-                @operations.first.to.begin + 1,
-                @operations.last.to.end - @operations.first.to.begin + 1]]
-      @operations.each do |operation|
+               [@group.from.begin + 1, @group.from.size,
+                @group.to.begin + 1, @group.to.size]]
+      @group.each do |operation|
         lines.concat operation.apply(self)
       end
       lines.join("\n")

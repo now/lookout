@@ -9,7 +9,7 @@ class Lookout::Diff::Groups
 
   def each
     saved = nil
-    group = []
+    group = Lookout::Diff::Group.new
     @operations.each do |operation|
       if saved
         yield saved
@@ -20,7 +20,7 @@ class Lookout::Diff::Groups
         group << operation
       elsif operation.foldable? @context * 2
         saved = group << (operation << @context)
-        group = [operation >> @context]
+        group = Lookout::Diff::Group.new(operation >> @context)
       else
         group << operation
       end
@@ -28,8 +28,7 @@ class Lookout::Diff::Groups
     if saved
       yield saved
     elsif not group.empty?
-      group[-1] = group[-1] << @context
-      yield group
+      yield group.fold(@context)
     end
   end
 end

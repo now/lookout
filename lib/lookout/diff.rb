@@ -1,6 +1,7 @@
 module Lookout::Diff
   autoload :Algorithms, 'lookout/diff/algorithms'
   autoload :Formats, 'lookout/diff/formats'
+  autoload :Group, 'lookout/diff/group'
   autoload :Groups, 'lookout/diff/groups'
   autoload :Match, 'lookout/diff/match'
   autoload :Operation, 'lookout/diff/operation'
