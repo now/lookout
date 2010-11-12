@@ -115,7 +115,7 @@ class Lookout::Equality::Hash < Lookout::Equality::Object
   Lookout::Equality.register self, Hash
 
   def equal?(expected, actual)
-    return false unless other.is_a? Hash and expected.size == actual.size
+    return false unless actual.is_a? Hash and expected.size == actual.size
     expected.all?{ |k, v| Lookout::Equality.equal? v, actual[k] }
   end
 
