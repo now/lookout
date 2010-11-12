@@ -10,6 +10,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
 
   def initialize(specification = nil, name = :test)
     @name = name
+    @paths = specification ? [specification.require_paths] : ['lib']
     @requires = specification ? [specification.name] : []
     yield self if block_given?
     define
@@ -18,7 +19,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   def define
     desc @name == :test ? 'Run tests' : 'Run tests for %s' % @name
     task @name do
-      ruby '-w -Ilib -- "%s" %s %s' % [LoaderPath, reqs, files.join(' ')]
+      ruby '-w %s -- "%s" %s %s' % [LoaderPath, @paths.map{ |p| '-I%s' % p }.join(' '), reqs, files.join(' ')]
     end
   end
 
