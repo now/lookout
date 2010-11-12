@@ -4,11 +4,8 @@ class Lookout::Recorder < Lookout::Aphonic
   autoload :Not, 'lookout/recorder/not'
   autoload :Tape, 'lookout/recorder/tape'
 
-  attr_reader :subject
-
   def initialize(subject)
-    @subject = subject
-    @negated = false
+    @subject, @negated = subject, false
   end
 
   def not
@@ -41,5 +38,13 @@ class Lookout::Recorder < Lookout::Aphonic
 
   def subject!(mocks, stubs)
     subject
+  end
+
+  attr_reader :subject
+
+  def method_missing(method, *args)
+    extend Lookout::Recorders::State
+    @verb = nil
+    method_missing method, *args
   end
 end

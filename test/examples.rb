@@ -100,6 +100,9 @@ Expectations do
     process.finished = true
   end
 
+  # Expect nil to respond to #nil?.
+  expect nil.to.respond_to? :nil?
+
   # Expect nil to be nil.
   expect nil.to.be.nil?
 
