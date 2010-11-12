@@ -10,7 +10,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
 
   def initialize(specification = nil, name = :test)
     @name = name
-    @requires = specification ? [specification] : []
+    @requires = specification ? [specification.name] : []
     yield self if block_given?
     define
   end
