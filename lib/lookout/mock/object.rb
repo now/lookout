@@ -1,17 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Object < Lookout::Aphonic
-  undef extend
-  undef is_a?
-
-  def to
-    Lookout::Recorder.new(self)
-  end
-
-  def not
-    Lookout::Not.new(self)
-  end
-
+class Lookout::Mock::Object
   def inspect
     'mock'
   end
