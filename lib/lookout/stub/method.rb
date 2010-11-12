@@ -11,18 +11,37 @@ class Lookout::Stub::Method
       @offset = [@offset + 1, @values.count - 1].min
       @values[@offset]
     end
+
+    def call
+      yield(*self.next)
+    end
   end
 
-  Nil = proc{ nil }
+  class Each
+    def initialize(*values)
+      @values = values
+    end
+
+    def call
+      @values.each do |value|
+        yield value
+      end
+    end
+  end
 
   def initialize(object, method, &body)
     @object, @method, @body = object, method.to_sym, body || Nil
-    @yield = Values.new
+    @yield = nil
     @defined = false
   end
 
   def yield(*values)
     @yield = Values.new(*values)
+    self
+  end
+
+  def each(*values)
+    @yield = Each.new(*values)
     self
   end
 
@@ -33,8 +52,8 @@ class Lookout::Stub::Method
     self
   end
 
-  def call(*args)
-    yield(*@yield.next) if block_given?
+  def call(*args, &block)
+    @yield.call(&block) if @yield and block
     @body.call(*args)
   end
 
@@ -46,6 +65,8 @@ class Lookout::Stub::Method
   end
 
 private
+
+  Nil = proc{ Lookout::Stub::Object.new }
 
   def define!
     meta.module_exec(@method, visibility, stash, self) do |method, visibility, stash, stub|

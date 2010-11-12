@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect nil do
+  expect Lookout::Stub::Object do
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).define }.a
   end
 
@@ -33,5 +33,16 @@ Expectations do
 
   expect StandardError do
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a){ raise StandardError }.define }.a
+  end
+
+  expect nil do
+    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).define }.a{ raise StandardError }
+    nil
+  end
+
+  expect 1 do
+    a = nil
+    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).yield(1).define }.a{ |v| a = v }
+    a
   end
 end
