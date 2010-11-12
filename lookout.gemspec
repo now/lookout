@@ -20,7 +20,7 @@ Jay Fields. Tests (expectations) are written as follows
     1 + 1
   end
 
-  expect 2.to.be.equal?(1 + 1)
+  expect 2.to.equal?(1 + 1)
 
   expect NoMethodError do
     Object.invalid_method_call
@@ -29,5 +29,5 @@ EOD
 
   s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*$']
 
-  s.add_development_dependency 'yard', '>= 0.2.3.5'
+  s.add_development_dependency 'yard', '~> 0.6.0'
 end
