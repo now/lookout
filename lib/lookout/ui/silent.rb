@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::UI::Silent
-  def self.start
+  def start
   end
 
-  def self.report(result)
+  def report(result)
   end
 
-  def self.summarize(results, time)
+  def summarize(results, time)
   end
 end

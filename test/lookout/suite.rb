@@ -3,20 +3,20 @@
 Expectations do
   expect true do
     suite = Lookout::Suite.new
-    suite.execute(Lookout::UI::Silent).succeeded?
+    suite.execute(Lookout::UI::Silent.new).succeeded?
   end
 
   expect true do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }
     suite.do_not_run
-    suite.execute(Lookout::UI::Silent).succeeded?
+    suite.execute(Lookout::UI::Silent.new).succeeded?
   end
 
   expect false do
     suite = Lookout::Suite.new
     suite.expect(1){ 2 }
-    suite.execute(Lookout::UI::Silent).succeeded?
+    suite.execute(Lookout::UI::Silent.new).succeeded?
   end
 
   expect 3 do
@@ -61,12 +61,12 @@ Expectations do
   expect Object.new do |o|
     suite = Lookout::Suite.new
     suite.do_not_run
-    suite.execute(Lookout::UI::Silent, o)
+    suite.execute(Lookout::UI::Silent.new, o)
   end
 
   expect Lookout::Suite::Results do
     suite = Lookout::Suite.new
     suite.do_not_run
-    suite.execute(Lookout::UI::Silent)
+    suite.execute(Lookout::UI::Silent.new)
   end
 end

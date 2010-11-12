@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::UI::Console
+class Lookout::UI::Console < Lookout::UI::Silent
   def initialize(io = STDOUT)
     @io = io
-  end
-
-  def start
-  end
-
-  def report(result)
   end
 
   def summarize(results, time)

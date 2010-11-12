@@ -5,7 +5,7 @@ Expectations do
     suite = Lookout::Suite.new
     suite.expect(1){ raise }
     Lookout::UI::Formatters::Exception::Backtrace.
-      new(suite.execute(Lookout::UI::Silent).first.exception.backtrace,
+      new(suite.execute(Lookout::UI::Silent.new).first.exception.backtrace,
           true).backtrace
   end
 end
