@@ -19,7 +19,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   def define
     desc @name == :test ? 'Run tests' : 'Run tests for %s' % @name
     task @name do
-      ruby '-w %s -- "%s" %s %s' % [LoaderPath, @paths.map{ |p| '-I%s' % p }.join(' '), reqs, files.join(' ')]
+      ruby '-w %s -- "%s" %s %s' % [@paths.map{ |p| '-I%s' % p }.join(' '), LoaderPath, reqs, files.join(' ')]
     end
   end
 
