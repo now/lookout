@@ -3,7 +3,6 @@
 $:.unshift File.expand_path('../lib', __FILE__)
 
 require 'rake/gempackagetask'
-require 'rake/testtask'
 require 'rubygems/dependency_installer'
 require 'yard'
 
