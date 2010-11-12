@@ -39,7 +39,6 @@ private
 
     def method_missing(method, &body)
       @stubs.define(@object, method, &body)
-      @object
     end
   end
 end
