@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-$:.unshift File.expand_path('../lib', __FILE__)
-
 require 'rake/gempackagetask'
 require 'rubygems/dependency_installer'
 require 'yard'

@@ -27,7 +27,7 @@ Jay Fields. Tests (expectations) are written as follows
   end.
 EOD
 
-  s.files = FileList['{lib,test}/**/*.rb', '[A-Z]*$']
+  s.files = Dir['{lib,test}/**/*.rb,[A-Z]*$']
 
   s.add_development_dependency 'yard', '~> 0.6.0'
 end
