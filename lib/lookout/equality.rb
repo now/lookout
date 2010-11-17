@@ -76,7 +76,7 @@ class Lookout::Equality::String < Lookout::Equality::Object
   Lookout::Equality.register self, String
 
   def diff(expected, actual)
-    return unless actual.is_a? String
+    return unless String === actual
     (expected.include? "\n" or actual.include? "\n") ?
      Lookout::Diff::Formats::Unified.
        new(Lookout::Diff::Groups.
@@ -94,7 +94,7 @@ class Lookout::Equality::Array < Lookout::Equality::Object
   Lookout::Equality.register self, Array
 
   def equal?(expected, actual)
-    return false unless actual.is_a? Array and expected.size == actual.size
+    return false unless Array === actual and expected.size == actual.size
     expected.each_with_index do |v, i|
       return false unless Lookout::Equality.equal? v, actual[i]
     end
@@ -102,7 +102,7 @@ class Lookout::Equality::Array < Lookout::Equality::Object
   end
 
   def diff(expected, actual)
-    return if expected.size == 1 or not actual.is_a? Array
+    return if expected.size == 1 or not Array === actual
     Lookout::Diff::Formats::Unified.
       new(Lookout::Diff::Groups.
             new(Lookout::Diff::Operations.
@@ -115,12 +115,12 @@ class Lookout::Equality::Hash < Lookout::Equality::Object
   Lookout::Equality.register self, Hash
 
   def equal?(expected, actual)
-    return false unless actual.is_a? Hash and expected.size == actual.size
+    return false unless Hash === actual and expected.size == actual.size
     expected.all?{ |k, v| Lookout::Equality.equal? v, actual[k] }
   end
 
   def diff(expected, actual)
-    return if expected.size == 1 or not actual.is_a? Hash
+    return if expected.size == 1 or not Hash === actual
     Lookout::Diff::Formats::Hash.
       new(Lookout::Diff::Operations.
             new(Lookout::Diff::Algorithms::Difflib.
@@ -139,21 +139,21 @@ class Lookout::Equality::StandardError < Lookout::Equality::Object
 
   def equal?(expected, actual)
     expected.equal?(actual) or
-      (actual.respond_to? :message and
-       ((expected.message.is_a? Regexp and expected.message === actual.message) or
+      ((actual.respond_to? :message rescue false) and
+       ((Regexp === expected.message and expected.message === actual.message) or
         expected.message == actual.message))
   end
 
   def diff(expected, actual)
-    return super unless expected.message.is_a? String and
-      actual.is_a? StandardError and actual.respond_to? :message
+    return super unless String === expected.message and
+      StandardError === actual and (actual.respond_to? :message rescue false)
     Lookout::Equality.diff(actual.message, expected.message)
   end
 
 private
 
   def format(expected, actual)
-    expected.message.is_a?(Regexp) ?
+    Regexp === expected.message ?
       '%p≠#<%s: %p>' % [actual, expected.class, expected.message] :
       super
   end
