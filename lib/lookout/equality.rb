@@ -147,7 +147,7 @@ class Lookout::Equality::StandardError < Lookout::Equality::Object
   def diff(expected, actual)
     return super unless expected.message.is_a? String and
       actual.is_a? StandardError and actual.respond_to? :message
-    Lookout::Equality.diff(expected.message, actual.message)
+    Lookout::Equality.diff(actual.message, expected.message)
   end
 
 private
