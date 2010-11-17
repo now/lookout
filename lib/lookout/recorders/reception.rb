@@ -2,7 +2,7 @@
 
 module Lookout::Recorders::Reception
   def subject!(mocks, stubs)
-    @mock = @method.define(mocks)
+    @mock = @method._lookout_define(mocks)
     methods.play_for @mock
     subject
   end
@@ -40,7 +40,7 @@ private
       @recorder
     end
 
-    def define(mocks)
+    def _lookout_define(mocks)
       mocks.define(@recorder.subject, @method, *@args, &@body).tap{ |m| m.never if @negated }
     end
   end
