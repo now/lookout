@@ -26,6 +26,10 @@ class Lookout::Suite
     Lookout::Stub::Object.new
   end
 
+  def io(string)
+    Lookout::IO.new(string)
+  end
+
   def xml(string)
     Lookout::XML.new(string)
   end

@@ -83,6 +83,11 @@ Expectations do
      </two></one>'
   end
 
+  # Make sure that some output is done.
+  expect io("abc\ndef\n") do |o|
+    o.puts 'abc', 'def'
+  end
+
   # Verify that an exception is raised.
   expect NoMethodError do
     Object.no_method

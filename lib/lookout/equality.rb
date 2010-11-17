@@ -158,3 +158,21 @@ private
       super
   end
 end
+
+class Lookout::Equality::IO < Lookout::Equality::Object
+  Lookout::Equality.register self, Lookout::IO
+
+  def equal?(expected, _actual)
+    expected.expected == expected.actual
+  end
+
+  def diff(expected, _actual)
+    Lookout::Equality.diff(expected.actual, expected.expected)
+  end
+
+private
+
+  def format(expected, _actual)
+    '%p≠%p' % [Lookout::IO.new(expected.actual), expected]
+  end
+end

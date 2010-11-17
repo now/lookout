@@ -7,6 +7,7 @@ module Lookout
   autoload :Equality, 'lookout/equality'
   autoload :Expectation, 'lookout/expectation'
   autoload :Expectations, 'lookout/expectations'
+  autoload :IO, 'lookout/io'
   autoload :Mock, 'lookout/mock'
   autoload :Recorder, 'lookout/recorder'
   autoload :Recorders, 'lookout/recorders'
