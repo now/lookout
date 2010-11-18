@@ -21,12 +21,13 @@ Lookout is designed to encourage unit testing best practices such as
 
 The way lookout works has been heavily influenced by [expectations][1], by [Jay
 Fields][2].  The code base was once also heavily based on [expectations][1],
-based at Subversion revision r76.  A lot has happened since then and all of the
-work past that revision are due to [Nikolai Weibull][3].
+based at Subversion [revision r76][3].  A lot has happened since then and all of the
+work past that revision are due to [Nikolai Weibull][4].
 
 [1]: http://expectations.rubyforge.org
 [2]: http://blog.jayfields.com
-[3]: http://bitwi.se
+[3]: https://github.com/now/lookout/commit/537bedf3e5b3eb4b31c066b3266f42964ac35ebe
+[4]: http://bitwi.se
 
 
 ## Installation ##
@@ -52,7 +53,9 @@ See Lookout’s own test directory for examples.
 ## Contributors ##
 
 Contributors to the original expectations codebase are mentioned there.  We
-hope no one on that list feels left out of this list.  Please let us know if
+hope no one on that list feels left out of this list.  Please [let us know] if
 you do.
 
   * Nikolai Weibull
+
+[1]: https://github.com/now/lookout/issues
