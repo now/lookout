@@ -17,7 +17,6 @@ module Lookout
   autoload :Stub, 'lookout/stub'
   autoload :Suite, 'lookout/suite'
   autoload :UI, 'lookout/ui'
-  autoload :Utilities, 'lookout/utilities'
   autoload :Version, 'lookout/version'
   autoload :XML, 'lookout/xml'
 end
