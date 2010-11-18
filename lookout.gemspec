@@ -12,22 +12,10 @@ Gem::Specification.new do |s|
   s.email = 'now@bitwi.se'
   s.homepage = 'http://github.com/now/lookout'
 
-  s.summary = 'A lightweight unit testing framework based on expectations.'
-  s.description = <<EOD
-Lookout is a lightweight unit testing framework based on expectations by
-Jay Fields. Tests (expectations) are written as follows
-  expect 2 do
-    1 + 1
-  end
+  s.description = IO.read(File.expand_path('../README', __FILE__))
+  s.summary = s.description[/^[[:alpha:]]+.*?\./]
 
-  expect 2.to.equal?(1 + 1)
-
-  expect NoMethodError do
-    Object.invalid_method_call
-  end.
-EOD
-
-  s.files = Dir['{lib,test}/**/*.rb', '[A-Z]*']
+  s.files = Dir['{lib,test}/**/*.rb'] + ['README', 'Rakefile']
 
   s.add_development_dependency 'yard', '~> 0.6.0'
 end

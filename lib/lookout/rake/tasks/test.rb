@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 
-require 'rake'
-require 'rake/tasklib'
-
-module Lookout module Rake module Tasks end end end
-
 class Lookout::Rake::Tasks::Test < Rake::TaskLib
   LoaderPath = File.join(File.dirname(__FILE__), 'test/loader.rb')
 
-  def initialize(specification = nil, name = :test)
+  def initialize(specification = Lookout::Rake::Tasks.specification, name = :test)
     self.specification, @name = specification, name
     yield self if block_given?
     define
@@ -19,6 +14,8 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
     task @name do
       ruby '-w %s -- "%s" %s' % [options, LoaderPath, arguments]
     end
+
+    task :default => @name unless Rake::Task.task_defined? :default
   end
 
   attr_accessor :requires
@@ -26,12 +23,9 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
 private
 
   def specification=(specification)
-    @paths, @requires = ['lib'], []
-    if not specification and Object.const_defined? :Gem
-      gemspec = Dir['*.gemspec'].first and
-        specification = Gem::Specification.load(gemspec)
-    end
-    @paths, @requires = specification.require_paths, specification.name
+    @paths, @requires = specification ?
+      [specification.require_paths, [specification.name]] :
+      [['lib'], []]
   end
 
   def options

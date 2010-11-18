@@ -3,39 +3,45 @@
 Lookout is a lightweight unit testing framework. Tests (expectations) can be
 written as follows
 
-  expect 2 do
-    1 + 1
-  end
+    expect 2 do
+      1 + 1
+    end
 
-  expect NoMethodError do
-    Object.invalid_method_call
-  end.
+    expect NoMethodError do
+      Object.invalid_method_call
+    end
 
 Lookout is designed to encourage unit testing best practices such as
 
-  - Discourage setting more than one expectation at a time
-  - Promote maintainability by not providing a setup or teardown method
-  - Provide one syntax for setting up state based or behavior based expectation
-  - Focus on readability by providing no mechanism for describing an
+  * Disallow setting more than one expectation at a time
+  * Promote maintainability by not providing a setup or teardown method
+  * Provide one syntax for setting up state based or behavior based expectation
+  * Focus on readability by providing no mechanism for describing an
     expectation other than the code in the expectation.
 
-Lookout is heavily based on {expectations}[http://expectations.rubyforge.org],
-by {Jay Fields}[http://blog.jayfields.com].  Modifications done to the
-expectations code base after Subversion revision r76 are due to
-{Nikolai Weibull}[http://bitwi.se].
+The way lookout works has been heavily influenced by [expectations][1], by [Jay
+Fields][2].  The code base was once also heavily based on [expectations][1],
+based at Subversion revision r76.  A lot has happened since then and all of the
+work past that revision are due to [Nikolai Weibull][3].
+
+[1]: http://expectations.rubyforge.org
+[2]: http://blog.jayfields.com
+[3]: http://bitwi.se
 
 
 ## Installation ##
 
 Install Lookout with
 
- % gem install expectations
+    % gem install lookout
 
 
 ## License ##
 
-You may use, copy and redistribute this library under the same
-{terms}[http://www.ruby-lang.org/en/LICENSE.txt]. as Ruby itself.
+You may use, copy and redistribute this library under the same [terms][1] as
+Ruby itself.
+
+[1]: http://www.ruby-lang.org/en/LICENSE.txt
 
 
 ## Usage ##
@@ -45,13 +51,8 @@ See Lookout’s own test directory for examples.
 
 ## Contributors ##
 
-• Jay Fields
-• Matt Mower
-• Ola Bini
-• George Malamidis
-• Brian Guthrie
-• Philippe Hanrigou
-• Steve McLarnon
-• Rubikitch
-• Subhash Gupta
-• Holger Kohnen
+Contributors to the original expectations codebase are mentioned there.  We
+hope no one on that list feels left out of this list.  Please let us know if
+you do.
+
+  * Nikolai Weibull
