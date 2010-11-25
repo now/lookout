@@ -22,7 +22,17 @@ module Lookout::Expectation
   def stub(*args)
     raise ArgumentError,
       'wrong number of arguments (%d for 1)' % args.length unless args.count < 2
-    args.length > 0 ? Method.new(@stubs, args[0]) : Lookout::Stub::Object.new
+    return Lookout::Stub::Object.new if args.length < 1
+    case args[0]
+    when Hash
+      Lookout::Stub::Object.new.tap{ |stub|
+        args[0].each do |name, value|
+          @stubs.define(stub, name){ value }
+        end
+      }
+    else
+      Method.new(@stubs, args[0])
+    end
   end
 
   attr_reader :file, :line

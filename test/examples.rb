@@ -83,7 +83,7 @@ Expectations do
      </two></one>'
   end
 
-  # Make sure that some output is done.
+  # Verify that the given text is output.
   expect io("abc\ndef\n") do |o|
     o.puts 'abc', 'def'
   end
@@ -91,6 +91,16 @@ Expectations do
   # Verify that an exception is raised.
   expect NoMethodError do
     Object.no_method
+  end
+
+  # Verify that an exception with a specific message is raised.
+  expect StandardError.new('message') do
+    raise StandardError.new('message')
+  end
+
+  # Verify that an exception with a message matching a given Regexp is raised.
+  expect StandardError.new(/mess/) do
+    raise StandardError.new('message')
   end
 
   # State-based Fluent Boolean Expectations
@@ -138,6 +148,12 @@ Expectations do
     phone.dial('2125551212')
   end
 
+  # Use a stub that’s set up with a set of methods.
+  expect 3 do
+    s = stub(:a => 1, :b => 2)
+    s.a + s.b
+  end
+
   # Use a contrete mock to verify that a method is called.
   expect Object.to.receive.deal do
     Object.deal
@@ -157,13 +173,5 @@ Expectations do
   # argument.
   expect Object.new.to.receive.deal(arg, 1, arg) do |o|
     o.deal :a, 1, :b
-  end
-
-  expect StandardError.new('message') do
-    raise StandardError.new('message')
-  end
-
-  expect StandardError.new(/mess/) do
-    raise StandardError.new('message')
   end
 end
