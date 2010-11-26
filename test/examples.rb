@@ -84,8 +84,8 @@ Expectations do
   end
 
   # Verify that the given text is output.
-  expect io("abc\ndef\n") do |o|
-    o.puts 'abc', 'def'
+  expect output("abc\ndef\n") do |io|
+    io.puts 'abc', 'def'
   end
 
   # Verify that an exception is raised.

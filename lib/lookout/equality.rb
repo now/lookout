@@ -159,8 +159,8 @@ private
   end
 end
 
-class Lookout::Equality::IO < Lookout::Equality::Object
-  Lookout::Equality.register self, Lookout::IO
+class Lookout::Equality::Output < Lookout::Equality::Object
+  Lookout::Equality.register self, Lookout::Output
 
   def equal?(expected, _actual)
     expected.expected == expected.actual
@@ -173,6 +173,6 @@ class Lookout::Equality::IO < Lookout::Equality::Object
 private
 
   def format(expected, _actual)
-    '%p≠%p' % [Lookout::IO.new(expected.actual), expected]
+    '%p≠%p' % [Lookout::Output.new(expected.actual), expected]
   end
 end

@@ -2,7 +2,7 @@
 
 require 'stringio'
 
-class Lookout::IO < StringIO
+class Lookout::Output < StringIO
   def initialize(expected)
     @expected = expected
     super()
@@ -16,6 +16,6 @@ class Lookout::IO < StringIO
   end
 
   def inspect
-    'io(%p)' % expected
+    'output(%p)' % expected
   end
 end
