@@ -20,7 +20,7 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
     desc 'Build %s' % specification.file_name
     task :build => specification.file_name
     file specification.file_name => specification.files do
-      when_writing('Building %s' % specification.file_name) do
+      when_writing 'Building %s' % specification.file_name do
         Gem::Builder.new(specification).build
       end
     end
@@ -36,6 +36,11 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
     desc 'Install %s and its dependencies' % specification.file_name
     task :install do
       Gem::DependencyInstaller.new.install specification.file_name
+    end
+
+    desc 'Push %s to rubygems.org' % specification.file_name
+    task :push => :check do
+      sh 'gem push %s' % specification.file_name
     end
   end
 
