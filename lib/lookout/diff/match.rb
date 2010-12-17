@@ -24,10 +24,8 @@ class Lookout::Diff::Match
   end
 
   def <=>(other)
-    [from.begin <=> other.from.begin,
-     from.end <=> other.from.end,
-     to.begin <=> other.to.begin,
-     to.end <=> other.to.end].find{ |d| d.nonzero? } or 0
+    [from.begin, from.end, to.begin, to.end] <=>
+      [other.from.begin, other.from.end, other.to.begin, other.to.end]
   end
 
   def inspect
