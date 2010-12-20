@@ -7,7 +7,7 @@ module Lookout module Rake end end
 
 module Lookout::Rake::Tasks
   autoload :Gem, 'lookout/rake/tasks/gem'
-  autoload :Test, 'lookout/rake/tasks/Test'
+  autoload :Test, 'lookout/rake/tasks/test'
 
   def self.top_srcdir
     @top_srcdir ||= Dir.pwd
