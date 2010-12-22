@@ -13,7 +13,7 @@ class Lookout::UI::Formatters::Exception
       'unhandled exception'
     elsif message.empty?
       @exception.class.name
-    elsif @exception.class.name.empty?
+    elsif @exception.class.name.empty? or @exception.class.name =~ /^#/
       message
     else
       '%s (%s)' % [message.chomp("\n"), @exception.class.name]

@@ -2,7 +2,12 @@
 
 class Lookout::UI::Formatters::Exception::Backtrace
   def initialize(backtrace, filter = ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'].nil?)
-    @backtrace, @filter = backtrace, filter
+    @filter = filter
+    @backtrace = case backtrace
+                 when nil then []
+                 when String then [backtrace]
+                 when Array then backtrace.select{ |l| String === l }
+                 end
   end
 
   def backtrace
