@@ -13,8 +13,8 @@ Expectations do
     Lookout::Expectation.on(1, nil, nil){ raise }.evaluate
   end
 
-  expect "undefined method `no_method' for Object:Class" do
-    Lookout::Expectation.on(ArgumentError, nil, nil){ Object.no_method }.evaluate.exception.to_s
+  expect "undefined method `no_method' for Object:Class (NoMethodError)" do
+    Lookout::Expectation.on(ArgumentError, nil, nil){ Object.no_method }.evaluate.exception.message
   end
 
   expect Lookout::Results::Fulfilled do

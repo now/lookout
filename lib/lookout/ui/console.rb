@@ -7,6 +7,15 @@ class Lookout::UI::Console < Lookout::UI::Silent
 
   def summarize(results, time)
     return if results.succeeded?
+    summarize_total results, time
+    summarize_group results, :errors
+    summarize_group results, :failures
+    @io.flush
+  end
+
+private
+
+  def summarize_total(results, time)
     @io.printf "Ran %d expectations in %.3f seconds: %s\n",
       results.size,
       time,
@@ -14,28 +23,14 @@ class Lookout::UI::Console < Lookout::UI::Silent
         next result unless (size = results.send(type).size) > 0
         result << '%d %s' % [size, type]
       }.join(', ')
-    summarize_group results, :errors do |error|
-      result error, error.message, Lookout::UI::Formatters::Exception.new(error.exception)
-    end
-    summarize_group results, :failures do |failure|
-      result failure, failure.message
-    end
-    @io.flush
   end
-
-private
 
   def summarize_group(results, type)
     group = results.send(type)
     return if group.empty?
-    @io.printf "\n%s\n\n", type.to_s.upcase
+    @io.puts '', type.to_s.upcase, ''
     group.each do |item|
-      yield item
-      @io.puts
+      @io.puts item, ''
     end
-  end
-
-  def result(result, *parts)
-    @io.printf "%s:%d: %s\n", result.file, result.line, parts.compact.join(': ')
   end
 end

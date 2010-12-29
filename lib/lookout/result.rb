@@ -16,4 +16,8 @@ class Lookout::Result
   end
 
   attr_reader :file, :line
+
+  def to_s
+    '%s:%d' % [file, line]
+  end
 end

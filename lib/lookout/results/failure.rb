@@ -9,4 +9,8 @@ class Lookout::Results::Failure < Lookout::Result
   end
 
   attr_reader :message
+
+  def to_s
+    [super, message].compact.join(': ')
+  end
 end

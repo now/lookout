@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::UI::Formatters::Exception::Backtrace
+class Lookout::Results::Error::Exception::Backtrace
   def initialize(backtrace, filter = ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'].nil?)
     @filter = filter
     @backtrace = case backtrace
@@ -34,7 +34,7 @@ private
   end
 
   def reject?(location)
-    location.rindex(Root, 0)
+    location.start_with? Root
   end
 
   Root = 4.times.reduce(__FILE__){ |path, _| File.dirname(path) }
