@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Results::Fulfilled
-  extend Lookout::Result
-
+class Lookout::Results::Fulfilled < Lookout::Result
   is :fulfilled
+
+  def initialize(file, line)
+    super file, line
+  end
 end

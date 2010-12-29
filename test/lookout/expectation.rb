@@ -2,23 +2,23 @@
 
 Expectations do
   expect Lookout::Results::Failures::State do
-    Lookout::Expectation.on(1, nil, nil){ 2 }.execute
+    Lookout::Expectation.on(1, nil, nil){ 2 }.evaluate
   end
 
   expect Lookout::Results::Fulfilled do
-    Lookout::Expectation.on(1, nil, nil){ 1 }.execute
+    Lookout::Expectation.on(1, nil, nil){ 1 }.evaluate
   end
 
   expect Lookout::Results::Error do
-    Lookout::Expectation.on(1, nil, nil){ raise }.execute
+    Lookout::Expectation.on(1, nil, nil){ raise }.evaluate
   end
 
   expect "undefined method `no_method' for Object:Class" do
-    Lookout::Expectation.on(ArgumentError, nil, nil){ Object.no_method }.execute.exception.to_s
+    Lookout::Expectation.on(ArgumentError, nil, nil){ Object.no_method }.evaluate.exception.to_s
   end
 
   expect Lookout::Results::Fulfilled do
-    Lookout::Expectation.on(NoMethodError, nil, nil){ Object.no_method }.execute
+    Lookout::Expectation.on(NoMethodError, nil, nil){ Object.no_method }.evaluate
   end
 
   expect Lookout::Recorders::State do
@@ -26,10 +26,10 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::State do
-    Lookout::Expectation.on('foo'.to.have.to_s == 'bar', nil, nil).execute
+    Lookout::Expectation.on('foo'.to.have.to_s == 'bar', nil, nil).evaluate
   end
 
   expect Lookout::Results::Fulfilled do
-    Lookout::Expectation.on('foo'.to.have.to_s == 'foo', nil, nil).execute
+    Lookout::Expectation.on('foo'.to.have.to_s == 'foo', nil, nil).evaluate
   end
 end

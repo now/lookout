@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Results::Error
-  extend Lookout::Result
-
+class Lookout::Results::Error < Lookout::Result
   is :error
 
-  attr_reader :exception
+  def initialize(file, line, message, exception)
+    super file, line
+    @message, @exception = message, exception
+  end
+
+  attr_reader :message, :exception
 end

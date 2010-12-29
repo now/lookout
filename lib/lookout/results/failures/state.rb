@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Results::Failures::State
-  extend Lookout::Result
-
-  is :failure
+class Lookout::Results::Failures::State < Lookout::Results::Failure
 end

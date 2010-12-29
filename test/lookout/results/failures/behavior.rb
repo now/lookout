@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Object.new.extend(Lookout::Results::Failures::Behavior).not.to.be.error?
-  expect Object.new.extend(Lookout::Results::Failures::Behavior).to.be.failure?
-  expect Object.new.extend(Lookout::Results::Failures::Behavior).not.to.be.fulfilled?
+  expect Lookout::Results::Failures::Behavior.new(nil, 0, nil).not.to.be.error?
+  expect Lookout::Results::Failures::Behavior.new(nil, 0, nil).to.be.failure?
+  expect Lookout::Results::Failures::Behavior.new(nil, 0, nil).not.to.be.fulfilled?
 end

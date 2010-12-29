@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Result
-  def is(is)
-    [:error, :failure, :fulfilled].each do |type|
-      define_method :"#{type}?" do
-        type == is
+class Lookout::Result
+  class << self
+    def is(is)
+      [:error, :failure, :fulfilled].each do |type|
+        define_method :"#{type}?" do
+          type == is
+        end
       end
     end
-    attr_reader :message
   end
+
+  def initialize(file, line)
+    @file, @line = file, line
+  end
+
+
+  attr_reader :file, :line
 end

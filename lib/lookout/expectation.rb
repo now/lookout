@@ -12,12 +12,8 @@ module Lookout::Expectation
     @expected, @file, @line, @block = expected, file, line.to_i, block
   end
 
-  def execute
-    Lookout::Stub.methods do |@stubs|
-      execute_with_stubs
-    end
-    @stubs = nil
-    self
+  def evaluate
+    Lookout::Stub.methods{ |@stubs| evaluate_with_stubs }.tap{ @stubs = nil }
   end
 
   def stub(*args)

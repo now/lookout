@@ -3,17 +3,17 @@
 class Lookout::Expectation::State
   include Lookout::Expectation
 
-  def execute_with_stubs
+  def evaluate_with_stubs
     check(@block ? instance_exec(@expected, &@block) : false)
   rescue Exception => e
     return check(e) if @expected.is_a? StandardError and @expected.class == e.class
-    return extend(Lookout::Results::Fulfilled) if @expected.eql? e.class
-    extend Lookout::Results::Error
-    @exception = e
+    return Lookout::Results::Fulfilled.new(file, line) if @expected.eql? e.class
     if @expected.is_a? Class and @expected <= StandardError
-      @message = Lookout::Equality.message(@expected, e.class)
+      Lookout::Results::Error.new(file, line, Lookout::Equality.message(@expected, e.class), e)
     elsif @expected.is_a? StandardError
-      @message = Lookout::Equality.message(@expected.class, e.class)
+      Lookout::Results::Error.new(file, line, Lookout::Equality.message(@expected.class, e.class), e)
+    else
+      Lookout::Results::Error.new(file, line, nil, e)
     end
   end
 
@@ -21,10 +21,9 @@ private
 
   def check(actual)
     if @expected == actual or Lookout::Equality.equal? @expected, actual
-      extend Lookout::Results::Fulfilled
+      Lookout::Results::Fulfilled.new(file, line)
     else
-      extend Lookout::Results::Failures::State
-      @message = Lookout::Equality.message(@expected, actual)
+      Lookout::Results::Failures::State.new(file, line, Lookout::Equality.message(@expected, actual))
     end
   end
 end

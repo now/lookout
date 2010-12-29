@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations
-  autoload :Results, 'lookout/expectations/results'
-
   include Enumerable
 
   def initialize
@@ -39,11 +37,11 @@ class Lookout::Expectations
     expected
   end
 
-  def execute(ui = Lookout::UI::Console.new, results = Results.new)
+  def execute(ui = Lookout::UI::Console.new, results = Lookout::Results.new)
     ui.start
     ui.summarize results, Lookout::Benchmark.time{
       each(ENV['LINE'] ? ENV['LINE'].to_i : nil) do |expectation|
-        results << expectation.execute.tap{ |result| ui.report result }
+        results << expectation.evaluate.tap{ |result| ui.report result }
       end
     }
     results
