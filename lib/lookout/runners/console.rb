@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Runners::Console
-  def initialize
-    @expectations = Lookout::Expectations.new
+  def initialize(expectations = Lookout::Expectations.new)
+    @expectations = expectations
+    @run = true
   end
 
   def install
     at_exit do
-      exit 1 unless @expectations.execute.succeeded?
+      exit 1 unless @run and @expectations.execute.succeeded?
     end
     self
   end
@@ -15,7 +16,7 @@ class Lookout::Runners::Console
   def expectations_eval(&block)
     @expectations.instance_eval(&block)
   rescue
-    @expectations.do_not_run
+    @run = false
     raise
   end
 end

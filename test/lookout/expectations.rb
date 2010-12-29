@@ -6,13 +6,6 @@ Expectations do
     expectations.execute(Lookout::UI::Silent.new).succeeded?
   end
 
-  expect true do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ 2 }
-    expectations.do_not_run
-    expectations.execute(Lookout::UI::Silent.new).succeeded?
-  end
-
   expect false do
     expectations = Lookout::Expectations.new
     expectations.expect(1){ 2 }
@@ -60,13 +53,6 @@ Expectations do
 
   expect Object.new do |o|
     expectations = Lookout::Expectations.new
-    expectations.do_not_run
     expectations.execute(Lookout::UI::Silent.new, o)
-  end
-
-  expect Lookout::Expectations::Results do
-    expectations = Lookout::Expectations.new
-    expectations.do_not_run
-    expectations.execute(Lookout::UI::Silent.new)
   end
 end

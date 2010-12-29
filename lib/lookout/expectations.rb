@@ -7,7 +7,6 @@ class Lookout::Expectations
 
   def initialize
     @expectations = []
-    @do_not_run = false
   end
 
   def mock
@@ -40,12 +39,7 @@ class Lookout::Expectations
     expected
   end
 
-  def do_not_run
-    @do_not_run = true
-  end
-
   def execute(ui = Lookout::UI::Console.new, results = Results.new)
-    return results if @do_not_run
     ui.start
     ui.summarize results, Lookout::Benchmark.time{
       each(ENV['LINE'] ? ENV['LINE'].to_i : nil) do |expectation|
