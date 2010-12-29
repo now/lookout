@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Expectation
-  autoload :Behavior, 'lookout/expectation/behavior'
-  autoload :State, 'lookout/expectation/state'
-
   def self.on(expected, file, line, &block)
-    (expected.is_a?(Lookout::Recorder) ? Behavior : State).new(expected, file, line, &block)
+    (expected.is_a?(Lookout::Recorder) ?
+     Lookout::Expectations::Behavior :
+     Lookout::Expectations::State).new(expected, file, line, &block)
   end
 
   def initialize(expected, file, line, &block)

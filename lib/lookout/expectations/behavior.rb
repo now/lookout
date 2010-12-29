@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectation::Behavior
+class Lookout::Expectations::Behavior
   include Lookout::Expectation
 
   def evaluate_with_stubs

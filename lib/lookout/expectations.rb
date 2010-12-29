@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations
+  autoload :Behavior, 'lookout/expectations/behavior'
+  autoload :State, 'lookout/expectations/state'
+
   include Enumerable
 
   def initialize
