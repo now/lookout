@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Suite
-  autoload :Results, 'lookout/suite/results'
+class Lookout::Expectations
+  autoload :Results, 'lookout/expectations/results'
 
   include Enumerable
 
@@ -44,7 +44,7 @@ class Lookout::Suite
     @do_not_run = true
   end
 
-  def execute(ui = Lookout::UI::Console.new, results = Lookout::Suite::Results.new)
+  def execute(ui = Lookout::UI::Console.new, results = Results.new)
     return results if @do_not_run
     ui.start
     ui.summarize results, Lookout::Benchmark.time{

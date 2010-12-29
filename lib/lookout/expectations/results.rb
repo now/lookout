@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Suite::Results
+class Lookout::Expectations::Results
   include Enumerable
 
   def initialize

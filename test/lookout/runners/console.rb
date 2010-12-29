@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Suite.not.to.receive.new do
-    Lookout::Runners::Console.suite_eval{ }
+  expect Lookout::Expectations.not.to.receive.new do
+    Lookout::Runners::Console.expectations_eval{ }
   end
 end

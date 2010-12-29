@@ -6,6 +6,7 @@ module Lookout
   autoload :Diff, 'lookout/diff'
   autoload :Equality, 'lookout/equality'
   autoload :Expectation, 'lookout/expectation'
+  autoload :Expectations, 'lookout/expectations'
   autoload :Output, 'lookout/output'
   autoload :Mock, 'lookout/mock'
   autoload :Recorder, 'lookout/recorder'
@@ -14,7 +15,6 @@ module Lookout
   autoload :Results, 'lookout/results'
   autoload :Runners, 'lookout/runners'
   autoload :Stub, 'lookout/stub'
-  autoload :Suite, 'lookout/suite'
   autoload :UI, 'lookout/ui'
   autoload :Version, 'lookout/version'
   autoload :XML, 'lookout/xml'
@@ -23,5 +23,5 @@ end
 require 'lookout/object'
 
 def Expectations(&block)
-  Lookout::Runners::Console.suite_eval(&block)
+  Lookout::Runners::Console.expectations_eval(&block)
 end
