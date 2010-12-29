@@ -12,8 +12,11 @@ class Lookout::Suite::Results
     self
   end
 
-  def each(&block)
-    @expectations.each(&block)
+  def each
+    @expectations.each do |expectation|
+      yield expectation
+    end
+    self
   end
 
   def succeeded?
