@@ -51,7 +51,7 @@ class Lookout::Expectations
   end
 
   def each(line = nil)
-    return Enumerable::Enumerator.new(self, :each, line) unless block_given?
+    return enum_for(:each, line) unless block_given?
     if line
       expectation = @expectations.reverse.find{ |e| e.line <= line } and
         yield expectation
