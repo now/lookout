@@ -5,7 +5,7 @@ Expectations do
     expectations = Lookout::Expectations.new
     expectations.expect(1){ raise }
     Lookout::Results::Error::Exception::Backtrace.
-      new(expectations.execute(Lookout::UI::Silent.new).first.exception.exception.backtrace,
+      new(expectations.evaluate(Lookout::UI::Silent.new).first.exception.exception.backtrace,
           true).backtrace
   end
 end

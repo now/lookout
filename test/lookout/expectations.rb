@@ -3,13 +3,13 @@
 Expectations do
   expect true do
     expectations = Lookout::Expectations.new
-    expectations.execute(Lookout::UI::Silent.new).succeeded?
+    expectations.evaluate(Lookout::UI::Silent.new).succeeded?
   end
 
   expect false do
     expectations = Lookout::Expectations.new
     expectations.expect(1){ 2 }
-    expectations.execute(Lookout::UI::Silent.new).succeeded?
+    expectations.evaluate(Lookout::UI::Silent.new).succeeded?
   end
 
   expect 3 do
@@ -53,6 +53,6 @@ Expectations do
 
   expect Object.new do |o|
     expectations = Lookout::Expectations.new
-    expectations.execute(Lookout::UI::Silent.new, o)
+    expectations.evaluate(Lookout::UI::Silent.new, o)
   end
 end

@@ -40,7 +40,7 @@ class Lookout::Expectations
     expected
   end
 
-  def execute(ui = Lookout::UI::Console.new, results = Lookout::Results.new)
+  def evaluate(ui = Lookout::UI::Console.new, results = Lookout::Results.new)
     ui.start
     ui.summarize results, Lookout::Benchmark.time{
       each(ENV['LINE'] ? ENV['LINE'].to_i : nil) do |expectation|

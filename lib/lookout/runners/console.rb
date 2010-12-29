@@ -8,7 +8,7 @@ class Lookout::Runners::Console
 
   def install
     at_exit do
-      exit 1 unless @run and @expectations.execute.succeeded?
+      exit 1 unless @run and @expectations.evaluate.succeeded?
     end
     self
   end
