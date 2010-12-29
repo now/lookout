@@ -2,28 +2,28 @@
 
 Expectations do
   expect [Lookout::Results::Failures::State] do
-    suite = Lookout::Suite.new
-    suite.expect(2){ 3 }
-    suite.execute(Lookout::UI::Silent.new).entries
+    expectations = Lookout::Expectations.new
+    expectations.expect(2){ 3 }
+    expectations.execute(Lookout::UI::Silent.new).entries
   end
 
   expect [Lookout::Results::Error] do
-    suite = Lookout::Suite.new
-    suite.expect(2){ stub(Object.new).two{ 2 }.twos }
-    suite.execute(Lookout::UI::Silent.new).entries
+    expectations = Lookout::Expectations.new
+    expectations.expect(2){ stub(Object.new).two{ 2 }.twos }
+    expectations.execute(Lookout::UI::Silent.new).entries
   end
 
   expect [Lookout::Results::Error] do
-    suite = Lookout::Suite.new
-    suite.expect(1) do
+    expectations = Lookout::Expectations.new
+    expectations.expect(1) do
       Object.new.tap{ |o| o.expects.give_me_three(3){ 1 } }.give_me_three(stub).threes
     end
-    suite.execute(Lookout::UI::Silent.new).entries
+    expectations.execute(Lookout::UI::Silent.new).entries
   end
 
   expect [Lookout::Results::Fulfilled] do
-    suite = Lookout::Suite.new
-    suite.expect(NoMethodError){ Object.no_method }
-    suite.execute(Lookout::UI::Silent.new).entries
+    expectations = Lookout::Expectations.new
+    expectations.expect(NoMethodError){ Object.no_method }
+    expectations.execute(Lookout::UI::Silent.new).entries
   end
 end
