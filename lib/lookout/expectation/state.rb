@@ -6,11 +6,11 @@ class Lookout::Expectation::State
   def evaluate_with_stubs
     check(@block ? instance_exec(@expected, &@block) : false)
   rescue Exception => e
-    return check(e) if @expected.is_a? StandardError and @expected.class == e.class
+    return check(e) if StandardError === @expected and @expected.class == e.class
     return Lookout::Results::Fulfilled.new(file, line) if @expected.eql? e.class
-    if @expected.is_a? Class and @expected <= StandardError
+    if Class === @expected and StandardError >= @expected
       Lookout::Results::Error.new(file, line, Lookout::Equality.message(@expected, e.class), e)
-    elsif @expected.is_a? StandardError
+    elsif StandardError === @expected
       Lookout::Results::Error.new(file, line, Lookout::Equality.message(@expected.class, e.class), e)
     else
       Lookout::Results::Error.new(file, line, nil, e)

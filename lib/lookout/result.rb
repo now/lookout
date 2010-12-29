@@ -15,6 +15,5 @@ class Lookout::Result
     @file, @line = file, line
   end
 
-
   attr_reader :file, :line
 end
