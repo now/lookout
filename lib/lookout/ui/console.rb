@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::UI::Console < Lookout::UI::Silent
-  def initialize(io = STDOUT)
+  def initialize(io = $stdout)
     @io = io
   end
 
