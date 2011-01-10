@@ -35,7 +35,7 @@ class Lookout::Expectations
   end
 
   def expect(expected, &block)
-    file, line = /\A(.*):(\d+)(?::in .*)?\Z/.match(caller.first)[1..2]
+    file, line = /\A(.*):(\d+)(?::in .*)?\z/.match(caller.first)[1..2]
     @expectations << Lookout::Expectation.on(expected, file, line, &block)
     expected
   end
