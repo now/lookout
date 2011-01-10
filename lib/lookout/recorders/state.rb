@@ -4,7 +4,7 @@ module Lookout::Recorders::State
   Error = Class.new(StandardError)
 
   def verify
-    methods.play_for(subject) ^ @negated or
+    !!methods.play_for(subject) ^ @negated or
       raise Error,
         case [@negated, @verb]
         when [true, :be]    then 'expected %p not to be %s'
