@@ -35,7 +35,7 @@ class Lookout::Expectations
   end
 
   def expect(expected, &block)
-    file, colon, line = caller.first.rpartition(':')
+    file, line = /\A(.*):(\d+)(?::in .*)?\Z/.match(caller.first)[1..2]
     @expectations << Lookout::Expectation.on(expected, file, line, &block)
     expected
   end
@@ -52,13 +52,10 @@ class Lookout::Expectations
 
   def each(line = nil)
     return enum_for(:each, line) unless block_given?
-    if line
-      expectation = @expectations.reverse.find{ |e| e.line <= line } and
-        yield expectation
-    else
-      @expectations.each do |expectation|
-        yield expectation
-      end
+    (line ?
+     Array(@expectations.reverse.find{ |e| e.line <= line }) :
+     @expectations).each do |expectation|
+      yield expectation
     end
     self
   end

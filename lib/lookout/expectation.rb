@@ -12,7 +12,7 @@ module Lookout::Expectation
   end
 
   def evaluate
-    Lookout::Stub.methods{ |@stubs| evaluate_with_stubs }.tap{ @stubs = nil }
+    Lookout::Stub.methods{ |stubs| @stubs = stubs; evaluate_with_stubs }.tap{ @stubs = nil }
   end
 
   def stub(*args)

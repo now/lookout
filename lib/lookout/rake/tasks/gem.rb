@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'rubygems'
-require 'rubygems/builder'
-require 'rubygems/dependency_installer'
-require 'rubygems/installer'
-
 class Lookout::Rake::Tasks::Gem < Rake::TaskLib
   def initialize(specification = Lookout::Rake::Tasks.specification)
     specification or
@@ -21,12 +16,16 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
     task :build => specification.file_name
     file specification.file_name => specification.files do
       when_writing 'Building %s' % specification.file_name do
+        require 'rubygems' unless defined? Gem
+        require 'rubygems/installer' unless defined? Gem::Builder
         Gem::Builder.new(specification).build
       end
     end
 
     desc 'Check %s' % specification.file_name
     task :check => :build do
+      require 'rubygems' unless defined? Gem
+      require 'rubygems/installer' unless defined? Gem::Installer
       checkdir = specification.full_name
       Gem::Installer.new(specification.file_name).unpack checkdir
       sh 'rake --rakefile %s/Rakefile -s test' % checkdir
@@ -35,6 +34,8 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
 
     desc 'Install %s and its dependencies' % specification.file_name
     task :install do
+      require 'rubygems' unless defined? Gem
+      require 'rubygems/dependency_installer' unless defined? Gem::DependencyInstaller
       Gem::DependencyInstaller.new.install specification.file_name
     end
 
