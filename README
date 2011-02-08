@@ -11,23 +11,36 @@ written as follows
       Object.invalid_method_call
     end
 
-Lookout is designed to encourage unit testing best practices such as
+Lookout is designed to encourage – force, even – unit testing best practices
+such as
 
-  * Disallow setting more than one expectation at a time
-  * Promote maintainability by not providing a setup or teardown method
-  * Provide one syntax for setting up state based or behavior based expectation
-  * Focus on readability by providing no mechanism for describing an
-    expectation other than the code in the expectation.
+  * Setting up only one expectation per test
+  * Not setting expectations on non-public APIs
+  * Test isolation
 
-The way lookout works has been heavily influenced by [expectations][1], by [Jay
-Fields][2].  The code base was once also heavily based on [expectations][1],
-based at Subversion [revision r76][3].  A lot has happened since then and all of the
-work past that revision are due to [Nikolai Weibull][4].
+This is done by
 
-[1]: http://expectations.rubyforge.org
-[2]: http://blog.jayfields.com
-[3]: https://github.com/now/lookout/commit/537bedf3e5b3eb4b31c066b3266f42964ac35ebe
-[4]: http://bitwi.se
+  * Only allowing one expectation to be set per test
+  * Providing no (additonal) way of accessing private state
+  * Providing no setup and teardown methods, nor a method of providing test
+    helpers
+
+Other important points are
+
+  * A unified syntax for setting up both state-based and behavior-based
+    expectations
+  * A focus on code readability by providing no mechanism for describing an
+    expectation other than the code in the expectation itself
+
+The way Lookout works has been heavily influenced by [expectations], by [Jay
+Fields][].  The code base was once also heavily based on [expectations],
+based at Subversion [revision r76][].  A lot has happened since then and all of the
+work past that revision are due to [Nikolai Weibull][].
+
+[expectations]: http://expectations.rubyforge.org
+[Jay Fields]: http://blog.jayfields.com
+[revision r76]: https://github.com/now/lookout/commit/537bedf3e5b3eb4b31c066b3266f42964ac35ebe
+[Nikolai Weibull]: http://bitwi.se
 
 
 ## Installation ##
@@ -37,25 +50,596 @@ Install Lookout with
     % gem install lookout
 
 
-## License ##
-
-You may use, copy and redistribute this library under the same [terms][1] as
-Ruby itself.
-
-[1]: http://www.ruby-lang.org/en/LICENSE.txt
-
-
 ## Usage ##
 
-See Lookout’s own test directory for examples.
+Lookout allows you to set expectations on an object’s state or behavior.  We’ll
+begin by looking at state expectations and then take a look at expectations on
+behavior.
+
+### Expectations on State ###
+
+An expectation can be made on the result of a computation:
+
+    expect 2 do
+      1 + 1
+    end
+
+Most objects, in fact, have their state expectations checked by invoking `#==`
+on the expected value with the result as its argument.
+
+Checking that a result is within a given range is also simple:
+
+    expect 0.099..0.101 do
+      0.4 - 0.3
+    end
+
+Here, the more general `#===` is being used on the `Range`.
+
+`Strings` of course match against `Strings`:
+
+    expect 'ab' do
+      'abc'[0..1]
+    end
+
+but we can also match a `String` against a `Regexp`:
+
+    expect %r{a substring} do
+      'a string with a substring'
+    end
+
+(Please note the use of `%r{…}` to avoid warnings that will be generated when
+Ruby parses `expect /…/`.)
+
+Checking that the result includes a certain module is done by expecting the
+`Module`.
+
+    expect Enumerable do
+      []
+    end
+
+This, due to the nature of Ruby, of course also works for classes (as they are
+also modules):
+
+    expect String do
+      'a string'
+    end
+
+This doesn’t hinder us from expecting the actual `Module` itself:
+
+    expect Enumerable do
+      Enumerable
+    end
+
+As you may have figured out yourself, this is accomplished by first trying
+`#==` and, if it returns `false`, then trying `#===` on the expected `Module`.
+This is also true of `Ranges` and `Regexps`.
+
+Truthfulness is expected with `true` and `false`:
+
+    expect true do
+      1
+    end
+
+    expect false do
+      nil
+    end
+
+Results equaling `true` or `false` are slightly different:
+
+    expect TrueClass do
+      true
+    end
+
+    expect FalseClass do
+      false
+    end
+
+The rationale for this is that you should only care if the result of a
+computation evaluates to a value that Ruby considers to be either true or
+false, not the exact literals `true` or `false`.
+
+Expecting output on an IO object is also common:
+
+    expect output("abc\ndef\n") do |io|
+      io.puts 'abc', 'def'
+    end
+
+This can be used to capture the output of a formatter that takes an output
+object as a parameter.
+
+You should always be expecting errors from – and in, but that’s a different
+story – your code:
+
+    expect NoMethodError do
+      Object.no_method
+    end
+
+Often, not only the type of the error, but its description, is important to
+check:
+
+    expect StandardError.new('message') do
+      raise StandardError.new('message')
+    end
+
+As with `Strings`, `Regexps` can be used to check the error description:
+
+    expect StandardError.new(/mess/) do
+      raise StandardError.new('message')
+    end
+
+(Note that some of Ruby’s built-in error classes have slightly complicated
+behavior and will not allow you to pass a `Regexp` as a parameter.  `NameError`
+is such a class.  This may warrant further investigation into whether or not
+this is a bug, but I’ll leave that up to the reader to decide.)
+
+Lookout further provides a fluent way of setting up expectations on boolean
+results.  An object can “be”
+
+    expect Class.new{ attr_accessor :running; }.new.to.be.running do |process|
+      process.running = true
+    end
+
+or “not be”
+
+    expect Class.new{ attr_accessor :running; }.new.not.to.be.running do |process|
+      process.running = false
+    end
+
+or to “have”
+
+  expect Class.new{ attr_accessor :finished; }.new.to.have.finished do |process|
+    process.finished = true
+  end
+
+or “not have”
+
+  expect Class.new{ attr_accessor :finished; }.new.not.to.have.finished do |process|
+    process.finished = false
+  end
+
+On the same note
+
+    expect nil.to.be.nil?
+
+and
+
+    expect Object.new.not.to.be.nil?
+
+As not every boolean method “is” or “has” you can even
+
+    expect nil.to.respond_to? :nil?
+
+The rules here are that all `Objects` respond to `#to`.  After `#to` you may
+call
+
+  * `#not`
+  * `#be`
+  * `#have`
+  * Any method whose name ends with `?`
+
+A call to `#not` must be followed by a call to one of the three alternatives
+that follow it in the list.  `#Be` and `#Have` must be followed by a call to a
+method.
+
+### Expectations on Behavior ###
+
+We expect our objects to be on their best behavior.  Lookout allows you to make
+sure that they are.
+
+Mocks let use verify that a method is called in the way that we expect it to
+be:
+
+    expect mock.to.receive.dial('2125551212').twice do |phone|
+      phone.dial('2125551212')
+      phone.dial('2125551212')
+    end
+
+Here, `#mock` creates a mock object, an object that doesn’t respond to
+anything unless you tell it to.  We tell it to expect to receive a call to
+`#dail` with `'2125551212'` as its formal argument, and we expect it to receive
+it twice.  The mock object is then passed in to the block so that the
+expectations placed upon it can be fulfilled.
+
+Sometimes we only want to make sure that a method is called in the way that we
+expect it to be, but we don’t care if any other methods are called on the
+object.  A stub object, created with `#stub`, expects any method and returns a
+stub object that, again, expects any method, and thus fits the bill.
+
+    expect stub.to.receive.dial('2125551212').twice do |phone|
+      phone.dial('2125551212')
+      phone.hangup
+      phone.dial('2125551212')
+    end
+
+We can also use stubs without any expectations on them:
+
+    expect 3 do
+      s = stub(:a => 1, :b => 2)
+      s.a + s.b
+    end
+
+and we can stub out a specific method on an object:
+
+    expect 'def' do
+      a = 'abc'
+      stub(a).to_str{ 'def' }
+      a.to_str
+    end
+
+You don’t have to use a mock object to verify that a method is called:
+
+    expect Object.to.receive.deal do
+      Object.deal
+    end
+
+As you have figured out by now, the expected method call is set up by calling
+`#receive` after `#to`.  `#Receive` is followed by a call to the method to
+expect with any expected arguments.  The body of the mocked method can be given
+as the block to the method.  Finally, an expected invocation count may follow
+the method.  Let’s look at this formal specification in more detail.
+
+The expected method arguments may be given in a variety of ways.  Let’s
+introduce them by giving some examples:
+
+    expect mock.to.receive.a do |m|
+      …
+    end
+
+Here, the method `#a` must be called with any number of arguments.  It may be
+called any number of times, but it must be called at least once.
+
+If a method must receive exactly one argument, you can use `arg`:
+
+    expect mock.to.receive.a(arg) do |m|
+      …
+    end
+
+If a method must receive a specific argument, you can use that argument:
+
+    expect mock.to.receive.a(1..2) do |m|
+      …
+    end
+
+The same matching rules apply for arguments as they do for state expectations,
+so the previous example expects a call to `#a` with 1, 2, or the Range 1..2 as
+an argument on `m`.
+
+If a method must be invoked without any arguments you can use
+`without_arguments`:
+
+    expect mock.to.receive.a(without_arguments) do |m|
+      …
+    end
+
+You can of course use both `arg` and actual arguments:
+
+    expect mock.to.receive.a(arg, 1, arg) do |m|
+      …
+    end
+
+The body of the mock method may be given as the block.  Here, calling `#a` on
+`m` will give the result `1`:
+
+    expect mock.to.receive.a{ 1 } do |m|
+      …
+    end
+
+If no body has been given, the result will be a stub object.
+
+There is a caveat here in that a block can’t yield in Ruby 1.8.  To work around
+this deficiency you have to use the `#yield` method:
+
+    expect mock.to.receive.a.yield(1) do |m|
+      …
+    end
+
+Any number of values to yield upon successive calls may be given.  The last
+value given will be used repeatedly when all preceding values have been
+consumed.  It’s also important to know that values are splatted when they are
+yielded.
+
+To simulate an `#each`-like method you can use `#each`.  The following horrible
+example should give you an idea of how to use it.
+
+    expect Object.new.to.receive.each.each(1, 2, 3) do |o|
+      class << o
+        include Enumerable
+      end
+      o.inject{ |i, a| i + a }
+    end
+
+Invocation count expectations can also be set if the default expectation of
+“at least once” isn’t good enough.  The following expectations are possible
+
+  * `#at_most_once`
+  * `#once`
+  * `#at_least_once`
+  * `#twice`
+
+And, for a given `N`,
+
+  * `#at_most(N)`
+  * `#exactly(N)`
+  * `#at_least(N)`
+
+Method stubs are another useful thing to have in a unit testing framework.
+Sometimes you need to override a method that does something a test shouldn’t
+do, like access and alter bank accounts.  We can override – stub out – a method
+by using the `#stub` method.  Let’s assume that we have an `Account` class that
+has two methods, `#slips` and `#total`.  `#Slips` retrieves the bank slips that
+keep track of your deposits to the `Account` from a database.  `#Total` sums
+the `#slips`.  In the following test we want to make sure that `#total` does
+what it should do without accessing the database.  We therefore stub out
+`#slips` and make it return something that we can easily control.
+
+    expect 6 do |m|
+      account = Account.new
+      stub(account).slips{ [1, 2, 3] }
+      account.total
+    end
+
+As with mock methods, if no body is given, the result will be a stub object.
+
+To make it easy to create objects with a set of stubbed methods there’s also a
+convenience method:
+
+    expect 3 do
+      s = stub(:a => 1, :b => 2)
+      s.a + s.b
+    end
+
+Please note that this makes it impossible to stub a method on a Hash, but you
+shouldn’t be doing that anyway.  In fact, you should never mock or stub methods
+on value objects.
+
+## Integration ##
+
+Lookout can be used from [Rake][].  Simply include the following code in your
+`Rakefile`:
+
+    require 'lookout/rake/tasks'
+
+    Lookout::Rake::Tasks::Test.new
+
+If the `:default` task hasn’t been defined it will be set to depend on the
+`:test` task.
+
+As an added bonus you can use Lookouts own [gem][RubyGems] tasks:
+
+    Lookout::Rake::Tasks::Gem.new
+
+This provides tasks to `build`, `check`, `install`, and `push` your gem.
+
+To use Lookout together with [Vim][], place `contrib/rakelookout.vim` in
+`~/.vim/compiler` and add
+
+    compiler rakelookout
+
+to `~/.vim/after/ftplugin/ruby.vim`.  Executing `:make` from inside [Vim][]
+will now run your tests and an errors and failures can be visited with
+`:cnext`.  Execute `:help quickfix` for additional information.
+
+Another useful addition to your `~/.vim/after/ftplugin/ruby.vim` file may be
+
+    nnoremap <buffer> <silent> <Leader>M <Esc>:call <SID>run_test()<CR>
+    let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>M'
+
+    function! s:run_test()
+      let test = expand('%')
+      let line = 'LINE=' . line('.')
+      if test =~ '^lib/'
+        let test = substitute(test, '^lib/', 'test/', '')
+        let line = ""
+      endif
+      execute 'make' 'TEST=' . shellescape(test) line
+    endfunction
+
+Now, pressing `<Leader>M` will either run all tests for a given class, if the
+implementation file is active, or run the test at or just before the cursor, if
+the test file is active.  This is useful if you’re currently receiving a lot of
+errors and/or failures and want to focus on those associated with a specific
+class or on a specific test.
+
+[Rake]: http://rake.rubyforge.org
+[RubyGems]: http://rubygems.org
+
+## Interface Design ##
+
+The default output of Lookout can Spartanly be described as Spartan.  If no
+errors or failures occur, no output is generated.  This is unconventional, as
+unit testing frameworks tend to dump a lot of information on the user,
+concerning things such as progress, test count summaries, and flamboyantly
+colored text telling you that your tests passed.  None of this output is
+needed.  Your tests should run fast enough to not require progress reports.
+The lack of output provides you with the same amount of information as
+reporting success.  Test count summaries are only useful if you’re worried that
+your tests aren’t being run, but if you worry about that, then providing such
+output doesn’t really help.  Testing your tests requires something beyond
+reporting some arbitrary count that you would have to verify by hand anyway.
+
+When errors or failures do occur, however, the relevant information is output
+in a format that can easily be parsed by an `'errorformat'` for [Vim][] or with
+[Compilation Mode][] for [Emacs][].  Diffs are generated for Strings, Arrays,
+Hashes, and I/O.
+
+[Vim]: http://www.vim.org
+[Compilation Mode]: http://www.emacswiki.org/emacs/CompilationMode
+[Emacs]: http://www.gnu.org/software/emacs/
+
+## External Design ##
+
+Let’s now look at some of the points made in the introduction in greater
+detail.
+
+Lookout only allows you to set one expectation per test.  If you’re testing
+behavior with a mock, then only one method-invocation expectation can be set.
+If you’re testing state, then only one result can be verified.  It may seem
+like this would cause unnecessary duplication between tests.  While this is
+certainly a possibility, when you actually begin to try to avoid such
+duplication you find that you often do so by improving your interfaces.  This
+kind of restriction tends to encourage the use of value objects, which are easy
+to test, and more focused objects, which require simpler tests, as they have
+less behavior to test, per method.  By keeping your interfaces focused you’re
+also keeping your tests focused.
+
+Keeping your tests focused improves, in itself, test isolation, but let’s look
+at something that hinders it: setup and teardown methods.  Most unit testing
+frameworks encourage test fragmentation by providing setup and teardown
+methods.
+
+Setup methods create objects and, perhaps, just their behavior for a set of
+tests.  This means that you have to look in two places to figure out what’s
+being done in a test.  This may work fine for few methods with simple set-ups,
+but makes things complicated when the number of tests increases and the set-up
+is complex.  Often, each test further adjusts the previously set-up object
+before performing any verifications, further complicating the process of
+figuring out what state an object has in a given test.
+
+Teardown methods clean up after tests, perhaps by removing records from a
+database or deleting files from the file-system.  
+
+The duplication that setup methods and teardown methods hope to remove is
+better avoided by improving your interfaces.  This can be done by providing
+better set-up methods for your objects and using idioms such as [Resource
+Acquisition Is Initialization][] for guaranteed clean-up, test or no test.
+
+By not using setup and teardown methods we keep everything pertinent to a test
+in the test itself, thus improving test isolation.  (You also won’t [slow down
+your tests][Broken Test::Unit] by keeping unnecessary state.)
+
+Most unit test frameworks also allow you to create arbitrary test helper
+methods.  Lookout doesn’t.  The same rationale as that that has been
+crystallized in the preceding paragraphs applies.  If you need helpers you’re
+interface isn’t good enough.  It really is as simple as that.
+
+To clarify: there’s nothing inherently wrong with test helper methods, but they
+should be general enough that they reside in their own library.  The support
+for mocks in Lookout is provided through a set of test helper methods that make
+it easier to create mocks than it would have been without them.
+[Lookout-rack][] is another example of a library providing test helper methods
+(well, one of method, actually) that are very useful in testing web
+applications that use [Rack][].
+
+A final point at which some unit test frameworks try to fragment tests further
+is documentation.  These frameworks provide ways of describing the whats and
+hows of what’s being tested, the rationale being that this will provide
+documentation of both the test and the code being tested.  Describing how a
+stack data structure is meant to work is a common example.  A stack is,
+however, a rather simple data structure, so such a description provides little,
+if any, additional information that can’t be extracted from the implementation
+and its tests themselves.  The implementation and its tests is, in fact, its
+own best documentation.  Taking the points made in the previous paragraphs into
+account, we should already have simple, self-describing, interfaces that have
+easily understood tests associated with them.  Rationales for the use of a
+given data structure or system-design design documentation is better suited in
+separate documentation focused at describing exactly those issues.
+
+[Resource Acquisition Is Initialization]: http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
+[Broken Test::Unit]: http://37signals.com/svn/posts/2742-the-road-to-faster-tests
+[Lookout-rack]: http://github.com/now/lookout-rack
+[Rack]: http://rack.rubyforge.org
+
+## Internal Design ##
+
+The internal design of Lookout has had a couple of goals.
+
+  * As few external dependencies as possible
+  * As few internal dependencies as possible
+  * Internal extensibility provides external extensibility
+  * As fast load times as possible
+  * As high a ratio of value objects to mutable objects as possible
+  * Each object must have a simple, obvious name
+  * Use mix-ins, not inheritance for shared behavior
+  * As few responsibilities per object as possible
+  * Optimizing for speed can only be done when you have all the facts
+
+### External Dependencies ###
+
+Lookout used to depend on Mocha for mocks and stubs.  While benchmarking I
+noticed that a method in Mocha was taking up more than 300 percent of the
+runtime.  It turned out that Mocha’s method for cleaning up back-traces
+generated when a mock failed was doing something incredibly stupid:
+
+    backtrace.reject{ |l| Regexp.new(@lib).match(File.expand_path(l)) }
+
+Here `@lib` is a `String` containing the path to the lib subdirectory in the
+Mocha installation directory.  I reported it, provided a patch five days later,
+then waited.  Nothing happened.  254 days later, according to [Wolfram
+Alpha][254 days], half of my patch was, apparently – I say “apparently”, as I
+received no notification – applied.  By that time I had replaced the whole
+mocking-and-stubbing subsystem and dropped the dependency.
+
+Many Ruby developers claim that Ruby and its gems are too fast-moving for
+normal package-managing systems to keep up.  This is testament to the fact
+that this isn’t the case and that the real problem is instead related to sloppy
+practices.
+
+Please note that I don’t want to single out the Mocha library nor its
+developers.  I only want to provide an example where relying on external
+dependencies can be “considered harmful”.
+
+[254 days]: http://www.wolframalpha.com/input/?i=days+between+march+17%2C+2010+and+november+26%2C+2010
+
+### Internal Dependencies ###
+
+Lookout has been designed so as to keep each subsystem independent of any
+other.  The diff subsystem is, for example, completely decoupled from any other
+part of the system as a whole and could be moved into its own library at a time
+where that would be of interest to anyone.  What’s perhaps more interesting is
+that the diff subsystem is itself very modular.  The data passes through a set
+of filters that depends on what kind of diff has been requested, each filter
+yielding modified data as it receives it.  If you want to read some rather
+functional Ruby I can highly recommend looking at the code in the
+`lib/lookout/diff` directory.
+
+This lookout on the design of the library also makes it easy to extend Lookout.
+Lookout-rack was, for example, written in about four hours and about 5 of those
+240 minutes were spent on setting up the interface between the two.
+
+### Optimizing For Speed ###
+
+The following paragraph is perhaps a bit personal, but might be interesting
+nonetheless.
+
+I’ve always worried about speed.  The original Expectations library used
+`extend` a lot to add new behavior to objects.  Expectations, for example, used
+to hold the result of their execution (what we now term “evaluation”) by being
+extended by a module representing success, failure, or error.  For the longest
+time I used this same method, worrying about the increased performance cost
+that creating new objects for results would incur.  I finally came to a point
+where I felt that the code was so simple and clean that rewriting this part of
+the code for a benchmark wouldn’t take more than perhaps ten minutes.  Well,
+ten minutes later I had my results and they confirmed that creating new objects
+wasn’t harming performance.  I was very pleased.
+
+### Naming ###
+
+I hate low lines (underscores).  I try to avoid them in method names and I
+always avoid them in file names.  Since the current “best practice” in the Ruby
+community is to put `BeginEndStorage` in a file called `begin_end_storage.rb`,
+I only name constants using a single noun.  This has had the added benefit that
+classes seem to have acquired less behavior, as using a single noun doesn’t
+allow you to tack on additional behavior without questioning if it’s really
+appropriate to do so, given the rather limited range of interpretation for that
+noun.  It also seems to encourage the creation of value objects, as something
+named `Range` feels a lot more like a value than `BeginEndStorage`.  (To reach
+object-oriented-programming Nirvana you must achieve complete value.)
 
 
 ## Contributors ##
 
 Contributors to the original expectations codebase are mentioned there.  We
-hope no one on that list feels left out of this list.  Please [let us know] if
-you do.
+hope no one on that list feels left out of this list.  Please [let us
+know][Lookout issues] if you do.
 
   * Nikolai Weibull
 
-[1]: https://github.com/now/lookout/issues
+[Lookout issues]: https://github.com/now/lookout/issues
+
+
+## License ##
+
+You may use, copy, and redistribute this library under the same [terms][] as
+Ruby itself.
+
+[terms]: http://www.ruby-lang.org/en/LICENSE.txt
