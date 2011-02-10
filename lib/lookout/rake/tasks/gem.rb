@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Rake::Tasks::Gem < Rake::TaskLib
-  def initialize(specification = Lookout::Rake::Tasks.specification)
+  def initialize(specification = Lookout::Rake::Tasks.specification!)
     specification or
       raise ArgumentError,
         'gem specification was not given and could not be found in project root: %s' %
