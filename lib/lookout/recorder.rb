@@ -37,6 +37,7 @@ class Lookout::Recorder < Lookout::Aphonic
   attr_reader :subject
 
   def method_missing(method, *args)
+    return super unless method.to_s =~ /\?$/
     extend Lookout::Recorders::State
     @verb = nil
     method_missing method, *args

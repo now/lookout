@@ -32,4 +32,8 @@ Expectations do
   expect Lookout::Results::Fulfilled do
     Lookout::Expectation.on('foo'.to.have.to_s == 'foo', nil, nil).evaluate
   end
+
+  expect Lookout::Results::Fulfilled do
+    Lookout::Expectation.on([1, 2, 3].to.include?(1), nil, nil).evaluate
+  end
 end
