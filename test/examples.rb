@@ -124,14 +124,6 @@ Expectations do
   # Expect Object not to be nil.
   expect Object.not.to.be.nil?
 
-  # State-based Delegation Expectations
-
-  # Expect #save to delegate to #record.
-  expect Class.new{ def save(arg) record.save(arg) end }.
-           new.to.delegate(:save).to(:record) do |instance|
-    instance.save(1)
-  end
-
   # Behavior-based Expectations
 
   # Use a mock to verify that a method is called appropriately.

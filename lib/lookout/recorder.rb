@@ -30,12 +30,6 @@ class Lookout::Recorder < Lookout::Aphonic
     self
   end
 
-  def delegate(method)
-    extend Lookout::Recorders::Delegation
-    delegate! method
-    self
-  end
-
   def subject!(mocks, stubs)
     subject
   end
