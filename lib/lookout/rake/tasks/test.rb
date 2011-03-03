@@ -38,6 +38,6 @@ private
 
   def files
     return FileList[ENV['TEST']] if ENV['TEST']
-    FileList['test/**/*.rb'].map{ |f| '"%s"' % f }
+    FileList['test/unit/**/*.rb'].map{ |f| '"%s"' % f }
   end
 end
