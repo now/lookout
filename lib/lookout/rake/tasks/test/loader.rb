@@ -2,9 +2,12 @@
 
 require 'lookout'
 
+only_load = false
 ARGV.each do |arg|
   begin
-    if arg =~ /-r(.*)/
+    if not only_load and arg == '--'
+      only_load = true
+    elsif not only_load and arg =~ /\A-r(.*)/
       require $1
     else
       load arg

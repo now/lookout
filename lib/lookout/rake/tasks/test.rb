@@ -12,7 +12,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   def define
     desc @name == :test ? 'Run tests' : 'Run tests for %s' % @name
     task @name do
-      ruby '-w %s -- "%s" %s' % [options, LoaderPath, arguments]
+      ruby '-w %s -- %s %s' % [options, escape(LoaderPath), arguments]
     end
 
     task :default => @name unless Rake::Task.task_defined? :default
@@ -33,11 +33,14 @@ private
   end
 
   def arguments
-    requires.map{ |r| '-r%s' % r }.concat(files).join(' ')
+    requires.map{ |r| '-r%s' % r }.push('--').concat(files).join(' ')
   end
 
   def files
-    return FileList[ENV['TEST']] if ENV['TEST']
-    FileList['test/unit/**/*.rb'].map{ |f| '"%s"' % f }
+    FileList[ENV.fetch('TEST', 'test/unit/**/*.rb')].map{ |f| escape(f) }
+  end
+
+  def escape(path)
+    path.gsub(/([^A-Za-z0-9_\-.,:\/@\n])/n, '\\\\\\1').gsub(/\n/, "'\n'")
   end
 end
