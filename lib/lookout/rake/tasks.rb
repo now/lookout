@@ -21,7 +21,7 @@ module Lookout::Rake::Tasks
 
     def specification
       return @specification if defined? @specification
-      return nil unless defined? ::Gem::Specification
+      return nil unless defined? ::Gem
       return nil unless gemspec
       @specification = ::Gem::Specification.load(gemspec)
     end
