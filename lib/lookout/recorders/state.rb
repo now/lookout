@@ -9,7 +9,7 @@ module Lookout::Recorders::State
         case [@negated, @verb]
         when [true, :be]    then 'expected %p not to be %s'
         when [true, :have]  then 'expected %p not to have %s'
-        when [true, nil]    then 'expected %p to %s'
+        when [true, nil]    then 'expected %p not to %s'
         when [false, :be]   then 'expected %p to be %s'
         when [false, :have] then 'expected %p to have %s'
         when [false, nil]   then 'expected %p to %s'
