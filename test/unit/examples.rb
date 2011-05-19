@@ -166,4 +166,13 @@ Expectations do
   expect Object.new.to.receive.deal(arg, 1, arg) do |o|
     o.deal :a, 1, :b
   end
+
+  # Utilities
+  
+  # Use #with_verbose to set $VERBOSE during the execution of a block.
+  expect nil do
+    with_verbose(nil) do
+      $VERBOSE
+    end
+  end
 end

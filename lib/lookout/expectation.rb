@@ -31,6 +31,16 @@ module Lookout::Expectation
     end
   end
 
+  def with_verbose(verbose = true)
+    saved_verbose = $VERBOSE
+    $VERBOSE = verbose
+    begin
+      yield
+    ensure
+      $VERBOSE = saved_verbose
+    end
+  end
+
   attr_reader :file, :line
 
 private
