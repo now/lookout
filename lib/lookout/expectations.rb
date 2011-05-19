@@ -30,6 +30,10 @@ class Lookout::Expectations
     Lookout::Output.new(string)
   end
 
+  def warning(string)
+    Lookout::Warning.new(string)
+  end
+
   def xml(string)
     Lookout::XML.new(string)
   end

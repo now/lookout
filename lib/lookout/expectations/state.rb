@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations::State
+  autoload :Warning, 'lookout/expectations/state/warning'
+
   include Lookout::Expectation
 
   def evaluate_with_stubs

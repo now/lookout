@@ -175,4 +175,8 @@ Expectations do
       $VERBOSE
     end
   end
+
+  expect warning("this is your final one!") do
+    warn 'this is your final one!'
+  end
 end

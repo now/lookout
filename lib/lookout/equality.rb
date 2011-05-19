@@ -176,3 +176,17 @@ private
     '%p≠%p' % [Lookout::Output.new(expected.actual), expected]
   end
 end
+
+class Lookout::Equality::Warning < Lookout::Equality::String
+  Lookout::Equality.register self, Lookout::Warning
+
+  def equal?(expected, actual)
+    expected == actual.chomp
+  end
+
+private
+
+  def format(expected, actual)
+    '%p≠%p' % [Lookout::Warning.new(actual), expected]
+  end
+end

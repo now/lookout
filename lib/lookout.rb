@@ -17,6 +17,7 @@ module Lookout
   autoload :Stub, 'lookout/stub'
   autoload :UI, 'lookout/ui'
   autoload :Version, 'lookout/version'
+  autoload :Warning, 'lookout/warning'
   autoload :XML, 'lookout/xml'
   
   class << self
