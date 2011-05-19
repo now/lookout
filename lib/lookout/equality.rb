@@ -181,7 +181,8 @@ class Lookout::Equality::Warning < Lookout::Equality::String
   Lookout::Equality.register self, Lookout::Warning
 
   def equal?(expected, actual)
-    expected == actual.chomp
+    expected == actual.chomp or
+      actual =~ /\A.*?:\d+: warning: #{Regexp.escape(expected)}\Z/u
   end
 
 private

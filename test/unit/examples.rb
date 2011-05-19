@@ -176,7 +176,11 @@ Expectations do
     end
   end
 
-  expect warning("this is your final one!") do
+  expect warning('this is your final one!') do
     warn 'this is your final one!'
+  end
+
+  expect warning('this is your final one!') do
+    warn '%s:%d: warning: this is your final one!' % [__FILE__, __LINE__]
   end
 end
