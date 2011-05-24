@@ -41,7 +41,7 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
 
     desc 'Push %s to rubygems.org' % specification.file_name
     task :push => :check do
-      sh 'gem -%s-verbose push %s' % [verbose ? '' : '-no', specification.file_name]
+      sh 'gem push -%s-verbose %s' % [verbose ? '' : '-no', specification.file_name]
     end
   end
 
