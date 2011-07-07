@@ -4,9 +4,6 @@ class Lookout::UI::Silent
   def start
   end
 
-  def report(result)
-  end
-
-  def summarize(results, time)
+  def summarize
   end
 end

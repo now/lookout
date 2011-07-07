@@ -4,10 +4,9 @@ class Lookout::Expectations
   autoload :Behavior, 'lookout/expectations/behavior'
   autoload :State, 'lookout/expectations/state'
 
-  include Enumerable
-
-  def initialize
-    @expectations = []
+  def initialize(results = Lookout::Results::Unsuccessful.new, line = nil)
+    @results, @line = results, line
+    @previous = nil
   end
 
   def mock
@@ -40,27 +39,23 @@ class Lookout::Expectations
 
   def expect(expected, &block)
     file, line = /\A(.*):(\d+)(?::in .*)?\z/.match(caller.first)[1..2]
-    @expectations << Lookout::Expectation.on(expected, file, line, &block)
-    expected
-  end
-
-  def evaluate(ui = Lookout::UI::Console.new, results = Lookout::Results.new)
-    ui.start
-    ui.summarize results, Lookout::Benchmark.time{
-      each(ENV['LINE'] ? ENV['LINE'].to_i : nil) do |expectation|
-        results << expectation.evaluate.tap{ |result| ui.report result }
+    expectation = Lookout::Expectation.on(expected, file, line, &block)
+    if @line
+      if @previous and @previous.line <= @line and expectation.line > @line
+        @results << @previous.evaluate
+        @previous = nil
+      else
+        @previous = expectation
       end
-    }
-    results
+    else
+      @results << expectation.evaluate
+    end
+    self
   end
 
-  def each(line = nil)
-    return enum_for(:each, line) unless block_given?
-    (line ?
-     Array(@expectations.reverse.find{ |e| e.line <= line }) :
-     @expectations).each do |expectation|
-      yield expectation
-    end
+  # TODO: It would be great if this method wasn’t necessary.
+  def flush
+    @results << @previous.evaluate if @previous
     self
   end
 end

@@ -2,57 +2,73 @@
 
 Expectations do
   expect true do
-    expectations = Lookout::Expectations.new
-    expectations.evaluate(Lookout::UI::Silent.new).succeeded?
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results)
+    }.succeeded?
   end
 
   expect false do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ 2 }
-    expectations.evaluate(Lookout::UI::Silent.new).succeeded?
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results).expect(1){ 2 }
+    }.succeeded?
   end
 
   expect 3 do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ 2 }
-    expectations.expect(1){ 2 }
-    expectations.expect(1){ 2 }
-    expectations.count
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results).
+        expect(1){ 2 }.
+        expect(1){ 2 }.
+        expect(1){ 2 }
+    }.count
   end
 
   expect 1 do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ 2 }
-    expectations.expect(1){ 2 }
-    expectations.each(__LINE__ - 1).count
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      expectations = Lookout::Expectations.new(results, __LINE__ + 1)
+      expectations.expect(1){ 2 }
+      expectations.expect(1){ 2 }
+    }.count
+  end
+
+  expect 1 do
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      expectations = Lookout::Expectations.new(results, __LINE__ + 1)
+      expectations.expect(1){ 2 }
+      expectations.expect(1){ 2 }
+      expectations.flush
+    }.count
+  end
+
+  expect 1 do
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      expectations = Lookout::Expectations.new(results, __LINE__ + 2)
+      expectations.expect(1){ 2 }
+      expectations.expect(1){ 2 }
+      expectations.flush
+    }.count
   end
 
   expect __LINE__ + 2 do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ 2 }
-    expectations.first.line
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results).expect(1){ 2 }
+    }.first.line
   end
 
   expect __LINE__ + 2 do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ raise }
-    expectations.first.line
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results).expect(1){ raise }
+    }.first.line
   end
 
   expect __FILE__ do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ 2 }
-    expectations.first.file
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results).expect(1){ 2 }
+    }.first.file
   end
 
   expect __FILE__ do
-    expectations = Lookout::Expectations.new
-    expectations.expect(1){ raise }
-    expectations.first.file
-  end
-
-  expect Object.new do |o|
-    expectations = Lookout::Expectations.new
-    expectations.evaluate(Lookout::UI::Silent.new, o)
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations.new(results).expect(1){ raise }
+    }.first.file
   end
 end
