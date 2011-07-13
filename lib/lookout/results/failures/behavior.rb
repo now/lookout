@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Results::Failures::Behavior < Lookout::Results::Failure
+class Lookout::Results::Failures::Behavior
+  include Lookout::Results::Failure
 end

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Results::Failure < Lookout::Result
-  is :failure
+module Lookout::Results::Failure
+  include Lookout::Result
 
   def initialize(file, line, message)
     super file, line

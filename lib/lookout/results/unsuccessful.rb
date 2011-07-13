@@ -11,7 +11,7 @@ class Lookout::Results::Unsuccessful
   end
 
   def <<(result)
-    @unsuccessful << result unless result.fulfilled?
+    @unsuccessful << result unless Lookout::Results::Fulfilled === result
     super
     self
   end
@@ -28,10 +28,10 @@ class Lookout::Results::Unsuccessful
   end
 
   def errors
-    select{ |result| result.error? }
+    select{ |result| Lookout::Results::Error === result }
   end
 
   def failures
-    select{ |result| result.failure? }
+    select{ |result| Lookout::Results::Failure === result }
   end
 end

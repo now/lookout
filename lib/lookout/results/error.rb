@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Results::Error < Lookout::Result
-  autoload :Exception, 'lookout/results/error/exception'
+class Lookout::Results::Error
+  include Lookout::Result
 
-  is :error
+  autoload :Exception, 'lookout/results/error/exception'
 
   def initialize(file, line, message, exception)
     super file, line
