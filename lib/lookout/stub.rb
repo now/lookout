@@ -8,9 +8,11 @@ module Lookout::Stub
   class << self
     def methods
       methods = Methods.new
-      yield methods
-    ensure
-      methods.undefine if methods
+      begin
+        yield methods
+      ensure
+        methods.undefine
+      end
     end
   end
 end
