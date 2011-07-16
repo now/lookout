@@ -20,6 +20,11 @@ module Lookout
   autoload :XML, 'lookout/xml'
   
   class << self
+    def location(location)
+      return nil, nil unless match = /\A(.*):(\d+)(?::in .*)?\z/.match(location)
+      [match[1], match[2].to_i]
+    end
+
     def runner(runner = nil)
       return @runner = runner if runner
       @runner ||= Lookout::Runners::Console.new.install

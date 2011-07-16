@@ -25,7 +25,7 @@ class Lookout::Runners::Console
     raise
   rescue Exception => e
     raise unless location = Array(e.backtrace).first
-    file, line = /\A(.*):(\d+)(?::in .*)?\z/.match(location)[1..2]
+    file, line = Lookout.location(location)
     raise unless file and line
     @results << Lookout::Results::Error.new(file, line, nil, e)
   end

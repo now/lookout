@@ -38,8 +38,7 @@ class Lookout::Expectations
   end
 
   def expect(expected, &block)
-    file, line = /\A(.*):(\d+)(?::in .*)?\z/.match(caller.first)[1..2]
-    expectation = Lookout::Expectation.on(expected, file, line, &block)
+    expectation = Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block)
     if @line
       if @previous and @previous.line <= @line and expectation.line > @line
         @results << @previous.evaluate

@@ -13,7 +13,7 @@ module Lookout::Expectation
   end
 
   def initialize(expected, file, line, &block)
-    @expected, @file, @line, @block = expected, file, line.to_i, block
+    @expected, @file, @line, @block = expected, file, line, block
   end
 
   def evaluate
