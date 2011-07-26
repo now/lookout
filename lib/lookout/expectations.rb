@@ -7,6 +7,7 @@ class Lookout::Expectations
   def initialize(results = Lookout::Results::Unsuccessful.new, line = nil)
     @results, @line = results, line
     @previous = nil
+    @ran_previous = false
   end
 
   def mock
@@ -40,11 +41,14 @@ class Lookout::Expectations
   def expect(expected, &block)
     expectation = Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block)
     if @line
-      if @previous and @previous.line <= @line and expectation.line > @line
-        @results << @previous.evaluate
-        @previous = nil
-      else
-        @previous = expectation
+      unless @ran_previous
+        if @previous and @previous.line <= @line and expectation.line > @line
+          @results << @previous.evaluate
+          @ran_previous = true
+          @previous = nil
+        else
+          @previous = expectation
+        end
       end
     else
       @results << expectation.evaluate
