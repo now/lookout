@@ -25,12 +25,10 @@ class Lookout::Results::Error::Exception
   end
 
   def backtrace
-    @backtrace ||= Backtrace.new(@exception.backtrace)
+    @backtrace ||= Backtrace.new(@exception.backtrace, SystemStackError === @exception)
   end
 
   def to_s
     "%s\n%s" % [message, backtrace]
   end
-
-  attr_reader :exception
 end
