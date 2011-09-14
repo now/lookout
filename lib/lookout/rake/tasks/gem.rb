@@ -14,7 +14,7 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
   def define
     desc 'Build %s' % specification.file_name
     task :build => specification.file_name
-    file specification.file_name => specification.files do
+    file specification.file_name => [specification.loaded_from] + specification.files do
       when_writing 'Building %s' % specification.file_name do
         require 'rubygems' unless defined? Gem
         require 'rubygems/installer' unless defined? Gem::Builder
