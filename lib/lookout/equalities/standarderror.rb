@@ -6,7 +6,7 @@ class Lookout::Equalities::StandardError < Lookout::Equalities::Object
   def equal?(expected, actual)
     expected.equal?(actual) or
       ((actual.respond_to? :message rescue false) and
-       ((Regexp === expected.message and expected.message === actual.message) or
+       ((regexp(expected) and regexp(expected) === actual.message) or
         expected.message == actual.message))
   end
 
@@ -19,8 +19,14 @@ class Lookout::Equalities::StandardError < Lookout::Equalities::Object
 private
 
   def format(expected, actual)
-    Regexp === expected.message ?
-      '%p≠#<%s: %p>' % [actual, expected.class, expected.message] :
+    regexp(expected) ?
+      '%p≠#<%s: %p>' % [actual, expected.class, regexp(expected)] :
       super
+  end
+
+  def regexp(expected)
+    return expected.message if Regexp === expected.message
+    return Regexp.new(expected.message) if expected.message =~ /\A\(\?-[mix]+:.*\)\z/
+    nil
   end
 end

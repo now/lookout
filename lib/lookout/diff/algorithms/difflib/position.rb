@@ -9,7 +9,7 @@ class Lookout::Diff::Algorithms::Difflib::Position
       new(Lookout::Diff::Range.new(from),
           to,
           block_given? ?
-            to.indexes.reduce({}){ |j, (k, v)| j[k] = yield(k); j } :
+            to.indexes.reduce({}){ |j, (k, _)| j[k] = yield(k); j } :
             {})
     end
   end
