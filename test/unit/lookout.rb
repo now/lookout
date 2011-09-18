@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout.runner.to.receive.expectations_eval do
-    Expectations{ }
-  end
-
   expect [nil, nil] do
     Lookout.location('abc')
   end

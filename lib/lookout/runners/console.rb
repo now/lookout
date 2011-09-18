@@ -10,13 +10,29 @@ class Lookout::Runners::Console
   end
 
   def install
-    at_exit do
-      next if $!
-      @expectations.flush
-      @ui.summarize
-      exit 1 unless @results.succeeded?
+    Kernel.module_exec(self) do |runner|
+      define_method :Expectations do |&block|
+        runner.expectations_eval(&block)
+      end
     end
     self
+  end
+
+  def load(file)
+    expectations_eval do
+      begin
+        load file
+      rescue SyntaxError => e
+        raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
+        raise SyntaxError, matches[2], [matches[1]]
+      end
+    end
+  end
+
+  def exit
+    @expectations.flush
+    @ui.summarize
+    super 1 unless @results.succeeded?
   end
 
   def expectations_eval(&block)
