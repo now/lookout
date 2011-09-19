@@ -4,6 +4,6 @@ class Lookout::UI::Silent
   def start
   end
 
-  def summarize
+  def flush
   end
 end

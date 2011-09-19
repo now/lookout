@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Results::Unsuccessful
-  include Lookout::Results::Instance
-
+class Lookout::Results::Unsuccessful < Lookout::Results
   include Enumerable
 
   def initialize
@@ -21,10 +19,6 @@ class Lookout::Results::Unsuccessful
       yield result
     end
     self
-  end
-
-  def succeeded?
-    @unsuccessful.empty?
   end
 
   def errors

@@ -2,12 +2,11 @@
 
 class Lookout::Expectations
   autoload :Behavior, 'lookout/expectations/behavior'
+  autoload :Line, 'lookout/expectations/line'
   autoload :State, 'lookout/expectations/state'
 
-  def initialize(results = Lookout::Results::Unsuccessful.new, line = nil)
-    @results, @line = results, line
-    @previous = nil
-    @ran_previous = false
+  def initialize(results = Lookout::Results.new)
+    @results = results
   end
 
   def mock
@@ -39,26 +38,12 @@ class Lookout::Expectations
   end
 
   def expect(expected, &block)
-    expectation = Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block)
-    if @line
-      unless @ran_previous
-        if @previous and @previous.line <= @line and expectation.line > @line
-          @results << @previous.evaluate
-          @ran_previous = true
-          @previous = nil
-        else
-          @previous = expectation
-        end
-      end
-    else
-      @results << expectation.evaluate
-    end
+    @results << Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block).evaluate
     self
   end
 
   # TODO: It would be great if this method wasn’t necessary.
   def flush
-    @results << @previous.evaluate if @previous
     self
   end
 end

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Runners::Console
-  def initialize(results = Lookout::Results::Unsuccessful.new,
-                 expectations = Lookout::Expectations.new(results,
-                                                          ENV['LINE'] && ENV['LINE'].to_i),
+  def initialize(results = Lookout::Results.new,
+                 expectations = Lookout::Expectations.new(results),
                  ui = Lookout::UI::Console.new(results))
     @results, @expectations, @ui = results, expectations, ui
     @ui.start
+    @failed = Lookout::Runners::Trackers::Failure.new(@results)
   end
 
   def install
@@ -31,8 +31,9 @@ class Lookout::Runners::Console
 
   def exit
     @expectations.flush
-    @ui.summarize
-    super 1 unless @results.succeeded?
+    @ui.flush
+    super 1 if @failed.failed?
+    self
   end
 
   def expectations_eval(&block)

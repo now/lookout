@@ -2,7 +2,13 @@
 
 require 'lookout'
 
-runner = Lookout::Runners::Console.new.install
+results = Lookout::Results.new
+line = ENV['LINE'] && ENV['LINE'].to_i
+runner = Lookout::Runners::Console.new(results,
+                                       line ?
+                                         Lookout::Expectations::Line.new(line, results) :
+                                         Lookout::Expectations.new(results),
+                                       Lookout::UI::Console.new(results)).install
 only_load = false
 ARGV.each do |arg|
   if not only_load and arg == '--'
