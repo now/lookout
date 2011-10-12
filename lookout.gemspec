@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/now/lookout'
 
   s.description = IO.read(File.expand_path('../README', __FILE__))
-  s.summary = s.description[/^[[:alpha:]]+.*?\./]
+  s.summary = s.description[/^  [[:alpha:]]+.*?\./]
 
   s.files = Dir['{lib,test}/**/*.rb'] + %w[README Rakefile]
 
