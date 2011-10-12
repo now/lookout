@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::UI::Console
-  def initialize(results, io = $stdout)
+  def initialize(results, io = $stderr)
     @results, @io = results, io
     results.on_new do |result|
       @io.puts result unless Lookout::Results::Fulfilled === result
