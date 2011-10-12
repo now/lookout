@@ -26,7 +26,7 @@ class Lookout::Rake::Tasks::Gem < Rake::TaskLib
     task :check => :build do
       require 'rubygems' unless defined? Gem
       require 'rubygems/installer' unless defined? Gem::Installer
-      checkdir = specification.full_name
+      checkdir = File.join(Lookout::Rake::Tasks.top_srcdir, specification.full_name)
       Gem::Installer.new(specification.file_name, :unpack => true).unpack checkdir
       sh 'rake --rakefile %s/Rakefile -s test' % checkdir
       rm_r checkdir
