@@ -28,7 +28,11 @@ module Lookout::Expectation
     when Hash
       Lookout::Stub::Object.new.tap{ |stub|
         args[0].each do |name, value|
-          @stubs.define(stub, name){ value }
+          if value.respond_to? :to_proc
+            @stubs.define(stub, name, &value)
+          else
+            @stubs.define(stub, name){ value }
+          end
         end
       }
     else

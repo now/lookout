@@ -36,4 +36,12 @@ Expectations do
   expect Lookout::Results::Fulfilled do
     Lookout::Expectation.on([1, 2, 3].to.include?(1), nil, nil).evaluate
   end
+
+  expect Lookout::Results::Fulfilled do
+    Lookout::Expectation.on(1, nil, nil){ stub(:a => 1).a }.evaluate
+  end
+
+  expect Lookout::Results::Fulfilled do
+    Lookout::Expectation.on(1, nil, nil){ stub(:a => proc{ 1 }).a }.evaluate
+  end
 end

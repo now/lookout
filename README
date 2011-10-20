@@ -259,7 +259,14 @@
           s.a + s.b
         end
 
-      and we can stub out a specific method on an object:
+      Blocks are also allowed:
+
+        expect 3 do
+          s = stub(:a => proc{ |a, b| a + b })
+          s.a(1, 2)
+        end
+
+      If need be, we can stub out a specific method on an object:
 
         expect 'def' do
           a = 'abc'

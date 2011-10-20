@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
 module Lookout
-  Version = '2.2.0'
+  Version = '2.3.0'
 end

@@ -146,6 +146,12 @@ Expectations do
     s.a + s.b
   end
 
+  # Use a stub that’s set up with a set of procs as methods.
+  expect 3 do
+    s = stub(:a => proc{ |a, b| a + b })
+    s.a(1, 2)
+  end
+
   # Use a contrete mock to verify that a method is called.
   expect Object.to.receive.deal do
     Object.deal
