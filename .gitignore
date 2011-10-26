@@ -1,2 +1,4 @@
 *.gem
 *.swp
+.emacs.desktop
+.emacs.desktop.lock
