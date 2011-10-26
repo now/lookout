@@ -31,6 +31,4 @@ module Lookout::Equality
       @equalities ||= {}
     end
   end
-
-  require 'lookout/equalities'
 end

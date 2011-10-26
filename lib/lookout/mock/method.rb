@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method < Lookout::Stub::Method
-  autoload :Arguments, 'lookout/mock/method/arguments'
-  autoload :Calls, 'lookout/mock/method/calls'
-
   def initialize(object, method, *args, &body)
     super object, method, &body
     @args = Arguments.new(*args)

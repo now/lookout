@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Algorithms::Difflib
-  autoload :Position, 'lookout/diff/algorithms/difflib/position'
-
   include Enumerable
 
   def initialize(from, to, &is_junk)

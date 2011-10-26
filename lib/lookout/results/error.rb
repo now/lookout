@@ -3,8 +3,6 @@
 class Lookout::Results::Error
   include Lookout::Result
 
-  autoload :Exception, 'lookout/results/error/exception'
-
   def initialize(file, line, message, exception)
     super file, line
     @message, @exception = message, Exception.new(exception)

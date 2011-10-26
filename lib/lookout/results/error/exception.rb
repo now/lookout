@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Results::Error::Exception
-  autoload :Backtrace, 'lookout/results/error/exception/backtrace'
-
   def initialize(exception)
     @exception = exception
   end

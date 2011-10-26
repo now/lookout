@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Results
-  autoload :Error, 'lookout/results/error'
-  autoload :Failure, 'lookout/results/failure'
-  autoload :Failures, 'lookout/results/failures'
-  autoload :Fulfilled, 'lookout/results/fulfilled'
-  autoload :Unsuccessful, 'lookout/results/unsuccessful'
-
   def initialize
     @listeners = []
   end

@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Arguments
-  autoload :Any, 'lookout/mock/method/arguments/any'
-  autoload :Anything, 'lookout/mock/method/arguments/anything'
-  autoload :List, 'lookout/mock/method/arguments/list'
-  autoload :None, 'lookout/mock/method/arguments/none'
-
   Error = Class.new(Lookout::Mock::Error)
 
   def initialize(*args)

@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Operations
-  autoload :Delete, 'lookout/diff/operations/delete'
-  autoload :Equal, 'lookout/diff/operations/equal'
-  autoload :Insert, 'lookout/diff/operations/insert'
-  autoload :Replace, 'lookout/diff/operations/replace'
-
   include Enumerable
 
   def initialize(matches)

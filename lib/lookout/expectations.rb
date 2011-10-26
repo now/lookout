@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations
-  autoload :Behavior, 'lookout/expectations/behavior'
-  autoload :Line, 'lookout/expectations/line'
-  autoload :State, 'lookout/expectations/state'
-
   def initialize(results = Lookout::Results.new)
     @results = results
   end

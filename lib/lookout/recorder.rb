@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorder < Lookout::Aphonic
-  autoload :Not, 'lookout/recorder/not'
-  autoload :Tape, 'lookout/recorder/tape'
-
   def initialize(subject)
     @subject, @negated = subject, false
   end
