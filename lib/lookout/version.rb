@@ -6,7 +6,7 @@ module Lookout
   class << Version
     def content
       {
-        :requires => %w'
+        :loads => %w'
           lookout/aphonic.rb
           lookout/diff.rb
           lookout/diff/range.rb
