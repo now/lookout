@@ -185,7 +185,7 @@
           process.running = false
         end
 
-      or to “have”
+      or “have”
 
         expect Class.new{ attr_accessor :finished; }.new.to.have.finished do |process|
           process.finished = true
