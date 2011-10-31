@@ -226,7 +226,7 @@
       We expect our objects to be on their best behavior.  Lookout allows you
       to make sure that they are.
 
-      Mocks let use verify that a method is called in the way that we expect it
+      Mocks let us verify that a method is called in the way that we expect it
       to be:
 
         expect mock.to.receive.dial('2125551212').twice do |phone|
