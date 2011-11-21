@@ -110,4 +110,8 @@ EOD
   expect false do
     Lookout::Equality.equal?(/foo/, /bar/)
   end
+
+  expect 'nil≠(cannot inspect expected value: error)' do
+    Lookout::Equality.message(stub(:inspect => proc{ raise 'error' }), nil)
+  end
 end

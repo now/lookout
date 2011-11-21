@@ -8,9 +8,19 @@ class Lookout::Equalities::Object
   end
 
   def message(expected, actual)
-    format = format(expected, actual)
-    return format unless diff = diff(expected, actual)
-    (diff.include?("\n") ? "%s\n%s" : '%s: %s') % [format, diff]
+    begin
+      format = format(expected, actual)
+    rescue => e
+      raise if Lookout::Equalities::Object === self
+      return '%s (cannot generate more specific failure message: %s)' %
+        [Lookout::Equalities::Object.new.message(expected, actual), e.message]
+    end
+    begin
+      diff = diff(expected, actual)
+    rescue => e
+      diff = '(cannot diff expected value and actual result: %s)' % e.message
+    end
+    diff ? (diff.include?("\n") ? "%s\n%s" : '%s: %s') % [format, diff] : format
   end
 
   def diff(expected, actual)
@@ -19,6 +29,7 @@ class Lookout::Equalities::Object
 private
 
   def format(expected, actual)
-    '%p≠%p' % [actual, expected]
+    '%s≠%s' % [Lookout::Inspect::Actual.new(actual).call,
+               Lookout::Inspect::Expected.new(expected).call]
   end
 end

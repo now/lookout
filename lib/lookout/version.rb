@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module Lookout
-  Version = '2.3.0'
+  Version = '2.3.1'
 
   class << Version
     def content
@@ -33,6 +33,9 @@ module Lookout
           lookout/expectations/line.rb
           lookout/expectations/state.rb
           lookout/expectations/state/warning.rb
+          lookout/inspect.rb
+          lookout/inspect/actual.rb
+          lookout/inspect/expected.rb
           lookout/object.rb
           lookout/output.rb
           lookout/stub.rb
