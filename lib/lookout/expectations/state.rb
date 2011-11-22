@@ -29,11 +29,7 @@ class Lookout::Expectations::State
 private
 
   def check(actual)
-    # TODO: Remove @expected == actual test or at least wrap it so that errors
-    # are ignored, allowing #equal? to take care of them.
-    # (@expected == actual rescue false)
-    # Lookout::Equality.equal?(@expected, actual) ?
-    (@expected == actual or Lookout::Equality.equal? @expected, actual) ?
+    ((@expected == actual rescue false) or Lookout::Equality.equal? @expected, actual) ?
       Lookout::Results::Fulfilled.new(file, line) :
       Lookout::Results::Failures::State.new(file, line, Lookout::Equality.message(@expected, actual))
   end
