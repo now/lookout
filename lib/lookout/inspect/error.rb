@@ -12,7 +12,7 @@ class Lookout::Inspect::Error
   private
 
   def message
-    String(@error)
+    String(@error.message)
   rescue => e
     'cannot retrieve error message: %s' %
       encode((String(e) rescue

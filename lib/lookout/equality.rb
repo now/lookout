@@ -43,13 +43,15 @@ module Lookout::Equality
     end
 
     def find(expected)
-      ancestors = ancestors(klass(expected))
+      ancestors = ancestors(klass(expected), expected)
       begin
         # TODO: Should we raise an error if ancestors.find returns nil?
         ancestors.find{ |type| @equalities[type] } or Object
       rescue => e
         raise RuntimeError,
-          '#find on #ancestors on #class failed: %s' % Lookout::Inspect::Error.new(e).call
+          '%s#class#ancestors#find failed: %s' %
+          [Lookout::Inspect::Expected.new(expected).call,
+           Lookout::Inspect::Error.new(e).call]
       end
     end
 
@@ -62,16 +64,13 @@ module Lookout::Equality
            Lookout::Inspect::Error.new(e).call]
     end
 
-    def ancestors(klass)
-      begin
-        ancestors = klass.ancestors
-      rescue => e
-        raise RuntimeError,
-          '#ancestors on #class failed: %s' % Lookout::Inspect::Error.new(e).call
-      end
-      Enumerable === ancestors or
-        raise RuntimeError, '#ancestors on #class is not Enumerable'
-      ancestors
+    def ancestors(klass, expected)
+      klass.ancestors
+    rescue => e
+      raise RuntimeError,
+      '%s#class#ancestors failed: %s' %
+        [Lookout::Inspect::Expected.new(expected).call,
+         Lookout::Inspect::Error.new(e).call]
     end
   end
 end
