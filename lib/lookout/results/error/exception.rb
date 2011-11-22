@@ -9,24 +9,43 @@ class Lookout::Results::Error::Exception
     # Chomping off a \n here isn’t 100 percent compatible with how Ruby 1.9
     # does it, but it simplifies the code and also makes the output better if
     # the message is a lone \n.
-    message = @exception.message.to_str.chomp("\n")
-    if @exception.class == RuntimeError and message.empty?
+    message = (String(@exception.message).encode('UTF-8') rescue '').chomp("\n")
+    if exception_class == RuntimeError and message.empty?
       'unhandled exception'
     elsif message.empty?
-      @exception.class.name
-    elsif @exception.class.name.empty? or @exception.class.name =~ /^#/
+      exception_class_name
+    elsif exception_class_name.empty? or exception_class_name =~ /^#/
       message
     else
       before, newline, after = message.partition("\n")
-      '%s (%s)%s%s' % [before, @exception.class.name, newline, after]
+      '%s (%s)%s%s' % [before, exception_class_name, newline, after]
     end
   end
 
   def backtrace
-    @backtrace ||= Backtrace.new(@exception.backtrace, SystemStackError === @exception)
+    @backtrace ||= Backtrace.from(@exception)
   end
 
   def to_s
     "%s\n%s" % [message, backtrace]
+  end
+
+  private
+
+  def exception_class
+    @exception_class = begin
+                         @exception.class
+                       rescue
+                         Exception
+                       end
+  end
+
+  def exception_class_name
+    @exception_class_name ||= begin
+                                exception_class.name.encode('UTF-8')
+                              rescue => e
+                                'cannot determine class name of exception: %s' %
+                                  Lookout::Inspect::Error.new(e).call
+                              end
   end
 end

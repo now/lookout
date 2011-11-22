@@ -1,11 +1,31 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Results::Error::Exception::Backtrace
+  class << self
+    def from(exception)
+      new(nil == exception ? nil : exception.backtrace,
+          SystemStackError === exception)
+    end
+  end
+
   def initialize(backtrace, trim, filter = ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'].nil?)
     @backtrace = case backtrace
-                 when nil then []
-                 when String then [backtrace]
-                 when Array then backtrace.select{ |l| String === l }
+                 when nil
+                   []
+                 when String
+                   [backtrace]
+                 when Array
+                   backtrace.map{ |line|
+                     begin
+                       String(line).encode('UTF-8')
+                     rescue => e
+                       '(cannot retrieve backtrace entry: %s)' %
+                         Lookout::Inspect::Error.new(e).call
+                     end
+                     }
+                 else
+                   '(backtrace is not an Array of String: %s)' %
+                     Lookout::Inspect.new(backtrace, 'backtrace').call
                  end
     @trim, @filter = trim, filter
   end
