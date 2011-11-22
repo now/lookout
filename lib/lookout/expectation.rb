@@ -16,6 +16,9 @@ module Lookout::Expectation
     @expected, @file, @line, @block = expected, file, line, block
   end
 
+  # TODO: Do this in separate context that only has stub, with_verbose and any
+  # other extensions provided by external libraries.
+  # TODO: This way we can also delay Lookout::Stub::Methods creation until stub is called.
   def evaluate
     Lookout::Stub.methods{ |stubs| @stubs = stubs; evaluate_with_stubs }.tap{ @stubs = nil }
   end
