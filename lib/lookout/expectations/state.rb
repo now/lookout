@@ -3,9 +3,9 @@
 class Lookout::Expectations::State
   include Lookout::Expectation
 
-  def evaluate_with_stubs
+  def evaluate
     begin
-      result = @block ? instance_exec(@expected, &@block) : false
+      result = @block ? Context.new(@expected, &@block).evaluate : false
     rescue Exception => e
       # TODO: Do not depend on @expected#class, @expected#class#==, e#class, or @expected#eql? working.
       # TODO: Still need to guard against errors in #check in this rescue clause.

@@ -27,7 +27,7 @@ class Lookout::Recorder < Lookout::Aphonic
     self
   end
 
-  def subject!(mocks, stubs)
+  def subject!(mocks)
     subject
   end
 

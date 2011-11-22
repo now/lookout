@@ -3,13 +3,17 @@
 require 'stringio'
 
 class Lookout::Expectations::State::Warning < Lookout::Expectations::State
-  def evaluate_with_stubs
+  def evaluate
     @output = StringIO.new
     saved_stderr = $stderr
     $stderr = @output
     begin
-      with_verbose do
+      saved_verbose = $VERBOSE
+      $VERBOSE = true
+      begin
         super
+      ensure
+        $VERBOSE = saved_verbose
       end
     ensure
       $stderr = saved_stderr

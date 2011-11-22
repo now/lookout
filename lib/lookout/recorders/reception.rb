@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Recorders::Reception
-  def subject!(mocks, stubs)
+  def subject!(mocks)
     @mock = @method._lookout_define(mocks)
     methods.play_for @mock
     subject
@@ -29,7 +29,6 @@ private
 
   class Method < Lookout::Aphonic
     undef extend
-    undef is_a?
 
     def initialize(recorder, negated)
       @recorder, @negated = recorder, negated

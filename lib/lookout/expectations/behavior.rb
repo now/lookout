@@ -3,10 +3,10 @@
 class Lookout::Expectations::Behavior
   include Lookout::Expectation
 
-  def evaluate_with_stubs
+  def evaluate
     Lookout::Mock.methods do |mocks|
-      @expected.subject! mocks, @stubs
-      instance_exec @expected.subject, &@block if @block
+      @expected.subject! mocks
+      Context.new(@expected.subject, &@block).evaluate if @block
       @expected.verify
     end
     Lookout::Results::Fulfilled.new(file, line)

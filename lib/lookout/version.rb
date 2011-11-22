@@ -28,6 +28,7 @@ module Lookout
           lookout/diff/operations/insert.rb
           lookout/diff/operations/replace.rb
           lookout/expectation.rb
+          lookout/expectation/context.rb
           lookout/expectations.rb
           lookout/expectations/behavior.rb
           lookout/expectations/line.rb
