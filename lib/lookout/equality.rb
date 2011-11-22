@@ -49,14 +49,17 @@ module Lookout::Equality
         ancestors.find{ |type| @equalities[type] } or Object
       rescue => e
         raise RuntimeError,
-          '#find on #ancestors on #class failed: %s' % inspect_exception(e)
+          '#find on #ancestors on #class failed: %s' % Lookout::Inspect::Error.new(e).call
       end
     end
 
     def klass(expected)
       expected.class
     rescue => e
-      raise RuntimeError, '#class failed: %s' % inspect_exception(e)
+      raise RuntimeError,
+        '%s#class failed: %s' %
+          [Lookout::Inspect::Expected.new(expected).call,
+           Lookout::Inspect::Error.new(e).call]
     end
 
     def ancestors(klass)
@@ -64,23 +67,11 @@ module Lookout::Equality
         ancestors = klass.ancestors
       rescue => e
         raise RuntimeError,
-          '#ancestors on #class failed: %s' % inspect_exception(e)
+          '#ancestors on #class failed: %s' % Lookout::Inspect::Error.new(e).call
       end
       Enumerable === ancestors or
         raise RuntimeError, '#ancestors on #class is not Enumerable'
       ancestors
-    end
-
-    # TODO: Guarantee String from here.  Perhaps simply do as in Inspect.
-    def inspect_exception(e)
-      e.inspect
-    rescue => e
-      begin
-        inner = e.inspect
-      rescue
-        inner = 'and so did #inspect on that exception; giving up'
-      end
-      raise RuntimeError, '(#inspect on exception failed: %s)' % inner
     end
   end
 end

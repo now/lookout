@@ -111,6 +111,14 @@ EOD
     Lookout::Equality.equal?(/foo/, /bar/)
   end
 
+  expect RuntimeError.new('cannot determine equality relationship between nil and stub: error') do
+    Lookout::Equality.equal?(stub(:== => proc{ raise 'error' }), nil)
+  end
+
+  expect RuntimeError.new('cannot determine equality relationship between nil and stub: cannot determine equality handler for stub: stub#class failed: no class for you') do
+    Lookout::Equality.equal?(stub(:class => proc{ raise 'no class for you' }), nil)
+  end
+
   expect 'nil≠(cannot inspect expected value: error)' do
     Lookout::Equality.message(stub(:inspect => proc{ raise 'error' }), nil)
   end

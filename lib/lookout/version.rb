@@ -35,6 +35,7 @@ module Lookout
           lookout/expectations/state/warning.rb
           lookout/inspect.rb
           lookout/inspect/actual.rb
+          lookout/inspect/error.rb
           lookout/inspect/expected.rb
           lookout/object.rb
           lookout/output.rb
