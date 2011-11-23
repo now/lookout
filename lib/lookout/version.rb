@@ -69,9 +69,11 @@ module Lookout
           lookout/recorders/reception.rb
           lookout/recorders/reception/not.rb
           lookout/recorders/state.rb
+          lookout/recorders/state/verify.rb
           lookout/recorders/state/be.rb
           lookout/recorders/state/have.rb
           lookout/recorders/state/not.rb
+          lookout/recorders/state/not/verify.rb
           lookout/recorders/state/not/be.rb
           lookout/recorders/state/not/have.rb
           lookout/result.rb

@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorders::State::Not::Have < Lookout::Recorders::State::Not
-  def initialize(subject)
-    super
-    @error = 'expected %p not to have %s'
+  def subject!(mocks)
+    [@subject, Verify.new(@subject, @methods, @description)]
+  end
+
+  private
+
+  class Verify < Lookout::Recorders::State::Not::Verify
+    private
+
+    def format
+      'expected %p not to have %s'
+    end
   end
 end
