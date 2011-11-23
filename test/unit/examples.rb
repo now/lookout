@@ -64,25 +64,6 @@ Expectations do
     false
   end
 
-  # Match XML contents, ignoring whitespace between tags.
-  expect xml('<a><foo>bar</foo></a>') do
-    "<a>\n\t<foo>bar</foo>  \n</a>"
-  end
-
-  # Match XML contents, ignoring whitespace between tags.
-  expect xml(<<-EOX) do
-    <one>
-      <two>
-        <three>4</three>
-        <five> 6 </five>
-      </two>
-    </one>
-  EOX
-    '<one><two><three>4</three>
-     <five> 6 </five>
-     </two></one>'
-  end
-
   # Verify that the given text is output.
   expect output("abc\ndef\n") do |io|
     io.puts 'abc', 'def'

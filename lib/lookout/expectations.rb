@@ -29,10 +29,6 @@ class Lookout::Expectations
     Lookout::Warning.new(string)
   end
 
-  def xml(string)
-    Lookout::XML.new(string)
-  end
-
   def expect(expected, &block)
     @results << Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block).evaluate
     self

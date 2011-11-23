@@ -86,7 +86,6 @@ module Lookout
           lookout/ui/console.rb
           lookout/ui/silent.rb
           lookout/warning.rb
-          lookout/xml.rb
           lookout/equality.rb
           lookout/equalities.rb
           lookout/equalities/object.rb
