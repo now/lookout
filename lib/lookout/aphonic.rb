@@ -6,10 +6,12 @@ class Lookout::Aphonic
     :__id__, :__send__, :object_id # Methods that must be defined
   ]
 
-  def self.silence(name)
-    undef_method name if
-      instance_methods.include?(RUBY_VERSION < '1.9' ? name.to_s : name.to_sym) and
-      not Methods.include? name.to_sym
+  class << self
+    def silence(name)
+      undef_method name if
+        instance_methods.include?(RUBY_VERSION < '1.9' ? name.to_s : name.to_sym) and
+        not Methods.include? name.to_sym
+    end
   end
 
   instance_methods.each do |name|
