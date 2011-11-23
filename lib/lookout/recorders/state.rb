@@ -5,17 +5,18 @@ class Lookout::Recorders::State < Lookout::Aphonic
 
   Error = Class.new(StandardError)
 
-  def initialize(subject, negated, *args)
-    super subject, negated
+  def initialize(subject, *args)
+    super subject
     @methods = Tape.new
     @description = []
-    @error = @negated ? 'expected %p not to %s' : 'expected %p to %s'
+    @error = 'expected %p to %s'
     method_missing(*args) unless args.empty?
   end
 
   def verify
-    !!@methods.play_for(@subject) ^ @negated or
+    @methods.play_for(@subject) or
       raise Error, @error % [@subject, @description.join(' ')]
+    self
   end
 
   private

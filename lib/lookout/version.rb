@@ -60,15 +60,20 @@ module Lookout
           lookout/mock/methods.rb
           lookout/mock/object.rb
           lookout/object/not.rb
+          lookout/object/not/receive.rb
           lookout/object/to.rb
           lookout/object/to/receive.rb
           lookout/recorder.rb
           lookout/recorder/tape.rb
           lookout/recorders.rb
           lookout/recorders/reception.rb
+          lookout/recorders/reception/not.rb
           lookout/recorders/state.rb
           lookout/recorders/state/be.rb
           lookout/recorders/state/have.rb
+          lookout/recorders/state/not.rb
+          lookout/recorders/state/not/be.rb
+          lookout/recorders/state/not/have.rb
           lookout/result.rb
           lookout/results.rb
           lookout/results/error.rb

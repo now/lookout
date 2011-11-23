@@ -3,20 +3,21 @@
 class Lookout::Recorders::Reception < Lookout::Aphonic
   include Lookout::Recorder
 
-  def initialize(subject, negated, method, *args, &body)
-    super subject, negated
+  def initialize(subject, method, *args, &body)
+    super subject
     @method, @args, @body = method, args, body
     @methods = Tape.new
   end
 
   def subject!(mocks)
-    @mock = mocks.define(@subject, @method, *@args, &@body).tap{ |m| m.never if @negated }
+    @mock = mocks.define(@subject, @method, *@args, &@body)
     @methods.play_for @mock
     super
   end
 
   def verify
     @mock.verify
+    self
   end
 
   private

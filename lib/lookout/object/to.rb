@@ -1,24 +1,24 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Object::To < Lookout::Aphonic
-  def initialize(subject, negated = false)
-    @subject, @negated = subject, negated
+  def initialize(subject)
+    @subject = subject
   end
 
   def receive
-    Lookout::Object::To::Receive.new(@subject, @negated)
+    Lookout::Object::To::Receive.new(@subject)
   end
 
   def be
-    Lookout::Recorders::State::Be.new(@subject, @negated)
+    Lookout::Recorders::State::Be.new(@subject)
   end
 
   def have
-    Lookout::Recorders::State::Have.new(@subject, @negated)
+    Lookout::Recorders::State::Have.new(@subject)
   end
 
   def method_missing(method, *args)
     return super unless method.to_s =~ /\?$/
-    Lookout::Recorders::State.new(@subject, @negated, method, *args)
+    Lookout::Recorders::State.new(@subject, method, *args)
   end
 end

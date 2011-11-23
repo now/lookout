@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Object::To::Receive < Lookout::Aphonic
+class Lookout::Object::Not::Receive < Lookout::Aphonic
   def initialize(subject)
     @subject = subject
   end
@@ -8,6 +8,6 @@ class Lookout::Object::To::Receive < Lookout::Aphonic
   private
 
   def method_missing(method, *args, &body)
-    Lookout::Recorders::Reception.new(@subject, method, *args, &body)
+    Lookout::Recorders::Reception::Not.new(@subject, method, *args, &body)
   end
 end
