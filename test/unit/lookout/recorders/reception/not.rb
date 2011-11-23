@@ -4,8 +4,9 @@ Expectations do
   expect Lookout::Mock::Method::Calls::Error do
     r = Lookout::Recorders::Reception::Not.new(Object.new, :a)
     Lookout::Mock.methods do |mocks|
-      r.subject!(mocks).a
-      r.verify
+      subject, verify = r.subject!(mocks)
+      subject.a
+      verify.call
     end
     nil
   end
@@ -13,8 +14,8 @@ Expectations do
   expect nil do
     r = Lookout::Recorders::Reception::Not.new(Object.new, :a)
     Lookout::Mock.methods do |mocks|
-      r.subject!(mocks)
-      r.verify
+      _, verify = r.subject!(mocks)
+      verify.call
     end
     nil
   end

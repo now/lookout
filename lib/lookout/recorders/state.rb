@@ -13,10 +13,8 @@ class Lookout::Recorders::State < Lookout::Aphonic
     method_missing(*args) unless args.empty?
   end
 
-  def verify
-    @methods.play_for(@subject) or
-      raise Error, @error % [@subject, @description.join(' ')]
-    self
+  def subject!(mocks)
+    [@subject, Verify.new(@subject, @methods, @description, @error)]
   end
 
   private
@@ -27,5 +25,17 @@ class Lookout::Recorders::State < Lookout::Aphonic
     args.each{ |arg| @description << arg.inspect }
     @methods.record method, args
     self
+  end
+
+  class Verify
+    def initialize(subject, methods, description, error)
+      @subject, @methods, @description, @error = subject, methods, description, error
+    end
+
+    def call
+      @methods.play_for(@subject) or
+        raise Error, @error % [@subject, @description.join(' ')]
+      true
+    end
   end
 end

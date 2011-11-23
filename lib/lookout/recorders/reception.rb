@@ -10,14 +10,9 @@ class Lookout::Recorders::Reception < Lookout::Aphonic
   end
 
   def subject!(mocks)
-    @mock = mocks.define(@subject, @method, *@args, &@body)
-    @methods.play_for @mock
-    super
-  end
-
-  def verify
-    @mock.verify
-    self
+    mock = mocks.define(@subject, @method, *@args, &@body)
+    @methods.play_for mock
+    [@subject, Verify.new(mock)]
   end
 
   private
@@ -26,5 +21,16 @@ class Lookout::Recorders::Reception < Lookout::Aphonic
   def method_missing(method, *args, &block)
     @methods.record method, args
     self
+  end
+
+  class Verify
+    def initialize(mock)
+      @mock = mock
+    end
+
+    def call
+      @mock.verify
+      true
+    end
   end
 end

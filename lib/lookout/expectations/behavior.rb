@@ -5,8 +5,9 @@ class Lookout::Expectations::Behavior
 
   def evaluate
     Lookout::Mock.methods do |mocks|
-      Context.new(@expected.subject!(mocks), &@block).evaluate
-      @expected.verify
+      subject, verify = @expected.subject!(mocks)
+      Context.new(subject, &@block).evaluate
+      verify.call
     end
     Lookout::Results::Fulfilled.new(file, line)
   rescue Lookout::Recorders::State::Error => e
