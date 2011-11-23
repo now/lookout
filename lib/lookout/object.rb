@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
+module Lookout::Object
+end
+
 class Object
   def to
-    Lookout::Recorder.new(self)
+    Lookout::Object::To.new(self)
   end
 
   def not
-    Lookout::Recorder::Not.new(self)
+    Lookout::Object::Not.new(self)
   end
 end

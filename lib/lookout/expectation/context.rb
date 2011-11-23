@@ -7,7 +7,9 @@ class Lookout::Expectation::Context
   end
 
   def evaluate
-    instance_exec(*@args, &@block).tap{ @stubs.undefine if @stubs }
+    instance_exec(*@args, &@block) if @block
+  ensure
+    @stubs.undefine if @stubs
   end
 
   def stub(*args)
@@ -34,8 +36,6 @@ class Lookout::Expectation::Context
   private
 
   class Method < Lookout::Aphonic
-    undef extend
-
     def initialize(stubs, object)
       @stubs, @object = stubs, object
     end

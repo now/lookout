@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Recorders::Reception
+class Lookout::Recorders::Reception < Lookout::Aphonic
+  include Lookout::Recorder
+
+  def initialize(subject, negated, method, *args, &body)
+    super subject, negated
+    @method, @args, @body = method, args, body
+    @methods = Tape.new
+  end
+
   def subject!(mocks)
-    @mock = @method._lookout_define(mocks)
-    methods.play_for @mock
-    subject
+    @mock = mocks.define(@subject, @method, *@args, &@body).tap{ |m| m.never if @negated }
+    @methods.play_for @mock
+    super
   end
 
   def verify
@@ -13,34 +21,9 @@ module Lookout::Recorders::Reception
 
 private
 
-  def receive!
-    @method = Method.new(self, @negated)
-  end
-
-  def methods
-    @methods ||= Lookout::Recorder::Tape.new
-  end
-
+  # TODO: Why aren’t we recording the block?
   def method_missing(method, *args, &block)
-    super unless defined? @method
-    methods.record method, args
+    @methods.record method, args
     self
-  end
-
-  class Method < Lookout::Aphonic
-    undef extend
-
-    def initialize(recorder, negated)
-      @recorder, @negated = recorder, negated
-    end
-
-    def method_missing(method, *args, &body)
-      @method, @args, @body = method, args, body
-      @recorder
-    end
-
-    def _lookout_define(mocks)
-      mocks.define(@recorder.subject, @method, *@args, &@body).tap{ |m| m.never if @negated }
-    end
   end
 end

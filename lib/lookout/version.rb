@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 module Lookout
-  Version = '2.3.1'
+  Version = '2.4.0'
 
   class << Version
     def content
       {
         :loads => %w'
+          lookout/object.rb
           lookout/aphonic.rb
           lookout/diff.rb
           lookout/diff/range.rb
@@ -38,7 +39,6 @@ module Lookout
           lookout/inspect/actual.rb
           lookout/inspect/error.rb
           lookout/inspect/expected.rb
-          lookout/object.rb
           lookout/output.rb
           lookout/stub.rb
           lookout/stub/method.rb
@@ -59,8 +59,10 @@ module Lookout
           lookout/mock/method/calls/upper.rb
           lookout/mock/methods.rb
           lookout/mock/object.rb
+          lookout/object/not.rb
+          lookout/object/to.rb
+          lookout/object/to/receive.rb
           lookout/recorder.rb
-          lookout/recorder/not.rb
           lookout/recorder/tape.rb
           lookout/recorders.rb
           lookout/recorders/reception.rb

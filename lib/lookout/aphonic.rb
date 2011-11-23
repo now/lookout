@@ -2,8 +2,8 @@
 
 class Lookout::Aphonic
   Methods = [
-    :__id__, :__send__, :object_id, # Methods that must be defined
-    :extend # Methods that we need
+             # TODO: __id__ might not be needed.
+    :__id__, :__send__, :object_id # Methods that must be defined
   ]
 
   def self.silence(name)
