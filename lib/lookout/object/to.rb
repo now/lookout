@@ -10,16 +10,15 @@ class Lookout::Object::To < Lookout::Aphonic
   end
 
   def be
-    # TODO: Make real objects of Be and Have.
-    Lookout::Recorders::State.new(@subject, @negated, :be)
+    Lookout::Recorders::State::Be.new(@subject, @negated)
   end
 
   def have
-    Lookout::Recorders::State.new(@subject, @negated, :have)
+    Lookout::Recorders::State::Have.new(@subject, @negated)
   end
 
   def method_missing(method, *args)
     return super unless method.to_s =~ /\?$/
-    Lookout::Recorders::State.new(@subject, @negated, nil, method, *args)
+    Lookout::Recorders::State.new(@subject, @negated, method, *args)
   end
 end

@@ -67,6 +67,8 @@ module Lookout
           lookout/recorders.rb
           lookout/recorders/reception.rb
           lookout/recorders/state.rb
+          lookout/recorders/state/be.rb
+          lookout/recorders/state/have.rb
           lookout/result.rb
           lookout/results.rb
           lookout/results/error.rb
