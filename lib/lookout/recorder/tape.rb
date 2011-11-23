@@ -5,10 +5,6 @@ class Lookout::Recorder::Tape
     @methods = []
   end
 
-  def empty?
-    @methods.empty?
-  end
-
   def record(method, args)
     @methods << Method.new(method, args)
   end
