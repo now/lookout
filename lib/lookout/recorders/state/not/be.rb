@@ -11,7 +11,7 @@ class Lookout::Recorders::State::Not::Be < Lookout::Recorders::State
     private
 
     def format
-      'expected %p not to be %s'
+      'expected %s not to be %s'
     end
   end
 end

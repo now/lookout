@@ -11,7 +11,7 @@ class Lookout::Recorders::State::Have < Lookout::Recorders::State
     private
 
     def format
-      'expected %p to have %s'
+      'expected %s to have %s'
     end
   end
 end

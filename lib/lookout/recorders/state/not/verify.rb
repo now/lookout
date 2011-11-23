@@ -9,6 +9,6 @@ class Lookout::Recorders::State::Not::Verify < Lookout::Recorders::State::Verify
   private
 
   def format
-    @error = 'expected %p not to %s'
+    @error = 'expected %s not to %s'
   end
 end

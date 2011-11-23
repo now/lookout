@@ -17,10 +17,10 @@ class Lookout::Recorders::State::Verify
 
   def error
     raise Lookout::Recorders::State::Error,
-      format % [@subject, @recording]
+      format % [Lookout::Inspect.new(@subject, 'subject').call, @recording]
   end
 
   def format
-    'expected %p to %s'
+    'expected %s to %s'
   end
 end
