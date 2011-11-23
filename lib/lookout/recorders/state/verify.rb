@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorders::State::Verify
-  def initialize(subject, methods)
-    @subject, @methods = subject, methods
+  def initialize(subject, recording)
+    @subject, @recording = subject, recording
   end
 
   def call
@@ -12,12 +12,12 @@ class Lookout::Recorders::State::Verify
   private
 
   def play
-    @methods.play_for(@subject)
+    @recording.play_for(@subject)
   end
 
   def error
     raise Lookout::Recorders::State::Error,
-      format % [@subject, @methods]
+      format % [@subject, @recording]
   end
 
   def format

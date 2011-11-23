@@ -6,12 +6,12 @@ class Lookout::Recorders::Reception < Lookout::Aphonic
   def initialize(subject, method, *args, &body)
     super subject
     @method, @args, @body = method, args, body
-    @methods = Tape.new
+    @recording = Tape.new
   end
 
   def subject!(mocks)
     mock = mocks.define(@subject, @method, *@args, &@body)
-    @methods.play_for mock
+    @recording.play_for mock
     [@subject, Verify.new(mock)]
   end
 
@@ -19,7 +19,7 @@ class Lookout::Recorders::Reception < Lookout::Aphonic
 
   # TODO: Why aren’t we recording the block?
   def method_missing(method, *args, &block)
-    @methods.record method, args
+    @recording.record method, args
     self
   end
 

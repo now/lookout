@@ -2,7 +2,7 @@
 
 class Lookout::Recorders::State::Not::Be < Lookout::Recorders::State
   def subject!(mocks)
-    [@subject, Verify.new(@subject, @methods)]
+    [@subject, Verify.new(@subject, @recording)]
   end
 
   private
