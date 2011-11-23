@@ -26,7 +26,7 @@ Expectations do
   end
 
   expect Lookout::Results::Failures::State do
-    Lookout::Expectation.on('foo'.to.have.to_s == 'bar', nil, nil).evaluate
+    Lookout::Expectation.on('foo'.to.have.to_s == 'bar', '', 0).evaluate
   end
 
   expect Lookout::Results::Fulfilled do

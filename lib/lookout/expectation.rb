@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Expectation
-  def self.on(expected, file, line, &block)
-    case expected
-    when Lookout::Recorder
-      Lookout::Expectations::Behavior
-    when Lookout::Warning
-      Lookout::Expectations::State::Warning
-    else
-      Lookout::Expectations::State
-    end.new(expected, file, line, &block)
+  @map = []
+
+  class << self
+    def map(from, to)
+      @map << [from, to]
+    end
+
+    def on(expected, file, line, &block)
+      (((i = @map.find_index{ |from, _| from === expected }) and @map[i].last) or
+       Lookout::Expectations::State).new(expected, file, line, &block)
+    end
   end
 
   def initialize(expected, file, line, &block)
