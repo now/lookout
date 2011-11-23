@@ -59,7 +59,7 @@ class Lookout::Mock::Method < Lookout::Stub::Method
     '%p.%s%p' % [@object, @method, @args]
   end
 
-private
+  private
 
   def stash
     :"__mocked_method_#{@method}"

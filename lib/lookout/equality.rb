@@ -33,7 +33,7 @@ module Lookout::Equality
       '(cannot diff expected value and actual result: %s)' % e.message
     end
 
-  private
+    private
 
     def [](expected)
       @equalities[find(expected)]

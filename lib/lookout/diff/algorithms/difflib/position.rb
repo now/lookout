@@ -45,11 +45,11 @@ class Lookout::Diff::Algorithms::Difflib::Position
     '#<%s %p,%p>' % [self.class, from, to]
   end
 
-protected
+  protected
 
   attr_reader :from, :to, :junk
 
-private
+  private
 
   def leftmost_longest
     match = Lookout::Diff::Match.new(@from.at(0...0), @to.at(0...0))

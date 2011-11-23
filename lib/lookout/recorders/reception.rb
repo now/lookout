@@ -19,7 +19,7 @@ class Lookout::Recorders::Reception < Lookout::Aphonic
     @mock.verify
   end
 
-private
+  private
 
   # TODO: Why aren’t we recording the block?
   def method_missing(method, *args, &block)

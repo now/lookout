@@ -26,7 +26,7 @@ class Lookout::Expectations::State
     Lookout::Results::Error.new(file, line, nil, e)
   end
 
-private
+  private
 
   def check(actual)
     ((@expected == actual rescue false) or Lookout::Equality.equal? @expected, actual) ?

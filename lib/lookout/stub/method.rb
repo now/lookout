@@ -64,7 +64,7 @@ class Lookout::Stub::Method
     self
   end
 
-private
+  private
 
   Nil = proc{ Lookout::Stub::Object.new }
 

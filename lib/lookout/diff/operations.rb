@@ -19,7 +19,7 @@ class Lookout::Diff::Operations
     self
   end
 
-private
+  private
 
   def typeify(from, to, match)
     if    from < match.from.begin and to < match.to.begin then Replace

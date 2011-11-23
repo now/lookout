@@ -9,7 +9,7 @@ class Lookout::Diff::Formats::Inline
     @to_s
   end
 
-private
+  private
 
   class ToS
     def initialize(operations)

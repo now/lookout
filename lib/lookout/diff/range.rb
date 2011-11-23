@@ -85,7 +85,7 @@ class Lookout::Diff::Range
     '%p[%p]' % [items, range]
   end
 
-protected
+  protected
 
   attr_reader :items, :range
 end

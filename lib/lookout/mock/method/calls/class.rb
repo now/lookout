@@ -13,7 +13,7 @@ module Lookout::Mock::Method::Calls::Class
     self
   end
 
-private
+  private
 
   def formats
     @formats ||= Hash.new{ |hash, key| hash[key] = {} }

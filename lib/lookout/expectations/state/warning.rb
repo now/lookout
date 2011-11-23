@@ -20,11 +20,10 @@ class Lookout::Expectations::State::Warning < Lookout::Expectations::State
     end
   end
 
-private
+  private
 
   def check(actual)
     @output.rewind
-
-    super @output.read
+    super(@output.read)
   end
 end

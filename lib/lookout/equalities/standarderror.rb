@@ -16,7 +16,7 @@ class Lookout::Equalities::StandardError < Lookout::Equalities::Object
     Lookout::Equality.diff(expected.message, actual.message)
   end
 
-private
+  private
 
   def format(expected, actual)
     regexp(expected) ?

@@ -14,7 +14,7 @@ class Lookout::Mock::Method::Calls::Upper
     super
   end
 
-private
+  private
 
   def satisfied?
     @calls <= @limit

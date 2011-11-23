@@ -9,7 +9,7 @@ class Lookout::XML < String
     'xml(%s)' % [normalize]
   end
 
-private
+  private
 
   def normalize(xml = self)
     xml.strip.gsub(/>\s*</, '><')

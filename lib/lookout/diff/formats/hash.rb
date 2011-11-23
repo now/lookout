@@ -14,7 +14,7 @@ class Lookout::Diff::Formats::Hash
     end
   end
 
-private
+  private
 
   class Operation
     def initialize(operation)
@@ -44,7 +44,7 @@ private
       @lines.join("\n")
     end
 
-  private
+    private
 
     def mark(mark, range)
       range.map{ |item| '%s%s' % [mark, item] }

@@ -11,7 +11,7 @@ class Lookout::Equalities::Output < Lookout::Equalities::Object
     Lookout::Equality.diff(expected.expected, expected.actual)
   end
 
-private
+  private
 
   def format(expected, _actual)
     '%p≠%p' % [Lookout::Output.new(expected.actual), expected]

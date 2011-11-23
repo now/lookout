@@ -34,7 +34,7 @@ class Lookout::Results::Error::Exception::Backtrace
     trim(backtrace.map{ |location| "\tfrom %s" % location }).join("\n")
   end
 
-private
+  private
 
   def backtrace
     return @backtrace unless @filter

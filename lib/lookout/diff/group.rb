@@ -48,11 +48,11 @@ class Lookout::Diff::Group
     '<#%s %p>' % [self.class, operations]
   end
 
-protected
+  protected
 
   attr_reader :operations
 
-private
+  private
 
   def range(target)
     operations.first.send(target).

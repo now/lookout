@@ -16,7 +16,7 @@ class Lookout::Equalities::Hash < Lookout::Equalities::Object
                   new(array(actual), array(expected)))).to_a.join("\n")
   end
 
-private
+  private
 
   def array(hash)
     hash.to_a.sort_by{ |k, v| k }.map{ |k, v| '%p => %p' % [k, v] }

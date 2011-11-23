@@ -20,7 +20,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
 
   attr_accessor :requires
 
-private
+  private
 
   def specification=(specification)
     @paths, @requires = specification ?

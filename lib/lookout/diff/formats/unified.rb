@@ -15,7 +15,7 @@ class Lookout::Diff::Formats::Unified
     self
   end
 
-private
+  private
 
   class Group
     def initialize(group)
@@ -48,7 +48,7 @@ private
       lines.join("\n")
     end
 
-  private
+    private
 
     def mark(mark, range)
       range.map{ |item| '%s%s' % [mark, item] }

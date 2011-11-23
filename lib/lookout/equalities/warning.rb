@@ -8,7 +8,7 @@ class Lookout::Equalities::Warning < Lookout::Equalities::String
       actual =~ /\A.*?:\d+: warning: #{Regexp.escape(expected)}\Z/u
   end
 
-private
+  private
 
   def format(expected, actual)
     '%p≠%p' % [Lookout::Warning.new(actual), expected]

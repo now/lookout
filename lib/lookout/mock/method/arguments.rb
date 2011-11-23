@@ -18,7 +18,7 @@ class Lookout::Mock::Method::Arguments
     result.empty? ? "" : '(%s)' % result
   end
 
-protected
+  protected
 
   def args=(args)
     return @args = Any.new if args.empty?

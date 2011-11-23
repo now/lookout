@@ -26,7 +26,7 @@ class Lookout::Equalities::Object
   def diff(expected, actual)
   end
 
-private
+  private
 
   def format(expected, actual)
     '%s≠%s' % [Lookout::Inspect::Actual.new(actual).call,

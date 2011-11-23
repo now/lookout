@@ -16,7 +16,7 @@ module Lookout::Mock::Method::Calls::Instance
     self
   end
 
-private
+  private
 
   def message
     format, variables = self.class.format(@limit, @calls)
