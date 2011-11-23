@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorders::State::Verify
-  def initialize(subject, methods, description)
-    @subject, @methods, @description = subject, methods, description
+  def initialize(subject, methods)
+    @subject, @methods = subject, methods
   end
 
   def call
@@ -17,7 +17,7 @@ class Lookout::Recorders::State::Verify
 
   def error
     raise Lookout::Recorders::State::Error,
-      format % [@subject, @description.join(' ')]
+      format % [@subject, @methods]
   end
 
   def format

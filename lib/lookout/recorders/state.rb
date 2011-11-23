@@ -8,20 +8,17 @@ class Lookout::Recorders::State < Lookout::Aphonic
   def initialize(subject, *args)
     super subject
     @methods = Tape.new
-    @description = []
     method_missing(*args) unless args.empty?
   end
 
   def subject!(mocks)
-    [@subject, Verify.new(@subject, @methods, @description)]
+    [@subject, Verify.new(@subject, @methods)]
   end
 
   private
 
   # TODO: Why aren’t we recording the block?
   def method_missing(method, *args, &block)
-    @description << method.to_s
-    args.each{ |arg| @description << arg.inspect }
     @methods.record method, args
     self
   end

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorder::Tape
-  Method = Struct.new(:name, :args)
-
   def initialize
     @methods = []
   end
@@ -16,6 +14,19 @@ class Lookout::Recorder::Tape
   end
 
   def play_for(subject)
-    @methods.inject(subject){ |result, method| result.send(method.name, *method.args) }
+    @methods.reduce(subject){ |result, method| result.send(method.name, *method.args) }
+  end
+
+  def to_s
+    @methods.map(&:to_s).join(' ')
+  end
+
+  private
+
+  Method = Struct.new(:name, :args)
+  class Method
+    def to_s
+      ([name] + args.map(&:inspect)).join(' ')
+    end
   end
 end
