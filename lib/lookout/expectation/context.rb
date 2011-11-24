@@ -23,7 +23,7 @@ class Lookout::Expectation::Context
     when Hash
       Lookout::Stub::Object.new.tap{ |stub|
         args[0].each do |name, value|
-          if value.respond_to? :to_proc
+          if Proc === value
             @stubs.define(stub, name, &value)
           else
             @stubs.define(stub, name){ value }
