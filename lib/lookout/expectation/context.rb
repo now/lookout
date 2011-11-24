@@ -14,15 +14,13 @@ class Lookout::Expectation::Context
 
   private
 
-  def stub(*args)
-    raise ArgumentError,
-      'wrong number of arguments (%d for 1)' % args.length unless args.count < 2
-    return Lookout::Stub::Object.new if args.length < 1
+  def stub(object = (default = true; nil))
+    return Lookout::Stub::Object.new if default
     @stubs = Lookout::Stub::Methods.new unless @stubs
-    case args[0]
+    case object
     when Hash
       Lookout::Stub::Object.new.tap{ |stub|
-        args[0].each do |name, value|
+        object.each do |name, value|
           if Proc === value
             @stubs.define(stub, name, &value)
           else
@@ -31,7 +29,7 @@ class Lookout::Expectation::Context
         end
       }
     else
-      Method.new(@stubs, args[0])
+      Method.new(@stubs, object)
     end
   end
 
@@ -40,7 +38,19 @@ class Lookout::Expectation::Context
       @stubs, @object = stubs, object
     end
 
-    def method_missing(method, &body)
+    def method_missing(method, *args, &body)
+      unless args.empty?
+        stub = 'stub(…).%s' % method
+        block = body ? '{ … }' : ''
+        raise ArgumentError,
+          'wrong number of arguments (%d for 0): %s(%s)%s should be %s%s' %
+          [args.length,
+           stub,
+           args.map{ |e| Lookout::Inspect.new(e, 'argument').call }.join(', '),
+           block,
+           stub,
+           block]
+      end
       @stubs.define(@object, method, &body)
     end
   end
