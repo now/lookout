@@ -12,9 +12,11 @@ class Lookout::Expectation::Context
     @stubs.undefine if @stubs
   end
 
+  private
+
   def stub(*args)
     raise ArgumentError,
-    'wrong number of arguments (%d for 1)' % args.length unless args.count < 2
+      'wrong number of arguments (%d for 1)' % args.length unless args.count < 2
     return Lookout::Stub::Object.new if args.length < 1
     @stubs = Lookout::Stub::Methods.new
     case args[0]
@@ -32,8 +34,6 @@ class Lookout::Expectation::Context
       Method.new(@stubs, args[0])
     end
   end
-
-  private
 
   class Method < Lookout::Aphonic
     def initialize(stubs, object)
