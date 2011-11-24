@@ -18,7 +18,7 @@ class Lookout::Expectation::Context
     raise ArgumentError,
       'wrong number of arguments (%d for 1)' % args.length unless args.count < 2
     return Lookout::Stub::Object.new if args.length < 1
-    @stubs = Lookout::Stub::Methods.new
+    @stubs = Lookout::Stub::Methods.new unless @stubs
     case args[0]
     when Hash
       Lookout::Stub::Object.new.tap{ |stub|
