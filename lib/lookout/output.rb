@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'stringio'
-
 class Lookout::Output < StringIO
   def initialize(expected)
     @expected = expected

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'stringio'
-
 class Lookout::Expectations::State::Warning < Lookout::Expectations::State
   def evaluate
     @output = StringIO.new

@@ -6,6 +6,9 @@ module Lookout
   class << Version
     def content
       {
+        :requires => %w'
+          stringio
+        ',
         :loads => %w'
           lookout/object.rb
           lookout/aphonic.rb
