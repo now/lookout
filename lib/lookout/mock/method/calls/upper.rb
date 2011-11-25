@@ -10,7 +10,7 @@ class Lookout::Mock::Method::Calls::Upper
   format(-1, -1, 'expected %s to be called at most %d times, but was called %d times')
 
   def initialize(method, limit)
-    raise ArgumentError, 'limit must be > 0' unless limit > 0
+    raise ArgumentError, 'limit must be positive: %d < 1' % limit if limit < 1
     super
   end
 

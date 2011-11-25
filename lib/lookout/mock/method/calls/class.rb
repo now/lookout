@@ -4,11 +4,19 @@ module Lookout::Mock::Method::Calls::Class
   def format(limit, calls, format = nil)
     return formats[limit][calls] unless format
     if limit == -1
-      formats.default = Hash.new([format, [:@method, :@expected, :@calls]])
-    elsif calls == -1
-      formats[limit].default = [format, [:@method, :@calls]]
+      @formats.default ||= {}
+      if calls == -1
+        formats.default.default = [format, [:@method, :@limit, :@calls]]
+      else
+        formats.default[calls] = [format, [:@method, :@limit]]
+      end
     else
-      formats[limit][calls] = [format, [:@method]]
+      formats[limit] ||= {}
+      if calls == -1
+        formats[limit].default = [format, [:@method, :@calls]]
+      else
+        formats[limit][calls] = [format, [:@method]]
+      end
     end
     self
   end
@@ -16,6 +24,6 @@ module Lookout::Mock::Method::Calls::Class
   private
 
   def formats
-    @formats ||= Hash.new{ |hash, key| hash[key] = {} }
+    @formats ||= {}
   end
 end
