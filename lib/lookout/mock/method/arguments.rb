@@ -9,13 +9,12 @@ class Lookout::Mock::Method::Arguments
 
   def verify(*args)
     @args == args or
-      raise Error, 'unexpected arguments: (%s)≠(%p)' %
-        [args.map{ |arg| arg.inspect }.join(', '), @args]
+      raise Error, 'unexpected arguments: (%p)≠(%p)' % [List.new(*args), @args]
   end
 
   def inspect
     result = @args.inspect
-    result.empty? ? "" : '(%s)' % result
+    result.empty? ? '' : '(%s)' % result
   end
 
   protected
@@ -23,6 +22,6 @@ class Lookout::Mock::Method::Arguments
   def args=(args)
     return @args = Any.new if args.empty?
     none = args.find{ |arg| arg.is_a? None } and return @args = none
-    @args = List.new(args)
+    @args = List.new(*args)
   end
 end

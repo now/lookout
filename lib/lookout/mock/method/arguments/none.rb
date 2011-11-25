@@ -6,6 +6,6 @@ class Lookout::Mock::Method::Arguments::None
   end
 
   def inspect
-    ""
+    ''
   end
 end

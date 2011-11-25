@@ -56,7 +56,7 @@ class Lookout::Mock::Method < Lookout::Stub::Method
   end
 
   def to_s
-    '%p.%s%p' % [@object, @method, @args]
+    '%s.%s%p' % [Lookout::Inspect.new(@object, 'object').call, @method, @args]
   end
 
   private

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Arguments::List
-  def initialize(args)
+  def initialize(*args)
     @args = args
   end
 
@@ -10,6 +10,6 @@ class Lookout::Mock::Method::Arguments::List
   end
 
   def inspect
-    @args.map{ |arg| arg.inspect }.join(', ')
+    @args.map{ |arg| Lookout::Inspect.new(arg, 'argument').call }.join(', ')
   end
 end
