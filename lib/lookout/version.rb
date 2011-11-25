@@ -55,8 +55,6 @@ module Lookout
           lookout/mock/method/arguments/list.rb
           lookout/mock/method/arguments/none.rb
           lookout/mock/method/calls.rb
-          lookout/mock/method/calls/class.rb
-          lookout/mock/method/calls/instance.rb
           lookout/mock/method/calls/exactly.rb
           lookout/mock/method/calls/lower.rb
           lookout/mock/method/calls/upper.rb

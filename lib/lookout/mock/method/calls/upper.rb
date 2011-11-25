@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method::Calls::Upper
-  extend Lookout::Mock::Method::Calls::Class
-  include Lookout::Mock::Method::Calls::Instance
-
+class Lookout::Mock::Method::Calls::Upper < Lookout::Mock::Method::Calls
   format  1,  2, 'expected %s to be called at most once, but was called twice'
   format  1, -1, 'expected %s to be called at most once, but was called %d times'
   format  2, -1, 'expected %s to be called at most twice, but was called %d times'

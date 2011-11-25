@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method::Calls::Exactly
-  extend Lookout::Mock::Method::Calls::Class
-  include Lookout::Mock::Method::Calls::Instance
-
+class Lookout::Mock::Method::Calls::Exactly < Lookout::Mock::Method::Calls
   format  0,  1, 'expected %s not to be called'
   format  0,  2, 'expected %s not to be called, but was called twice'
   format  0, -1, 'expected %s not to be called, but was called %d times'

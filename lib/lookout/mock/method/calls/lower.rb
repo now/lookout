@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method::Calls::Lower
-  extend Lookout::Mock::Method::Calls::Class
-  include Lookout::Mock::Method::Calls::Instance
-
+class Lookout::Mock::Method::Calls::Lower < Lookout::Mock::Method::Calls
   format  1,  0, 'expected %s to be called at least once'
   format  2,  0, 'expected %s to be called at least twice'
   format  2,  1, 'expected %s to be called at least twice, but was only called once'
