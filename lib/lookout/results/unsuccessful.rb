@@ -11,7 +11,6 @@ class Lookout::Results::Unsuccessful < Lookout::Results
   def <<(result)
     @unsuccessful << result unless Lookout::Results::Fulfilled === result
     super
-    self
   end
 
   def each
