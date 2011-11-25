@@ -6,7 +6,9 @@ class Lookout::Stub::Methods
   end
 
   def define(object, method, &body)
-    Lookout::Stub::Method.new(object, method, &body).define.tap{ |m| @methods << m }
+    method = Lookout::Stub::Method.new(object, method, &body)
+    @methods << method
+    method.define
   end
 
   def undefine
