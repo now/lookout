@@ -41,7 +41,7 @@ class Lookout::Runners::Console
   rescue Interrupt, NoMemoryError, SignalException, SystemExit
     raise
   rescue Exception => e
-    raise unless location = Array(e.backtrace).first
+    raise unless location = (Array(e.backtrace).first rescue nil)
     file, line = Lookout.location(location)
     raise unless file and line
     @results << Lookout::Results::Error.new(file, line, nil, e)
