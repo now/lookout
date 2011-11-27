@@ -35,6 +35,7 @@ module Lookout
           lookout/expectation/context.rb
           lookout/expectations.rb
           lookout/expectations/behavior.rb
+          lookout/expectations/context.rb
           lookout/expectations/line.rb
           lookout/expectations/state.rb
           lookout/expectations/state/warning.rb

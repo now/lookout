@@ -3,39 +3,16 @@
 class Lookout::Expectations
   def initialize(results = Lookout::Results.new)
     @results = results
+    @context = Context.new(self)
   end
 
-  def mock
-    Lookout::Mock::Object.new
-  end
-
-  def arg
-    Lookout::Mock::Method::Arguments::Anything.new
-  end
-
-  def without_arguments
-    Lookout::Mock::Method::Arguments::None.new
-  end
-
-  def stub
-    Lookout::Stub::Object.new
-  end
-
-  def output(string)
-    Lookout::Output.new(string)
-  end
-
-  def warning(string)
-    Lookout::Warning.new(string)
-  end
-
-  def expect(expected, &block)
-    @results << Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block).evaluate
+  def evaluate(&block)
+    @context.instance_eval(&block)
     self
   end
 
-  # TODO: It would be great if this method wasn’t necessary.
-  def flush
+  def <<(expectation)
+    @results << expectation.evaluate
     self
   end
 end

@@ -10,6 +10,7 @@ class Lookout::Expectations::State
       # TODO: Do not depend on @expected#class, @expected#class#==, e#class, or @expected#eql? working.
       # TODO: Still need to guard against errors in #check in this rescue clause.
       return check(e) if StandardError === @expected and @expected.class == e.class
+      # TODO: We can probably use #== instead of #eql? here.
       return Lookout::Results::Fulfilled.new(file, line) if @expected.eql? e.class
       return Lookout::Results::Error.new(file, line,
         if Class === @expected and StandardError >= @expected

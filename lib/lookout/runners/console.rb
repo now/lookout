@@ -30,14 +30,13 @@ class Lookout::Runners::Console
   end
 
   def exit
-    @expectations.flush
     @ui.flush
     super 1 if @failed.failed?
     self
   end
 
   def expectations_eval(&block)
-    @expectations.instance_eval(&block)
+    @expectations.evaluate(&block)
   rescue Interrupt, NoMemoryError, SignalException, SystemExit
     raise
   rescue Exception => e
