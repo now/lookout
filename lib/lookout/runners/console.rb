@@ -4,22 +4,22 @@ class Lookout::Runners::Console
   def initialize(results = Lookout::Results.new,
                  expectations = Lookout::Expectations.new(results),
                  ui = Lookout::UI::Console.new(results))
-    @results, @expectations, @ui = results, expectations, ui
+    @expectations, @ui = expectations, ui
     @ui.start
-    @failed = Lookout::Runners::Trackers::Failure.new(@results)
+    @failed = Lookout::Runners::Trackers::Failure.new(results)
   end
 
   def install
-    Kernel.module_exec(self) do |runner|
+    Kernel.module_exec(@expectations) do |expectations|
       define_method :Expectations do |&block|
-        runner.expectations_eval(&block)
+        expectations.evaluate(&block)
       end
     end
     self
   end
 
   def load(file)
-    expectations_eval do
+    @expectations.evaluate do
       begin
         load File.expand_path(file)
       rescue SyntaxError => e
@@ -33,16 +33,5 @@ class Lookout::Runners::Console
     @ui.flush
     super 1 if @failed.failed?
     self
-  end
-
-  def expectations_eval(&block)
-    @expectations.evaluate(&block)
-  rescue Interrupt, NoMemoryError, SignalException, SystemExit
-    raise
-  rescue Exception => e
-    raise unless location = (Array(e.backtrace).first rescue nil)
-    file, line = Lookout.location(location)
-    raise unless file and line
-    @results << Lookout::Results::Error.new(file, line, nil, e)
   end
 end
