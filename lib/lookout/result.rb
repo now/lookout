@@ -5,6 +5,13 @@ module Lookout::Result
     @file, @line = file, line
   end
 
+  def ==(other)
+    self.class == other.class and
+      file == other.file and line == other.line
+  end
+
+  alias eql? ==
+
   attr_reader :file, :line
 
   def to_s

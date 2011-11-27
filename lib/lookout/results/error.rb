@@ -8,6 +8,10 @@ class Lookout::Results::Error
     @message, @exception = message, Exception.new(exception)
   end
 
+  def ==(other)
+    super and message == other.message and exception == other.exception
+  end
+
   attr_reader :message, :exception
 
   def to_s

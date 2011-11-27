@@ -8,6 +8,10 @@ module Lookout::Results::Failure
     @message = message
   end
 
+  def ==(other)
+    super and message == other.message
+  end
+
   attr_reader :message
 
   def to_s
