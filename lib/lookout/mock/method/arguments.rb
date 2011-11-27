@@ -21,7 +21,8 @@ class Lookout::Mock::Method::Arguments
 
   def args=(args)
     return @args = Any.new if args.empty?
-    none = args.find{ |arg| arg.is_a? None } and return @args = none
+    # TODO: Raise errors here if args.length > 2 and args.find{ None } ?
+    none = args.find{ |arg| None === arg } and return @args = none
     @args = List.new(*args)
   end
 end
