@@ -5,8 +5,8 @@ class Lookout::Runners::Console
                  expectations = Lookout::Expectations.new(results),
                  ui = Lookout::UI::Console.new(results))
     @expectations, @ui = expectations, ui
-    @ui.start
     @failed = Lookout::Runners::Trackers::Failure.new(results)
+    @ui.start
   end
 
   def install
