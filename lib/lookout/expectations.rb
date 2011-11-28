@@ -11,7 +11,7 @@ class Lookout::Expectations
       evaluate(&block)
     }.define
     begin
-      Kernel.load File.expand_path(path)
+      Kernel.load File.expand_path(path), true
       self
     rescue SyntaxError => e
       raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
