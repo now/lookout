@@ -93,7 +93,6 @@ module Lookout
           lookout/results/unsuccessful.rb
           lookout/ui.rb
           lookout/ui/console.rb
-          lookout/ui/silent.rb
           lookout/warning.rb
           lookout/equality.rb
           lookout/equalities.rb
