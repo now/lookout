@@ -100,6 +100,6 @@ class Lookout::Stub::Method
   end
 
   def meta
-    (class << @object; self; end)
+    Kernel == @object ? @object : (class << @object; self; end)
   end
 end
