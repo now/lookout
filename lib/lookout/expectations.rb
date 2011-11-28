@@ -7,36 +7,46 @@ class Lookout::Expectations
   end
 
   def load(path)
-    expectations = self
-    evaluate do
-      method = Lookout::Stub::Method.new(Kernel, :Expectations){ |&block|
-        expectations.evaluate(&block)
-      }.define
-      begin
-        Kernel.load File.expand_path(path)
-      rescue SyntaxError => e
-        raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
-        raise SyntaxError, matches[2], [matches[1]]
-      ensure
-        method.undefine
-      end
+    method = Lookout::Stub::Method.new(Kernel, :Expectations){ |&block|
+      evaluate(&block)
+    }.define
+    begin
+      Kernel.load File.expand_path(path)
+      self
+    rescue SyntaxError => e
+      raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
+      raise SyntaxError, matches[2], [matches[1]]
+    ensure
+      method.undefine
     end
+  rescue Exception => e
+    raise unless error(e)
   end
 
   def evaluate(&block)
     @context.instance_eval(&block)
     self
-  rescue Interrupt, NoMemoryError, SignalException, SystemExit
-    raise
   rescue Exception => e
-    raise unless location = (Array(e.backtrace).first rescue nil)
-    file, line = Lookout.location(location)
-    raise unless file and line
-    @results << Lookout::Results::Error.new(file, line, nil, e)
+    raise unless error(e)
   end
 
   def <<(expectation)
     @results << expectation.evaluate
     self
+  end
+
+  private
+
+  def error(e)
+    case e
+    when Interrupt, NoMemoryError, SignalException, SystemExit
+      false
+    else
+      return false unless location = (Array(e.backtrace).first rescue nil)
+      file, line = Lookout.location(location)
+      return false unless file and line
+      @results << Lookout::Results::Error.new(file, line, nil, e)
+      true
+    end
   end
 end
