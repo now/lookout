@@ -15,7 +15,7 @@ class Lookout::Expectations
       self
     rescue SyntaxError => e
       raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
-      raise SyntaxError, matches[2], [matches[1]]
+      raise SyntaxError, matches[2], [matches[1]] + e.backtrace
     ensure
       method.undefine
     end
