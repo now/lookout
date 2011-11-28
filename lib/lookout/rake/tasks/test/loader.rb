@@ -3,12 +3,12 @@
 require 'lookout'
 
 results = Lookout::Results.new
+failed = Lookout::Results::Trackers::Failure.new(results)
 line = ENV['LINE'] && ENV['LINE'].to_i
-runner = Lookout::Runners::Console.new(results,
-                                       line ?
-                                         Lookout::Expectations::Line.new(line, results) :
-                                         Lookout::Expectations.new(results),
-                                       Lookout::UI::Console.new(results)).install
+expectations = line ?
+  Lookout::Expectations::Line.new(line, results) :
+  Lookout::Expectations.new(results)
+ui = Lookout::UI::Console.new(results)
 only_load = false
 ARGV.each do |arg|
   if not only_load and arg == '--'
@@ -16,7 +16,8 @@ ARGV.each do |arg|
   elsif not only_load and arg =~ /\A-r(.*)/
     require $1
   else
-    runner.load arg
+    expectations.load arg
   end
 end
-runner.exit
+ui.flush
+exit false if failed.failed?

@@ -8,10 +8,6 @@ class Lookout::UI::Console
     end
   end
 
-  def start
-    self
-  end
-
   def flush
     @io.flush
     self

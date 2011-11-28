@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Runners::Trackers::Failure
+class Lookout::Results::Trackers::Failure
   def initialize(results)
     @failed = false
     results.on_new do |result|

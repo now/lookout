@@ -88,11 +88,9 @@ module Lookout
           lookout/results/failures/behavior.rb
           lookout/results/failures/state.rb
           lookout/results/fulfilled.rb
+          lookout/results/trackers.rb
+          lookout/results/trackers/failure.rb
           lookout/results/unsuccessful.rb
-          lookout/runners.rb
-          lookout/runners/console.rb
-          lookout/runners/trackers.rb
-          lookout/runners/trackers/failure.rb
           lookout/ui.rb
           lookout/ui/console.rb
           lookout/ui/silent.rb
