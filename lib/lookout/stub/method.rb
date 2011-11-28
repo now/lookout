@@ -54,7 +54,7 @@ class Lookout::Stub::Method
 
   def call(*args, &block)
     @yield.call(&block) if @yield and block
-    @body.call(*args)
+    @body.call(*args, &block)
   end
 
   def undefine

@@ -26,6 +26,10 @@ Expectations do
   end
 
   expect 1 do
+    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a){ |&block| block.call }.define }.a{ 1 }
+  end
+
+  expect 1 do
     n = 0
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).yield(1).define }.a{ |i| n = i }
     n
