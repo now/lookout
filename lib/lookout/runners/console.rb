@@ -18,15 +18,9 @@ class Lookout::Runners::Console
     self
   end
 
-  def load(file)
-    @expectations.evaluate do
-      begin
-        load File.expand_path(file)
-      rescue SyntaxError => e
-        raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
-        raise SyntaxError, matches[2], [matches[1]]
-      end
-    end
+  def load(path)
+    @expectations.load path
+    self
   end
 
   def exit

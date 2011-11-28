@@ -6,6 +6,17 @@ class Lookout::Expectations
     @context = Context.new(self)
   end
 
+  def load(path)
+    evaluate do
+      begin
+        load File.expand_path(path)
+      rescue SyntaxError => e
+        raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
+        raise SyntaxError, matches[2], [matches[1]]
+      end
+    end
+  end
+
   def evaluate(&block)
     @context.instance_eval(&block)
     self
