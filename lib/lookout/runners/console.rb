@@ -10,11 +10,6 @@ class Lookout::Runners::Console
   end
 
   def install
-    Kernel.module_exec(@expectations) do |expectations|
-      define_method :Expectations do |&block|
-        expectations.evaluate(&block)
-      end
-    end
     self
   end
 

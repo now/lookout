@@ -7,12 +7,18 @@ class Lookout::Expectations
   end
 
   def load(path)
+    expectations = self
     evaluate do
+      method = Lookout::Stub::Method.new(Kernel, :Expectations){ |&block|
+        expectations.evaluate(&block)
+      }.define
       begin
-        load File.expand_path(path)
+        Kernel.load File.expand_path(path)
       rescue SyntaxError => e
         raise unless matches = %r{\A(.*?:\d+): (.*)}m.match(e.message)
         raise SyntaxError, matches[2], [matches[1]]
+      ensure
+        method.undefine
       end
     end
   end
