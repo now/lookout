@@ -20,7 +20,7 @@ class Lookout::Runners::Console
 
   def exit
     @ui.flush
-    super 1 if @failed.failed?
+    super false if @failed.failed?
     self
   end
 end
