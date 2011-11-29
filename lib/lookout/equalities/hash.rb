@@ -5,7 +5,7 @@ class Lookout::Equalities::Hash < Lookout::Equalities::Object
 
   def equal?(expected, actual)
     return false unless Hash === actual and expected.size == actual.size
-    expected.all?{ |k, v| Lookout::Equality.equal? v, actual[k] }
+    expected.all?{ |key, value| Lookout::Equality.equal? value, actual[key] }
   end
 
   def diff(expected, actual)
@@ -19,7 +19,11 @@ class Lookout::Equalities::Hash < Lookout::Equalities::Object
   private
 
   def array(hash)
-    hash.to_a.sort_by{ |k, v| k }.map{ |k, v| '%p => %p' % [k, v] }
+    hash.to_a.sort_by{ |key, _| key }.map{ |key, value|
+      '%s => %s' %
+        [Lookout::Inspect.new(key, 'key').call,
+         Lookout::Inspect.new(value, 'value').call]
+    }
   end
 end
 
