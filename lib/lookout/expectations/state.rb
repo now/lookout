@@ -5,7 +5,7 @@ class Lookout::Expectations::State
 
   def evaluate
     begin
-      result = @block ? Context.new(@expected, &@block).evaluate : false
+      check(@block ? Context.new(@expected, &@block).evaluate : false)
     rescue Exception => e
       # TODO: Do not depend on @expected#class, @expected#class#==, e#class, or @expected#eql? working.
       # TODO: Still need to guard against errors in #check in this rescue clause.
@@ -22,7 +22,6 @@ class Lookout::Expectations::State
         end,
         e)
     end
-    check(result)
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)
   end
