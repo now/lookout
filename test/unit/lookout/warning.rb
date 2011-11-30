@@ -33,6 +33,10 @@ Expectations do
     Lookout::Warning.new('a') === Lookout::Warning.new("/a/b/c:1: warning: b\n")
   end
 
+  expect '[-b-]{+a+}' do
+    Lookout::Warning.new('a').diff(Lookout::Warning.new("/a/b/c:1: warning: b\n"))
+  end
+
   expect 'warning("this is your final one!")' do
     Lookout::Warning.new('this is your final one!').inspect
   end

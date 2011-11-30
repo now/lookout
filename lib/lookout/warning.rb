@@ -1,34 +1,29 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Warning
-  Lookout::Expectation.map self, Lookout::Expectations::State::Warning
+class Lookout::Warning < Lookout::Output
+  Lookout::Expectation.map self, Lookout::Expectations::State::Warning, :before => Lookout::Output
 
-  def initialize(warning)
-    @warning = warning.chomp
-  end
-
-  def ==(other)
-    self.class == other.class and
-      warning == other.warning
-  end
-
-  alias eql? ==
-
-  def hash
-    self.class.hash ^ warning.hash
+  def initialize(output)
+    super output.chomp
   end
 
   def ===(other)
     self == other or
-    (self.class == other.class and
-     /\A.*?:\d+: warning: #{Regexp.escape(warning)}\Z/ =~ other.warning)
+      (self.class == other.class and normalized == other.normalized)
   end
 
   def inspect
-    'warning(%p)' % warning
+    'warning(%p)' % output
+  end
+
+  def diff(other)
+    self == normalized ? super(other.normalized) : normalized.diff(other)
   end
 
   protected
 
-  attr_reader :warning
+  def normalized
+    normalized = output.sub(/\A.*?:\d+: warning: /, '')
+    output == normalized ? self : self.class.new(normalized)
+  end
 end
