@@ -5,7 +5,7 @@ class Lookout::Expectations::State
 
   def evaluate
     begin
-      check(@block ? Context.new(@expected, &@block).evaluate : false)
+      check(@block ? Context.new(subject, &@block).evaluate : false)
     rescue Exception => e
       # TODO: Do not depend on @expected#class, @expected#class#==, e#class, or @expected#eql? working.
       # TODO: Still need to guard against errors in #check in this rescue clause.
@@ -27,6 +27,10 @@ class Lookout::Expectations::State
   end
 
   private
+
+  def subject
+    @expected
+  end
 
   def check(actual)
     ((@expected == actual rescue false) or Lookout::Equality.equal? @expected, actual) ?
