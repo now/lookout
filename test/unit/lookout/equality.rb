@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect true do
-    object = Object.new
-    Lookout::Equality.equal? object, object
-  end
-
-  expect false do
-    Lookout::Equality.equal? Object.new, Object.new
-  end
-
   expect RuntimeError.new('cannot determine equality relationship between nil and stub: error') do
     Lookout::Equality.equal?(stub(:== => proc{ raise 'error' }), nil)
   end
@@ -28,9 +19,5 @@ Expectations do
 
   expect false do
     Lookout::Equality.equal?(stub(:class => stub(:ancestors => [])), nil)
-  end
-
-  expect 'nil≠(cannot inspect expected value: error)' do
-    Lookout::Equality.message(stub(:inspect => proc{ raise 'error' }), nil)
   end
 end

@@ -11,7 +11,7 @@ class Lookout::Equalities::Object
     begin
       format = format(expected, actual)
     rescue => e
-      raise if Lookout::Equalities::Object === self
+      raise if Lookout::Equalities::Object == self.class rescue true
       return '%s (cannot generate more specific failure message: %s)' %
         [Lookout::Equalities::Object.new.message(expected, actual), e.message]
     end
