@@ -22,6 +22,6 @@ class Lookout::Expectations::State::Warning < Lookout::Expectations::State
 
   def check(actual)
     @output.rewind
-    super(@output.read)
+    super(Lookout::Warning.new(@output.read))
   end
 end

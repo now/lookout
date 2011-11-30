@@ -104,7 +104,6 @@ module Lookout
           lookout/equalities/output.rb
           lookout/equalities/standarderror.rb
           lookout/equalities/string.rb
-          lookout/equalities/warning.rb
         ',
         :manual => %w'
           lookout/version.rb

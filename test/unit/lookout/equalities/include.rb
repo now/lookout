@@ -52,4 +52,19 @@ Expectations do
   expect false do
     Lookout::Equality.equal?(/a/, /b/)
   end
+
+  expect true do
+    Lookout::Equality.equal?(Lookout::Warning.new('a'),
+                             Lookout::Warning.new('a'))
+  end
+
+  expect false do
+    Lookout::Equality.equal?(Lookout::Warning.new('a'),
+                             Lookout::Warning.new('b'))
+  end
+
+  expect true do
+    Lookout::Equality.equal?(Lookout::Warning.new('a'),
+                             Lookout::Warning.new('/a/b/c:1: warning: a'))
+  end
 end
