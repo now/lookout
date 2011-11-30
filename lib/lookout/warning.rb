@@ -25,7 +25,7 @@ class Lookout::Warning
   end
 
   def inspect
-    'warning(%s)' % warning
+    'warning(%p)' % warning
   end
 
   protected
