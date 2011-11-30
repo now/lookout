@@ -19,21 +19,34 @@ class Lookout::Equalities::StandardError < Lookout::Equalities::Object
 
   def diff(expected, actual)
     return super unless String === expected.message and
-      StandardError === actual and (actual.respond_to? :message rescue false)
-    Lookout::Equality.diff(expected.message, actual.message)
+      not regexp(expected) and
+      StandardError === actual and
+      (actual.respond_to? :message rescue false) and
+      (m = actual.message rescue nil)
+    Lookout::Equality.diff(expected.message, m)
   end
 
   private
 
   def format(expected, actual)
-    regexp(expected) ?
-      '%p≠#<%s: %p>' % [actual, expected.class, regexp(expected)] :
-      super
+    return super unless r = regexp(expected)
+    '%s≠#<%s: %p>' %
+      [Lookout::Inspect::Actual.new(actual).call,
+       expected.class,
+       r]
   end
 
+  # The first test works in Ruby 1.8.  In Ruby 1.9, however, #message always
+  # returns a String, unless the conversion raises an error.  Sadly, this
+  # conversion can’t keep track of the ‘e’ and ‘n’ options for encoding
+  # handling.
   def regexp(expected)
     return expected.message if Regexp === expected.message
-    return Regexp.new(expected.message) if expected.message =~ /\A\(\?-[mix]+:.*\)\z/
-    nil
+    return nil unless expected.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
+    Regexp.new($3,
+               0 |
+               ($1.include?('m') ? Regexp::MULTILINE : 0) |
+               ($1.include?('i') ? Regexp::IGNORECASE : 0) |
+               ($1.include?('x') ? Regexp::EXTENDED : 0))
   end
 end
