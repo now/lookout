@@ -6,7 +6,7 @@ module Lookout::Expectation
   class << self
     def map(from, to, options = {})
       if options[:before]
-        i = @map.find_index{ |f, _| f == options[:before] } or
+        i = @map.index{ |f, _| f == options[:before] } or
           raise ArgumentError,
             'cannot place expectation mapping before non-existent mapping: %p' %
               options[:before]
@@ -18,7 +18,7 @@ module Lookout::Expectation
     end
 
     def on(expected, file, line, &block)
-      (((i = @map.find_index{ |from, _| from === expected }) and @map[i].last) or
+      (((i = @map.index{ |from, _| from === expected }) and @map[i].last) or
        Lookout::Expectations::State).new(expected, file, line, &block)
     end
   end
