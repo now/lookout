@@ -5,7 +5,6 @@ class Lookout::Output
 
   def initialize(output)
     @output = output
-    super()
   end
 
   def ==(other)
