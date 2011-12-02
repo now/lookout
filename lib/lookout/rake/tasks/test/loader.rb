@@ -6,7 +6,7 @@ results = Lookout::Results.new
 failed = Lookout::Results::Trackers::Failure.new(results)
 line = ENV['LINE'] && ENV['LINE'].to_i
 expectations = line ?
-  Lookout::Expectations::Line.new(line, results) :
+  Lookout::Expectations::Line.new(results, line) :
   Lookout::Expectations.new(results)
 ui = Lookout::UI::Console.new(results)
 only_load = false

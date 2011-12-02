@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations
-  def initialize(results = Lookout::Results.new)
+  def initialize(results)
     @results = results
     @context = Context.new(self)
   end

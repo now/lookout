@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations::Line < Lookout::Expectations
-  def initialize(line, results = Lookout::Results.new)
+  def initialize(results, line)
     super results
     @line = line
     @previous = nil
