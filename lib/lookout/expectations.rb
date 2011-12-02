@@ -12,13 +12,13 @@ class Lookout::Expectations
     }.define
     begin
       Kernel.load File.expand_path(path), true
-      self
     rescue SyntaxError => e
       raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
       raise SyntaxError, matches[2], [matches[1]] + e.backtrace
     ensure
       method.undefine
     end
+    self
   rescue Exception => e
     raise unless error(e)
   end

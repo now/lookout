@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations::Line < Lookout::Expectations
-  def initialize(results, line)
+  def initialize(results, file, line)
     super results
-    @line = line
+    @target = Lookout::Expectations::State.new(nil, file, line){
+      raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
+    }
     @previous = nil
   end
 
@@ -11,13 +13,13 @@ class Lookout::Expectations::Line < Lookout::Expectations
     catch :found_expectation_for_line do
       super
     end
-    @results << @previous.evaluate if @previous
+    @results << (@previous || @target).evaluate
     @previous = nil
     self
   end
 
   def <<(expectation)
-    if @previous and @previous.line <= @line and expectation.line > @line
+    if @previous and @previous <= @target and expectation > @target
       throw :found_expectation_for_line
     else
       @previous = expectation

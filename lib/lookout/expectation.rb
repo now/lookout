@@ -27,5 +27,13 @@ module Lookout::Expectation
     @expected, @file, @line, @block = expected, file, line, block
   end
 
+  include Comparable
+
+  def <=>(other)
+    [file, line] <=> [other.file, other.line]
+  end
+
+  protected
+
   attr_reader :file, :line
 end
