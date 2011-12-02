@@ -5,6 +5,8 @@ class Lookout::Mock::Object
     'mock'
   end
 
+  private
+
   def method_missing(method, *args, &block)
     raise Lookout::Mock::Method::Calls::Error,
       'unexpected call to %s' % Lookout::Mock::Method.new(self, method, *args)

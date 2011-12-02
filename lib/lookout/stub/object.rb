@@ -5,6 +5,8 @@ class Lookout::Stub::Object
     'stub'
   end
 
+  private
+
   def method_missing(method, *args)
     self
   end

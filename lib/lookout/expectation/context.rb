@@ -38,6 +38,8 @@ class Lookout::Expectation::Context
       @stubs, @object = stubs, object
     end
 
+    private
+
     def method_missing(method, *args, &body)
       unless args.empty?
         stub = 'stub(…).%s' % method

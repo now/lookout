@@ -21,6 +21,8 @@ class Lookout::Object::Not < Lookout::Aphonic
     Lookout::Recorders::State::Not::Have.new(@subject)
   end
 
+  private
+
   def method_missing(method, *args)
     return super unless method.to_s =~ /\?$/
     Lookout::Recorders::State::Not.new(@subject, method, *args)
