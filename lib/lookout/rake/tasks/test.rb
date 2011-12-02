@@ -33,7 +33,12 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   end
 
   def arguments
-    requires.map{ |r| '-r%s' % r }.push('--').concat(files).join(' ')
+    requires.map{ |r| '-r%s' % r }.concat(line).push('--').concat(files).join(' ')
+  end
+
+  def line
+    return [] unless ENV['LINE'] and not ENV['LINE'].empty?
+    ['-l%d' % ENV['LINE'].to_i]
   end
 
   def files

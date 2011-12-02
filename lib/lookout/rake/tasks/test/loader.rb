@@ -4,10 +4,7 @@ require 'lookout'
 
 results = Lookout::Results.new
 failed = Lookout::Results::Trackers::Failure.new(results)
-line = ENV['LINE'] && ENV['LINE'].to_i
-expectations = line ?
-  Lookout::Expectations::Line.new(results, line) :
-  Lookout::Expectations.new(results)
+expectations = Lookout::Expectations.new(results)
 ui = Lookout::UI::Console.new(results)
 only_load = false
 ARGV.each do |arg|
@@ -15,6 +12,8 @@ ARGV.each do |arg|
     only_load = true
   elsif not only_load and arg =~ /\A-r(.*)/
     require $1
+  elsif not only_load and arg =~ /\A-l(.*)/
+    expectations = Lookout::Expectations::Line.new(results, $1.to_i)
   else
     expectations.load arg
   end
