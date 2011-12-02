@@ -13,9 +13,8 @@ class Lookout::Recorder < Lookout::Aphonic
 
   private
 
-  # TODO: Why aren’t we recording the block?
   def method_missing(method, *args, &block)
-    @recording.record method, args
+    @recording.record method, args, &block
     self
   end
 end
