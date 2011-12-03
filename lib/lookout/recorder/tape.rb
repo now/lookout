@@ -26,8 +26,9 @@ class Lookout::Recorder::Tape
     end
 
     def to_s
-      # TODO: Use Lookout::Inspect here.
-      ([name] + args.map(&:inspect) + (block ? ['{ … }'] : [])).join(' ')
+      ([name] +
+       args.map{ |e| Lookout::Inspect::Argument.new(e).call } +
+       (block ? ['{ … }'] : [])).join(' ')
     end
   end
 end

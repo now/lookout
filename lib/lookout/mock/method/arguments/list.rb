@@ -10,6 +10,6 @@ class Lookout::Mock::Method::Arguments::List
   end
 
   def inspect
-    @args.map{ |arg| Lookout::Inspect.new(arg, 'argument').call }.join(', ')
+    @args.map{ |e| Lookout::Inspect::Argument.new(e).call }.join(', ')
   end
 end

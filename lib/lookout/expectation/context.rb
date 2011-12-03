@@ -48,7 +48,7 @@ class Lookout::Expectation::Context
           'wrong number of arguments (%d for 0): %s(%s)%s should be %s%s' %
           [args.length,
            stub,
-           args.map{ |e| Lookout::Inspect.new(e, 'argument').call }.join(', '),
+           args.map{ |e| Lookout::Inspect::Argument.new(e).call }.join(', '),
            block,
            stub,
            block]
