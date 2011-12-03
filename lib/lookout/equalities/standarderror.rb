@@ -13,8 +13,7 @@ class Lookout::Equalities::StandardError < Lookout::Equalities::Object
       (expected.class == actual.class and
        (actual.respond_to? :message rescue false) and
        (m = actual.message rescue nil) and
-       ((r = regexp(expected) and r === m) or
-        expected.message == m))
+       ((r = regexp(expected)) ? r === m : expected.message == m))
   end
 
   def diff(expected, actual)
