@@ -155,7 +155,7 @@ Expectations do
   end
 
   # Utilities
-  
+
   # Use #with_verbose to set $VERBOSE during the execution of a block.
   expect nil do
     with_verbose(nil) do

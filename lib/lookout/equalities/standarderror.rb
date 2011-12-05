@@ -17,7 +17,8 @@ class Lookout::Equalities::StandardError < Lookout::Equalities::Object
   end
 
   def diff(expected, actual)
-    return super unless String === expected.message and
+    return super unless expected.class == actual.class and
+      String === expected.message and
       not regexp(expected) and
       StandardError === actual and
       (actual.respond_to? :message rescue false) and

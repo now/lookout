@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::State::Warning < Lookout::Expectations::State
+class Lookout::Expectations::Warning < Lookout::Expectations::Object
   def evaluate
     @output = StringIO.new
     saved_stderr = $stderr
@@ -23,5 +23,9 @@ class Lookout::Expectations::State::Warning < Lookout::Expectations::State
   def check(actual)
     @output.rewind
     super(Lookout::Warning.new(@output.read))
+  end
+
+  def equality
+    @equality ||= Lookout::Equalities::Output.new
   end
 end

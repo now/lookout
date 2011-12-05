@@ -37,9 +37,19 @@ module Lookout
           lookout/expectations/behavior.rb
           lookout/expectations/context.rb
           lookout/expectations/line.rb
-          lookout/expectations/state.rb
-          lookout/expectations/state/output.rb
-          lookout/expectations/state/warning.rb
+          lookout/expectations/object.rb
+          lookout/expectations/array.rb
+          lookout/expectations/boolean.rb
+          lookout/expectations/classes.rb
+          lookout/expectations/classes/standarderror.rb
+          lookout/expectations/hash.rb
+          lookout/expectations/module.rb
+          lookout/expectations/range.rb
+          lookout/expectations/regexp.rb
+          lookout/expectations/output.rb
+          lookout/expectations/string.rb
+          lookout/expectations/standarderror.rb
+          lookout/expectations/warning.rb
           lookout/inspect.rb
           lookout/inspect/actual.rb
           lookout/inspect/argument.rb

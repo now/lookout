@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::State::Output < Lookout::Expectations::State
+class Lookout::Expectations::Output < Lookout::Expectations::Object
   private
 
   def subject
@@ -10,5 +10,9 @@ class Lookout::Expectations::State::Output < Lookout::Expectations::State
   def check(actual)
     @output.rewind
     super(Lookout::Output.new(@output.read))
+  end
+
+  def equality
+    @equality ||= Lookout::Equalities::Output.new
   end
 end

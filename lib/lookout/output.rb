@@ -26,7 +26,7 @@ class Lookout::Output
   end
 
   def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::State::Output.new(self, file, line, &block)
+    Lookout::Expectations::Output.new(self, file, line, &block)
   end
 
   protected

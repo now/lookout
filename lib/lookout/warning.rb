@@ -19,7 +19,7 @@ class Lookout::Warning < Lookout::Output
   end
 
   def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::State::Warning.new(self, file, line, &block)
+    Lookout::Expectations::Warning.new(self, file, line, &block)
   end
 
   protected
