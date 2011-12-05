@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Warning < Lookout::Output
-  Lookout::Expectation.map self, Lookout::Expectations::State::Warning, :before => Lookout::Output
-
   def initialize(output)
     super output.chomp
   end
@@ -18,6 +16,10 @@ class Lookout::Warning < Lookout::Output
 
   def diff(other)
     self == normalized ? super(other.normalized) : normalized.diff(other)
+  end
+
+  def to_lookout_expectation(file, line, &block)
+    Lookout::Expectations::State::Warning.new(self, file, line, &block)
   end
 
   protected

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Output
-  Lookout::Expectation.map self, Lookout::Expectations::State::Output
-
   def initialize(output)
     @output = output
   end
@@ -25,6 +23,10 @@ class Lookout::Output
 
   def diff(other)
     Lookout::Equality.diff(output, other.output)
+  end
+
+  def to_lookout_expectation(file, line, &block)
+    Lookout::Expectations::State::Output.new(self, file, line, &block)
   end
 
   protected
