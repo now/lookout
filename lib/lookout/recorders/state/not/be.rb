@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorders::State::Not::Be < Lookout::Recorders::State
-  def subject!
-    [@subject, Verify.new(@subject, @recording)]
+  def to_lookout_expected
+    Lookout::Expected::Recorders::State.new(@subject, Verify.new(@subject, @recording))
   end
 
   private

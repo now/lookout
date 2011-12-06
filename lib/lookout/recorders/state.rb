@@ -9,10 +9,6 @@ class Lookout::Recorders::State < Lookout::Recorder
   end
 
   def to_lookout_expected
-    Lookout::Expected::Recorders::State.new(self)
-  end
-
-  def subject!
-    [@subject, Verify.new(@subject, @recording)]
+    Lookout::Expected::Recorders::State.new(@subject, Verify.new(@subject, @recording))
   end
 end
