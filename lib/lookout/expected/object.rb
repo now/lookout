@@ -14,7 +14,11 @@ class Lookout::Expected::Object
   end
 
   def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Object.new(@expected, file, line, &block)
+    Lookout::Expectations::Object.new(self, file, line, &block)
+  end
+
+  def subject
+    @expected
   end
 
   private

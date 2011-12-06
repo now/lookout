@@ -8,11 +8,11 @@ class Lookout::Expectations::StandardError < Lookout::Expectations::Object
       check(@block ? Context.new(subject, &@block).evaluate : false)
     rescue Exception => actual
       # TODO: Guard against @expected#class, @expected#class#==, or actual#class failing.
-      return check(actual) if @expected.class == actual.class
+      return check(actual) if subject.class == actual.class
       Lookout::Results::Error.
         new(file,
             line,
-            Lookout::Equalities::Object.new.message(@expected.class,
+            Lookout::Equalities::Object.new.message(subject.class,
                                                     actual.class),
             actual)
     end
