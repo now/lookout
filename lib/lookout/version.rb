@@ -34,13 +34,15 @@ module Lookout
           lookout/expected.rb
           lookout/expected/object.rb
           lookout/expected/array.rb
-          lookout/expected/behavior.rb
           lookout/expected/classes.rb
           lookout/expected/classes/standarderror.rb
           lookout/expected/falseclass.rb
           lookout/expected/hash.rb
           lookout/expected/module.rb
           lookout/expected/range.rb
+          lookout/expected/recorders.rb
+          lookout/expected/recorders/reception.rb
+          lookout/expected/recorders/state.rb
           lookout/expected/regexp.rb
           lookout/expected/output.rb
           lookout/expected/string.rb
@@ -50,13 +52,15 @@ module Lookout
           lookout/expectation.rb
           lookout/expectation/context.rb
           lookout/expectations.rb
-          lookout/expectations/behavior.rb
           lookout/expectations/context.rb
           lookout/expectations/line.rb
           lookout/expectations/object.rb
           lookout/expectations/classes.rb
           lookout/expectations/classes/standarderror.rb
           lookout/expectations/output.rb
+          lookout/expectations/recorders.rb
+          lookout/expectations/recorders/reception.rb
+          lookout/expectations/recorders/state.rb
           lookout/expectations/standarderror.rb
           lookout/expectations/warning.rb
           lookout/inspect.rb

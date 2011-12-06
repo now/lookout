@@ -8,7 +8,11 @@ class Lookout::Recorders::State < Lookout::Recorder
     method_missing(*args) unless args.empty?
   end
 
-  def subject!(mocks)
+  def to_lookout_expected
+    Lookout::Expected::Recorders::State.new(self)
+  end
+
+  def subject!
     [@subject, Verify.new(@subject, @recording)]
   end
 end

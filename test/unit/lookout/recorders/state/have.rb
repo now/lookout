@@ -10,10 +10,10 @@ Expectations do
   end
 
   expect true do
-    Lookout::Recorders::State::Have.new([1]).one?.subject!(nil).last.call
+    Lookout::Recorders::State::Have.new([1]).one?.subject!.last.call
   end
 
   expect Lookout::Recorders::State::Error.new('expected [1] to have one? { … }') do
-    Lookout::Recorders::State::Have.new([1]).one?{ false }.subject!(nil).last.call
+    Lookout::Recorders::State::Have.new([1]).one?{ false }.subject!.last.call
   end
 end

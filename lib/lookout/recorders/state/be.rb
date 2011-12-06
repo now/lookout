@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Recorders::State::Be < Lookout::Recorders::State
-  def subject!(mocks)
+  def subject!
     [@subject, Verify.new(@subject, @recording)]
   end
 

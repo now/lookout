@@ -6,6 +6,10 @@ class Lookout::Recorders::Reception < Lookout::Recorder
     @method, @args, @body = method, args, body
   end
 
+  def to_lookout_expected
+    Lookout::Expected::Recorders::Reception.new(self)
+  end
+
   def subject!(mocks)
     mock = mocks.define(@subject, @method, *@args, &@body)
     @recording.play_for mock
