@@ -1,7 +1,21 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::Recorders::Reception < Lookout::Expected::Object
+  def initialize(subject, recording, method, *args, &body)
+    @subject, @recording, @method, @args, @body = subject, recording, method, args, body
+  end
+
   def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Recorders::Reception.new(@expected, file, line, &block)
+    Lookout::Expectations::Recorders::Reception.new(self, file, line, &block)
+  end
+
+  def mock(mocks)
+    mocks.define(@subject, @method, *@args, &@body).tap{ |mock|
+      @recording.play_for mock
+    }
+  end
+
+  def subject
+    @subject
   end
 end

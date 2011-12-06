@@ -5,9 +5,9 @@ class Lookout::Expectations::Recorders::Reception
 
   def evaluate
     Lookout::Mock.methods do |mocks|
-      subject, verify = @expected.subject!(mocks)
-      Context.new(subject, &@block).evaluate
-      verify.call
+      mock = @expected.mock(mocks)
+      Context.new(@expected.subject, &@block).evaluate
+      mock.verify
     end
     Lookout::Results::Fulfilled.new(file, line)
   rescue Lookout::Mock::Error => e

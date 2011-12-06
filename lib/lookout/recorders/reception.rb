@@ -7,25 +7,6 @@ class Lookout::Recorders::Reception < Lookout::Recorder
   end
 
   def to_lookout_expected
-    Lookout::Expected::Recorders::Reception.new(self)
-  end
-
-  def subject!(mocks)
-    mock = mocks.define(@subject, @method, *@args, &@body)
-    @recording.play_for mock
-    [@subject, Verify.new(mock)]
-  end
-
-  private
-
-  class Verify
-    def initialize(mock)
-      @mock = mock
-    end
-
-    def call
-      @mock.verify
-      true
-    end
+    Lookout::Expected::Recorders::Reception.new(@subject, @recording, @method, *@args, &@body)
   end
 end
