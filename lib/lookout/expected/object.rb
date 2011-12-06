@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::Object
-  def initialize(expected)
-    @expected = expected
+  def initialize(subject)
+    @subject = subject
   end
 
   def =~(other)
-    @expected == other
+    subject == other
   end
 
   def message(other)
@@ -15,7 +15,7 @@ class Lookout::Expected::Object
     rescue => e
       raise if Lookout::Expected::Object == self.class rescue true
       return '%s (cannot generate more specific failure message: %s)' %
-        [Lookout::Expected::Object.new(@expected).message(other), e.message]
+        [Lookout::Expected::Object.new(subject).message(other), e.message]
     end
     begin
       diff = diff(other)
@@ -32,14 +32,12 @@ class Lookout::Expected::Object
     Lookout::Expectations::Object.new(self, file, line, &block)
   end
 
-  def subject
-    @expected
-  end
+  attr_reader :subject
 
   private
 
   def format(other)
     '%s≠%s' % [Lookout::Inspect::Actual.new(other).call,
-               Lookout::Inspect::Expected.new(@expected).call]
+               Lookout::Inspect::Expected.new(subject).call]
   end
 end

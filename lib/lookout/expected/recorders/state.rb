@@ -2,15 +2,12 @@
 
 class Lookout::Expected::Recorders::State < Lookout::Expected::Object
   def initialize(subject, verify)
-    @subject, @verify = subject, verify
+    super subject
+    @verify = verify
   end
 
   def to_lookout_expectation(file, line, &block)
     Lookout::Expectations::Recorders::State.new(self, file, line, &block)
-  end
-
-  def subject
-    @subject
   end
 
   def verify

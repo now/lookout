@@ -2,16 +2,16 @@
 
 class Lookout::Expected::Hash < Lookout::Expected::Object
   def =~(other)
-    return false unless Hash === other and @expected.size == other.size
-    @expected.all?{ |key, value| value.to_lookout_expected =~ other[key] }
+    return false unless Hash === other and subject.size == other.size
+    subject.all?{ |key, value| value.to_lookout_expected =~ other[key] }
   end
 
   def diff(other)
-    return if @expected.size == 1 or not Hash === other
+    return if subject.size == 1 or not Hash === other
     Lookout::Diff::Formats::Hash.
       new(Lookout::Diff::Operations.
             new(Lookout::Diff::Algorithms::Difflib.
-                  new(array(other), array(@expected)))).to_a.join("\n")
+                  new(array(other), array(subject)))).to_a.join("\n")
   end
 
   private

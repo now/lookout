@@ -11,21 +11,21 @@ class Lookout::Expected::StandardError < Lookout::Expected::Object
   # called, but it’s safer to have this test here as well, at least until we
   # figure out why Ruby doesn’t make sure of this.
   def =~(other)
-    @expected.equal?(other) or
-      (@expected.class == other.class and
+    subject.equal?(other) or
+      (subject.class == other.class and
        (other.respond_to? :message rescue false) and
        (m = other.message rescue nil) and
-       ((r = regexp) ? r === m : @expected.message == m))
+       ((r = regexp) ? r === m : subject.message == m))
   end
 
   def diff(other)
-    return super unless @expected.class == other.class and
-      String === @expected.message and
+    return super unless subject.class == other.class and
+      String === subject.message and
       not regexp and
       StandardError === other and
       (other.respond_to? :message rescue false) and
       (m = other.message rescue nil)
-    @expected.message.to_lookout_expected.diff(m)
+    subject.message.to_lookout_expected.diff(m)
   end
 
   private
@@ -34,7 +34,7 @@ class Lookout::Expected::StandardError < Lookout::Expected::Object
     return super unless r = regexp
     '%s≠#<%s: %p>' %
       [Lookout::Inspect::Actual.new(other).call,
-       @expected.class,
+       subject.class,
        r]
   end
 
@@ -43,8 +43,8 @@ class Lookout::Expected::StandardError < Lookout::Expected::Object
   # conversion can’t keep track of the ‘e’ and ‘n’ options for encoding
   # handling.
   def regexp
-    return @expected.message if Regexp === @expected.message
-    return nil unless @expected.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
+    return subject.message if Regexp === subject.message
+    return nil unless subject.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
     Regexp.new($3,
                0 |
                ($1.include?('m') ? Regexp::MULTILINE : 0) |

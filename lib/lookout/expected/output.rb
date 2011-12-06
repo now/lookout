@@ -6,6 +6,6 @@ class Lookout::Expected::Output < Lookout::Expected::Object
   end
 
   def diff(other)
-    @expected.diff(other)
+    subject.diff(other)
   end
 end

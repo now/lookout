@@ -2,6 +2,6 @@
 
 class Lookout::Expected::Range < Lookout::Expected::Object
   def =~(other)
-    @expected === other or @expected == other
+    subject === other or subject == other
   end
 end

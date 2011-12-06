@@ -6,6 +6,6 @@ class Lookout::Expected::Warning < Lookout::Expected::Output
   end
 
   def =~(other)
-    @expected === other or @expected == other
+    subject === other or subject == other
   end
 end
