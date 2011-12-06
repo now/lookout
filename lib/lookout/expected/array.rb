@@ -4,7 +4,7 @@ class Lookout::Expected::Array < Lookout::Expected::Object
   def =~(other)
     return false unless Array === other and @expected.size == other.size
     @expected.each_with_index do |v, i|
-      return false unless Lookout::Equality.equal? v, other[i]
+      return false unless v.to_lookout_expected =~ other[i]
     end
     true
   end

@@ -25,7 +25,7 @@ class Lookout::Expected::StandardError < Lookout::Expected::Object
       StandardError === other and
       (other.respond_to? :message rescue false) and
       (m = other.message rescue nil)
-    Lookout::Equality.diff(@expected.message, m)
+    @expected.message.to_lookout_expected.diff(m)
   end
 
   private

@@ -3,7 +3,7 @@
 class Lookout::Expected::Hash < Lookout::Expected::Object
   def =~(other)
     return false unless Hash === other and @expected.size == other.size
-    @expected.all?{ |key, value| Lookout::Equality.equal? value, other[key] }
+    @expected.all?{ |key, value| value.to_lookout_expected =~ other[key] }
   end
 
   def diff(other)
