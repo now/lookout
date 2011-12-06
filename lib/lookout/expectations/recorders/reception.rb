@@ -7,11 +7,14 @@ class Lookout::Expectations::Recorders::Reception
     Lookout::Mock.methods do |mocks|
       mock = @expected.mock(mocks)
       Context.new(@expected.subject, &@block).evaluate
-      mock.verify
+      begin
+        mock.verify
+      rescue Lookout::Mock::Error => e
+        # TODO: Guard against e#message failing?
+        return Lookout::Results::Failures::Behavior.new(file, line, e.message)
+      end
     end
     Lookout::Results::Fulfilled.new(file, line)
-  rescue Lookout::Mock::Error => e
-    Lookout::Results::Failures::Behavior.new(file, line, e.message)
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)
   end
