@@ -12,8 +12,7 @@ class Lookout::Expectations::StandardError < Lookout::Expectations::Object
       Lookout::Results::Error.
         new(file,
             line,
-            Lookout::Equalities::Object.new.message(subject.class,
-                                                    actual.class),
+            subject.class.to_lookout_expected.message(actual.class),
             actual)
     end
   rescue Exception => e
