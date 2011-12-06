@@ -8,6 +8,6 @@ class Lookout::Expected::Range < Lookout::Expected::Object
   private
 
   def equality
-    @equality ||= Lookout::Equalities::Range.new
+    @equality ||= Lookout::Equalities::Include.new
   end
 end

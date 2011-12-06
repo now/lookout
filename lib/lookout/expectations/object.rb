@@ -16,7 +16,7 @@ class Lookout::Expectations::Object
   end
 
   def check(actual)
-    ((subject == actual rescue false) or equality.equal? @expected.subject, actual) ?
+    @expected =~ actual ?
       Lookout::Results::Fulfilled.new(file, line) :
       Lookout::Results::Failures::State.new(file, line, equality.message(@expected.subject, actual))
   end

@@ -8,6 +8,6 @@ class Lookout::Expected::Regexp < Lookout::Expected::Object
   private
 
   def equality
-    @equality ||= Lookout::Equalities::Regexp.new
+    @equality ||= Lookout::Equalities::Include.new
   end
 end
