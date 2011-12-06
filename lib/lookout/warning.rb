@@ -18,8 +18,8 @@ class Lookout::Warning < Lookout::Output
     self == normalized ? super(other.normalized) : normalized.diff(other)
   end
 
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Warning.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Warning.new(self)
   end
 
   protected

@@ -31,6 +31,21 @@ module Lookout
           lookout/diff/operations/equal.rb
           lookout/diff/operations/insert.rb
           lookout/diff/operations/replace.rb
+          lookout/expected.rb
+          lookout/expected/object.rb
+          lookout/expected/array.rb
+          lookout/expected/behavior.rb
+          lookout/expected/boolean.rb
+          lookout/expected/classes.rb
+          lookout/expected/classes/standarderror.rb
+          lookout/expected/hash.rb
+          lookout/expected/module.rb
+          lookout/expected/range.rb
+          lookout/expected/regexp.rb
+          lookout/expected/output.rb
+          lookout/expected/string.rb
+          lookout/expected/standarderror.rb
+          lookout/expected/warning.rb
           lookout/expectation.rb
           lookout/expectation/context.rb
           lookout/expectations.rb

@@ -17,7 +17,7 @@ ARGV.each do |arg|
     line = $1.to_i
   else
     (line ?
-     Lookout::Expectations::Line.new(results, arg, line) :
+     Lookout::Expectations::Line.new(results, File.expand_path(arg), line) :
      expectations).load arg
   end
 end

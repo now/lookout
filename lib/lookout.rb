@@ -28,67 +28,67 @@ class Object
     Lookout::Object::Not.new(self)
   end
 
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Object.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Object.new(self)
   end
 end
 
 class Array
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Array.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Array.new(self)
   end
 end
 
 class TrueClass
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Boolean.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Boolean.new(self)
   end
 end
 
 class FalseClass
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Boolean.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Boolean.new(self)
   end
 end
 
 class Hash
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Hash.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Hash.new(self)
   end
 end
 
 class Module
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Module.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Module.new(self)
   end
 end
 
 class Range
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Range.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Module.new(self)
   end
 end
 
 class Regexp
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Regexp.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Regexp.new(self)
   end
 end
 
 class StandardError
   class << self
-    def to_lookout_expectation(file, line, &block)
-      Lookout::Expectations::Classes::StandardError.new(self, file, line, &block)
+    def to_lookout_expected
+      Lookout::Expected::Classes::StandardError.new(self)
     end
   end
 
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::StandardError.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::StandardError.new(self)
   end
 end
 
 class String
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::String.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::String.new(self)
   end
 end

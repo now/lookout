@@ -25,8 +25,8 @@ class Lookout::Output
     Lookout::Equality.diff(output, other.output)
   end
 
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Output.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Output.new(self)
   end
 
   protected

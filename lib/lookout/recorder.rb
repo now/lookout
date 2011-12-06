@@ -9,8 +9,8 @@ class Lookout::Recorder < Lookout::Aphonic
   # Subclasses have to implement #subject!(mocks).
   # TODO: Rename this to not have it interfere with aphonics.
 
-  def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Behavior.new(self, file, line, &block)
+  def to_lookout_expected
+    Lookout::Expected::Behavior.new(self)
   end
 
   private
