@@ -5,9 +5,7 @@ class Lookout::Expected::Output < Lookout::Expected::Object
     Lookout::Expectations::Output.new(self, file, line, &block)
   end
 
-  private
-
-  def equality
-    @equality ||= Lookout::Equalities::Output.new
+  def diff(other)
+    @expected.diff(other)
   end
 end

@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::Regexp < Lookout::Expected::Object
-  private
-
-  def equality
-    @equality ||= Lookout::Equalities::Include.new
+  def =~(other)
+    @expected === other or @expected == other
   end
 end

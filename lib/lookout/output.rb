@@ -11,7 +11,6 @@ class Lookout::Output
   end
 
   alias eql? ==
-  alias === ==
 
   def hash
     self.class.hash ^ output.hash
