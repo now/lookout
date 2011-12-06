@@ -24,8 +24,4 @@ class Lookout::Expectations::Warning < Lookout::Expectations::Object
     @output.rewind
     super(Lookout::Warning.new(@output.read))
   end
-
-  def equality
-    @equality ||= Lookout::Equalities::Output.new
-  end
 end

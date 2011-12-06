@@ -18,10 +18,6 @@ class Lookout::Expectations::Object
   def check(actual)
     @expected =~ actual ?
       Lookout::Results::Fulfilled.new(file, line) :
-      Lookout::Results::Failures::State.new(file, line, equality.message(@expected.subject, actual))
-  end
-
-  def equality
-    @equality ||= Lookout::Equalities::Object.new
+      Lookout::Results::Failures::State.new(file, line, @expected.message(actual))
   end
 end

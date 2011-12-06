@@ -9,6 +9,10 @@ class Lookout::Expected::Object
     equality.equal?(@expected, other)
   end
 
+  def message(other)
+    equality.message(@expected, other)
+  end
+
   def diff(other)
     equality.diff(@expected, other)
   end

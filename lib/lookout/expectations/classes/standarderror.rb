@@ -9,8 +9,8 @@ class Lookout::Expectations::Classes::StandardError < Lookout::Expectations::Obj
     rescue subject
       Lookout::Results::Fulfilled.new(file, line)
     rescue Exception => e
-      # TODO: Guard against failing actual#class?
-      Lookout::Results::Error.new(file, line, equality.message(subject, e.class), e)
+      # TODO: Guard against failing e#class?
+      Lookout::Results::Error.new(file, line, @expected.message(e.class), e)
     end
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)

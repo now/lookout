@@ -19,10 +19,4 @@ class Lookout::Expectations::StandardError < Lookout::Expectations::Object
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)
   end
-
-  private
-
-  def equality
-    @equality ||= Lookout::Equalities::StandardError.new
-  end
 end
