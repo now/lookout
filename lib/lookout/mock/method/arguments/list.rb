@@ -6,7 +6,7 @@ class Lookout::Mock::Method::Arguments::List
   end
 
   def ==(other)
-    Lookout::Equality.equal?(@args, other)
+    @args.to_lookout_expected =~ other
   end
 
   def inspect
