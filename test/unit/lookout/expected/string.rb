@@ -2,19 +2,19 @@
 
 Expectations do
   expect nil do
-    Lookout::Equality.diff('abc', 1)
+    'abc'.to_lookout_expected.diff(1)
   end
 
   expect '[-A-]{+a+}bc' do
-    Lookout::Equality.diff('abc', 'Abc')
+    'abc'.to_lookout_expected.diff('Abc')
   end
 
   expect 'a[-B-]{+b+}c' do
-    Lookout::Equality.diff('abc', 'aBc')
+    'abc'.to_lookout_expected.diff('aBc')
   end
 
   expect 'ab[-C-]{+c+}' do
-    Lookout::Equality.diff('abc', 'abC')
+    'abc'.to_lookout_expected.diff('abC')
   end
 
   expect <<EOD.chomp do
@@ -22,7 +22,7 @@ Expectations do
 +abc
  ghi
 EOD
-    Lookout::Equality.diff("abc\nghi", 'ghi')
+    "abc\nghi".to_lookout_expected.diff('ghi')
   end
 
   expect <<EOD.chomp do
@@ -30,7 +30,7 @@ EOD
 -def
  ghi
 EOD
-    Lookout::Equality.diff('ghi', "def\nghi")
+    'ghi'.to_lookout_expected.diff("def\nghi")
   end
 
   expect <<EOD.chomp do
@@ -39,6 +39,6 @@ EOD
 +abc
  ghi
 EOD
-    Lookout::Equality.diff("abc\nghi", "def\nghi")
+    "abc\nghi".to_lookout_expected.diff("def\nghi")
   end
 end

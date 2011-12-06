@@ -114,16 +114,6 @@ module Lookout
           lookout/ui.rb
           lookout/ui/console.rb
           lookout/warning.rb
-          lookout/equality.rb
-          lookout/equalities.rb
-          lookout/equalities/object.rb
-          lookout/equalities/array.rb
-          lookout/equalities/boolean.rb
-          lookout/equalities/hash.rb
-          lookout/equalities/include.rb
-          lookout/equalities/output.rb
-          lookout/equalities/standarderror.rb
-          lookout/equalities/string.rb
         ',
         :manual => %w'
           lookout/version.rb

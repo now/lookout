@@ -7,7 +7,6 @@ Expectations do
 
   expect false do
     {'a' => 1, 'b' => 2}.to_lookout_expected =~ {'a' => 1}
-    Lookout::Equality.equal?({'a' => 1, 'b' => 2}, {'a' => 1})
   end
 
   expect false do

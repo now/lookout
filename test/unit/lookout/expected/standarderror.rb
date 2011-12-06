@@ -11,58 +11,54 @@ Expectations do
   end
 
   expect false do
-    RuntimeError.new('a') =~ RuntimeError.new('b')
+    RuntimeError.new('a').to_lookout_expected =~ RuntimeError.new('b')
   end
 
   expect false do
-    RuntimeError.new('a') =~ StandardError.new('a')
+    RuntimeError.new('a').to_lookout_expected =~ StandardError.new('a')
   end
 
   expect nil do
-    Lookout::Equality.diff(stub(:message => nil), RuntimeError.new('b'))
-  end
-
-  expect nil do
-    Lookout::Equality.diff(RuntimeError.new('a'), RuntimeError.new('b').tap{ |o| stub(o).message{ nil } })
+    RuntimeError.new('a').to_lookout_expected.diff(RuntimeError.new('b').tap{ |o| stub(o).message{ nil } })
   end
 
   expect '[-b-]{+a+}' do
-    Lookout::Equality.diff(RuntimeError.new('a'), RuntimeError.new('b'))
+    RuntimeError.new('a').to_lookout_expected.diff(RuntimeError.new('b'))
   end
 
   expect '#<RuntimeError: b>≠#<RuntimeError: a>: [-b-]{+a+}' do
-    Lookout::Equality.message(RuntimeError.new('a'), RuntimeError.new('b'))
+    RuntimeError.new('a').to_lookout_expected.message(RuntimeError.new('b'))
   end
 
   expect '(cannot inspect actual result: error)≠#<RuntimeError: a>: [-b-]{+a+}' do
-    Lookout::Equality.message(RuntimeError.new('a'), RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
+    RuntimeError.new('a').to_lookout_expected.message(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
   end
 
   expect '#<RuntimeError: b>≠#<RuntimeError: /a/>' do
-    Lookout::Equality.message(RuntimeError.new(/a/), RuntimeError.new('b'))
+    RuntimeError.new(/a/).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
   expect '#<RuntimeError: b>≠#<RuntimeError: /a/m>' do
-    Lookout::Equality.message(RuntimeError.new(/a/m), RuntimeError.new('b'))
+    RuntimeError.new(/a/m).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
   expect '#<RuntimeError: b>≠#<RuntimeError: /a/i>' do
-    Lookout::Equality.message(RuntimeError.new(/a/i), RuntimeError.new('b'))
+    RuntimeError.new(/a/i).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
   expect '#<RuntimeError: b>≠#<RuntimeError: /a/x>' do
-    Lookout::Equality.message(RuntimeError.new(/a/x), RuntimeError.new('b'))
+    RuntimeError.new(/a/x).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
   expect '#<RuntimeError: b>≠#<RuntimeError: /a/mix>' do
-    Lookout::Equality.message(RuntimeError.new(/a/mix), RuntimeError.new('b'))
+    RuntimeError.new(/a/mix).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
   expect '(cannot inspect actual result: error)≠#<RuntimeError: a>: [-b-]{+a+}' do
-    Lookout::Equality.message(RuntimeError.new('a'), RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
+    RuntimeError.new('a').to_lookout_expected.message(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
   end
 
   expect '(cannot inspect actual result: error)≠#<RuntimeError: /a/>' do
-    Lookout::Equality.message(RuntimeError.new(/a/), RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
+    RuntimeError.new(/a/).to_lookout_expected.message(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
   end
 end
