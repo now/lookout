@@ -41,13 +41,13 @@ end
 
 class TrueClass
   def to_lookout_expected
-    Lookout::Expected::Boolean.new(self)
+    Lookout::Expected::TrueClass.new(self)
   end
 end
 
 class FalseClass
   def to_lookout_expected
-    Lookout::Expected::Boolean.new(self)
+    Lookout::Expected::FalseClass.new(self)
   end
 end
 
