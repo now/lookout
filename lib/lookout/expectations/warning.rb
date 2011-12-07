@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::Warning < Lookout::Expectations::Object
+class Lookout::Expectations::Warning < Lookout::Expectations::Output
   def evaluate
-    @output = StringIO.new
     saved_stderr = $stderr
-    $stderr = @output
+    $stderr = subject
     begin
       saved_verbose = $VERBOSE
       $VERBOSE = true
@@ -16,12 +15,5 @@ class Lookout::Expectations::Warning < Lookout::Expectations::Object
     ensure
       $stderr = saved_stderr
     end
-  end
-
-  private
-
-  def check(actual)
-    @output.rewind
-    super(Lookout::Warning.new(@output.read))
   end
 end
