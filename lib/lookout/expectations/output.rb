@@ -8,7 +8,6 @@ class Lookout::Expectations::Output < Lookout::Expectations::Object
   end
 
   def check(actual)
-    @output.rewind
-    super(@expected.subject.class.new(@output.read))
+    super(@expected.subject.class.new(@output.string))
   end
 end
