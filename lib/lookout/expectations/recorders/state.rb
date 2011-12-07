@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::Recorders::State
-  include Lookout::Expectation
-
-  def evaluate
-    Context.new(@expected.subject, &@block).evaluate
-    begin
-      @expected.verify
-    rescue Lookout::Recorders::State::Error => e
-      # TODO: Guard against e#message failing?
-      return Lookout::Results::Failures::State.new(file, line, e.message)
-    end
+class Lookout::Expectations::Recorders::State < Lookout::Expectations::Object
+  def check(actual)
+    @expected.verify
     Lookout::Results::Fulfilled.new(file, line)
-  rescue Exception => e
-    Lookout::Results::Error.new(file, line, nil, e)
+  rescue Lookout::Recorders::State::Error => e
+    # TODO: Guard against e#message failing?
+    Lookout::Results::Failures::State.new(file, line, e.message)
   end
 end
