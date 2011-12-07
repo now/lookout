@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::Recorders::Reception
-  include Lookout::Expectation
+class Lookout::Expectations::Recorders::Reception < Lookout::Expectations::Object
+  private
 
-  def evaluate
+  def evaluate_in_context
     Lookout::Mock.methods do |mocks|
       mock = @expected.mock(mocks)
-      Context.new(@expected.subject, &@block).evaluate
-      begin
-        mock.verify
-      rescue Lookout::Mock::Error => e
-        # TODO: Guard against e#message failing?
-        return Lookout::Results::Failures::Behavior.new(file, line, e.message)
-      end
+      super
+      mock
     end
+  end
+
+  def check(actual)
+    actual.verify
     Lookout::Results::Fulfilled.new(file, line)
-  rescue Exception => e
-    Lookout::Results::Error.new(file, line, nil, e)
+  rescue Lookout::Mock::Error => e
+    # TODO: Guard against e#message failing?
+    return Lookout::Results::Failures::Behavior.new(file, line, e.message)
   end
 end
