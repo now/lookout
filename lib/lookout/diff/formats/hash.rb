@@ -8,6 +8,7 @@ class Lookout::Diff::Formats::Hash
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     @operations.each do |op|
       operation = Operation.new(op)
       yield operation.to_s unless operation.empty?

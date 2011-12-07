@@ -8,6 +8,7 @@ class Lookout::Diff::Formats::Unified
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     @groups.each do |group|
       next if group.parity?
       yield Group.new(group).to_s

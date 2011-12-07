@@ -14,6 +14,7 @@ class Lookout::Results::Unsuccessful < Lookout::Results
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     @unsuccessful.each do |result|
       yield result
     end

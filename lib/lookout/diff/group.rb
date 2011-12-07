@@ -26,6 +26,7 @@ class Lookout::Diff::Group
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     operations.each do |operation|
       yield operation
     end

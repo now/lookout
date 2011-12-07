@@ -48,6 +48,7 @@ class Lookout::Diff::Range
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     range.each do |index|
       yield items[index]
     end
@@ -55,6 +56,7 @@ class Lookout::Diff::Range
   end
 
   def each_with_index
+    return enum_for(__method__) unless block_given?
     range.each do |index|
       yield items[index], index
     end

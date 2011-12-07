@@ -8,6 +8,7 @@ class Lookout::Diff::Groups
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     saved = nil
     group = Lookout::Diff::Group.new
     @operations.each do |operation|

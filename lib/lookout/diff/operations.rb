@@ -8,6 +8,7 @@ class Lookout::Diff::Operations
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     from = to = 0
     @matches.each do |match|
       type = typeify(from, to, match)

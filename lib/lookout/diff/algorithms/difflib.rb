@@ -8,6 +8,7 @@ class Lookout::Diff::Algorithms::Difflib
   end
 
   def each
+    return enum_for(__method__) unless block_given?
     current = Lookout::Diff::Match.new(Lookout::Diff::Range.new(@from, 0...0),
                                        Lookout::Diff::Range.new(@to, 0...0))
     stack = [Position.origin(@from, @to, &@is_junk)]
