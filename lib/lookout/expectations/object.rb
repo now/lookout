@@ -4,12 +4,16 @@ class Lookout::Expectations::Object
   include Lookout::Expectation
 
   def evaluate
-    check(@block ? Context.new(subject, &@block).evaluate : false)
+    check(evaluate_in_context)
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)
   end
 
   private
+
+  def evaluate_in_context(sub = subject)
+    @block ? Context.new(sub, &@block).evaluate : false
+  end
 
   def subject
     @expected.subject

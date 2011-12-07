@@ -3,11 +3,9 @@
 class Lookout::Expectations::Output < Lookout::Expectations::Object
   private
 
-  def subject
-    @output ||= StringIO.new
-  end
-
-  def check(actual)
-    super(@expected.subject.class.new(@output.string))
+  def evaluate_in_context
+    output = StringIO.new
+    super output
+    @expected.subject.class.new(output.string)
   end
 end
