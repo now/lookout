@@ -5,6 +5,8 @@ class Lookout::Expectations::Context
     @expectations = expectations
   end
 
+  private
+
   def expect(expected, &block)
     @expectations << Lookout::Expectation.on(expected, *Lookout.location(caller.first), &block)
     self
