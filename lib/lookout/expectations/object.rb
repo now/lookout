@@ -11,12 +11,8 @@ class Lookout::Expectations::Object
 
   private
 
-  def evaluate_in_context(sub = subject)
-    @block ? Context.new(sub, &@block).evaluate : false
-  end
-
-  def subject
-    @expected.subject
+  def evaluate_in_context(subject = @expected.subject)
+    @block ? Context.new(subject, &@block).evaluate : false
   end
 
   def check(actual)

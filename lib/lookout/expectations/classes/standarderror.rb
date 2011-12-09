@@ -4,7 +4,7 @@ class Lookout::Expectations::Classes::StandardError < Lookout::Expectations::Obj
   def evaluate
     begin
       result = evaluate_in_context
-    rescue subject
+    rescue @expected.subject
       return Lookout::Results::Fulfilled.new(file, line)
     rescue Exception => e
       # TODO: Guard against failing e#class?
