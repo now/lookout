@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations::Recorders::Reception < Lookout::Expectations::Object
-  private
-
-  def evaluate_in_context
+  def evaluate
     Lookout::Mock.methods do |mocks|
       mock = @expected.mock(mocks)
-      super
-      mock
+      evaluate_in_context
+      mock.verify
     end
-  end
-
-  def check(actual)
-    actual.verify
     Lookout::Results::Fulfilled.new(file, line)
   rescue Lookout::Mock::Error => e
-    return Lookout::Results::Failures::Behavior.new(file, line, e.message)
+    Lookout::Results::Failures::Behavior.new(file, line, e.message)
+  rescue Exception => e
+    Lookout::Results::Error.new(file, line, nil, e)
   end
 end

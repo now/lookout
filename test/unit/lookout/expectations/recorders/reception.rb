@@ -20,4 +20,8 @@ Expectations do
   expect Lookout::Results::Fulfilled.new('test', 1) do
     stub.not.to.receive.call.to_lookout_expected.to_lookout_expectation('test', 1).evaluate{ }
   end
+
+  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub.call(1): unexpected arguments: ()≠(1)') do
+    stub.to.receive.call(1).to_lookout_expected.to_lookout_expectation('test', 1){ |o| o.call }.evaluate
+  end
 end
