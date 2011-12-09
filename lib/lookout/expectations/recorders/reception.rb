@@ -15,7 +15,6 @@ class Lookout::Expectations::Recorders::Reception < Lookout::Expectations::Objec
     actual.verify
     Lookout::Results::Fulfilled.new(file, line)
   rescue Lookout::Mock::Error => e
-    # TODO: Guard against e#message failing?
     return Lookout::Results::Failures::Behavior.new(file, line, e.message)
   end
 end
