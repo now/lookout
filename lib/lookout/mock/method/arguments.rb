@@ -14,7 +14,7 @@ class Lookout::Mock::Method::Arguments
 
   def inspect
     result = @args.inspect
-    result.empty? ? '' : '(%s)' % result
+    result.empty? ? result : '(%s)' % result
   end
 
   protected
