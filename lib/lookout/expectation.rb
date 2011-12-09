@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Expectation
+  include Comparable
+
   class << self
     def on(expected, file, line, &block)
       expected.to_lookout_expected.to_lookout_expectation(file, line, &block)
@@ -13,8 +15,6 @@ module Lookout::Expectation
   def initialize(expected, file, line, &block)
     @expected, @file, @line, @block = expected, file, line, block
   end
-
-  include Comparable
 
   def <=>(other)
     [file, line] <=> [other.file, other.line]
