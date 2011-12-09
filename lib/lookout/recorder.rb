@@ -6,9 +6,6 @@ class Lookout::Recorder < Lookout::Aphonic
     @recording = Tape.new
   end
 
-  # Subclasses have to implement #subject!(mocks).
-  # TODO: Rename this to not have it interfere with aphonics.
-
   private
 
   def method_missing(method, *args, &block)
