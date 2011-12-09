@@ -3,7 +3,7 @@
 class Lookout::Expectations::Classes::StandardError < Lookout::Expectations::Object
   def evaluate
     begin
-      result = evaluate_in_context
+      result = evaluate_block
     rescue @expected.subject
       return Lookout::Results::Fulfilled.new(file, line)
     rescue Exception => e

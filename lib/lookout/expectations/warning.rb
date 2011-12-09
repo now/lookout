@@ -3,7 +3,7 @@
 class Lookout::Expectations::Warning < Lookout::Expectations::Object
   private
 
-  def evaluate_in_context
+  def evaluate_block
     output = StringIO.new
     saved_stderr = $stderr
     $stderr = output

@@ -4,7 +4,7 @@ class Lookout::Expectations::Recorders::Reception < Lookout::Expectations::Objec
   def evaluate
     Lookout::Mock.methods do |mocks|
       mock = @expected.mock(mocks)
-      evaluate_in_context
+      evaluate_block
       mock.verify
     end
     Lookout::Results::Fulfilled.new(file, line)

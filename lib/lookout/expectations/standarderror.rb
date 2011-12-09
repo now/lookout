@@ -3,7 +3,7 @@
 class Lookout::Expectations::StandardError < Lookout::Expectations::Object
   def evaluate
     begin
-      result = evaluate_in_context
+      result = evaluate_block
     rescue Exception => actual
       # TODO: Guard against @expected#class, @expected#class#==, or actual#class failing.
       return @expected.subject.class == actual.class ?

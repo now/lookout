@@ -3,7 +3,7 @@
 class Lookout::Expectations::Output < Lookout::Expectations::Object
   private
 
-  def evaluate_in_context
+  def evaluate_block
     output = StringIO.new
     super output
     @expected.subject.class.new(output.string)
