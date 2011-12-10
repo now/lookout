@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method::Arguments::None
-  def ==(other)
-    other.empty?
-  end
-
-  def inspect
-    ''
+class Lookout::Mock::Method::Arguments::None < Lookout::Mock::Method::Arguments::List
+  def initialize
+    super
   end
 end
