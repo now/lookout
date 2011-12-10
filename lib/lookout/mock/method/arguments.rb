@@ -5,7 +5,7 @@ class Lookout::Mock::Method::Arguments
 
   def initialize(*args)
     @args = if args.empty? then Any.new
-            elsif none = args.find{ |arg| None === arg } then none
+            elsif none = args.find{ |e| None === e } then none
             else List.new(*args)
             end
   end
