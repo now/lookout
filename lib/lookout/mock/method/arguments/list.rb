@@ -5,7 +5,7 @@ class Lookout::Mock::Method::Arguments::List
     @args = args
   end
 
-  def ==(other)
+  def =~(other)
     @args.to_lookout_expected =~ other
   end
 

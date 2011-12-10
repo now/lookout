@@ -6,10 +6,10 @@ Expectations do
   end
 
   expect true do
-    Lookout::Mock::Method::Arguments::Any.new == []
+    Lookout::Mock::Method::Arguments::Any.new =~ []
   end
 
   expect true do
-    Lookout::Mock::Method::Arguments::Any.new == [1, 2, 3]
+    Lookout::Mock::Method::Arguments::Any.new =~ [1, 2, 3]
   end
 end

@@ -11,7 +11,7 @@ class Lookout::Mock::Method::Arguments
   end
 
   def verify(*args)
-    @args == args or
+    @args =~ args or
       raise Error, 'unexpected arguments: (%p)≠(%p)' % [List.new(*args), @args]
   end
 

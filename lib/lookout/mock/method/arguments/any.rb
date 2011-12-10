@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Arguments::Any
-  def ==(other)
+  def =~(other)
     true
   end
 
