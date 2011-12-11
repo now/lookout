@@ -77,7 +77,6 @@ module Lookout
           lookout/mock/method.rb
           lookout/mock/method/arguments.rb
           lookout/mock/method/arguments/any.rb
-          lookout/mock/method/arguments/anything.rb
           lookout/mock/method/arguments/list.rb
           lookout/mock/method/arguments/none.rb
           lookout/mock/method/calls.rb

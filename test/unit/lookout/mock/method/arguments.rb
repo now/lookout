@@ -13,32 +13,28 @@ Expectations do
     Lookout::Mock::Method::Arguments.new.verify(1, 2)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: ()≠(arg)') do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::Anything.new).verify
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: ()≠(Object)') do
+    Lookout::Mock::Method::Arguments.new(Object).verify
   end
 
   expect true do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::Anything.new).verify(1)
+    Lookout::Mock::Method::Arguments.new(Object).verify(1)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: (1, 2)≠(arg)') do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::Anything.new).verify(1, 2)
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: (1, 2)≠(Object)') do
+    Lookout::Mock::Method::Arguments.new(Object).verify(1, 2)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: (1)≠(arg, arg)') do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::Anything.new,
-                                         Lookout::Mock::Method::Arguments::Anything.new).verify(1)
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: (1)≠(Object, Object)') do
+    Lookout::Mock::Method::Arguments.new(Object, Object).verify(1)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: ((cannot inspect argument: error))≠(arg, arg)') do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::Anything.new,
-                                         Lookout::Mock::Method::Arguments::Anything.new).
-      verify(stub(:inspect => proc{ raise 'error' }))
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments: ((cannot inspect argument: error))≠(Object, Object)') do
+    Lookout::Mock::Method::Arguments.new(Object, Object).verify(stub(:inspect => proc{ raise 'error' }))
   end
 
   expect true do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::Anything.new,
-                                         Lookout::Mock::Method::Arguments::Anything.new).verify(1, 2)
+    Lookout::Mock::Method::Arguments.new(Object, Object).verify(1, 2)
   end
 
   expect true do

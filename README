@@ -297,9 +297,11 @@
       Here, the method ‹#a› must be called with any number of arguments.  It
       may be called any number of times, but it must be called at least once.
 
-      If a method must receive exactly one argument, you can use ‹arg›:
+      If a method must receive exactly one argument, you can use ‹Object›, as
+      the same matching rules apply for arguments as they do for state
+      expectations:
 
-        expect mock.to.receive.a(arg) do |m|
+        expect mock.to.receive.a(Object) do |m|
           …
         end
 
@@ -309,7 +311,7 @@
           …
         end
 
-      The same matching rules apply for arguments as they do for state
+      Again, the same matching rules apply for arguments as they do for state
       expectations, so the previous example expects a call to ‹#a› with 1, 2,
       or the Range 1..2 as an argument on ‹m›.
 
@@ -320,9 +322,9 @@
           …
         end
 
-      You can of course use both ‹arg› and actual arguments:
+      You can of course use both ‹Object› and actual arguments:
 
-        expect mock.to.receive.a(arg, 1, arg) do |m|
+        expect mock.to.receive.a(Object, 1, Object) do |m|
           …
         end
 
@@ -510,7 +512,7 @@
     process of figuring out what state an object has in a given test.
 
     Teardown methods clean up after tests, perhaps by removing records from a
-    database or deleting files from the file-system.  
+    database or deleting files from the file-system.
 
     The duplication that setup methods and teardown methods hope to remove is
     better avoided by improving your interfaces.  This can be done by providing
@@ -648,6 +650,15 @@
     like a value than ‹BeginEndStorage›.  (To reach object-oriented-programming
     Nirvana you must achieve complete value.)
 
+§ News
+
+  § 3.0.0
+
+    The ‹xml› expectation has been dropped.  It wasn’t documented, didn’t suit
+    very many use cases, and can be better implemented by an external library.
+
+    The ‹arg› argument matcher for mock method arguments has been removed, as
+    it didn’t provide any benefit over using Object.
 
 § Contributors
 
@@ -658,7 +669,6 @@
   •   Nikolai Weibull
 
 ¹ Add an issue to the Lookout issue tracker at https://github.com/now/lookout/issues
-
 
 § License
 

@@ -150,7 +150,7 @@ Expectations do
 
   # Expect a new object to receive #deal with any argument, 1, and any
   # argument.
-  expect Object.new.to.receive.deal(arg, 1, arg) do |o|
+  expect Object.new.to.receive.deal(Object, 1, Object) do |o|
     o.deal :a, 1, :b
   end
 

@@ -20,10 +20,6 @@ class Lookout::Expectations::Context
     Lookout::Mock::Object.new
   end
 
-  def arg
-    Lookout::Mock::Method::Arguments::Anything.new
-  end
-
   def without_arguments
     Lookout::Mock::Method::Arguments::None.new
   end
