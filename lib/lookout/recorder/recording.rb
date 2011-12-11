@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Recorder::Tape
+class Lookout::Recorder::Recording
   def initialize
     @methods = []
   end

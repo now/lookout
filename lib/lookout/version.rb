@@ -90,7 +90,7 @@ module Lookout
           lookout/object/to.rb
           lookout/object/to/receive.rb
           lookout/recorder.rb
-          lookout/recorder/tape.rb
+          lookout/recorder/recording.rb
           lookout/recorders.rb
           lookout/recorders/reception.rb
           lookout/recorders/reception/not.rb

@@ -3,7 +3,7 @@
 class Lookout::Recorder < Lookout::Aphonic
   def initialize(subject)
     @subject = subject
-    @recording = Tape.new
+    @recording = Recording.new
   end
 
   private
