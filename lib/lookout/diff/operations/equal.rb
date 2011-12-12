@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Operations::Equal
-  include Lookout::Diff::Operation
-
+class Lookout::Diff::Operations::Equal < Lookout::Diff::Operation
   def foldable?(window)
     from.size > window
   end

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Diff::Operation
+class Lookout::Diff::Operation
   def initialize(from, to)
     @from, @to = from, to
   end
@@ -22,7 +22,7 @@ module Lookout::Diff::Operation
   end
 
   def ==(other)
-    from == other.from and to == other.to
+    self.class == other.class and from == other.from and to == other.to
   end
 
   def inspect
