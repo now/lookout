@@ -2,9 +2,9 @@
 
 class Lookout::Aphonic
   Methods = [
-             # TODO: __id__ might not be needed.
-    :__id__, :__send__, :object_id # Methods that must be defined
+    :__send__, :object_id # Methods that must be defined
   ]
+  Methods << :__id__ if RUBY_VERSION < '1.9' # Ruby 1.8 warns if __id__ is undefined
 
   class << self
     def silence(name)
