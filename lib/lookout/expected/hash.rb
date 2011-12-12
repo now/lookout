@@ -8,7 +8,7 @@ class Lookout::Expected::Hash < Lookout::Expected::Object
 
   def diff(other)
     return if subject.size == 1 or not Hash === other
-    Lookout::Diff::Formats::Hash.
+    Lookout::Diff::Formats::Set.
       new(Lookout::Diff::Operations.
             new(Lookout::Diff::Algorithms::Difflib.
                   new(array(other), array(subject)))).to_a.join("\n")

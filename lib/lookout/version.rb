@@ -19,8 +19,8 @@ module Lookout
           lookout/diff/algorithms/difflib/position.rb
           lookout/diff/algorithms/difflib/position/to.rb
           lookout/diff/formats.rb
-          lookout/diff/formats/hash.rb
           lookout/diff/formats/inline.rb
+          lookout/diff/formats/set.rb
           lookout/diff/formats/unified.rb
           lookout/diff/group.rb
           lookout/diff/groups.rb

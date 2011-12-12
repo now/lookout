@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Formats::Hash
+class Lookout::Diff::Formats::Set
   include Enumerable
 
   def initialize(operations)
