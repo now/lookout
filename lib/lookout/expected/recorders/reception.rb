@@ -6,7 +6,7 @@ class Lookout::Expected::Recorders::Reception < Lookout::Expected::Object
     @recording, @method, @args, @body = recording, method, args, body
   end
 
-  def to_lookout_expectation(file, line, &block)
+  def actualize(file, line, &block)
     Lookout::Expect::Recorders::Reception.new(self, file, line, &block)
   end
 

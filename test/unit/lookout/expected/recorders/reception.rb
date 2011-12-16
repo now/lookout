@@ -2,7 +2,7 @@
 
 Expectations do
   expect Lookout::Expect::Recorders::Reception do
-    Object.new.to.receive.call.to_lookout_expected.to_lookout_expectation('test', 1)
+    Object.new.to.receive.call.to_lookout_expected.actualize('test', 1)
   end
 
   expect Lookout::Mock::Method do

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::StandardError < Lookout::Expected::Object
-  def to_lookout_expectation(file, line, &block)
+  def actualize(file, line, &block)
     Lookout::Expect::StandardError.new(self, file, line, &block)
   end
 

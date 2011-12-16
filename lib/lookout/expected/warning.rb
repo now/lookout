@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::Warning < Lookout::Expected::Output
-  def to_lookout_expectation(file, line, &block)
+  def actualize(file, line, &block)
     Lookout::Expect::Warning.new(self, file, line, &block)
   end
 

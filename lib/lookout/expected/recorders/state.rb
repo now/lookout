@@ -6,7 +6,7 @@ class Lookout::Expected::Recorders::State < Lookout::Expected::Object
     @verify = verify
   end
 
-  def to_lookout_expectation(file, line, &block)
+  def actualize(file, line, &block)
     Lookout::Expect::Recorders::State.new(self, file, line, &block)
   end
 

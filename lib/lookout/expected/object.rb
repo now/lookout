@@ -28,7 +28,7 @@ class Lookout::Expected::Object
   def diff(other)
   end
 
-  def to_lookout_expectation(file, line, &block)
+  def actualize(file, line, &block)
     Lookout::Expect::Object.new(self, file, line, &block)
   end
 
