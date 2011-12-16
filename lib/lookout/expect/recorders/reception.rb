@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::Recorders::Reception < Lookout::Expectations::Object
+class Lookout::Expect::Recorders::Reception < Lookout::Expect::Object
   def evaluate
     Lookout::Mock.methods do |mocks|
       mock = @expected.mock(mocks)

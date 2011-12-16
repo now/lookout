@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::Object
+class Lookout::Expect::Object
   include Comparable
 
   def initialize(expected, file, line, &block)

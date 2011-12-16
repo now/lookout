@@ -31,6 +31,17 @@ module Lookout
           lookout/diff/operations/equal.rb
           lookout/diff/operations/insert.rb
           lookout/diff/operations/replace.rb
+          lookout/expect.rb
+          lookout/expect/object.rb
+          lookout/expect/object/context.rb
+          lookout/expect/classes.rb
+          lookout/expect/classes/standarderror.rb
+          lookout/expect/output.rb
+          lookout/expect/recorders.rb
+          lookout/expect/recorders/reception.rb
+          lookout/expect/recorders/state.rb
+          lookout/expect/standarderror.rb
+          lookout/expect/warning.rb
           lookout/expected.rb
           lookout/expected/object.rb
           lookout/expected/array.rb
@@ -49,20 +60,9 @@ module Lookout
           lookout/expected/standarderror.rb
           lookout/expected/trueclass.rb
           lookout/expected/warning.rb
-          lookout/expectation.rb
           lookout/expectations.rb
           lookout/expectations/context.rb
           lookout/expectations/line.rb
-          lookout/expectations/object.rb
-          lookout/expectations/object/context.rb
-          lookout/expectations/classes.rb
-          lookout/expectations/classes/standarderror.rb
-          lookout/expectations/output.rb
-          lookout/expectations/recorders.rb
-          lookout/expectations/recorders/reception.rb
-          lookout/expectations/recorders/state.rb
-          lookout/expectations/standarderror.rb
-          lookout/expectations/warning.rb
           lookout/inspect.rb
           lookout/inspect/actual.rb
           lookout/inspect/argument.rb

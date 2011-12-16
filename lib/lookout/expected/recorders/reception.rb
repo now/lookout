@@ -7,7 +7,7 @@ class Lookout::Expected::Recorders::Reception < Lookout::Expected::Object
   end
 
   def to_lookout_expectation(file, line, &block)
-    Lookout::Expectations::Recorders::Reception.new(self, file, line, &block)
+    Lookout::Expect::Recorders::Reception.new(self, file, line, &block)
   end
 
   def mock(mocks)

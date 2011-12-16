@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expectations::Recorders::Reception do
+  expect Lookout::Expect::Recorders::Reception do
     Object.new.to.receive.call.to_lookout_expected.to_lookout_expectation('test', 1)
   end
 

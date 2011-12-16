@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectations::Recorders::State < Lookout::Expectations::Object
+class Lookout::Expect::Recorders::State < Lookout::Expect::Object
   def check(actual)
     @expected.verify
     Lookout::Results::Fulfilled.new(file, line)

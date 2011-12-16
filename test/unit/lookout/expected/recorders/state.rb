@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expectations::Recorders::State do
+  expect Lookout::Expect::Recorders::State do
     Object.new.to.be.running?.to_lookout_expected.to_lookout_expectation('test', 1)
   end
 

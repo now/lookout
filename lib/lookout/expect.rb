@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Expectation
+module Lookout::Expect
   class << self
     def on(expected, file, line, &block)
       expected.to_lookout_expected.to_lookout_expectation(file, line, &block)
