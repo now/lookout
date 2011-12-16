@@ -10,19 +10,19 @@ class Lookout::Expectations::Line < Lookout::Expectations
   end
 
   def evaluate(&block)
-    catch :found_expectation_for_line do
+    catch :found_expect_close_to_target do
       super
     end
-    @results << (@previous || @target).evaluate
+    @results << (@previous || @target).call
     @previous = nil
     self
   end
 
-  def <<(expectation)
-    if @previous and @previous <= @target and expectation > @target
-      throw :found_expectation_for_line
+  def <<(expect)
+    if @previous and @previous <= @target and expect > @target
+      throw :found_expect_close_to_target
     else
-      @previous = expectation
+      @previous = expect
     end
     self
   end

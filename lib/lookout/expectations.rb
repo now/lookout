@@ -30,8 +30,8 @@ class Lookout::Expectations
     raise unless error(e)
   end
 
-  def <<(expectation)
-    @results << expectation.evaluate
+  def <<(expect)
+    @results << expect.call
     self
   end
 

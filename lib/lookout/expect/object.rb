@@ -7,7 +7,7 @@ class Lookout::Expect::Object
     @expected, @file, @line, @block = expected, file, line, block
   end
 
-  def evaluate
+  def call
     check(evaluate_block)
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expect::Classes::StandardError < Lookout::Expect::Object
-  def evaluate
+  def call
     begin
       result = evaluate_block
     rescue @expected.subject
