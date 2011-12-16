@@ -7,12 +7,12 @@ class Lookout::Expectations::Context
 
   private
 
-  def expect(expected, &block)
-    @expectations << Lookout::Expect.on(expected,
-                                        *(block.respond_to?(:source_location) ?
-                                          block.source_location :
-                                          Lookout.location(caller.first)),
-                                        &block)
+  def expect(subject, &block)
+    @expectations << Lookout::Expect.actualize(subject,
+                                               *(block.respond_to?(:source_location) ?
+                                                 block.source_location :
+                                                 Lookout.location(caller.first)),
+                                               &block)
     self
   end
 
