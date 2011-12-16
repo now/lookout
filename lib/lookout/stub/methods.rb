@@ -12,9 +12,7 @@ class Lookout::Stub::Methods
   end
 
   def undefine
-    @methods.each do |method|
-      method.undefine
-    end
+    @methods.each(&:undefine)
     self
   end
 end
