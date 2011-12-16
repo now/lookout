@@ -1,6 +1,56 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Stub::Method
+  def initialize(object, method, &body)
+    @object, @method, @body = object, method.to_sym, body || Nil
+    @yield = nil
+    @defined = false
+  end
+
+  def yield(*values)
+    @yield = Values.new(*values)
+    self
+  end
+
+  def each(*values)
+    @yield = Each.new(*values)
+    self
+  end
+
+  def define
+    return self if @defined
+    meta.module_exec(@method, visibility, stash, self) do |method, visibility, stash, stub|
+      alias_method stash, method if
+        method_defined? method or private_method_defined? method
+      define_method method do |*args, &block|
+        stub.call(*args, &block)
+      end
+      send visibility, method
+    end
+    @defined = true
+    self
+  end
+
+  def call(*args, &block)
+    @yield.call(&block) if @yield and block
+    @body.call(*args, &block)
+  end
+
+  def undefine
+    return self unless @defined
+    meta.module_exec(@method, stash) do |method, stash|
+      remove_method method
+      if method_defined? stash or private_method_defined? stash
+        alias_method method, stash
+        remove_method stash
+      end
+    end
+    @defined = false
+    self
+  end
+
+  private
+
   class Values
     def initialize(*values)
       @values = values
@@ -29,65 +79,7 @@ class Lookout::Stub::Method
     end
   end
 
-  def initialize(object, method, &body)
-    @object, @method, @body = object, method.to_sym, body || Nil
-    @yield = nil
-    @defined = false
-  end
-
-  def yield(*values)
-    @yield = Values.new(*values)
-    self
-  end
-
-  def each(*values)
-    @yield = Each.new(*values)
-    self
-  end
-
-  def define
-    return self if @defined
-    define!
-    @defined = true
-    self
-  end
-
-  def call(*args, &block)
-    @yield.call(&block) if @yield and block
-    @body.call(*args, &block)
-  end
-
-  def undefine
-    return self unless @defined
-    undefine!
-    @defined = false
-    self
-  end
-
-  private
-
   Nil = proc{ Lookout::Stub::Object.new }
-
-  def define!
-    meta.module_exec(@method, visibility, stash, self) do |method, visibility, stash, stub|
-      alias_method stash, method if
-        method_defined? method or private_method_defined? method
-      define_method method do |*args, &block|
-        stub.call(*args, &block)
-      end
-      send visibility, method
-    end
-  end
-
-  def undefine!
-    meta.module_exec(@method, stash) do |method, stash|
-      remove_method method
-      if method_defined? stash or private_method_defined? stash
-        alias_method method, stash
-        remove_method stash
-      end
-    end
-  end
 
   def visibility
     meta.private_method_defined?(@method) ? :private :
