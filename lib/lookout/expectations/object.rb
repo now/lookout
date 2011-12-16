@@ -1,13 +1,25 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations::Object
-  include Lookout::Expectation
+  include Comparable
+
+  def initialize(expected, file, line, &block)
+    @expected, @file, @line, @block = expected, file, line, block
+  end
 
   def evaluate
     check(evaluate_block)
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)
   end
+
+  def <=>(other)
+    [file, line] <=> [other.file, other.line]
+  end
+
+  protected
+
+  attr_reader :file, :line
 
   private
 

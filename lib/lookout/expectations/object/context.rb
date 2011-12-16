@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expectation::Context
+class Lookout::Expectations::Object::Context
   def initialize(*args, &block)
     @args, @block = args, block
     @stubs = nil

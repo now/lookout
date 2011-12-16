@@ -50,11 +50,11 @@ module Lookout
           lookout/expected/trueclass.rb
           lookout/expected/warning.rb
           lookout/expectation.rb
-          lookout/expectation/context.rb
           lookout/expectations.rb
           lookout/expectations/context.rb
           lookout/expectations/line.rb
           lookout/expectations/object.rb
+          lookout/expectations/object/context.rb
           lookout/expectations/classes.rb
           lookout/expectations/classes/standarderror.rb
           lookout/expectations/output.rb
