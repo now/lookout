@@ -57,13 +57,15 @@ class Lookout::Stub::Method
       @offset = -1
     end
 
+    def call
+      yield(*self.next)
+    end
+
+    protected
+
     def next
       @offset = [@offset + 1, @values.count - 1].min
       @values[@offset]
-    end
-
-    def call
-      yield(*self.next)
     end
   end
 
