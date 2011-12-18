@@ -3,18 +3,7 @@
 class Lookout::Stub::Method
   def initialize(object, method, &body)
     @object, @method, @body = object, method.to_sym, body || Nil
-    @yield = nil
     @defined = false
-  end
-
-  def yield(*values)
-    @yield = Values.new(*values)
-    self
-  end
-
-  def each(*values)
-    @yield = Each.new(*values)
-    self
   end
 
   def define
@@ -32,7 +21,6 @@ class Lookout::Stub::Method
   end
 
   def call(*args, &block)
-    @yield.call(&block) if @yield and block
     @body.call(*args, &block)
   end
 
@@ -50,36 +38,6 @@ class Lookout::Stub::Method
   end
 
   private
-
-  class Values
-    def initialize(*values)
-      @values = values
-      @offset = -1
-    end
-
-    def call
-      yield(*self.next)
-    end
-
-    protected
-
-    def next
-      @offset = [@offset + 1, @values.count - 1].min
-      @values[@offset]
-    end
-  end
-
-  class Each
-    def initialize(*values)
-      @values = values
-    end
-
-    def call
-      @values.each do |value|
-        yield value
-      end
-    end
-  end
 
   Nil = proc{ Lookout::Stub::Object.new }
 

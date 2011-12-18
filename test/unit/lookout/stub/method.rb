@@ -17,7 +17,7 @@ Expectations do
     Lookout::Stub::Method.new(o, :a).define.undefine
   end
 
-  # NOTE: Ruby returs NoMethodError when trying to invoke private methods.
+  # NOTE: Ruby raises NoMethodError when trying to invoke private methods.
   expect NoMethodError do
     o = Object.new
     class << o; def a() 1 end; private :a; end
@@ -30,23 +30,16 @@ Expectations do
   end
 
   expect 1 do
-    n = 0
-    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).yield(1).define }.a{ |i| n = i }
-    n
+    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a){ |&block| block.call(1) }.define }.a{ |i| i }
+  end
+
+  expect 6 do
+    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a){ |&block| block.call(1, 2, 3) }.define }.a{ |i, j, k| i + j + k }
   end
 
   expect 6 do
     n = 0
-    Object.new.tap{ |o|
-      Lookout::Stub::Method.new(o, :a).yield(1, 2, 3).define
-      3.times{ o.a{ |i| n += i } }
-    }
-    n
-  end
-
-  expect 6 do
-    n = 0
-    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).yield([1, 2, 3]).define }.a{ |i, j, k| n += i; n += j; n += k }
+    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :each){ |&block| [1, 2, 3].each{ |i| block.call(i) } }.define }.each{ |i| n += i }
     n
   end
 
@@ -57,17 +50,5 @@ Expectations do
   expect nil do
     Object.new.tap{ |o| Lookout::Stub::Method.new(o, :a).define }.a{ raise StandardError }
     nil
-  end
-
-  expect 1 do
-    n = 0
-    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :each).each(1).define }.each{ |i| n += i }
-    n
-  end
-
-  expect 6 do
-    n = 0
-    Object.new.tap{ |o| Lookout::Stub::Method.new(o, :each).each(1, 2, 3).define }.each{ |i| n += i }
-    n
   end
 end

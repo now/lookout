@@ -337,30 +337,16 @@
 
       If no body has been given, the result will be a stub object.
 
-      There is a caveat here in that a block can’t yield in Ruby 1.8.  To work
-      around this deficiency you have to use the ‹#yield› method:
+      To take a block, grab a block parameter and ‹#call› it:
 
-        expect mock.to.receive.a.yield(1) do |m|
+        expect mock.to.receive.a{ |&b| b.call(1) } do |m|
           …
         end
 
-      Any number of values to yield upon successive calls may be given.  The
-      last value given will be used repeatedly when all preceding values have
-      been consumed.  It’s also important to know that values are splatted when
-      they are yielded.
+      To simulate an ‹#each›-like method, ‹#call› the block several times.
 
-      To simulate an ‹#each›-like method you can use ‹#each›.  The following
-      horrible example should give you an idea of how to use it.
-
-        expect Object.new.to.receive.each.each(1, 2, 3) do |o|
-          class << o
-            include Enumerable
-          end
-          o.inject{ |i, a| i + a }
-        end
-
-      Invocation count expectations can also be set if the default expectation
-      of “at least once” isn’t good enough.  The following expectations are
+      Invocation count expectations can be set if the default expectation of
+      “at least once” isn’t good enough.  The following expectations are
       possible
 
     •   ‹#at_most_once›
@@ -659,6 +645,10 @@
 
     The ‹arg› argument matcher for mock method arguments has been removed, as
     it didn’t provide any benefit over using Object.
+
+    The ‹#yield› and ‹#each› methods on stub and mock methods have been
+    removed.  They were slightly weird and their use case can be implemented
+    using block parameters instead.
 
 § Contributors
 
