@@ -54,6 +54,7 @@ class Lookout::Expect::Object::Context
            block]
       end
       @stubs.define(@object, method, &body)
+      @object
     end
   end
 

@@ -650,6 +650,23 @@
     removed.  They were slightly weird and their use case can be implemented
     using block parameters instead.
 
+    The ‹stub› method inside ‹expect› blocks now returns the object that’s
+    having a method stubbed instead of the stub method object.  That means that
+    you can now write
+
+      expect 2 do
+        stub(Object.new).two{ 2 }.two
+      end
+
+    instead of
+
+      expect 2 do
+        Object.new.tap{ |o| stub(o).two{ 2 } }.two
+      end
+
+    This change was enabled by the removal of ‹#yield› and ‹#each› from stub
+    methods, which rendered the return of those method objects useless.
+
 § Contributors
 
     Contributors to the original expectations codebase are mentioned there.  We

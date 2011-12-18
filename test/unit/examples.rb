@@ -10,7 +10,7 @@ Expectations do
 
   # Determine if the result, retrieved through a stub, equals a value.
   expect 2 do
-    Object.new.tap{ |o| stub(o).two{ 2 } }.two
+    stub(Object.new).two{ 2 }.two
   end
 
   # Match against a Regexp.  Please note the use of parentheses to silence

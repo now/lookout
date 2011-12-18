@@ -5,8 +5,8 @@ Expectations do
     Lookout::Expect::Object::Context.new{ stub }.evaluate
   end
 
-  expect Lookout::Stub::Method do
-    Lookout::Expect::Object::Context.new{ stub(Object.new).a }.evaluate
+  expect Object.new do |o|
+    Lookout::Expect::Object::Context.new{ stub(o).a }.evaluate
   end
 
   expect Lookout::Stub::Object do
