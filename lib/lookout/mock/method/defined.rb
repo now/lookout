@@ -19,6 +19,6 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
   private
 
   def undefined
-    Undefined.new(@object, @method, @args, @calls, &@body)
+    Undefined.new(@object, @method, @calls, @args, &@body)
   end
 end

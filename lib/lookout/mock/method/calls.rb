@@ -36,6 +36,10 @@ class Lookout::Mock::Method::Calls
     @calls = 0
   end
 
+  def bind(method)
+    self.class.new(method, @limit)
+  end
+
   def call
     @calls += 1
     self

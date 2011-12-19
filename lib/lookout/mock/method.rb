@@ -1,19 +1,9 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Mock::Method
-  include Lookout::Stub::Method
-
-  class << self
-    def build(object, method, *args, body)
-      undefined = Undefined.new(object, method, Arguments.new(*args), &body)
-      yield undefined
-      undefined.define
-    end
-  end
-
-  def initialize(object, method, args, calls, &body)
+  def initialize(object, method, calls, args, &body)
     super object, method, &body
-    @args, @calls = args, calls
+    @calls, @args = calls.bind(self), args
   end
 
   def to_s

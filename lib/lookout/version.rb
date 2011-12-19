@@ -37,8 +37,8 @@ module Lookout
           lookout/expect/classes.rb
           lookout/expect/classes/standarderror.rb
           lookout/expect/output.rb
+          lookout/expect/reception.rb
           lookout/expect/recorders.rb
-          lookout/expect/recorders/reception.rb
           lookout/expect/recorders/state.rb
           lookout/expect/standarderror.rb
           lookout/expect/warning.rb
@@ -51,8 +51,8 @@ module Lookout
           lookout/expected/hash.rb
           lookout/expected/module.rb
           lookout/expected/range.rb
+          lookout/expected/reception.rb
           lookout/expected/recorders.rb
-          lookout/expected/recorders/reception.rb
           lookout/expected/recorders/state.rb
           lookout/expected/regexp.rb
           lookout/expected/output.rb
@@ -69,6 +69,7 @@ module Lookout
           lookout/inspect/error.rb
           lookout/inspect/expected.rb
           lookout/output.rb
+          lookout/reception.rb
           lookout/stub.rb
           lookout/stub/method.rb
           lookout/stub/method/defined.rb
@@ -96,8 +97,6 @@ module Lookout
           lookout/recorder.rb
           lookout/recorder/recording.rb
           lookout/recorders.rb
-          lookout/recorders/reception.rb
-          lookout/recorders/reception/not.rb
           lookout/recorders/state.rb
           lookout/recorders/state/verify.rb
           lookout/recorders/state/be.rb

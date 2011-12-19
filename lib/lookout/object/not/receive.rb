@@ -8,6 +8,6 @@ class Lookout::Object::Not::Receive < Lookout::Aphonic
   private
 
   def method_missing(method, *args, &body)
-    Lookout::Recorders::Reception::Not.new(@subject, method, *args, &body)
+    Lookout::Reception.new(@subject, method, *args, &body).never
   end
 end

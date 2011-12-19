@@ -6,26 +6,26 @@ Expectations do
   end
 
   expect 2 do
-    s = stub(:method => 1)
+    s = stub(:a => 1)
     Lookout::Mock.methods do |mocks|
-      mocks.define(s, :method, *[], proc{ 2 }){ }
-      s.method
+      mocks.define(s, :a, Lookout::Mock::Method::Calls::Lower.new(:method, 1)){ 2 }
+      s.a
     end
   end
 
   expect NoMethodError do
     s = Object.new
     Lookout::Mock.methods do |mocks|
-      mocks.define(s, :a, *[], proc{ 2 }){ }
+      mocks.define(s, :a, Lookout::Mock::Method::Calls::Lower.new(:a, 1)){ 2 }
     end
     s.a
   end
 
   expect 1 do
-    s = stub(:method => 1)
+    s = stub(:a => 1)
     Lookout::Mock.methods do |mocks|
-      mocks.define(s, :method, *[], proc{ 2 }){ }
+      mocks.define(s, :a, Lookout::Mock::Method::Calls::Lower.new(:a, 1)){ 2 }
     end
-    s.method
+    s.a
   end
 end
