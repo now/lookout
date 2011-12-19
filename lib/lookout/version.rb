@@ -71,6 +71,8 @@ module Lookout
           lookout/output.rb
           lookout/stub.rb
           lookout/stub/method.rb
+          lookout/stub/method/defined.rb
+          lookout/stub/method/undefined.rb
           lookout/stub/methods.rb
           lookout/stub/object.rb
           lookout/mock.rb
@@ -83,6 +85,8 @@ module Lookout
           lookout/mock/method/calls/exactly.rb
           lookout/mock/method/calls/lower.rb
           lookout/mock/method/calls/upper.rb
+          lookout/mock/method/defined.rb
+          lookout/mock/method/undefined.rb
           lookout/mock/methods.rb
           lookout/mock/object.rb
           lookout/object/not.rb

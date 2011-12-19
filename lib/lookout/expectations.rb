@@ -7,7 +7,7 @@ class Lookout::Expectations
   end
 
   def load(path)
-    method = Lookout::Stub::Method.new(Kernel, :Expectations){ |&block|
+    method = Lookout::Stub::Method::Undefined.new(Kernel, :Expectations){ |&block|
       evaluate(&block)
     }.define
     begin

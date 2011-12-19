@@ -18,4 +18,8 @@ class Lookout::Mock::Method::Arguments
   def inspect
     (result = @args.inspect).empty? ? result : '(%s)' % result
   end
+
+  def to_a
+    @args.to_a
+  end
 end

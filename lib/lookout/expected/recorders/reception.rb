@@ -10,9 +10,9 @@ class Lookout::Expected::Recorders::Reception < Lookout::Expected::Object
     Lookout::Expect::Recorders::Reception.new(self, file, line, &block)
   end
 
-  def mock(mocks)
-    mocks.define(subject, @method, *@args, &@body).tap{ |mock|
-      @recording.play_for mock
-    }
+  def mock(methods)
+    methods.define(subject, @method, *@args, @body) do |undefined|
+      @recording.play_for undefined
+    end
   end
 end

@@ -12,4 +12,8 @@ class Lookout::Mock::Method::Arguments::List
   def inspect
     Lookout::Inspect::Argument.list(@args)
   end
+
+  def to_a
+    @args.to_a
+  end
 end

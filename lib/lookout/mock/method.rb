@@ -1,58 +1,19 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method < Lookout::Stub::Method
-  def initialize(object, method, *args, &body)
+module Lookout::Mock::Method
+  include Lookout::Stub::Method
+
+  class << self
+    def build(object, method, *args, body)
+      undefined = Undefined.new(object, method, Arguments.new(*args), &body)
+      yield undefined
+      undefined.define
+    end
+  end
+
+  def initialize(object, method, args, calls, &body)
     super object, method, &body
-    @args = Arguments.new(*args)
-    at_least_once
-  end
-
-  def never
-    exactly(0)
-  end
-
-  def at_most_once
-    at_most(1)
-  end
-
-  def once
-    exactly(1)
-  end
-
-  def at_least_once
-    at_least(1)
-  end
-
-  def twice
-    exactly(2)
-  end
-
-  def at_most(times)
-    @calls = Calls::Upper.new(self, times)
-    self
-  end
-
-  def exactly(times)
-    @calls = Calls::Exactly.new(self, times)
-    self
-  end
-
-  def at_least(times)
-    @calls = Calls::Lower.new(self, times)
-    self
-  end
-
-  def call(*args, &block)
-    @calls.call
-    @args.verify(*args)
-    super
-  rescue Lookout::Mock::Error => e
-    raise e, '%s: %s' % [self, e]
-  end
-
-  def verify
-    @calls.verify
-    self
+    @args, @calls = args, calls
   end
 
   def to_s

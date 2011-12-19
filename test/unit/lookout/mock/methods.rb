@@ -5,8 +5,8 @@ Expectations do
     new('can only mock one method per expectation: mock either stub.a(*args, &block) or stub.b(*args, &block)') do
     methods = Lookout::Mock::Methods.new
     begin
-      methods.define(stub, :a)
-      methods.define(stub, :b)
+      methods.define(stub, :a, *[], proc{ }){ }
+      methods.define(stub, :b, *[], proc{ }){ }
     ensure
       methods.undefine
     end
