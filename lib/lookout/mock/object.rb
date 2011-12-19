@@ -14,6 +14,6 @@ class Lookout::Mock::Object
           new(self,
               method,
               Lookout::Mock::Method::Calls::Exactly.new(method, 0),
-              Lookout::Mock::Method::Arguments.new(*args))
+              *args)
   end
 end

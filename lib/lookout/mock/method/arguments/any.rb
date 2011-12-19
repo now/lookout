@@ -8,4 +8,8 @@ class Lookout::Mock::Method::Arguments::Any
   def inspect
     '*args, &block'
   end
+
+  def to_a
+    [self]
+  end
 end

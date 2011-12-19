@@ -13,8 +13,7 @@ class Lookout::Mock::Methods < Lookout::Stub::Methods
   end
 
   def define(object, method, calls, *args, &body)
-    undefined = Lookout::Mock::Method::Undefined.
-      new(object, method, calls, Lookout::Mock::Method::Arguments.new(*args), &body)
+    undefined = Lookout::Mock::Method::Undefined.new(object, method, calls, *args, &body)
     raise RuntimeError,
       'can only mock one method per expectation: mock either %s or %s' %
         [@methods.first, undefined] unless @methods.empty?
