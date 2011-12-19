@@ -2,8 +2,8 @@
 
 class Lookout::Expect::Reception < Lookout::Expect::Object
   def call
-    Lookout::Mock.methods do |mocks|
-      mock = @expected.mock(mocks)
+    Lookout::Mock::Methods.during do |methods|
+      mock = @expected.mock(methods)
       evaluate_block
       mock.verify
     end

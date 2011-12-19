@@ -6,15 +6,15 @@ Expectations do
   end
 
   expect Lookout::Mock::Method do
-    Lookout::Mock.methods do |mocks|
-      Object.new.to.receive.call.to_lookout_expected.mock(mocks)
+    Lookout::Mock::Methods.during do |methods|
+      Object.new.to.receive.call.to_lookout_expected.mock(methods)
     end
   end
 
   expect 1 do
-    Lookout::Mock.methods do |mocks|
+    Lookout::Mock::Methods.during do |methods|
       o = Object.new
-      o.to.receive.call{ 1 }.to_lookout_expected.mock(mocks)
+      o.to.receive.call{ 1 }.to_lookout_expected.mock(methods)
       o.call
     end
   end

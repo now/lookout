@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Methods < Lookout::Stub::Methods
+  class << self
+    def during
+      methods = new
+      begin
+        yield methods
+      ensure
+        methods.undefine
+      end
+    end
+  end
+
   def define(object, method, calls, *args, &body)
     undefined = Lookout::Mock::Method::Undefined.
       new(object, method, calls, Lookout::Mock::Method::Arguments.new(*args), &body)
