@@ -14,6 +14,7 @@ class Lookout::Expect::Object
   end
 
   def <=>(other)
+    return nil unless self.class == other.class
     [file, line] <=> [other.file, other.line]
   end
 
