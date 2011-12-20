@@ -10,7 +10,7 @@ class Lookout::Expected::Reception < Lookout::Expected::Object
     Lookout::Expect::Reception.new(self, file, line, &block)
   end
 
-  def mock(methods)
+  def define(methods)
     methods.define(subject, @method, @calls, *@args, &@body)
     self
   end

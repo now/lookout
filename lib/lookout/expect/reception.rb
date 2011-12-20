@@ -3,7 +3,7 @@
 class Lookout::Expect::Reception < Lookout::Expect::Object
   def call
     Lookout::Mock::Methods.with_verification do |methods|
-      @expected.mock(methods)
+      @expected.define(methods)
       evaluate_block
     end
     Lookout::Results::Fulfilled.new(file, line)
