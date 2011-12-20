@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::Reception do
+    stub.to.receive.call.to_lookout_expected.actualize('test', 1)
+  end
+
   expect Lookout::Results::Fulfilled.new('test', 1) do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
