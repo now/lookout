@@ -12,5 +12,6 @@ class Lookout::Expected::Reception < Lookout::Expected::Object
 
   def mock(methods)
     methods.define(subject, @method, @calls, *@args, &@body)
+    self
   end
 end

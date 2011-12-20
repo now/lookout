@@ -2,10 +2,9 @@
 
 class Lookout::Expect::Reception < Lookout::Expect::Object
   def call
-    Lookout::Mock::Methods.during do |methods|
-      mock = @expected.mock(methods)
+    Lookout::Mock::Methods.with_verification do |methods|
+      @expected.mock(methods)
       evaluate_block
-      mock.verify
     end
     Lookout::Results::Fulfilled.new(file, line)
   rescue Lookout::Mock::Error => e

@@ -2,13 +2,15 @@
 
 class Lookout::Mock::Methods < Lookout::Stub::Methods
   class << self
-    def during
+    def with_verification
       methods = new
       begin
-        yield methods
+        result = yield(methods)
+        methods.verify
       ensure
         methods.undefine
       end
+      result
     end
   end
 
@@ -17,6 +19,12 @@ class Lookout::Mock::Methods < Lookout::Stub::Methods
     raise RuntimeError,
       'can only mock one method per expectation: mock either %s or %s' %
         [@methods.first, undefined] unless @methods.empty?
-    undefined.define.tap{ |defined| @methods << defined }
+    @methods << undefined.define
+    self
+  end
+
+  def verify
+    @methods.each(&:verify)
+    self
   end
 end
