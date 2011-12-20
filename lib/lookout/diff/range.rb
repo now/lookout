@@ -80,8 +80,11 @@ class Lookout::Diff::Range
   end
 
   def ==(other)
-    range == other.range and items == other.items
+    self.class == other.class and
+      range == other.range and items == other.items
   end
+
+  alias eql? ==
 
   def inspect
     '%p[%p]' % [items, range]
