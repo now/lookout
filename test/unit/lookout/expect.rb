@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expect::StandardError do
+  expect Lookout::Expect::Exception do
     Lookout::Expect.actualize(StandardError.new, 'test', 1)
   end
 

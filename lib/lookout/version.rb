@@ -35,17 +35,18 @@ module Lookout
           lookout/expect/object.rb
           lookout/expect/object/context.rb
           lookout/expect/classes.rb
-          lookout/expect/classes/standarderror.rb
+          lookout/expect/classes/exception.rb
           lookout/expect/output.rb
           lookout/expect/reception.rb
-          lookout/expect/standarderror.rb
+          lookout/expect/exception.rb
           lookout/expect/state.rb
           lookout/expect/warning.rb
           lookout/expected.rb
           lookout/expected/object.rb
           lookout/expected/array.rb
           lookout/expected/classes.rb
-          lookout/expected/classes/standarderror.rb
+          lookout/expected/classes/exception.rb
+          lookout/expected/exception.rb
           lookout/expected/falseclass.rb
           lookout/expected/hash.rb
           lookout/expected/module.rb
@@ -55,7 +56,6 @@ module Lookout
           lookout/expected/output.rb
           lookout/expected/state.rb
           lookout/expected/string.rb
-          lookout/expected/standarderror.rb
           lookout/expected/trueclass.rb
           lookout/expected/warning.rb
           lookout/expectations.rb

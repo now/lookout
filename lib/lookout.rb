@@ -75,15 +75,15 @@ class Regexp
   end
 end
 
-class StandardError
+class Exception
   class << self
     def to_lookout_expected
-      Lookout::Expected::Classes::StandardError.new(self)
+      Lookout::Expected::Classes::Exception.new(self)
     end
   end
 
   def to_lookout_expected
-    Lookout::Expected::StandardError.new(self)
+    Lookout::Expected::Exception.new(self)
   end
 end
 

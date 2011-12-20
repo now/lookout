@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expect::Classes::StandardError < Lookout::Expect::Object
+class Lookout::Expect::Classes::Exception < Lookout::Expect::Object
   def call
     begin
       result = evaluate_block

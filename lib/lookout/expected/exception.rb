@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expected::StandardError < Lookout::Expected::Object
+class Lookout::Expected::Exception < Lookout::Expected::Object
   def actualize(file, line, &block)
-    Lookout::Expect::StandardError.new(self, file, line, &block)
+    Lookout::Expect::Exception.new(self, file, line, &block)
   end
 
   # This test doesn’t quite match that that Ruby defines, as we make sure that
@@ -22,7 +22,7 @@ class Lookout::Expected::StandardError < Lookout::Expected::Object
     return super unless subject.class == other.class and
       String === subject.message and
       not regexp and
-      StandardError === other and
+      Exception === other and
       (other.respond_to? :message rescue false) and
       (m = other.message rescue nil)
     subject.message.to_lookout_expected.diff(m)
