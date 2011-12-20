@@ -94,10 +94,9 @@ module Lookout
           lookout/object/not/receive.rb
           lookout/object/to.rb
           lookout/object/to/receive.rb
-          lookout/recorder.rb
-          lookout/recorder/recording.rb
           lookout/recorders.rb
           lookout/recorders/state.rb
+          lookout/recorders/state/recording.rb
           lookout/recorders/state/verify.rb
           lookout/recorders/state/be.rb
           lookout/recorders/state/have.rb
