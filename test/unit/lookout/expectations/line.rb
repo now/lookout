@@ -34,4 +34,11 @@ Expectations do
       }
     }.entries
   end
+
+  expect 'line expectation not found: %s:%d (RuntimeError)' % [__FILE__, __LINE__ + 3] do
+    Lookout::Results::Unsuccessful.new.tap{ |results|
+      Lookout::Expectations::Line.new(results, __FILE__, __LINE__ + 1).evaluate{
+      }
+    }.entries.first.exception.message
+  end
 end

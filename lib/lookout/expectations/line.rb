@@ -3,7 +3,7 @@
 class Lookout::Expectations::Line < Lookout::Expectations
   def initialize(results, file, line)
     super results
-    @target = Lookout::Expect::Object.new(nil, file, line){
+    @target = nil.to_lookout_expected.actualize(file, line){
       raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
     }
     @previous = nil
