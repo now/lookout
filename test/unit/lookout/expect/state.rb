@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::State do
+    stub(:running? => true).to.be.running?.to_lookout_expected.actualize('test', 1)
+  end
+
   expect Lookout::Results::Fulfilled.new('test', 1) do
     stub(:running? => true).to.be.running?.to_lookout_expected.actualize('test', 1).call
   end
