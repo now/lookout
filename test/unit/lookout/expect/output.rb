@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::Output do
+    Lookout::Output.new('a').to_lookout_expected.actualize('test', 1)
+  end
+
   expect Lookout::Results::Fulfilled.new('test', 1) do
     Lookout::Output.new('a').to_lookout_expected.actualize('test', 1){ |io|
       io.write('a')
