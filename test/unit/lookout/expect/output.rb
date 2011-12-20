@@ -2,13 +2,13 @@
 
 Expectations do
   expect Lookout::Results::Fulfilled.new('test', 1) do
-    Lookout::Expect::Output.new(Lookout::Expected::Output.new(Lookout::Output.new('a')), 'test', 1){ |io|
+    Lookout::Output.new('a').to_lookout_expected.actualize('test', 1){ |io|
       io.write('a')
     }.call
   end
 
   expect Lookout::Results::Failures::State.new('test', 1, 'output("b")≠output("a"): [-b-]{+a+}') do
-    Lookout::Expect::Output.new(Lookout::Expected::Output.new(Lookout::Output.new('a')), 'test', 1){ |io|
+    Lookout::Output.new('a').to_lookout_expected.actualize('test', 1){ |io|
       io.write('b')
     }.call
   end
