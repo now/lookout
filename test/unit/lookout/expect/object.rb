@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::Object do
+    2.to_lookout_expected.actualize('test', 1)
+  end
+
+  expect Lookout::Expect::Object do
+    stub.to_lookout_expected.actualize('test', 1)
+  end
+
   expect Lookout::Results::Fulfilled.new('test', 1) do
     2.to_lookout_expected.actualize('test', 1){ 2 }.call
   end
