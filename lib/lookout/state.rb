@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Recorders::State < Lookout::Aphonic
+class Lookout::State < Lookout::Aphonic
   Error = Class.new(StandardError)
 
   def initialize(subject, *args)
@@ -10,7 +10,7 @@ class Lookout::Recorders::State < Lookout::Aphonic
   end
 
   def to_lookout_expected
-    Lookout::Expected::Recorders::State.new(@subject, Verify.new(@subject, @recording))
+    Lookout::Expected::State.new(@subject, Verify.new(@subject, @recording))
   end
 
   private

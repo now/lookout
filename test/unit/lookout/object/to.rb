@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Recorders::State do
+  expect Lookout::State do
     Lookout::Object::To.new([]).include? 1
   end
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Recorders::State::Not::Verify < Lookout::Recorders::State::Verify
+class Lookout::State::Not::Verify < Lookout::State::Verify
   def call
     play and error
     true

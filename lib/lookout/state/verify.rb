@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Recorders::State::Verify
+class Lookout::State::Verify
   def initialize(subject, recording)
     @subject, @recording = subject, recording
   end
@@ -16,7 +16,7 @@ class Lookout::Recorders::State::Verify
   end
 
   def error
-    raise Lookout::Recorders::State::Error,
+    raise Lookout::State::Error,
       format % [Lookout::Inspect.new(@subject, 'subject').call, @recording]
   end
 

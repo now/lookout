@@ -10,17 +10,17 @@ class Lookout::Object::To < Lookout::Aphonic
   end
 
   def be
-    Lookout::Recorders::State::Be.new(@subject)
+    Lookout::State::Be.new(@subject)
   end
 
   def have
-    Lookout::Recorders::State::Have.new(@subject)
+    Lookout::State::Have.new(@subject)
   end
 
   private
 
   def method_missing(method, *args)
     return super unless method.to_s =~ /\?\z/
-    Lookout::Recorders::State.new(@subject, method, *args)
+    Lookout::State.new(@subject, method, *args)
   end
 end
