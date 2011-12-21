@@ -6,7 +6,7 @@ class Lookout::Inspect
   end
 
   def call
-    (inspection = inspect_object).encode('UTF-8')
+    Lookout::Encode.new(inspection = inspect_object).call
   rescue => e
     '(cannot encode inspected %s for output: %s; %s)' %
       [@type,

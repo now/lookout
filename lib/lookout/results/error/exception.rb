@@ -16,7 +16,7 @@ class Lookout::Results::Error::Exception
     # Chomping off a \n here isn’t 100 percent compatible with how Ruby 1.9
     # does it, but it simplifies the code and also makes the output better if
     # the message is a lone \n.
-    message = (String(exception.message).encode('UTF-8') rescue '').chomp("\n")
+    message = (Lookout::Encode.new(String(exception.message)).call rescue '').chomp("\n")
     if exception_class == RuntimeError and message.empty?
       'unhandled exception'
     elsif message.empty?
@@ -53,7 +53,7 @@ class Lookout::Results::Error::Exception
 
   def exception_class_name
     @exception_class_name ||= begin
-                                exception_class.name.encode('UTF-8')
+                                Lookout::Encode.new(exception_class.name).call
                               rescue => e
                                 'cannot determine class name of exception: %s' %
                                   Lookout::Inspect::Error.new(e).call

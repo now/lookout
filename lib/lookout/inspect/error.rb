@@ -20,10 +20,10 @@ class Lookout::Inspect::Error
   end
 
   def encode(message)
-    message.encode('UTF-8')
+    Lookout::Encode.new(message).call
   rescue => e
     'cannot encode error message for output: %s%s' %
-      [(String(e).encode('UTF-8') rescue
+      [(Lookout::Encode.new(String(e)).call rescue
         'and cannot encode error message for error that generated that error for output either; giving up'),
        ('; dumping instead: %s' % [message.dump] rescue '')]
   end
