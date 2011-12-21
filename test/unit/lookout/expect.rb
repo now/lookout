@@ -12,8 +12,4 @@ Expectations do
   expect Lookout::Expect::Object do
     Lookout::Expect.actualize(Lookout::Aphonic.new, 'test', 1)
   end
-
-  expect RuntimeError do
-    raise 'this StandardError expectation is needed due to a problem in Ruby 1.9.3p0 and NoMethodError'
-  end
 end
