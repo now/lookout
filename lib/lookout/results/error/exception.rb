@@ -44,11 +44,11 @@ class Lookout::Results::Error::Exception
   private
 
   def exception_class
-    @exception_class = begin
-                         exception.class
-                       rescue
-                         Exception
-                       end
+    @exception_class ||= begin
+                           exception.class
+                         rescue
+                           Exception
+                         end
   end
 
   def exception_class_name
