@@ -110,7 +110,7 @@ module Lookout
           lookout/results/failures.rb
           lookout/results/failures/behavior.rb
           lookout/results/failures/state.rb
-          lookout/results/fulfilled.rb
+          lookout/results/success.rb
           lookout/results/trackers.rb
           lookout/results/trackers/failure.rb
           lookout/results/unsuccessful.rb

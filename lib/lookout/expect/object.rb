@@ -30,7 +30,7 @@ class Lookout::Expect::Object
 
   def check(actual)
     @expected =~ actual ?
-      Lookout::Results::Fulfilled.new(file, line) :
+      Lookout::Results::Success.new(file, line) :
       Lookout::Results::Failures::State.new(file, line, @expected.message(actual))
   end
 end

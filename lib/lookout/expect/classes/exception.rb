@@ -5,7 +5,7 @@ class Lookout::Expect::Classes::Exception < Lookout::Expect::Object
     begin
       result = evaluate_block
     rescue @expected.subject
-      return Lookout::Results::Fulfilled.new(file, line)
+      return Lookout::Results::Success.new(file, line)
     rescue Exception => e
       # TODO: Guard against failing e#class?
       return Lookout::Results::Error.new(file, line, @expected.message(e.class), e)

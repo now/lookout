@@ -5,7 +5,7 @@ Expectations do
     Lookout::Output.new('a').to_lookout_expected.actualize('test', 1)
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     Lookout::Output.new('a').to_lookout_expected.actualize('test', 1){ |io|
       io.write('a')
     }.call

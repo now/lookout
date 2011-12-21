@@ -5,7 +5,7 @@ Expectations do
     SystemExit.to_lookout_expected.actualize('test', 1){ exit }
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     begin
       SystemExit.to_lookout_expected.actualize('test', 1){ exit }.call
     rescue SystemExit
@@ -13,11 +13,11 @@ Expectations do
     end
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     StandardError.to_lookout_expected.actualize('test', 1){ raise 'error' }.call
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     RuntimeError.to_lookout_expected.actualize('test', 1){ raise 'error' }.call
   end
 

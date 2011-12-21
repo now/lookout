@@ -9,7 +9,7 @@ class Lookout::Results::Unsuccessful < Lookout::Results
   end
 
   def <<(result)
-    @unsuccessful << result unless Lookout::Results::Fulfilled === result
+    @unsuccessful << result unless Lookout::Results::Success === result
     super
   end
 

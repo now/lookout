@@ -5,7 +5,7 @@ Expectations do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1)
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 
@@ -21,7 +21,7 @@ Expectations do
     stub.not.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     stub.not.to.receive.call.to_lookout_expected.actualize('test', 1).call{ }
   end
 

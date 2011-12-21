@@ -9,7 +9,7 @@ Expectations do
     stub.to_lookout_expected.actualize('test', 1)
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     2.to_lookout_expected.actualize('test', 1){ 2 }.call
   end
 

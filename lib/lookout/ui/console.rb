@@ -4,7 +4,7 @@ class Lookout::UI::Console
   def initialize(results, io = $stderr)
     @io = io
     results.on_new do |result|
-      @io.puts result unless Lookout::Results::Fulfilled === result
+      @io.puts result unless Lookout::Results::Success === result
     end
   end
 

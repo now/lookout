@@ -5,13 +5,13 @@ Expectations do
     Lookout::Warning.new('a').to_lookout_expected.actualize('test', 1)
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     Lookout::Warning.new('a').to_lookout_expected.actualize('test', 1){
       warn 'a'
     }.call
   end
 
-  expect Lookout::Results::Fulfilled.new('test', 1) do
+  expect Lookout::Results::Success.new('test', 1) do
     Lookout::Warning.new('a').to_lookout_expected.actualize('test', 1){
       warn '%s:%d: warning: a' % [__FILE__, __LINE__]
     }.call
