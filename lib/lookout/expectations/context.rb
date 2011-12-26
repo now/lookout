@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations::Context
-  def initialize(expectations)
-    @expectations = expectations
+  def initialize(&block)
+    @block = block
   end
 
   private
 
   def expect(subject, &block)
-    @expectations << Lookout::Expect.actualize(subject,
-                                               *(block.respond_to?(:source_location) ?
-                                                 block.source_location :
-                                                 Lookout.location(caller.first)),
-                                               &block)
+    @block.call Lookout::Expect.actualize(subject,
+                                          *(block.respond_to?(:source_location) ?
+                                            block.source_location :
+                                            Lookout.location(caller.first)),
+                                          &block)
     self
   end
 

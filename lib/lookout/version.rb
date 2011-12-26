@@ -61,7 +61,6 @@ module Lookout
           lookout/expected/warning.rb
           lookout/expectations.rb
           lookout/expectations/context.rb
-          lookout/expectations/line.rb
           lookout/inspect.rb
           lookout/inspect/actual.rb
           lookout/inspect/argument.rb

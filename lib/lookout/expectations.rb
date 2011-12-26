@@ -1,52 +1,52 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expectations
-  def initialize(results)
-    @results = results
-    @context = Context.new(self)
+  include Enumerable
+
+  @@expectations = {}
+
+  class << self
+    def load(path)
+      # TODO: Should wait for @@expectations[path] to be unset.
+      @@expectations[path] = []
+      begin
+        begin
+          Kernel.load path, true
+        rescue SyntaxError => e
+          raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
+          raise SyntaxError, matches[2], [matches[1]] + e.backtrace
+        end
+        @@expectations[path]
+      ensure
+        @@expectations.delete path
+      end
+    end
+
+    def evaluate(path, &block)
+      @@expectations[path] << block
+      self
+    end
   end
 
-  def load(path)
-    method = Lookout::Stub::Method::Undefined.new(Kernel, :Expectations){ |&block|
-      evaluate(&block)
-    }.define
-    begin
-      Kernel.load File.expand_path(path), true
-    rescue SyntaxError => e
-      raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
-      raise SyntaxError, matches[2], [matches[1]] + e.backtrace
-    ensure
-      method.undefine
+  def initialize(path)
+    @path = path
+  end
+
+  def each
+    return enum_for(__method__) unless block_given?
+    context = Lookout::Expectations::Context.new{ |expect| yield expect }
+    self.class.load(@path).each do |expectations|
+      context.instance_eval(&expectations)
     end
     self
+  rescue Interrupt, NoMemoryError, SignalException, SystemExit
+    raise
   rescue Exception => e
-    raise unless error(e)
-  end
-
-  def evaluate(&block)
-    @context.instance_eval(&block)
+    raise unless location = (Array(e.backtrace).first rescue nil)
+    file, line = Lookout.location(location)
+    raise unless file and line
+    # TODO: raise unless file == @path?
+    yield nil.to_lookout_expected.actualize(file, line){ raise e }
     self
-  rescue Exception => e
-    raise unless error(e)
-  end
-
-  def <<(expect)
-    @results << expect.call
-    self
-  end
-
-  private
-
-  def error(e)
-    case e
-    when Interrupt, NoMemoryError, SignalException, SystemExit
-      false
-    else
-      return false unless location = (Array(e.backtrace).first rescue nil)
-      file, line = Lookout.location(location)
-      return false unless file and line
-      @results << Lookout::Results::Error.new(file, line, nil, e)
-      true
-    end
   end
 end

@@ -92,3 +92,8 @@ class String
     Lookout::Expected::String.new(self)
   end
 end
+
+def Expectations(&block)
+  Lookout::Expectations.evaluate(Lookout.location(caller.first).first, &block)
+  self
+end

@@ -4,7 +4,6 @@ require 'lookout'
 
 results = Lookout::Results.new
 failed = Lookout::Results::Trackers::Failure.new(results)
-expectations = Lookout::Expectations.new(results)
 ui = Lookout::UI::Console.new(results)
 line = nil
 only_load = false
@@ -16,9 +15,18 @@ ARGV.each do |arg|
   elsif not only_load and arg =~ /\A-l(.*)/
     line = $1.to_i
   else
-    (line ?
-     Lookout::Expectations::Line.new(results, File.expand_path(arg), line) :
-     expectations).load arg
+    file = File.expand_path(arg)
+    expectations = Lookout::Expectations.new(file)
+    if line
+      target = nil.to_lookout_expected.actualize(file, line){
+        raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
+      }
+      results << (expectations.take_while{ |expect| expect <= target }.last or target).call
+    else
+      expectations.each do |expect|
+        results << expect.call
+      end
+    end
   end
 end
 ui.flush
