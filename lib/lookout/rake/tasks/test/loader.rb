@@ -3,8 +3,8 @@
 require 'lookout'
 
 results = Lookout::Results.new
-failed = Lookout::Results::Trackers::Failure.new(results)
 ui = Lookout::UI::Console.new(results)
+failed = false
 line = nil
 only_load = false
 ARGV.each do |arg|
@@ -24,10 +24,13 @@ ARGV.each do |arg|
       results << (expectations.take_while{ |expect| expect <= target }.last or target).call
     else
       expectations.each do |expect|
-        results << expect.call
+        result = expect.call
+        next if Lookout::Results::Success === result
+        failed = true
+        results << result
       end
     end
   end
 end
 ui.flush
-exit false if failed.failed?
+exit false if failed

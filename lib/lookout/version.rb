@@ -111,8 +111,6 @@ module Lookout
           lookout/results/failures/behavior.rb
           lookout/results/failures/state.rb
           lookout/results/success.rb
-          lookout/results/trackers.rb
-          lookout/results/trackers/failure.rb
           lookout/results/unsuccessful.rb
           lookout/ui.rb
           lookout/ui/console.rb
