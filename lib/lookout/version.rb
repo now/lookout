@@ -111,7 +111,6 @@ module Lookout
           lookout/results/failures/behavior.rb
           lookout/results/failures/state.rb
           lookout/results/success.rb
-          lookout/results/unsuccessful.rb
           lookout/warning.rb
         ',
         :manual => %w'

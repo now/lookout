@@ -2,7 +2,6 @@
 
 require 'lookout'
 
-results = Lookout::Results.new
 failed = false
 line = nil
 only_load = false
