@@ -3,7 +3,6 @@
 require 'lookout'
 
 results = Lookout::Results.new
-ui = Lookout::UI::Console.new(results)
 failed = false
 line = nil
 only_load = false
@@ -27,10 +26,10 @@ ARGV.each do |arg|
         result = expect.call
         next if Lookout::Results::Success === result
         failed = true
+        $stderr.puts result
         results << result
       end
     end
   end
 end
-ui.flush
 exit false if failed
