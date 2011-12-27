@@ -19,15 +19,15 @@ ARGV.each do |arg|
       target = nil.to_lookout_expected.actualize(file, line){
         raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
       }
-      results << (expectations.take_while{ |expect| expect <= target }.last or target).call
+      [(expectations.take_while{ |expect| expect <= target }.last or target)]
     else
-      expectations.each do |expect|
-        result = expect.call
-        next if Lookout::Results::Success === result
-        failed = true
-        $stderr.puts result
-        results << result
-      end
+      expectations
+    end.each do |expect|
+      result = expect.call
+      next if Lookout::Results::Success === result
+      failed = true
+      $stderr.puts result
+      results << result
     end
   end
 end
