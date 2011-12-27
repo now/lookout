@@ -27,7 +27,6 @@ ARGV.each do |arg|
       next if Lookout::Results::Success === result
       failed = true
       $stderr.puts result
-      results << result
     end
   end
 end
