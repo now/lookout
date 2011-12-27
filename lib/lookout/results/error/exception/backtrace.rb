@@ -17,7 +17,7 @@ class Lookout::Results::Error::Exception::Backtrace
                  when Array
                    backtrace.map{ |line|
                      begin
-                       String(line).encode('UTF-8')
+                       Lookout::Encode.new(line).call
                      rescue => e
                        '(cannot retrieve backtrace entry: %s)' %
                          Lookout::Inspect::Error.new(e).call
