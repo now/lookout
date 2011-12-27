@@ -2,7 +2,7 @@
 
 Expectations do
   if RUBY_VERSION < '1.9'
-    expect [:__id__, :__send__, :object_id] do
+    expect ['__id__', '__send__', 'object_id'] do
       Lookout::Aphonic.instance_methods.sort
     end
   else
