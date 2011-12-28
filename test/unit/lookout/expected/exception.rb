@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::Exception do
+    RuntimeError.new('a').to_lookout_expected.actualize('test', 1)
+  end
+
   expect true do
     a = RuntimeError.new('a')
     a.to_lookout_expected =~ a

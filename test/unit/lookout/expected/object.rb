@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::Object do
+    Object.new.to_lookout_expected.actualize('test', 1)
+  end
+
   expect true do
     object = Object.new
     object.to_lookout_expected =~ object

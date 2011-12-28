@@ -5,7 +5,7 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
     Lookout::Expect::Exception.new(self, file, line, &block)
   end
 
-  # This test doesn’t quite match that that Ruby defines, as we make sure that
+  # This test doesn’t quite match that which Ruby defines, as we make sure that
   # the classes are the same.
   # Lookout::Expect::StandardError makes sure of this before this method is
   # called, but it’s safer to have this test here as well, at least until we

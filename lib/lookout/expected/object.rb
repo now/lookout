@@ -5,6 +5,10 @@ class Lookout::Expected::Object
     @subject = subject
   end
 
+  def actualize(file, line, &block)
+    Lookout::Expect::Object.new(self, file, line, &block)
+  end
+
   def =~(other)
     subject == other
   end
@@ -26,10 +30,6 @@ class Lookout::Expected::Object
   end
 
   def diff(other)
-  end
-
-  def actualize(file, line, &block)
-    Lookout::Expect::Object.new(self, file, line, &block)
   end
 
   attr_reader :subject

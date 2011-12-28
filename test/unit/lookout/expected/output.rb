@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect Lookout::Expect::Output do
+    Lookout::Output.new('a').to_lookout_expected.actualize('test', 1)
+  end
+
   expect true do
     Lookout::Output.new('a').to_lookout_expected =~ Lookout::Output.new('a')
   end
