@@ -4,4 +4,8 @@ class Lookout::Mock::Method::Arguments::None < Lookout::Mock::Method::Arguments:
   def initialize
     super
   end
+
+  def to_a
+    [self]
+  end
 end

@@ -64,4 +64,16 @@ Expectations do
   expect '(1)' do
     Lookout::Mock::Method::Arguments.new(1).inspect
   end
+
+  expect [Lookout::Mock::Method::Arguments::Any] do
+    Lookout::Mock::Method::Arguments.new.to_a
+  end
+
+  expect [1, 2, 3] do
+    Lookout::Mock::Method::Arguments.new(1, 2, 3).to_a
+  end
+
+  expect [Lookout::Mock::Method::Arguments::None] do
+    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::None.new).to_a
+  end
 end
