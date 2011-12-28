@@ -11,9 +11,6 @@ class Lookout::Mock::Object
     raise Lookout::Mock::Method::Calls::Error,
       'unexpected call to %s' %
         Lookout::Mock::Method::Undefined.
-          new(self,
-              method,
-              Lookout::Mock::Method::Calls::Exactly.new(method, 0),
-              *args)
+          new(self, method, Lookout::Mock::Method::Calls::Exactly.new(0), *args)
   end
 end

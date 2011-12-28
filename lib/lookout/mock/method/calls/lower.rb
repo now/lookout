@@ -9,7 +9,7 @@ class Lookout::Mock::Method::Calls::Lower < Lookout::Mock::Method::Calls
   format(-1,  2, 'expected %s to be called at least %d times, but was only called twice')
   format(-1, -1, 'expected %s to be called at least %d times, but was only called %d times')
 
-  def initialize(method, limit)
+  def initialize(limit)
     raise ArgumentError, 'limit must be positive: %d < 1' % limit if limit < 1
     super
   end
