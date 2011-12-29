@@ -17,12 +17,6 @@ class Lookout::Mock::Method::Calls::Exactly < Lookout::Mock::Method::Calls
     super
   end
 
-  def call
-    return super unless @calls == @limit
-    super
-    verify
-  end
-
   private
 
   def satisfied?
