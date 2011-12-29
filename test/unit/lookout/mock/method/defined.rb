@@ -8,7 +8,7 @@ Expectations do
       verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new('expected stub.method(*args, &block) not to be called') do
+  expect Lookout::Mock::Method::Calls::Error.new('stub received unexpected #method') do
     Lookout::Mock::Method::Defined.new(stub,
                                        :method,
                                        Lookout::Mock::Method::Calls::Exactly.new(0)).
@@ -16,7 +16,7 @@ Expectations do
   end
 
   expect Lookout::Mock::Method::Calls::Error.
-    new('expected (cannot inspect object: error).method(*args, &block) not to be called') do
+    new('(cannot inspect object: error) received unexpected #method') do
     Lookout::Mock::Method::Defined.new(stub(:inspect => proc{ raise 'error' } ),
                                        :method,
                                        Lookout::Mock::Method::Calls::Exactly.new(0)).

@@ -9,7 +9,7 @@ Expectations do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 
-  expect Lookout::Results::Failures::Behavior.new('test', 1, 'expected stub.call(*args, &block) to be called at least once') do
+  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub didn’t receive #call, expected at least once') do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1).call
   end
 
@@ -23,7 +23,7 @@ Expectations do
     end
   end
 
-  expect Lookout::Results::Failures::Behavior.new('test', 1, 'expected stub.call(*args, &block) not to be called') do
+  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub received unexpected #call') do
     stub.not.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 

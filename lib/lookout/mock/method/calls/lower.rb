@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Calls::Lower < Lookout::Mock::Method::Calls
-  format  1,  0, 'expected %s to be called at least once'
-  format  2,  0, 'expected %s to be called at least twice'
-  format  2,  1, 'expected %s to be called at least twice, but was only called once'
-  format(-1,  0, 'expected %s to be called at least %d times')
-  format(-1,  1, 'expected %s to be called at least %d times, but was only called once')
-  format(-1,  2, 'expected %s to be called at least %d times, but was only called twice')
-  format(-1, -1, 'expected %s to be called at least %d times, but was only called %d times')
+  format  1,  0, '%s didn’t receive #%s, expected at least once'
+  format  2,  0, '%s didn’t receive #%s, expected at least twice'
+  format  2,  1, '%s received #%s once, expected at least twice'
+  format(-1,  0, '%s didn’t receive #%s, expected at least %d times')
+  format(-1,  1, '%s received #%s once, expected at least %d times')
+  format(-1,  2, '%s received #%s twice, expected at least %d times')
+  format(-1,  -1, '%s received #%s %d times, expected at least %d times')
 
   def initialize(limit)
     raise ArgumentError, 'limit must be positive: %d < 1' % limit if limit < 1

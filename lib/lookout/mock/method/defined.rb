@@ -12,7 +12,7 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
   end
 
   def verify
-    @calls.verify(self)
+    @calls.verify(@object, @method)
     self
   end
 

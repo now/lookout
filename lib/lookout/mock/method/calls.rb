@@ -9,7 +9,7 @@ class Lookout::Mock::Method::Calls
       if limit == -1
         formats.default ||= {}
         if calls == -1
-          formats.default.default = [format, [:@limit, :@calls]]
+          formats.default.default = [format, [:@calls, :@limit]]
         else
           formats.default[calls] = [format, [:@limit]]
         end
@@ -41,15 +41,16 @@ class Lookout::Mock::Method::Calls
     self
   end
 
-  def verify(method)
-    raise Error, message(method) unless satisfied?
+  def verify(object, method)
+    raise Error, message(object, method) unless satisfied?
     self
   end
 
   private
 
-  def message(method)
+  def message(object, method)
     format, variables = self.class.format(@limit, @calls)
-    format % ([method] + variables.map{ |v| instance_variable_get(v) })
+    format % ([Lookout::Inspect.new(object, 'object').call, method] +
+              variables.map{ |v| instance_variable_get(v) })
   end
 end

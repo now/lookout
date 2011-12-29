@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Calls::Exactly < Lookout::Mock::Method::Calls
-  format  0,  1, 'expected %s not to be called'
-  format  0,  2, 'expected %s not to be called, but was called twice'
-  format  0, -1, 'expected %s not to be called, but was called %d times'
-  format  1,  0, 'expected %s to be called'
-  format  1,  2, 'expected %s to be called once, not twice'
-  format  1, -1, 'expected %s to be called once, not %d times'
-  format  2,  0, 'expected %s to be called twice'
-  format  2,  1, 'expected %s to be called twice, but was only called once'
-  format  2, -1, 'expected %s to be called twice, not %d times'
-  format(-1,  0, 'expected %s to be called %d times')
-  format(-1,  1, 'expected %s to be called %d times, but was only called once')
-  format(-1,  2, 'expected %s to be called %d times, but was only called twice')
-  format(-1, -1, 'expected %s to be called %d times, not %d times')
+  format  0,  1, '%s received unexpected #%s'
+  format  0,  2, '%s received unexpected #%s twice'
+  format  0, -1, '%s received unexpected #%s %d times'
+  format  1,  0, '%s didn’t receive #%s'
+  format  1,  2, '%s received #%s twice, expected once'
+  format  1, -1, '%s received #%s %d times, expected once'
+  format  2,  0, '%s didn’t receive #%s, expected twice'
+  format  2,  1, '%s received #%s once, expected twice'
+  format  2, -1, '%s received #%s %d times, expected twice'
+  format(-1,  0, '%s didn’t receive #%s, expected %d times')
+  format(-1,  1, '%s received #%s once, expected %d times')
+  format(-1,  2, '%s received #%s twice, expected %d times')
+  format(-1, -1, '%s received #%s %d times, expected %d times')
 
   def initialize(limit)
     raise ArgumentError, 'limit must be non-negative: %d < 0' % limit if limit < 0
