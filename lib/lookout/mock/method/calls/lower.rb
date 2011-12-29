@@ -21,6 +21,6 @@ class Lookout::Mock::Method::Calls::Lower < Lookout::Mock::Method::Calls
   end
 
   def satisfied?
-    @calls >= @limit
+    calls >= limit
   end
 end

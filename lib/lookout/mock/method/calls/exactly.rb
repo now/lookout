@@ -20,6 +20,6 @@ class Lookout::Mock::Method::Calls::Exactly < Lookout::Mock::Method::Calls
   private
 
   def satisfied?
-    @calls == @limit
+    calls == limit
   end
 end
