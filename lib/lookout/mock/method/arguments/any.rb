@@ -5,6 +5,14 @@ class Lookout::Mock::Method::Arguments::Any
     true
   end
 
+  def ==(other)
+    self.class == other.class
+  end
+
+  alias eql? ==
+
+  # TODO: How do we implement #hash?
+
   def inspect
     '*args, &block'
   end

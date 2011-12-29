@@ -13,19 +13,36 @@ class Lookout::Mock::Method::Arguments
   end
 
   def verify(*args)
-    @args =~ args or
+    self.args =~ args or
       raise Error,
         '%s received #%s(%p), expected #%s(%p)' %
-          [Lookout::Inspect.new(@object, 'object').call,
-           @method, List.new(*args),
-           @method, @args]
+          [Lookout::Inspect.new(object, 'object').call,
+           method, List.new(*args),
+           method, self.args]
+  end
+
+  def ==(other)
+    self.class == other.class and
+      object == other.object and
+      method == other.method and
+      args == other.args
+  end
+
+  alias eql? ==
+
+  def hash
+    self.class.hash ^ object.hash ^ method.hash ^ args.hash
   end
 
   def inspect
-    (result = @args.inspect).empty? ? result : '(%s)' % result
+    (result = args.inspect).empty? ? result : '(%s)' % result
   end
 
   def to_a
-    @args.to_a
+    args.to_a
   end
+
+  protected
+
+  attr_reader :object, :method, :args
 end

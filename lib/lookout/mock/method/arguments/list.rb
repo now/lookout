@@ -6,14 +6,29 @@ class Lookout::Mock::Method::Arguments::List
   end
 
   def =~(other)
-    @args.to_lookout_expected =~ other
+    args.to_lookout_expected =~ other
+  end
+
+  def ==(other)
+    self.class == other.class and
+      args == other.args
+  end
+
+  alias eql? ==
+
+  def hash
+    self.class.hash ^ args.hash
   end
 
   def inspect
-    Lookout::Inspect::Argument.list(@args)
+    Lookout::Inspect::Argument.list(args)
   end
 
   def to_a
-    @args.to_a
+    args.to_a
   end
+
+  protected
+
+  attr_reader :args
 end
