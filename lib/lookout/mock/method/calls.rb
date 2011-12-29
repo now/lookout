@@ -38,19 +38,24 @@ class Lookout::Mock::Method::Calls
 
   def call
     @calls += 1
+    error if surpassed?
     self
   end
 
   def verify
-    raise Error, message unless satisfied?
+    error unless satisfied?
     self
   end
 
   private
 
-  def message
+  def surpassed?
+    @calls > @limit
+  end
+
+  def error
     format, variables = self.class.format(@limit, @calls)
-    format % ([Lookout::Inspect.new(@object, 'object').call, @method] +
-              variables.map{ |v| instance_variable_get(v) })
+    raise Error, format % ([Lookout::Inspect.new(@object, 'object').call, @method] +
+                           variables.map{ |v| instance_variable_get(v) })
   end
 end

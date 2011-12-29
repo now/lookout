@@ -16,6 +16,10 @@ class Lookout::Mock::Method::Calls::Lower < Lookout::Mock::Method::Calls
 
   private
 
+  def surpassed?
+    false
+  end
+
   def satisfied?
     @calls >= @limit
   end
