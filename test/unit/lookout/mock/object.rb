@@ -5,11 +5,11 @@ Expectations do
     Lookout::Mock::Object.new.inspect
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new('unexpected call to mock.any_old_method(*args, &block)') do
+  expect Lookout::Mock::Method::Calls::Error.new('mock received #any_old_method unexpectedly') do
     Lookout::Mock::Object.new.any_old_method
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new('unexpected call to mock.any_old_method(1)') do
+  expect Lookout::Mock::Method::Calls::Error.new('mock received #any_old_method unexpectedly') do
     Lookout::Mock::Object.new.any_old_method 1
   end
 end

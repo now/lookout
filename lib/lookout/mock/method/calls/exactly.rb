@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Calls::Exactly < Lookout::Mock::Method::Calls
-  format  0,  1, '%s received unexpected #%s'
+  format  0,  1, '%s received #%s unexpectedly'
   format  1,  0, '%s didn’t receive #%s'
   format  1,  2, '%s received #%s twice, expected once'
   format  2,  0, '%s didn’t receive #%s, expected twice'

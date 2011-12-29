@@ -9,7 +9,7 @@ Expectations do
     o.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new(':object received unexpected #method') do
+  expect Lookout::Mock::Method::Calls::Error.new(':object received #method unexpectedly') do
     Lookout::Mock::Method::Calls::Exactly.new(:object, :method, 0).call
   end
 

@@ -8,9 +8,6 @@ class Lookout::Mock::Object
   private
 
   def method_missing(method, *args, &block)
-    raise Lookout::Mock::Method::Calls::Error,
-      'unexpected call to %s' %
-        Lookout::Mock::Method::Undefined.
-          new(self, method, Lookout::Mock::Method::Calls::Exactly.new(self, method, 0), *args)
+    Lookout::Mock::Method::Calls::Exactly.new(self, method, 0).call
   end
 end
