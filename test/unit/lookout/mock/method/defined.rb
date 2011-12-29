@@ -249,7 +249,7 @@ Expectations do
       tap{ |m| 3.times{ m.call } }.verify
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('stub.method(1, 2, 3): unexpected arguments: (4, 5, 6)≠(1, 2, 3)') do
+  expect Lookout::Mock::Method::Arguments::Error do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,

@@ -5,11 +5,7 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
 
   def call(*args, &block)
     @calls.call
-    begin
-      @args.verify(*args)
-    rescue Lookout::Mock::Error => e
-      raise e, '%s: %s' % [self, e]
-    end
+    @args.verify(*args)
     super
   end
 

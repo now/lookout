@@ -31,7 +31,7 @@ Expectations do
     stub.not.to.receive.call.to_lookout_expected.actualize('test', 1).call{ }
   end
 
-  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub.call(1): unexpected arguments: ()≠(1)') do
+  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub received #call(), expected #call(1)') do
     stub.to.receive.call(1).to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 end

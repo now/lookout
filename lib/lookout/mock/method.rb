@@ -3,7 +3,7 @@
 module Lookout::Mock::Method
   def initialize(object, method, calls, *args, &body)
     super object, method, &body
-    @calls, @args = calls, Arguments.new(*args)
+    @calls, @args = calls, Arguments.new(object, method, *args)
   end
 
   def to_s
