@@ -6,13 +6,23 @@ module Lookout::Mock::Method
     @calls, @args = calls, Arguments.new(object, method, *args)
   end
 
-  def to_s
-    '%s.%s%p' % [Lookout::Inspect.new(@object, 'object').call, @method, @args]
+  def ==(other)
+    super and
+      calls == other.calls and
+      args == other.args
   end
+
+  def to_s
+    '%s.%s%p' % [Lookout::Inspect.new(object, 'object').call, method, args]
+  end
+
+  protected
+
+  attr_reader :calls, :args
 
   private
 
   def stash
-    :"__mocked_method_#{@method}"
+    :"__mocked_method_#{method}"
   end
 end
