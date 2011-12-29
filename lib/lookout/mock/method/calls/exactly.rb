@@ -15,7 +15,7 @@ class Lookout::Mock::Method::Calls::Exactly < Lookout::Mock::Method::Calls
   format(-1,  2, '%s received #%s twice, expected %d times')
   format(-1, -1, '%s received #%s %d times, expected %d times')
 
-  def initialize(limit)
+  def initialize(object, method, limit)
     raise ArgumentError, 'limit must be non-negative: %d < 0' % limit if limit < 0
     super
   end

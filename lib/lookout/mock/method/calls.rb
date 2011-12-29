@@ -31,8 +31,8 @@ class Lookout::Mock::Method::Calls
     end
   end
 
-  def initialize(limit)
-    @limit = limit
+  def initialize(object, method, limit)
+    @object, @method, @limit = object, method, limit
     @calls = 0
   end
 
@@ -41,16 +41,16 @@ class Lookout::Mock::Method::Calls
     self
   end
 
-  def verify(object, method)
-    raise Error, message(object, method) unless satisfied?
+  def verify
+    raise Error, message unless satisfied?
     self
   end
 
   private
 
-  def message(object, method)
+  def message
     format, variables = self.class.format(@limit, @calls)
-    format % ([Lookout::Inspect.new(object, 'object').call, method] +
+    format % ([Lookout::Inspect.new(@object, 'object').call, @method] +
               variables.map{ |v| instance_variable_get(v) })
   end
 end
