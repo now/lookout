@@ -10,11 +10,11 @@ Expectations do
   end
 
   expect '1, 2, 3' do
-    Lookout::Mock::Method::Arguments::List.new(1, 2, 3).inspect
+    Lookout::Mock::Method::Arguments::List.new(1, 2, 3).to_s
   end
 
   expect '1, (cannot inspect argument: error), 3' do
-    Lookout::Mock::Method::Arguments::List.new(1, stub(:inspect => proc{ raise 'error' } ), 3).inspect
+    Lookout::Mock::Method::Arguments::List.new(1, stub(:inspect => proc{ raise 'error' } ), 3).to_s
   end
 
   expect [1, 2, 3] do

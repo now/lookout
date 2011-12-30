@@ -20,7 +20,7 @@ class Lookout::Mock::Method::Arguments::List
     self.class.hash ^ args.hash
   end
 
-  def inspect
+  def to_s
     Lookout::Inspect::Argument.list(args)
   end
 

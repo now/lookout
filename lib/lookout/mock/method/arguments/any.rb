@@ -11,9 +11,11 @@ class Lookout::Mock::Method::Arguments::Any
 
   alias eql? ==
 
-  # TODO: How do we implement #hash?
+  def hash
+    self.class.hash
+  end
 
-  def inspect
+  def to_s
     '*args, &block'
   end
 

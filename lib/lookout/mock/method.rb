@@ -13,7 +13,7 @@ module Lookout::Mock::Method
   end
 
   def to_s
-    '%s.%s%p' % [Lookout::Inspect.new(object, 'object').call, method, args]
+    '%s#%s' % [Lookout::Inspect.new(object, 'object').call, method]
   end
 
   protected

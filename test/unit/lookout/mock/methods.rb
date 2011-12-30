@@ -2,7 +2,7 @@
 
 Expectations do
   expect RuntimeError.
-    new('can only mock one method per expectation: mock either stub.a(*args, &block) or stub.b(*args, &block)') do
+    new('can only mock one method per expectation: mock either stub#a or stub#b') do
     Lookout::Mock::Methods.
       new.
       define(stub, :a, Lookout::Mock::Method::Calls::Lower.new(stub, :a, 1)).

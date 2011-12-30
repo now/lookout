@@ -2,7 +2,7 @@
 
 Expectations do
   expect '*args, &block' do
-    Lookout::Mock::Method::Arguments::Any.new.inspect
+    Lookout::Mock::Method::Arguments::Any.new.to_s
   end
 
   expect true do

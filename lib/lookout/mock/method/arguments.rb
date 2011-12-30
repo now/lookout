@@ -15,7 +15,7 @@ class Lookout::Mock::Method::Arguments
   def verify(*args)
     self.args =~ args or
       raise Error,
-        '%s received #%s(%p), expected #%s(%p)' %
+        '%s received #%s(%s), expected #%s(%s)' %
           [Lookout::Inspect.new(object, 'object').call,
            method, List.new(*args),
            method, self.args]
@@ -34,8 +34,8 @@ class Lookout::Mock::Method::Arguments
     self.class.hash ^ object.hash ^ method.hash ^ args.hash
   end
 
-  def inspect
-    (result = args.inspect).empty? ? result : '(%s)' % result
+  def to_s
+    (result = args.to_s).empty? ? result : '(%s)' % result
   end
 
   def to_a
