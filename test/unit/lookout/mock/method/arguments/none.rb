@@ -10,7 +10,7 @@ Expectations do
   end
 
   expect '' do
-    Lookout::Mock::Method::Arguments::None.new.inspect
+    Lookout::Mock::Method::Arguments::None.new.to_s
   end
 
   expect [Lookout::Mock::Method::Arguments::None] do
