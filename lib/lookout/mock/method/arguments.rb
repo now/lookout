@@ -3,8 +3,7 @@
 class Lookout::Mock::Method::Arguments
   Error = Class.new(Lookout::Mock::Error)
 
-  def initialize(object, method, *args)
-    @object, @method = object, method
+  def initialize(*args)
     @args = if args.empty? then Any.new
             elsif any = args.find{ |e| Any === e } then any
             elsif none = args.find{ |e| None === e } then none
@@ -14,11 +13,7 @@ class Lookout::Mock::Method::Arguments
 
   def verify(*args)
     self.args =~ args or
-      raise Error,
-        '%s received #%s(%s), expected #%s(%s)' %
-          [Lookout::Inspect.new(object, 'object').call,
-           method, List.new(*args),
-           method, self.args]
+      raise Error, '(%s)≠(%s)' % [List.new(*args), self.args]
   end
 
   def ==(other)
