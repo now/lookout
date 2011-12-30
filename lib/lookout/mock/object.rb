@@ -8,6 +8,9 @@ class Lookout::Mock::Object
   private
 
   def method_missing(method, *args, &block)
-    Lookout::Mock::Method::Calls::Exactly.new(self, method, 0).call
+    Lookout::Mock::Method::Defined.
+      new(self,
+          method,
+          Lookout::Mock::Method::Calls::Exactly.new(0)).call
   end
 end

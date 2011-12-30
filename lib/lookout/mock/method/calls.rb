@@ -3,8 +3,8 @@
 module Lookout::Mock::Method::Calls
   Error = Class.new(Lookout::Mock::Error)
 
-  def initialize(object, method, limit)
-    @object, @method, @limit = object, method, limit
+  def initialize(limit)
+    @limit = limit
     @calls = 0
   end
 
@@ -21,24 +21,18 @@ module Lookout::Mock::Method::Calls
 
   def ==(other)
     self.class == other.class and
-      object == other.object and
-      method == other.method and
       limit == other.limit and
       calls == other.calls
   end
 
   def to_s
-    '%s #%s receipts: %d%s%d' %
-      [Lookout::Inspect.new(object, 'object').call,
-       method,
-       calls,
-       (satisfied? and not surpassed?) ? operator : negation,
-       limit]
+    '%d%s%d' %
+      [calls, (satisfied? and not surpassed?) ? operator : negation, limit]
   end
 
   protected
 
-  attr_reader :object, :method, :limit, :calls
+  attr_reader :limit, :calls
   attr_writer :calls
 
   private

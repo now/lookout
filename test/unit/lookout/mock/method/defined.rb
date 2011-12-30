@@ -5,7 +5,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 0)).
+          Lookout::Mock::Method::Calls::Exactly.new(0)).
       verify
   end
 
@@ -13,7 +13,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 0)).
+          Lookout::Mock::Method::Calls::Exactly.new(0)).
       tap{ |m| m.call }.verify
   end
 
@@ -21,7 +21,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub(:inspect => proc{ raise 'error' } ),
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 0)).
+          Lookout::Mock::Method::Calls::Exactly.new(0)).
       tap{ |m| m.call }.verify
   end
 
@@ -29,7 +29,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 0)).
+          Lookout::Mock::Method::Calls::Exactly.new(0)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -37,7 +37,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 0)).
+          Lookout::Mock::Method::Calls::Exactly.new(0)).
       tap{ |m| 3.times{ m.call } }.verify
   end
 
@@ -45,7 +45,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Upper.new(1)).
       verify
   end
 
@@ -53,7 +53,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Upper.new(1)).
       tap{ |m| m.call }.verify
   end
 
@@ -61,7 +61,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Upper.new(1)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -69,7 +69,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Exactly.new(1)).
       verify
   end
 
@@ -77,7 +77,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Exactly.new(1)).
       tap{ |m| m.call }.verify
   end
 
@@ -85,7 +85,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Exactly.new(1)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -93,7 +93,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Exactly.new(1)).
       tap{ |m| 3.times{ m.call } }.verify
   end
 
@@ -101,7 +101,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Lower.new(1)).
       verify
   end
 
@@ -109,7 +109,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Lower.new(1)).
       tap{ |m| m.call }.verify
   end
 
@@ -117,7 +117,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 1)).
+          Lookout::Mock::Method::Calls::Lower.new(1)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -125,7 +125,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       verify
   end
 
@@ -133,7 +133,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       tap{ |m| m.call }.verify
   end
 
@@ -141,7 +141,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -149,7 +149,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       tap{ |m| 3.times{ m.call } }.verify
   end
 
@@ -157,7 +157,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Lower.new(2)).
       verify
   end
 
@@ -165,7 +165,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Lower.new(2)).
       tap{ |m| m.call }.verify
   end
 
@@ -173,7 +173,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Lower.new(2)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -181,7 +181,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Lower.new(2)).
       tap{ |m| 3.times{ m.call } }.verify
   end
 
@@ -189,7 +189,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       verify
   end
 
@@ -197,7 +197,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       tap{ |m| m.call }.verify
   end
 
@@ -205,7 +205,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -213,7 +213,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Exactly.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Exactly.new(2)).
       tap{ |m| 3.times{ m.call } }.verify
   end
 
@@ -221,7 +221,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Upper.new(2)).
       verify
   end
 
@@ -229,7 +229,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Upper.new(2)).
       tap{ |m| m.call }.verify
   end
 
@@ -237,7 +237,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Upper.new(2)).
       tap{ |m| 2.times{ m.call } }.verify
   end
 
@@ -245,7 +245,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Upper.new(stub, :method, 2)).
+          Lookout::Mock::Method::Calls::Upper.new(2)).
       tap{ |m| 3.times{ m.call } }.verify
   end
 
@@ -253,7 +253,7 @@ Expectations do
     Lookout::Mock::Method::Defined.
       new(stub,
           :method,
-          Lookout::Mock::Method::Calls::Lower.new(stub, :method, 1),
+          Lookout::Mock::Method::Calls::Lower.new(1),
           1, 2, 3).call(4, 5, 6)
   end
 end

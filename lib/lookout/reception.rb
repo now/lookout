@@ -51,9 +51,7 @@ class Lookout::Reception
   private
 
   def calls(calls, times, format)
-    @calls = calls.new(@object,
-                       @method,
-                       begin times.to_int; rescue => e; raise e, format % e end)
+    @calls = calls.new(begin times.to_int; rescue => e; raise e, format % e end)
     self
   end
 end

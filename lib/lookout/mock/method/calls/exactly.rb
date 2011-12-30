@@ -2,7 +2,7 @@
 
 class Lookout::Mock::Method::Calls::Exactly
   include Lookout::Mock::Method::Calls
-  def initialize(object, method, limit)
+  def initialize(limit)
     raise ArgumentError, 'limit must be non-negative: %d < 0' % limit if limit < 0
     super
   end

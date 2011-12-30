@@ -7,11 +7,15 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
     calls.call
     self.args.verify(*args)
     super
+  rescue Lookout::Mock::Method::Calls::Error => e
+    raise e, '%s calls: %s' % [self, e]
   end
 
   def verify
     calls.verify
     self
+  rescue Lookout::Mock::Method::Calls::Error => e
+    raise e, '%s calls: %s' % [self, e]
   end
 
   private
