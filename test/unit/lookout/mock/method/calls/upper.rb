@@ -21,7 +21,7 @@ Expectations do
     o.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new(':object received #method twice, expected at most once') do
+  expect Lookout::Mock::Method::Calls::Error.new(':object #method receipts: 2>1') do
     Lookout::Mock::Method::Calls::Upper.new(:object, :method, 1).call.call
   end
 
@@ -37,27 +37,7 @@ Expectations do
     o.call.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new(':object received #method 3 times, expected at most twice') do
+  expect Lookout::Mock::Method::Calls::Error.new(':object #method receipts: 3>2') do
     Lookout::Mock::Method::Calls::Upper.new(:object, :method, 2).call.call.call
-  end
-
-  expect Lookout::Mock::Method::Calls::Upper.new(:object, :method, 3) do |o|
-    o.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Upper.new(:object, :method, 3) do |o|
-    o.call.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Upper.new(:object, :method, 3) do |o|
-    o.call.call.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Upper.new(:object, :method, 3) do |o|
-    o.call.call.call.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error.new(':object received #method 4 times, expected at most 3 times') do
-    Lookout::Mock::Method::Calls::Upper.new(:object, :method, 3).call.call.call.call
   end
 end

@@ -1,35 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Mock::Method::Calls
+module Lookout::Mock::Method::Calls
   Error = Class.new(Lookout::Mock::Error)
-
-  class << self
-    def format(limit, calls, format = nil)
-      return formats[limit][calls] unless format
-      if limit == -1
-        formats.default ||= {}
-        if calls == -1
-          formats.default.default = [format, [:calls, :limit]]
-        else
-          formats.default[calls] = [format, [:limit]]
-        end
-      else
-        formats[limit] ||= {}
-        if calls == -1
-          formats[limit].default = [format, [:calls]]
-        else
-          formats[limit][calls] = [format, []]
-        end
-      end
-      self
-    end
-
-    private
-
-    def formats
-      @formats ||= {}
-    end
-  end
 
   def initialize(object, method, limit)
     @object, @method, @limit = object, method, limit
@@ -55,6 +27,15 @@ class Lookout::Mock::Method::Calls
       calls == other.calls
   end
 
+  def to_s
+    '%s #%s receipts: %d%s%d' %
+      [Lookout::Inspect.new(object, 'object').call,
+       method,
+       calls,
+       (satisfied? and not surpassed?) ? operator : negation,
+       limit]
+  end
+
   protected
 
   attr_reader :object, :method, :limit, :calls
@@ -67,8 +48,6 @@ class Lookout::Mock::Method::Calls
   end
 
   def error
-    format, variables = self.class.format(limit, calls)
-    raise Error, format % ([Lookout::Inspect.new(object, 'object').call, method] +
-                           variables.map{ |v| self.send(v) })
+    raise Error, self.to_s
   end
 end
