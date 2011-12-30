@@ -59,11 +59,11 @@ Expectations do
   end
 
   expect '' do
-    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::None.new).inspect
+    Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::None.new).to_s
   end
 
   expect '(1)' do
-    Lookout::Mock::Method::Arguments.new(1).inspect
+    Lookout::Mock::Method::Arguments.new(1).to_s
   end
 
   expect [Lookout::Mock::Method::Arguments::Any] do
