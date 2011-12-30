@@ -8,9 +8,9 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
     self.args.verify(*args)
     super
   rescue Lookout::Mock::Method::Calls::Error => e
-    raise e, '%s invocation limit exceeded: %s' % [self, e]
+    raise e, '%s calls: %s' % [self, e]
   rescue Lookout::Mock::Method::Arguments::Error => e
-    raise e, '%s invoked with unexpected arguments: %s' % [self, e]
+    raise e, '%s arguments: %s' % [self, e]
   end
 
   def verify
