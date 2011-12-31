@@ -15,7 +15,7 @@ Expectations do
 
   expect 2 do
     s = stub(:a => 1)
-    Lookout::Mock::Methods.with_verification do |methods|
+    Lookout::Mock::Methods.during do |methods|
       methods.define(s, :a, Lookout::Mock::Method::Calls::Lower.new(1)){ 2 }
       s.a
     end
@@ -27,7 +27,7 @@ Expectations do
 
   expect NoMethodError do
     s = Object.new
-    Lookout::Mock::Methods.with_verification do |methods|
+    Lookout::Mock::Methods.during do |methods|
       methods.define(s, :a, Lookout::Mock::Method::Calls::Exactly.new(0)){ 2 }
     end
     s.a
@@ -35,7 +35,7 @@ Expectations do
 
   expect 1 do
     s = stub(:a => 1)
-    Lookout::Mock::Methods.with_verification do |methods|
+    Lookout::Mock::Methods.during do |methods|
       methods.define(s, :a, Lookout::Mock::Method::Calls::Exactly.new(0)){ 2 }
     end
     s.a
@@ -43,7 +43,7 @@ Expectations do
 
   expect Lookout::Mock::Method::Calls::Error do
     s = stub(:a => 1)
-    Lookout::Mock::Methods.with_verification do |methods|
+    Lookout::Mock::Methods.during do |methods|
       methods.define(s, :a, Lookout::Mock::Method::Calls::Lower.new(1)){ 2 }
     end
   end

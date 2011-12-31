@@ -11,9 +11,8 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
     raise e, '%s: %s' % [self, e]
   end
 
-  def verify
-    calls.verify
-    self
+  def undefine
+    super.tap{ calls.verify }
   rescue Lookout::Mock::Error => e
     raise e, '%s: %s' % [self, e]
   end

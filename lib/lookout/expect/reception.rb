@@ -2,7 +2,7 @@
 
 class Lookout::Expect::Reception < Lookout::Expect::Object
   def call
-    Lookout::Mock::Methods.with_verification do |methods|
+    Lookout::Mock::Methods.during do |methods|
       @expected.define(methods)
       evaluate_block
     end

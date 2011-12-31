@@ -2,15 +2,17 @@
 
 class Lookout::Mock::Methods < Lookout::Stub::Methods
   class << self
-    def with_verification
+    def during
       methods = new
       begin
-        result = yield(methods)
-        methods.verify
-      ensure
-        methods.undefine
-      end
-      result
+        yield(methods)
+      rescue
+        begin
+          methods.undefine
+        rescue Lookout::Mock::Method::Calls::Error
+        end
+        raise
+      end.tap{ methods.undefine }
     end
   end
 
@@ -20,11 +22,6 @@ class Lookout::Mock::Methods < Lookout::Stub::Methods
       'can only mock one method per expectation: mock either %s or %s' %
         [@methods.first, undefined] unless @methods.empty?
     @methods << undefined.define
-    self
-  end
-
-  def verify
-    @methods.each(&:verify)
     self
   end
 end
