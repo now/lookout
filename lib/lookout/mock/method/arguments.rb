@@ -13,7 +13,7 @@ class Lookout::Mock::Method::Arguments
 
   def verify(*args)
     self.args =~ args or
-      raise Error, '(%s)≠(%s)' % [List.new(*args), self.args]
+      raise Error, 'unexpected arguments ([%s]≠[%s])' % [List.new(*args), self.args]
   end
 
   def ==(other)

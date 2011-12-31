@@ -39,7 +39,7 @@ Expectations do
     stub.to.receive.call(1).to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 
-  expect 'stub#call: ()≠(1) (Lookout::Mock::Method::Arguments::Error)' do
+  expect 'stub#call: unexpected arguments ([]≠[1]) (Lookout::Mock::Method::Arguments::Error)' do
     stub.to.receive.call(1).to_lookout_expected.actualize('test', 1){ |o| o.call }.call.exception.message
   end
 end

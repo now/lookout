@@ -13,7 +13,7 @@ Expectations do
     Lookout::Mock::Method::Arguments.new.verify(1, 2)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('()≠(Object)') do
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments ([]≠[Object])') do
     Lookout::Mock::Method::Arguments.new(Object).verify
   end
 
@@ -21,16 +21,16 @@ Expectations do
     Lookout::Mock::Method::Arguments.new(Object).verify(1)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('(1, 2)≠(Object)') do
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments ([1, 2]≠[Object])') do
     Lookout::Mock::Method::Arguments.new(Object).verify(1, 2)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('(1)≠(Object, Object)') do
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments ([1]≠[Object, Object])') do
     Lookout::Mock::Method::Arguments.new(Object, Object).verify(1)
   end
 
   expect Lookout::Mock::Method::Arguments::Error.
-    new('((cannot inspect argument: error))≠(Object, Object)') do
+    new('unexpected arguments ([(cannot inspect argument: error)]≠[Object, Object])') do
     Lookout::Mock::Method::Arguments.new(Object, Object).verify(stub(:inspect => proc{ raise 'error' }))
   end
 
@@ -42,7 +42,7 @@ Expectations do
     Lookout::Mock::Method::Arguments.new(1, 2, 3).verify(1, 2, 3)
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('(4, 5, 6)≠(1, 2, 3)') do
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments ([4, 5, 6]≠[1, 2, 3])') do
     Lookout::Mock::Method::Arguments.new(1, 2, 3).verify(4, 5, 6)
   end
 
@@ -54,7 +54,7 @@ Expectations do
     Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::None.new).verify
   end
 
-  expect Lookout::Mock::Method::Arguments::Error.new('(4)≠()') do
+  expect Lookout::Mock::Method::Arguments::Error.new('unexpected arguments ([4]≠[])') do
     Lookout::Mock::Method::Arguments.new(Lookout::Mock::Method::Arguments::None.new).verify(4)
   end
 
