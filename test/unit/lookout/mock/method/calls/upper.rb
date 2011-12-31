@@ -21,7 +21,7 @@ Expectations do
     o.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new('2>1') do
+  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (2 for 0..1)') do
     Lookout::Mock::Method::Calls::Upper.new(1).call.call
   end
 
@@ -37,7 +37,7 @@ Expectations do
     o.call.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error.new('3>2') do
+  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (3 for 0..2)') do
     Lookout::Mock::Method::Calls::Upper.new(2).call.call.call
   end
 end

@@ -9,7 +9,7 @@ Expectations do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 
-  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub#call calls: 0<1') do
+  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub#call: unexpected number of invocations (0 for 1..)') do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1).call
   end
 
@@ -23,15 +23,23 @@ Expectations do
     end
   end
 
-  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub#call calls: 1≠0') do
+  expect Lookout::Results::Error do
     stub.not.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
+  end
+
+  expect 'stub#call: unexpected number of invocations (1 for 0) (Lookout::Mock::Method::Calls::TooManyError)' do
+    stub.not.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call.exception.message
   end
 
   expect Lookout::Results::Success.new('test', 1) do
     stub.not.to.receive.call.to_lookout_expected.actualize('test', 1).call{ }
   end
 
-  expect Lookout::Results::Failures::Behavior.new('test', 1, 'stub#call arguments: ()≠(1)') do
+  expect Lookout::Results::Error do
     stub.to.receive.call(1).to_lookout_expected.actualize('test', 1){ |o| o.call }.call
+  end
+
+  expect 'stub#call: ()≠(1) (Lookout::Mock::Method::Arguments::Error)' do
+    stub.to.receive.call(1).to_lookout_expected.actualize('test', 1){ |o| o.call }.call.exception.message
   end
 end

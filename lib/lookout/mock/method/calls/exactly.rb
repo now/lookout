@@ -7,17 +7,13 @@ class Lookout::Mock::Method::Calls::Exactly
     super
   end
 
+  def to_s
+    '%d' % limit
+  end
+
   private
 
   def satisfied?
     calls == limit
-  end
-
-  def operator
-    '='
-  end
-
-  def negation
-    '≠'
   end
 end

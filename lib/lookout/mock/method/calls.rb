@@ -2,6 +2,8 @@
 
 module Lookout::Mock::Method::Calls
   Error = Class.new(Lookout::Mock::Error)
+  TooManyError = Class.new(Error)
+  TooFewError = Class.new(Error)
 
   def initialize(limit)
     @limit = limit
@@ -10,12 +12,12 @@ module Lookout::Mock::Method::Calls
 
   def call
     self.calls += 1
-    error if surpassed?
+    error TooManyError if surpassed?
     self
   end
 
   def verify
-    error unless satisfied?
+    error TooFewError unless satisfied?
     self
   end
 
@@ -23,11 +25,6 @@ module Lookout::Mock::Method::Calls
     self.class == other.class and
       limit == other.limit and
       calls == other.calls
-  end
-
-  def to_s
-    '%d%s%d' %
-      [calls, (satisfied? and not surpassed?) ? operator : negation, limit]
   end
 
   protected
@@ -41,7 +38,7 @@ module Lookout::Mock::Method::Calls
     calls > limit
   end
 
-  def error
-    raise Error, self.to_s
+  def error(type)
+    raise type, 'unexpected number of invocations (%d for %s)' % [calls, self]
   end
 end

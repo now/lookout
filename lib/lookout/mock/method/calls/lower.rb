@@ -7,6 +7,10 @@ class Lookout::Mock::Method::Calls::Lower
     super
   end
 
+  def to_s
+    '%d..' % limit
+  end
+
   private
 
   def surpassed?
@@ -15,13 +19,5 @@ class Lookout::Mock::Method::Calls::Lower
 
   def satisfied?
     calls >= limit
-  end
-
-  def operator
-    '≥'
-  end
-
-  def negation
-    '<'
   end
 end

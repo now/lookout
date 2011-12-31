@@ -8,17 +8,13 @@ class Lookout::Mock::Method::Calls::Upper
     super
   end
 
+  def to_s
+    '0..%d' % limit
+  end
+
   private
 
   def satisfied?
     true
-  end
-
-  def operator
-    '≤'
-  end
-
-  def negation
-    '>'
   end
 end
