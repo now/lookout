@@ -13,7 +13,9 @@ module Lookout::Mock::Method
   end
 
   def to_s
-    '%s#%s' % [Lookout::Inspect.new(object, 'object').call, method]
+    '%s%s%s' % [Lookout::Inspect.new(object, 'object').call,
+                Class === object ? '.' : '#',
+                method]
   end
 
   protected

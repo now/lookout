@@ -2,258 +2,60 @@
 
 Expectations do
   expect Lookout::Mock::Method::Defined do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(0)).
-      verify
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Exactly.new(0)).verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(0)).
-      tap{ |m| m.call }.verify
+  expect Lookout::Mock::Method::Calls::TooManyError.new('stub#method: unexpected number of invocations (1 for 0)') do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Exactly.new(0)).call
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub(:inspect => proc{ raise 'error' } ),
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(0)).
-      tap{ |m| m.call }.verify
+  expect Lookout::Mock::Method::Calls::TooManyError.new('Class.method: unexpected number of invocations (1 for 0)') do
+    Lookout::Mock::Method::Defined.new(Class, :method, Lookout::Mock::Method::Calls::Exactly.new(0)).call
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(0)).
-      tap{ |m| 2.times{ m.call } }.verify
+  expect Lookout::Mock::Method::Calls::TooManyError.new('(cannot inspect object: error)#method: unexpected number of invocations (1 for 0)') do
+    Lookout::Mock::Method::Defined.new(stub(:inspect => proc{ raise 'error' } ),
+                                       :method,
+                                       Lookout::Mock::Method::Calls::Exactly.new(0)).call
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(0)).
-      tap{ |m| 3.times{ m.call } }.verify
+  expect Lookout::Mock::Method::Defined do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Upper.new(1)).verify
   end
 
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(1)).
-      verify
+  expect Lookout::Mock::Method::Defined do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Upper.new(1)).tap{ |m| m.call }.verify
   end
 
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(1)).
-      tap{ |m| m.call }.verify
+  expect Lookout::Mock::Method::Calls::TooManyError do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Upper.new(1)).tap{ |m| 2.times{ m.call } }.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(1)).
-      tap{ |m| 2.times{ m.call } }.verify
+  expect Lookout::Mock::Method::Calls::TooFewError.new('stub#method: unexpected number of invocations (0 for 1)') do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Exactly.new(1)).verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(1)).
-      verify
+  expect Lookout::Mock::Method::Defined do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Exactly.new(1)).tap{ |m| m.call }.verify
   end
 
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(1)).
-      tap{ |m| m.call }.verify
+  expect Lookout::Mock::Method::Calls::TooManyError do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Exactly.new(1)).tap{ |m| 2.times{ m.call } }.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(1)).
-      tap{ |m| 2.times{ m.call } }.verify
+  expect Lookout::Mock::Method::Calls::TooFewError do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Lower.new(1)).verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(1)).
-      tap{ |m| 3.times{ m.call } }.verify
+  expect Lookout::Mock::Method::Defined do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Lower.new(1)).tap{ |m| m.call }.verify
   end
 
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(1)).
-      verify
+  expect Lookout::Mock::Method::Defined do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Lower.new(1)).tap{ |m| 2.times{ m.call } }.verify
   end
 
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(1)).
-      tap{ |m| m.call }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(1)).
-      tap{ |m| 2.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      tap{ |m| m.call }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      tap{ |m| 2.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      tap{ |m| 3.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(2)).
-      verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(2)).
-      tap{ |m| m.call }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(2)).
-      tap{ |m| 2.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(2)).
-      tap{ |m| 3.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      tap{ |m| m.call }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      tap{ |m| 2.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Exactly.new(2)).
-      tap{ |m| 3.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(2)).
-      verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(2)).
-      tap{ |m| m.call }.verify
-  end
-
-  expect Lookout::Mock::Method do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(2)).
-      tap{ |m| 2.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Calls::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Upper.new(2)).
-      tap{ |m| 3.times{ m.call } }.verify
-  end
-
-  expect Lookout::Mock::Method::Arguments::Error do
-    Lookout::Mock::Method::Defined.
-      new(stub,
-          :method,
-          Lookout::Mock::Method::Calls::Lower.new(1),
-          1, 2, 3).call(4, 5, 6)
+  expect Lookout::Mock::Method::Arguments::Error.new('stub#method: unexpected arguments ([]≠[1])') do
+    Lookout::Mock::Method::Defined.new(stub, :method, Lookout::Mock::Method::Calls::Exactly.new(1), 1).call
   end
 end
