@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect ArgumentError.new('limit must be positive: -1 < 1') do
+  expect ArgumentError.new('lower mock method invocation limit must be positive: -1 < 1') do
     Lookout::Mock::Method::Calls::Lower.new(-1)
   end
 
-  expect ArgumentError.new('limit must be positive: 0 < 1') do
+  expect ArgumentError.new('lower mock method invocation limit must be positive: 0 < 1') do
     Lookout::Mock::Method::Calls::Lower.new(0)
   end
 

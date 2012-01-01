@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect ArgumentError.new('limit must be non-negative: -1 < 0') do
+  expect ArgumentError.new('expected mock method invocation count must be non-negative: -1 < 0') do
     Lookout::Mock::Method::Calls::Exactly.new(-1)
   end
 

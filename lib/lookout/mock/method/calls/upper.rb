@@ -4,7 +4,9 @@ class Lookout::Mock::Method::Calls::Upper
   include Lookout::Mock::Method::Calls
 
   def initialize(limit)
-    raise ArgumentError, 'limit must be positive: %d < 1' % limit if limit < 1
+    raise ArgumentError,
+      'upper mock method invocation limit must be positive: %d < 1' %
+        limit if limit < 1
     super
   end
 
