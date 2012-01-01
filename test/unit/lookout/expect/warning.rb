@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expect::Warning do
+  expect Lookout::Expect::Lookout::Warning do
     Lookout::Warning.new('a').to_lookout_expected.actualize('test', 1)
   end
 

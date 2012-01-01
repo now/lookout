@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expect::Reception do
+  expect Lookout::Expect::Lookout::Reception do
     Object.new.to.receive.call.to_lookout_expected.actualize('test', 1)
   end
 
-  expect Lookout::Expected::Reception do
+  expect Lookout::Expected::Lookout::Reception do
     Object.new.to.receive.call.to_lookout_expected.define(Lookout::Mock::Methods.new)
   end
 

@@ -19,7 +19,7 @@ class Lookout::Warning < Lookout::Output
   end
 
   def to_lookout_expected
-    Lookout::Expected::Warning.new(self)
+    Lookout::Expected::Lookout::Warning.new(self)
   end
 
   protected

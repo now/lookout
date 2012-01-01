@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Expect::Output < Lookout::Expect::Object
+class Lookout::Expect::Lookout::Output < Lookout::Expect::Object
   private
 
   def evaluate_block

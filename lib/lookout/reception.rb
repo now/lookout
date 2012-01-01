@@ -45,7 +45,7 @@ class Lookout::Reception
   end
 
   def to_lookout_expected
-    Lookout::Expected::Reception.new(@object, @method, @calls, *@args, &@body)
+    Lookout::Expected::Lookout::Reception.new(@object, @method, @calls, *@args, &@body)
   end
 
   private

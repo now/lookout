@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expect::Reception do
+  expect Lookout::Expect::Lookout::Reception do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1)
   end
 

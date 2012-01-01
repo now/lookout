@@ -25,7 +25,7 @@ class Lookout::Output
   end
 
   def to_lookout_expected
-    Lookout::Expected::Output.new(self)
+    Lookout::Expected::Lookout::Output.new(self)
   end
 
   protected

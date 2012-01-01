@@ -2,7 +2,7 @@
 
 class Lookout::State::Be < Lookout::State
   def to_lookout_expected
-    Lookout::Expected::State.new(@subject, Verify.new(@subject, @recording))
+    Lookout::Expected::Lookout::State.new(@subject, Verify.new(@subject, @recording))
   end
 
   private

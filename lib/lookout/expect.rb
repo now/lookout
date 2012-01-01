@@ -6,7 +6,7 @@ module Lookout::Expect
       begin
         subject.to_lookout_expected
       rescue NoMethodError
-        Lookout::Expected::Object.new(subject)
+        ::Lookout::Expected::Object.new(subject)
       end.actualize(file, line, &block)
     end
   end
