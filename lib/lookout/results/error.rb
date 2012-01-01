@@ -12,9 +12,13 @@ class Lookout::Results::Error
     super and message == other.message and exception == other.exception
   end
 
-  attr_reader :message, :exception
+  def hash
+    @hash ||= super ^ message.hash ^ exception.hash
+  end
 
   def to_s
     [super, message, exception].compact.join(': ')
   end
+
+  attr_reader :message, :exception
 end

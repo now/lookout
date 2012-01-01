@@ -12,9 +12,13 @@ class Lookout::Results::Failure
     super and message == other.message
   end
 
-  attr_reader :message
+  def hash
+    @hash ||= super ^ message.hash
+  end
 
   def to_s
     [super, message].compact.join(': ')
   end
+
+  attr_reader :message
 end

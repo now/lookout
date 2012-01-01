@@ -12,6 +12,10 @@ class Lookout::Results::Error::Exception
 
   alias eql? ==
 
+  def hash
+    @hash ||= self.class.hash ^ exception.hash
+  end
+
   def message
     # Chomping off a \n here isn’t 100 percent compatible with how Ruby 1.9
     # does it, but it simplifies the code and also makes the output better if
