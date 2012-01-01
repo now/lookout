@@ -46,7 +46,7 @@ class Lookout::Diff::Group
   end
 
   def inspect
-    '<#%s %p>' % [self.class, operations]
+    '#<%s %p>' % [self.class, operations]
   end
 
   protected
