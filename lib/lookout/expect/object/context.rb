@@ -48,7 +48,7 @@ class Lookout::Expect::Object::Context
           'wrong number of arguments (%d for 0): %s(%s)%s should be %s%s' %
           [args.length,
            stub,
-           Lookout::Inspect::Argument.list(args),
+           Lookout::Inspect::Argument.list(*args),
            block,
            stub,
            block]

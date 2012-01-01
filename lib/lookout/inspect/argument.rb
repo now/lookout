@@ -2,7 +2,7 @@
 
 class Lookout::Inspect::Argument < Lookout::Inspect
   class << self
-    def list(arguments)
+    def list(*arguments)
       arguments.map{ |e| Lookout::Inspect::Argument.new(e).call }.join(', ')
     end
   end

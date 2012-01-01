@@ -21,7 +21,7 @@ class Lookout::Mock::Method::Arguments::List
   end
 
   def to_s
-    Lookout::Inspect::Argument.list(args)
+    Lookout::Inspect::Argument.list(*args)
   end
 
   def to_a
