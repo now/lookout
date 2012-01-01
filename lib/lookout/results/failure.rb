@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Results::Failure
+class Lookout::Results::Failure
   include Lookout::Result
 
   def initialize(file, line, message)

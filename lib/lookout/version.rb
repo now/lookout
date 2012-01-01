@@ -107,9 +107,6 @@ module Lookout
           lookout/results/error/exception.rb
           lookout/results/error/exception/backtrace.rb
           lookout/results/failure.rb
-          lookout/results/failures.rb
-          lookout/results/failures/behavior.rb
-          lookout/results/failures/state.rb
           lookout/results/success.rb
           lookout/warning.rb
         ',

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect [Lookout::Results::Failures::State, Lookout::Results::Failures::State] do
+  expect [Lookout::Results::Failure, Lookout::Results::Failure] do
     [].tap{ |results|
       Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
         expect(1){ 2 }
@@ -10,7 +10,7 @@ Expectations do
     }
   end
 
-  expect [Lookout::Results::Failures::State.new(__FILE__, __LINE__ + 3, '2≠1')] do
+  expect [Lookout::Results::Failure.new(__FILE__, __LINE__ + 3, '2≠1')] do
     [].tap{ |results|
       Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
         expect(1){ 2 }

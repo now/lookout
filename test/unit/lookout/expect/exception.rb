@@ -9,7 +9,7 @@ Expectations do
     RuntimeError.new('error').to_lookout_expected.actualize('test', 1){ raise 'error' }.call
   end
 
-  expect Lookout::Results::Failures::State.new('test', 1, '#<RuntimeError: b>≠#<RuntimeError: a>: [-b-]{+a+}') do
+  expect Lookout::Results::Failure.new('test', 1, '#<RuntimeError: b>≠#<RuntimeError: a>: [-b-]{+a+}') do
     RuntimeError.new('a').to_lookout_expected.actualize('test', 1){ raise 'b' }.call
   end
 
