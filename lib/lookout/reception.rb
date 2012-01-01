@@ -27,31 +27,51 @@ class Lookout::Reception
   end
 
   def at_most(times)
-    calls(Lookout::Mock::Method::Calls::Upper,
+    limit(Lookout::Mock::Method::Calls::Upper,
           times,
           'cannot convert upper mock method invocation limit to Integer: %s')
   end
 
   def exactly(times)
-    calls(Lookout::Mock::Method::Calls::Exactly,
+    limit(Lookout::Mock::Method::Calls::Exactly,
           times,
           'cannot convert expected mock method invocation count to Integer: %s')
   end
 
   def at_least(times)
-    calls(Lookout::Mock::Method::Calls::Lower,
+    limit(Lookout::Mock::Method::Calls::Lower,
           times,
           'cannot convert lower mock method invocation limit to Integer: %s')
   end
 
   def to_lookout_expected
-    Lookout::Expected::Lookout::Reception.new(@object, @method, @calls, *@args, &@body)
+    Lookout::Expected::Lookout::Reception.new(object, method, calls, *args, &body)
   end
+
+  def ==(other)
+    self.class == other.class and
+      object == other.object and
+      method == other.method and
+      calls == other.calls and
+      args == other.args and
+      body == other.body
+  end
+
+  alias eql? ==
+
+  def hash
+    [self.class, object, method, calls, args, body].hash
+  end
+
+  protected
+
+  attr_reader :object, :method, :calls, :args, :body
+  attr_writer :calls
 
   private
 
-  def calls(calls, times, format)
-    @calls = calls.new(begin times.to_int; rescue => e; raise e, format % e end)
+  def limit(calls, times, format)
+    self.calls = calls.new(begin times.to_int; rescue => e; raise e, format % e end)
     self
   end
 end
