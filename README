@@ -667,6 +667,10 @@
     This change was enabled by the removal of ‹#yield› and ‹#each› from stub
     methods, which rendered the return of those method objects useless.
 
+    When a mock method is called too many times, this is reported immediately,
+    with a full backtrace.  This makes it easier to pin down what’s wrong with
+    the code.
+
 § Contributors
 
     Contributors to the original expectations codebase are mentioned there.  We
