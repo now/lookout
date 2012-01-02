@@ -16,7 +16,7 @@ class Lookout::State < Lookout::Aphonic
   private
 
   def method_missing(method, *args, &block)
-    @recording.record method, args, &block
+    @recording.record method, *args, &block
     self
   end
 end

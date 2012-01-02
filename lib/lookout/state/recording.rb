@@ -5,8 +5,9 @@ class Lookout::State::Recording
     @methods = []
   end
 
-  def record(method, args, &block)
+  def record(method, *args, &block)
     @methods << Method.new(method, args, block)
+    self
   end
 
   def play_for(subject)
