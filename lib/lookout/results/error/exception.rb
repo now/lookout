@@ -25,7 +25,7 @@ class Lookout::Results::Error::Exception
       'unhandled exception'
     elsif message.empty?
       exception_class_name
-    elsif exception_class_name.empty? or exception_class_name =~ /^#/
+    elsif exception_class_name.empty? or exception_class_name =~ /\A#/
       message
     else
       before, newline, after = message.partition("\n")
