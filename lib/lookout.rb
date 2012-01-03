@@ -9,7 +9,7 @@ module Lookout
   end
 
   load File.expand_path('../lookout/version.rb', __FILE__)
-  Version.load
+a Version.load
 end
 
 class Object
@@ -58,7 +58,7 @@ end
 
 class Range
   def to_lookout_expected
-    Lookout::Expected::Module.new(self)
+    Lookout::Expected::Range.new(self)
   end
 end
 
