@@ -4,21 +4,34 @@ module Lookout
   Version = '2.4.0'
 
   class << Version
-    def load
-      content[:requires].each do |requirement|
-        require requirement
-      end
-      content[:loads].each do |file|
-        Kernel.load File.expand_path('../../%s' % file, __FILE__)
+    def content
+      @content ||= Content.new
+    end
+
+    [:load, :files, :libs, :tests].each do |method|
+      define_method method do
+        content.send(method)
       end
     end
 
-    def content
-      {
-        :requires => %w'
+    class Content
+      def load
+        requires.each do |requirement|
+          require requirement
+        end
+        loads.each do |file|
+          Kernel.load File.expand_path('../../%s' % file, __FILE__)
+        end
+      end
+
+      def requires
+        @requires ||= %w'
           stringio
-        ',
-        :loads => %w'
+        '
+      end
+
+      def loads
+        @loads ||= %w'
           lookout/object.rb
           lookout/aphonic.rb
           lookout/diff.rb
@@ -120,11 +133,67 @@ module Lookout
           lookout/results/failure.rb
           lookout/results/success.rb
           lookout/warning.rb
-        ',
-        :manual => %w'
+        '
+      end
+
+      def libs
+        @libs ||= (loads + additional_libs).map{ |e| 'lib/%s' % e }
+      end
+
+      def additional_libs
+        @additional_libs ||= %w'
+          lookout.rb
+          lookout/rake/tasks.rb
+          lookout/rake/tasks/gem.rb
+          lookout/rake/tasks/tags.rb
+          lookout/rake/tasks/test.rb
+          lookout/rake/tasks/test/loader.rb
           lookout/version.rb
         '
-      }
+      end
+
+      def tests
+        @tests ||= Tests.new(self)
+      end
+
+      def files
+        @files ||= libs + tests + additional_files
+      end
+
+      def additional_files
+        @additional_files ||= %w'
+          README
+          Rakefile
+        '
+      end
+
+      private
+
+      class Tests
+        def initialize(content)
+          @content = content
+        end
+
+        def unit
+          @unit ||= (additional_unit +
+                     @content.libs.
+                       map{ |e| e.sub(%r'\Alib/', '') }.
+                       select{ |e| File.exist? 'test/unit/%s' % e }).
+            map{ |e| 'test/unit/%s' % e }
+        end
+
+        def additional_unit
+          @additional_unit ||= %w'
+            examples.rb
+          '
+        end
+
+        def to_a
+          unit
+        end
+
+        alias to_ary to_a
+      end
     end
   end
 end
