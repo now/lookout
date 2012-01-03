@@ -4,6 +4,15 @@ module Lookout
   Version = '2.4.0'
 
   class << Version
+    def load
+      content[:requires].each do |requirement|
+        require requirement
+      end
+      content[:loads].each do |file|
+        Kernel.load File.expand_path('../../%s' % file, __FILE__)
+      end
+    end
+
     def content
       {
         :requires => %w'

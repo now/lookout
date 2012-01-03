@@ -9,14 +9,7 @@ module Lookout
   end
 
   load File.expand_path('../lookout/version.rb', __FILE__)
-
-  Version.content[:requires].each do |requirement|
-    require requirement
-  end
-
-  Version.content[:loads].each do |file|
-    load File.expand_path('../%s' % file, __FILE__)
-  end
+  Version.load
 end
 
 class Object
