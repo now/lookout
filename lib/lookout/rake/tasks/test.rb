@@ -3,8 +3,9 @@
 class Lookout::Rake::Tasks::Test < Rake::TaskLib
   LoaderPath = File.join(File.dirname(__FILE__), 'test/loader.rb')
 
-  def initialize(specification = Lookout::Rake::Tasks.specification, name = :test)
-    self.specification, @name = specification, name
+  def initialize(options = {})
+    @name = options.fetch(:name, :test)
+    self.specification = options.fetch(:specification, Lookout::Rake::Tasks.specification)
     yield self if block_given?
     define
   end
@@ -19,6 +20,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   end
 
   attr_accessor :requires
+  attr_accessor :files
 
   private
 
@@ -33,7 +35,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   end
 
   def arguments
-    requires.map{ |r| '-r%s' % r }.concat(line).push('--').concat(files).join(' ')
+    requires.map{ |r| '-r%s' % r }.concat(line).push('--').concat(tests).join(' ')
   end
 
   def line
@@ -41,8 +43,8 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
     ['-l%d' % ENV['LINE'].to_i]
   end
 
-  def files
-    FileList[ENV.fetch('TEST', 'test/unit/**/*.rb')].map{ |f| escape(f) }
+  def tests
+    (files or FileList[ENV.fetch('TEST', 'test/unit/**/*.rb')]).map{ |f| escape(f) }
   end
 
   def escape(path)
