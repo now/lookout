@@ -640,36 +640,37 @@
 
   § 3.0.0
 
-    The ‹xml› expectation has been dropped.  It wasn’t documented, didn’t suit
-    very many use cases, and can be better implemented by an external library.
+      The ‹xml› expectation has been dropped.  It wasn’t documented, didn’t
+      suit very many use cases, and can be better implemented by an external
+      library.
 
-    The ‹arg› argument matcher for mock method arguments has been removed, as
-    it didn’t provide any benefit over using Object.
+      The ‹arg› argument matcher for mock method arguments has been removed, as
+      it didn’t provide any benefit over using Object.
 
-    The ‹#yield› and ‹#each› methods on stub and mock methods have been
-    removed.  They were slightly weird and their use case can be implemented
-    using block parameters instead.
+      The ‹#yield› and ‹#each› methods on stub and mock methods have been
+      removed.  They were slightly weird and their use case can be implemented
+      using block parameters instead.
 
-    The ‹stub› method inside ‹expect› blocks now returns the object that’s
-    having a method stubbed instead of the stub method object.  That means that
-    you can now write
+      The ‹stub› method inside ‹expect› blocks now returns the object that’s
+      having a method stubbed instead of the stub method object.  That means
+      that you can now write
 
-      expect 2 do
-        stub(Object.new).two{ 2 }.two
-      end
+        expect 2 do
+          stub(Object.new).two{ 2 }.two
+        end
 
-    instead of
+      instead of
 
-      expect 2 do
-        Object.new.tap{ |o| stub(o).two{ 2 } }.two
-      end
+        expect 2 do
+          Object.new.tap{ |o| stub(o).two{ 2 } }.two
+        end
 
-    This change was enabled by the removal of ‹#yield› and ‹#each› from stub
-    methods, which rendered the return of those method objects useless.
+      This change was enabled by the removal of ‹#yield› and ‹#each› from stub
+      methods, which rendered the return of those method objects useless.
 
-    When a mock method is called too many times, this is reported immediately,
-    with a full backtrace.  This makes it easier to pin down what’s wrong with
-    the code.
+      When a mock method is called too many times, this is reported
+      immediately, with a full backtrace.  This makes it easier to pin down
+      what’s wrong with the code.
 
 § Contributors
 
