@@ -5,6 +5,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
 
   def initialize(options = {})
     @name = options.fetch(:name, :test)
+    self.manifest = options[:manifest] if options.include? :manifest
     self.specification = options.fetch(:specification, Lookout::Rake::Tasks.specification)
     yield self if block_given?
     define
@@ -22,6 +23,12 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   attr_accessor :requires
   attr_accessor :files
 
+  def manifest=(manifest)
+    @paths = manifest.lib_directories
+    @requires << manifest.package
+    @files = manifest.unit_test_files
+  end
+
   private
 
   def specification=(specification)
@@ -31,11 +38,11 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   end
 
   def options
-    @paths.map{ |p| '-I%s' % p }.join(' ')
+    @paths.uniq.map{ |p| '-I%s' % p }.join(' ')
   end
 
   def arguments
-    requires.map{ |r| '-r%s' % r }.concat(line).push('--').concat(tests).join(' ')
+    requires.uniq.map{ |r| '-r%s' % r }.concat(line).push('--').concat(tests).join(' ')
   end
 
   def line

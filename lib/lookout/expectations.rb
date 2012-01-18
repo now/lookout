@@ -12,6 +12,8 @@ class Lookout::Expectations
       begin
         begin
           Kernel.load path, true
+        rescue LoadError => e
+          raise e, 'cannot load expectations from file: %s: no such file or directory' % path
         rescue SyntaxError => e
           raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
           raise SyntaxError, matches[2], [matches[1]] + e.backtrace

@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.description = IO.read(File.expand_path('../README', __FILE__))
   s.summary = s.description[/^  [[:alpha:]]+.*?\./]
 
-  s.files = Lookout::Version.files
+  s.files = Lookout::Version.manifest
 
   s.add_development_dependency 'yard', '~> 0.6.0'
 end
