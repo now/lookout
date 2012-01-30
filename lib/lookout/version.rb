@@ -17,15 +17,15 @@ module Lookout
     end
 
     def package
-      @package ||= @container.name.split('::').join('-').downcase
+      @container.name.split('::').join('-').downcase
     end
 
     def version_constant
-      @version_constant ||= '%s::%s' % [@container, @version]
+      '%s::%s' % [@container, @version]
     end
 
     def version_require
-      @version_require ||= File.join(package, 'version')
+      File.join(package, 'version')
     end
 
     def lib_directories
