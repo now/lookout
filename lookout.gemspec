@@ -5,7 +5,7 @@ $:.unshift File.expand_path('../lib', __FILE__)
 require 'lookout/version'
 
 Gem::Specification.new do |s|
-  s.name = 'lookout'
+  s.name = Lookout::Version.manifest.package
   s.version = Lookout::Version
 
   s.author = 'Nikolai Weibull'

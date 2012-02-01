@@ -20,6 +20,10 @@ module Lookout
       @container.name.split('::').join('-').downcase
     end
 
+    def package_require
+      package.gsub('-', '/')
+    end
+
     def version_constant
       '%s::%s' % [@container, @version]
     end

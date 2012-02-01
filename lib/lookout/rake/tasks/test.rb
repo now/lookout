@@ -2,13 +2,45 @@
 
 class Lookout::Rake::Tasks::Test < Rake::TaskLib
   LoaderPath = File.join(File.dirname(__FILE__), 'test/loader.rb')
+  Paths = %w'lib'
 
   def initialize(options = {})
-    @name = options.fetch(:name, :test)
+    self.name = options.fetch(:name, :test)
+    self.paths = options.fetch(:paths, Paths)
+    self.requires = options.fetch(:requires, [])
+    self.files = options.fetch(:files){ ENV.include?('TEST') ? FileList[ENV['TEST']] : nil }
     self.manifest = options[:manifest] if options.include? :manifest
-    self.specification = options.fetch(:specification, Lookout::Rake::Tasks.specification)
+    self.specification = options.fetch(:specification) if options.include? :specification
     yield self if block_given?
     define
+  end
+
+  attr_accessor :name
+  attr_writer :paths, :requires, :files
+
+  def paths
+    return @paths if @paths
+    self.specification = Lookout::Rake::Tasks.specification
+  end
+
+  def requires
+    return @requires unless @requires.empty?
+    self.specification = Lookout::Rake::Tasks.specification
+  end
+
+  def files
+    @files ||= FileList['test/unit/**/*.rb']
+  end
+
+  def manifest=(manifest)
+    self.paths = manifest.lib_directories
+    self.requires = [manifest.package_require]
+    self.files ||= manifest.unit_test_files
+  end
+
+  def specification=(specification)
+    self.paths = specification.require_paths
+    self.requires = [specification.name.gsub('-', '/')]
   end
 
   def define
@@ -20,25 +52,8 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
     task :default => @name unless Rake::Task.task_defined? :default
   end
 
-  attr_accessor :requires
-  attr_accessor :files
-
-  def manifest=(manifest)
-    @paths = manifest.lib_directories
-    @requires << manifest.package
-    @files = manifest.unit_test_files
-  end
-
-  private
-
-  def specification=(specification)
-    @paths, @requires = specification ?
-      [specification.require_paths, [specification.name]] :
-      [['lib'], []]
-  end
-
   def options
-    @paths.uniq.map{ |p| '-I%s' % p }.join(' ')
+    paths.uniq.map{ |p| '-I%s' % p }.join(' ')
   end
 
   def arguments
@@ -51,7 +66,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   end
 
   def tests
-    (files or FileList[ENV.fetch('TEST', 'test/unit/**/*.rb')]).map{ |f| escape(f) }
+    files.map{ |e| escape(e) }
   end
 
   def escape(path)
