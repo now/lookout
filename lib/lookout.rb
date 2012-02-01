@@ -8,8 +8,7 @@ module Lookout
     end
   end
 
-  require 'lookout/version'
-#  load File.expand_path('../lookout/version.rb', __FILE__)
+  load File.expand_path('../lookout/version.rb', __FILE__)
   Version.manifest.load(__FILE__)
 end
 
