@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 $:.unshift File.expand_path('../lib', __FILE__)
-
 require 'lookout/version'
 
 Lookout::Version.manifest.specification do |s|
