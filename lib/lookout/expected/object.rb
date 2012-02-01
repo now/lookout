@@ -37,7 +37,14 @@ class Lookout::Expected::Object
   private
 
   def format(other)
-    '%s≠%s' % [Lookout::Inspect::Actual.new(other).call,
-               Lookout::Inspect::Expected.new(subject).call]
+    '%s≠%s' % [inspect_actual(other), inspect_expected]
+  end
+
+  def inspect_actual(other)
+    Lookout::Inspect::Actual.new(other).call
+  end
+
+  def inspect_expected
+    Lookout::Inspect::Expected.new(subject).call
   end
 end

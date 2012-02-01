@@ -8,4 +8,10 @@ class Lookout::Expected::Lookout::Warning < Lookout::Expected::Lookout::Output
   def =~(other)
     subject === other or subject == other
   end
+
+  private
+
+  def format(other)
+    '%s≉%s' % [inspect_actual(other), inspect_expected]
+  end
 end

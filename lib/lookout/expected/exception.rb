@@ -15,7 +15,7 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
       (subject.class == other.class and
        (other.respond_to? :message rescue false) and
        (m = other.message rescue nil) and
-       ((r = regexp) ? r === m : subject.message == m))
+       (regexp ? regexp === m : subject.message == m))
   end
 
   def diff(other)
@@ -31,11 +31,11 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
   private
 
   def format(other)
-    return super unless r = regexp
-    '%s≠#<%s: %p>' %
-      [Lookout::Inspect::Actual.new(other).call,
-       subject.class,
-       r]
+    regexp ? '%s≉%s' % [inspect_actual(other), inspect_expected] : super
+  end
+
+  def inspect_expected
+    regexp ? '#<%s: %p>' % [subject.class, regexp] : super
   end
 
   # The first test works in Ruby 1.8.  In Ruby 1.9, however, #message always
@@ -43,12 +43,13 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
   # conversion can’t keep track of the ‘e’ and ‘n’ options for encoding
   # handling.
   def regexp
-    return subject.message if Regexp === subject.message
-    return nil unless subject.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
-    Regexp.new($3,
-               0 |
-               ($1.include?('m') ? Regexp::MULTILINE : 0) |
-               ($1.include?('i') ? Regexp::IGNORECASE : 0) |
-               ($1.include?('x') ? Regexp::EXTENDED : 0))
+    return @regexp if defined? @regexp
+    return @regexp = subject.message if Regexp === subject.message
+    return @regexp = nil unless subject.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
+    @regexp = Regexp.new($3,
+                         0 |
+                         ($1.include?('m') ? Regexp::MULTILINE : 0) |
+                         ($1.include?('i') ? Regexp::IGNORECASE : 0) |
+                         ($1.include?('x') ? Regexp::EXTENDED : 0))
   end
 end

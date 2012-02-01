@@ -38,23 +38,23 @@ Expectations do
     RuntimeError.new('a').to_lookout_expected.message(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
   end
 
-  expect '#<RuntimeError: b>≠#<RuntimeError: /a/>' do
+  expect '#<RuntimeError: b>≉#<RuntimeError: /a/>' do
     RuntimeError.new(/a/).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
-  expect '#<RuntimeError: b>≠#<RuntimeError: /a/m>' do
+  expect '#<RuntimeError: b>≉#<RuntimeError: /a/m>' do
     RuntimeError.new(/a/m).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
-  expect '#<RuntimeError: b>≠#<RuntimeError: /a/i>' do
+  expect '#<RuntimeError: b>≉#<RuntimeError: /a/i>' do
     RuntimeError.new(/a/i).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
-  expect '#<RuntimeError: b>≠#<RuntimeError: /a/x>' do
+  expect '#<RuntimeError: b>≉#<RuntimeError: /a/x>' do
     RuntimeError.new(/a/x).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
-  expect '#<RuntimeError: b>≠#<RuntimeError: /a/mix>' do
+  expect '#<RuntimeError: b>≉#<RuntimeError: /a/mix>' do
     RuntimeError.new(/a/mix).to_lookout_expected.message(RuntimeError.new('b'))
   end
 
@@ -62,7 +62,7 @@ Expectations do
     RuntimeError.new('a').to_lookout_expected.message(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
   end
 
-  expect '(cannot inspect actual result: error)≠#<RuntimeError: /a/>' do
+  expect '(cannot inspect actual result: error)≉#<RuntimeError: /a/>' do
     RuntimeError.new(/a/).to_lookout_expected.message(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } })
   end
 end
