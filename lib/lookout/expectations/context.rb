@@ -16,6 +16,10 @@ class Lookout::Expectations::Context
     self
   end
 
+  def literal(subject)
+    Lookout::Literal.new(subject)
+  end
+
   def mock
     Lookout::Mock::Object.new
   end

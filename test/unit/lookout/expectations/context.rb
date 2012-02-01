@@ -17,4 +17,28 @@ Expectations do
       end
     }
   end
+
+  expect [Lookout::Results::Success] do
+    [].tap{ |results|
+      Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
+        expect(/a/){ 'a' }
+      end
+    }
+  end
+
+  expect [Lookout::Results::Failure.new(__FILE__, __LINE__ + 3, '"a"≠/a/')] do
+    [].tap{ |results|
+      Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
+        expect(literal(/a/)){ 'a' }
+      end
+    }
+  end
+
+  expect [Lookout::Results::Success] do
+    [].tap{ |results|
+      Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
+        expect(literal(/a/)){ /a/ }
+      end
+    }
+  end
 end

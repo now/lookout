@@ -72,6 +72,7 @@ module Lookout
         lookout/inspect/argument.rb
         lookout/inspect/error.rb
         lookout/inspect/expected.rb
+        lookout/literal.rb
         lookout/output.rb
         lookout/reception.rb
         lookout/stub.rb
