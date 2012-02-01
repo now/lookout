@@ -6,9 +6,9 @@ require 'rake/tasklib'
 module Lookout module Rake end end
 
 module Lookout::Rake::Tasks
-  autoload :Gem, 'lookout/rake/tasks/gem'
-  autoload :Tags, 'lookout/rake/tasks/tags'
-  autoload :Test, 'lookout/rake/tasks/test'
+  %w'gem tags test'.each do |file|
+    load File.expand_path('../tasks/%s.rb' % file, __FILE__)
+  end
 
   class << self
     def top_srcdir
