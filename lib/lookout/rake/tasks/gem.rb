@@ -2,10 +2,6 @@
 
 class Lookout::Rake::Tasks::Gem < Rake::TaskLib
   def initialize(specification = Lookout::Rake::Tasks.specification!)
-    specification or
-      raise ArgumentError,
-        'gem specification was not given and could not be found in project root: %s' %
-          Lookout::Rake::Tasks.top_srcdir
     @specification = specification
     yield self if block_given?
     define
