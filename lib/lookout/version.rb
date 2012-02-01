@@ -16,6 +16,17 @@ module Lookout
       @container, @version = container, version
     end
 
+    def specification
+      @specification ||= Gem::Specification.new do |s|
+        s.name = package
+        s.version = @container.const_get(@version)
+
+        s.files = self
+
+        yield s
+      end
+    end
+
     def package
       @container.name.split('::').join('-').downcase
     end
@@ -36,12 +47,12 @@ module Lookout
       %w'lib'
     end
 
-    def load(file)
+    def load(relative_to)
       requires.each do |requirement|
         require requirement
       end
       loads.each do |load|
-        Kernel.load File.expand_path((['..'] * @container.name.split('::').length).push(load).join('/'), file)
+        Kernel.load File.expand_path((['..'] * @container.name.split('::').length).push(load).join('/'), relative_to)
       end
     end
 
