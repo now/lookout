@@ -14,9 +14,7 @@ class Lookout::Aphonic
     end
   end
 
-  instance_methods.each do |name|
-    silence name
-  end
+  instance_methods.each(&method(:silence))
 end
 
 [Kernel, Object].each do |object|
