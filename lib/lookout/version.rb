@@ -236,6 +236,7 @@ module Lookout
         lookout.rb
         lookout/rake/tasks.rb
         lookout/rake/tasks/gem.rb
+        lookout/rake/tasks/manifest.rb
         lookout/rake/tasks/tags.rb
         lookout/rake/tasks/test.rb
         lookout/rake/tasks/test/loader.rb
@@ -248,6 +249,7 @@ module Lookout
       super - %w'
         lookout/rake/tasks.rb
         lookout/rake/tasks/gem.rb
+        lookout/rake/tasks/manifest.rb
         lookout/rake/tasks/tags.rb
         lookout/rake/tasks/test.rb
         lookout/rake/tasks/test/loader.rb

@@ -6,7 +6,7 @@ require 'rake/tasklib'
 module Lookout module Rake end end
 
 module Lookout::Rake::Tasks
-  %w'gem tags test'.each do |file|
+  %w'gem manifest tags test'.each do |file|
     load File.expand_path('../tasks/%s.rb' % file, __FILE__)
   end
 
@@ -32,5 +32,7 @@ module Lookout::Rake::Tasks
           'gem specification was not given and could not be found in project root: %s' %
             top_srcdir
     end
+
+    attr_accessor :manifest
   end
 end

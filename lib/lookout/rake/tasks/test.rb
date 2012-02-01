@@ -9,7 +9,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
     self.paths = options.fetch(:paths, Paths)
     self.requires = options.fetch(:requires, [])
     self.files = options.fetch(:files){ ENV.include?('TEST') ? FileList[ENV['TEST']] : nil }
-    self.manifest = options[:manifest] if options.include? :manifest
+    manifest = options[:manifest] || Lookout::Rake::Tasks.manifest and self.manifest = manifest
     self.specification = options.fetch(:specification) if options.include? :specification
     yield self if block_given?
     define
