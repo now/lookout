@@ -39,7 +39,7 @@ class Lookout::Manifest
   end
 
   def version_require
-    File.join(package, 'version')
+    File.join(package_require, 'version')
   end
 
   def lib_directories
@@ -68,7 +68,7 @@ class Lookout::Manifest
   end
 
   def additional_libs
-    []
+    [package_require, version_require].map{ |e| '%s.rb' % e }
   end
 
   def all_libs

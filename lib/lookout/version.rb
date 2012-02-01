@@ -119,17 +119,16 @@ module Lookout
     end
 
     def additional_libs
-      %w'
-        lookout.rb
-        lookout/manifest.rb
-        lookout/rake/tasks.rb
-        lookout/rake/tasks/gem.rb
-        lookout/rake/tasks/manifest.rb
-        lookout/rake/tasks/tags.rb
-        lookout/rake/tasks/test.rb
-        lookout/rake/tasks/test/loader.rb
-        lookout/version.rb
-      '
+      super +
+        %w'
+          lookout/manifest.rb
+          lookout/rake/tasks.rb
+          lookout/rake/tasks/gem.rb
+          lookout/rake/tasks/manifest.rb
+          lookout/rake/tasks/tags.rb
+          lookout/rake/tasks/test.rb
+          lookout/rake/tasks/test/loader.rb
+        '
     end
 
     # TODO: Add tests for these files as well.
