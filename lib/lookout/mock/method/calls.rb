@@ -27,12 +27,12 @@ class Lookout::Mock::Method::Calls
 
   def call
     self.calls += 1
-    error TooManyError if surpassed?
+    error TooManyError if calls > range.end
     self
   end
 
   def verify
-    error TooFewError unless satisfied?
+    error TooFewError unless range === calls
     self
   end
 
@@ -58,14 +58,6 @@ class Lookout::Mock::Method::Calls
   attr_writer :calls
 
   private
-
-  def surpassed?
-    calls > range.end
-  end
-
-  def satisfied?
-    range === calls
-  end
 
   def error(type)
     raise type.
