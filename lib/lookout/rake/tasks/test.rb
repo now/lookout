@@ -35,7 +35,7 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
   def manifest=(manifest)
     self.paths = manifest.lib_directories
     self.requires = [manifest.package_require]
-    self.files ||= manifest.unit_test_files
+    @files ||= manifest.unit_test_files
   end
 
   def specification=(specification)
