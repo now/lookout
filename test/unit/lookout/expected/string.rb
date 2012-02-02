@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect nil do
-    'abc'.to_lookout_expected.diff(1)
+  expect [] do
+    'abc'.to_lookout_expected.difference(1).diff
   end
 
   expect '[-A-]{+a+}bc' do
-    'abc'.to_lookout_expected.diff('Abc')
+    'abc'.to_lookout_expected.difference('Abc').diff.to_s
   end
 
   expect 'a[-B-]{+b+}c' do
-    'abc'.to_lookout_expected.diff('aBc')
+    'abc'.to_lookout_expected.difference('aBc').diff.to_s
   end
 
   expect 'ab[-C-]{+c+}' do
-    'abc'.to_lookout_expected.diff('abC')
+    'abc'.to_lookout_expected.difference('abC').diff.to_s
   end
 
   expect <<EOD.chomp do
@@ -22,7 +22,7 @@ Expectations do
 +abc
  ghi
 EOD
-    "abc\nghi".to_lookout_expected.diff('ghi')
+    "abc\nghi".to_lookout_expected.difference('ghi').diff.to_s
   end
 
   expect <<EOD.chomp do
@@ -30,7 +30,7 @@ EOD
 -def
  ghi
 EOD
-    'ghi'.to_lookout_expected.diff("def\nghi")
+    'ghi'.to_lookout_expected.difference("def\nghi").diff.to_s
   end
 
   expect <<EOD.chomp do
@@ -39,6 +39,6 @@ EOD
 +abc
  ghi
 EOD
-    "abc\nghi".to_lookout_expected.diff("def\nghi")
+    "abc\nghi".to_lookout_expected.difference("def\nghi").diff.to_s
   end
 end

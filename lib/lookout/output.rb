@@ -21,7 +21,7 @@ class Lookout::Output
   end
 
   def diff(other)
-    output.to_lookout_expected.diff(other.output)
+    output.to_lookout_expected.difference(other.output).diff
   end
 
   def to_lookout_expected

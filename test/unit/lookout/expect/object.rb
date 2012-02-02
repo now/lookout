@@ -13,7 +13,7 @@ Expectations do
     2.to_lookout_expected.actualize('test', 1){ 2 }.call
   end
 
-  expect Lookout::Results::Failure.new('test', 1, '3≠2') do
+  expect Lookout::Results::Failure.new('test', 1, Lookout::Difference::Object.new(3, 2)) do
     2.to_lookout_expected.actualize('test', 1){ 3 }.call
   end
 

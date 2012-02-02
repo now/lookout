@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Formats::Inline
+  include Enumerable
+
   def initialize(operations)
     @to_s = ToS.new(operations).to_s
+  end
+
+  def each
+    yield to_s
   end
 
   def to_s

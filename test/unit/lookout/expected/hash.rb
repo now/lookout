@@ -20,19 +20,4 @@ Expectations do
   expect true do
     {'a' => Integer, 'b' => 2}.to_lookout_expected =~ {'a' => 1, 'b' => 2}
   end
-
-  expect nil do
-    {'a' => Integer}.to_lookout_expected.diff({'b' => 1})
-  end
-
-  expect nil do
-    {'a' => Integer}.to_lookout_expected.diff('b')
-  end
-
-  expect <<EOD.chomp do
--"g" => 1
-+"c" => 1
-EOD
-    {'c' => 1, 'b' => 2}.to_lookout_expected.diff({'g' => 1, 'b' => 2})
-  end
 end

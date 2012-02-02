@@ -35,6 +35,18 @@ module Lookout
         lookout/diff/operations/equal.rb
         lookout/diff/operations/insert.rb
         lookout/diff/operations/replace.rb
+        lookout/difference.rb
+        lookout/difference/object.rb
+        lookout/difference/array.rb
+        lookout/difference/exception.rb
+        lookout/difference/hash.rb
+        lookout/difference/lookout.rb
+        lookout/difference/lookout/output.rb
+        lookout/difference/lookout/warning.rb
+        lookout/difference/module.rb
+        lookout/difference/range.rb
+        lookout/difference/regexp.rb
+        lookout/difference/string.rb
         lookout/encode.rb
         lookout/expect.rb
         lookout/expect/object.rb

@@ -10,7 +10,7 @@ Expectations do
     }
   end
 
-  expect [Lookout::Results::Failure.new(__FILE__, __LINE__ + 3, '2≠1')] do
+  expect [Lookout::Results::Failure.new(__FILE__, __LINE__ + 3, Lookout::Difference::Object.new(2, 1))] do
     [].tap{ |results|
       Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
         expect(1){ 2 }
@@ -26,7 +26,7 @@ Expectations do
     }
   end
 
-  expect [Lookout::Results::Failure.new(__FILE__, __LINE__ + 3, '"a"≠/a/')] do
+  expect [Lookout::Results::Failure.new(__FILE__, __LINE__ + 3, Lookout::Difference::Object.new('a', /a/))] do
     [].tap{ |results|
       Lookout::Expectations::Context.new{ |expect| results << expect.call }.instance_eval do
         expect(literal(/a/)){ 'a' }

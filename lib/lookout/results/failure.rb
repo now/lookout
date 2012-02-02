@@ -3,22 +3,42 @@
 class Lookout::Results::Failure
   include Lookout::Result
 
-  def initialize(file, line, message)
+  def initialize(file, line, difference)
     super file, line
-    @message = message
+    @difference = difference
   end
 
+  # TODO: @difference isn’t guaranteed to not change, so these methods need to
+  # be adjusted.
   def ==(other)
-    super and message == other.message
+    super and difference == other.difference
   end
 
   def hash
-    @hash ||= super ^ message.hash
+    @hash ||= super ^ difference.hash
   end
 
   def to_s
-    [super, message].compact.join(': ')
+    [super, difference_to_s].compact.join(': ')
   end
 
-  attr_reader :message
+  attr_reader :difference
+
+  def difference_to_s
+    begin
+      m = difference.message
+    rescue => e
+      raise if difference.class == Lookout::Difference::Object rescue true
+      return '%s (cannot generate more specific failure message: %s)' %
+        [Lookout::Difference::Object.new(difference.actual,
+                                         difference.expected).message,
+         e.message]
+    end
+    begin
+      d = difference.diff.to_a.join("\n")
+    rescue => e
+      d = '(cannot diff expected value and actual result: %s)' % e.message
+    end
+    d.empty? ? m : (d.include?("\n") ? "%s\n%s" : '%s: %s') % [m, d]
+  end
 end

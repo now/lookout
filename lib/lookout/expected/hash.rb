@@ -6,21 +6,7 @@ class Lookout::Expected::Hash < Lookout::Expected::Object
     subject.all?{ |key, value| value.to_lookout_expected =~ other[key] }
   end
 
-  def diff(other)
-    return if subject.size == 1 or not Hash === other
-    Lookout::Diff::Formats::Set.
-      new(Lookout::Diff::Operations.
-            new(Lookout::Diff::Algorithms::Difflib.
-                  new(array(other), array(subject)))).to_a.join("\n")
-  end
-
-  private
-
-  def array(hash)
-    hash.to_a.sort_by{ |key, _| key }.map{ |key, value|
-      '%s => %s' %
-        [Lookout::Inspect.new(key, 'key').call,
-         Lookout::Inspect.new(value, 'value').call]
-    }
+  def difference(other)
+    self =~ other ? nil : Lookout::Difference::Hash.new(other, subject)
   end
 end

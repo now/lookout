@@ -9,9 +9,7 @@ class Lookout::Expected::Lookout::Warning < Lookout::Expected::Lookout::Output
     subject === other or subject == other
   end
 
-  private
-
-  def format(other)
-    '%s≉%s' % [inspect_actual(other), inspect_expected]
+  def difference(other)
+    self =~ other ? nil : Lookout::Difference::Lookout::Warning.new(other, subject)
   end
 end

@@ -8,7 +8,7 @@ class Lookout::Expect::Lookout::Reception < Lookout::Expect::Object
     end
     Lookout::Results::Success.new(file, line)
   rescue Lookout::Mock::Method::Calls::TooFewError => e
-    Lookout::Results::Failure.new(file, line, e.message)
+    Lookout::Results::Failure.new(file, line, Lookout::Difference.new(e.message))
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, e)
   end

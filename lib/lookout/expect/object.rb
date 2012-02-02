@@ -31,6 +31,6 @@ class Lookout::Expect::Object
   def check(actual)
     @expected =~ actual ?
       Lookout::Results::Success.new(file, line) :
-      Lookout::Results::Failure.new(file, line, @expected.message(actual))
+      Lookout::Results::Failure.new(file, line, @expected.difference(actual))
   end
 end

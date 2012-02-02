@@ -5,11 +5,7 @@ class Lookout::Expected::Regexp < Lookout::Expected::Object
     subject === other or subject == other
   end
 
-  private
-
-  def format(other)
-    '%s%s%s' % [inspect_actual(other),
-                Regexp === other ? '≠' : '≉',
-                inspect_expected]
+  def difference(other)
+    self =~ other ? nil : Lookout::Difference::Regexp.new(other, subject)
   end
 end

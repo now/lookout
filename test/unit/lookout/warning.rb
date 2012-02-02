@@ -34,7 +34,7 @@ Expectations do
   end
 
   expect '[-b-]{+a+}' do
-    Lookout::Warning.new('a').diff(Lookout::Warning.new("/a/b/c:1: warning: b\n"))
+    Lookout::Warning.new('a').diff(Lookout::Warning.new("/a/b/c:1: warning: b\n")).to_s
   end
 
   expect 'warning("this is your final one!")' do

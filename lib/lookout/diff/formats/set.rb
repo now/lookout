@@ -15,6 +15,10 @@ class Lookout::Diff::Formats::Set
     end
   end
 
+  def to_s
+    to_a.join("\n")
+  end
+
   private
 
   class Operation

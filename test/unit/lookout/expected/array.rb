@@ -16,21 +16,4 @@ Expectations do
   expect true do
     [Integer].to_lookout_expected =~ [1]
   end
-
-  expect nil do
-    %w[abc].to_lookout_expected.diff(%w[def])
-  end
-
-  expect nil do
-    %w[abc].to_lookout_expected.diff('def')
-  end
-
-  expect <<EOD.chomp do
-@@ -1,2 +1,2 @@
--def
-+abc
- ghi
-EOD
-    %w[abc ghi].to_lookout_expected.diff(%w[def ghi])
-  end
 end

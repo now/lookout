@@ -17,15 +17,22 @@ Expectations do
     }.call
   end
 
-  expect Lookout::Results::Failure.new('test', 1, 'warning("b")≉warning("a"): [-b-]{+a+}') do
+  expect Lookout::Results::Failure.
+    new('test',
+        1,
+        Lookout::Difference::Lookout::Warning.new(Lookout::Warning.new('b'),
+                                                  Lookout::Warning.new('a'))) do
     Lookout::Warning.new('a').to_lookout_expected.actualize('test', 1){
       warn 'b'
     }.call
   end
 
   expect Lookout::Results::Failure.
-    new('test', 1,
-        'warning("%s:%d: warning: b")≉warning("a"): [-b-]{+a+}' % [__FILE__, __LINE__ + 2]) do
+    new('test',
+        1,
+        Lookout::Difference::Lookout::Warning.
+          new(Lookout::Warning.new('%s:%d: warning: b' % [__FILE__, __LINE__ + 3]),
+              Lookout::Warning.new('a'))) do
     Lookout::Warning.new('a').to_lookout_expected.actualize('test', 1){
       warn '%s:%d: warning: b' % [__FILE__, __LINE__]
     }.call

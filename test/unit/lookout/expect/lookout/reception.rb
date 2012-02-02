@@ -9,7 +9,10 @@ Expectations do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1){ |o| o.call }.call
   end
 
-  expect Lookout::Results::Failure.new('test', 1, 'stub#call: unexpected number of invocations (0 for 1..)') do
+  expect Lookout::Results::Failure.
+    new('test',
+        1,
+        Lookout::Difference.new('stub#call: unexpected number of invocations (0 for 1..)')) do
     stub.to.receive.call.to_lookout_expected.actualize('test', 1).call
   end
 

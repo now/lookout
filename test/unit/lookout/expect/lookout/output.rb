@@ -11,7 +11,11 @@ Expectations do
     }.call
   end
 
-  expect Lookout::Results::Failure.new('test', 1, 'output("b")≠output("a"): [-b-]{+a+}') do
+  expect Lookout::Results::Failure.
+    new('test',
+        1,
+        Lookout::Difference::Lookout::Output.new(Lookout::Output.new('b'),
+                                                 Lookout::Output.new('a'))) do
     Lookout::Output.new('a').to_lookout_expected.actualize('test', 1){ |io|
       io.write('b')
     }.call

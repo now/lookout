@@ -5,6 +5,6 @@ class Lookout::Expect::Lookout::State < Lookout::Expect::Object
     @expected.verify
     Lookout::Results::Success.new(file, line)
   rescue Lookout::State::Error => e
-    Lookout::Results::Failure.new(file, line, e.message)
+    Lookout::Results::Failure.new(file, line, Lookout::Difference.new(e.message))
   end
 end

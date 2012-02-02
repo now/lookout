@@ -16,6 +16,10 @@ class Lookout::Diff::Formats::Unified
     self
   end
 
+  def to_s
+    to_a.join("\n")
+  end
+
   private
 
   class Group

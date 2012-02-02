@@ -18,7 +18,7 @@ Expectations do
   end
 
   expect '[-b-]{+a+}' do
-    Lookout::Output.new('a').diff(Lookout::Output.new('b'))
+    Lookout::Output.new('a').diff(Lookout::Output.new('b')).to_s
   end
 
   expect 'output("a")' do

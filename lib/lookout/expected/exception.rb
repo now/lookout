@@ -18,24 +18,8 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
        (regexp ? regexp === m : subject.message == m))
   end
 
-  def diff(other)
-    return super unless subject.class == other.class and
-      String === subject.message and
-      not regexp and
-      Exception === other and
-      (other.respond_to? :message rescue false) and
-      (m = other.message rescue nil)
-    subject.message.to_lookout_expected.diff(m)
-  end
-
-  private
-
-  def format(other)
-    regexp ? '%s≉%s' % [inspect_actual(other), inspect_expected] : super
-  end
-
-  def inspect_expected
-    regexp ? '#<%s: %p>' % [subject.class, regexp] : super
+  def difference(other)
+    self =~ other ? nil : Lookout::Difference::Exception.new(other, subject, regexp)
   end
 
   # The first test works in Ruby 1.8.  In Ruby 1.9, however, #message always
