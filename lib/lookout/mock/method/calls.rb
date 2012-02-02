@@ -1,7 +1,22 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Mock::Method::Calls
-  Error = Class.new(Lookout::Mock::Error)
+  class Error < Lookout::Mock::Error
+    def initialize(message, calls, range)
+      super message
+      @calls, @range = calls, range
+    end
+
+    def ==(other)
+      super and
+        self.class == other.class and
+        calls == other.calls and
+        range == other.range
+    end
+
+    attr_reader :calls, :range
+  end
+
   TooManyError = Class.new(Error)
   TooFewError = Class.new(Error)
 
@@ -53,6 +68,9 @@ class Lookout::Mock::Method::Calls
   end
 
   def error(type)
-    raise type, 'unexpected number of invocations (%d for %s)' % [calls, self]
+    raise type.
+      new('unexpected number of invocations (%d for %s)' % [calls, self],
+          calls,
+          range)
   end
 end

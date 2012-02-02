@@ -23,7 +23,7 @@ Expectations do
     o.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (2 for 0..1)') do
+  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (2 for 0..1)', 2, 0..1) do
     Lookout::Mock::Method::Calls.new(0..1).call.call
   end
 
@@ -39,7 +39,7 @@ Expectations do
     o.call.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (3 for 0..2)') do
+  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (3 for 0..2)', 3, 0..2) do
     Lookout::Mock::Method::Calls.new(0..2).call.call.call
   end
 
@@ -47,11 +47,11 @@ Expectations do
     o.verify
   end
 
-  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (1 for 0)') do
+  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (1 for 0)', 1, 0..0) do
     Lookout::Mock::Method::Calls.new(0..0).call
   end
 
-  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (0 for 1)') do
+  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (0 for 1)', 1, 1..1) do
     Lookout::Mock::Method::Calls.new(1..1).verify
   end
 
@@ -59,7 +59,7 @@ Expectations do
     o.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (2 for 1)') do
+  expect Lookout::Mock::Method::Calls::TooManyError.new('unexpected number of invocations (2 for 1)', 2, 1..1) do
     Lookout::Mock::Method::Calls.new(1..1).call.call
   end
 
@@ -67,7 +67,7 @@ Expectations do
     o.call
   end
 
-  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (0 for 1..)') do
+  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (0 for 1..)', 0, 1..1.0/0) do
     Lookout::Mock::Method::Calls.new(1..1.0/0).verify
   end
 
@@ -79,11 +79,11 @@ Expectations do
     o.call.call.verify
   end
 
-  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (0 for 2..)') do
+  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (0 for 2..)', 0, 2..1.0/0) do
     Lookout::Mock::Method::Calls.new(2..1.0/0).verify
   end
 
-  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (1 for 2..)') do
+  expect Lookout::Mock::Method::Calls::TooFewError.new('unexpected number of invocations (1 for 2..)', 1, 2..1.0/0) do
     Lookout::Mock::Method::Calls.new(2..1.0/0).call.verify
   end
 
