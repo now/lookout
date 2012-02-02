@@ -44,6 +44,7 @@ module Lookout
         lookout/difference/lookout.rb
         lookout/difference/lookout/output.rb
         lookout/difference/lookout/reception.rb
+        lookout/difference/lookout/state.rb
         lookout/difference/lookout/warning.rb
         lookout/difference/module.rb
         lookout/difference/regexp.rb
