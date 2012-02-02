@@ -40,11 +40,12 @@ module Lookout
         lookout/difference/array.rb
         lookout/difference/exception.rb
         lookout/difference/hash.rb
+        lookout/difference/range.rb
         lookout/difference/lookout.rb
         lookout/difference/lookout/output.rb
+        lookout/difference/lookout/reception.rb
         lookout/difference/lookout/warning.rb
         lookout/difference/module.rb
-        lookout/difference/range.rb
         lookout/difference/regexp.rb
         lookout/difference/string.rb
         lookout/encode.rb
