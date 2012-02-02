@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-module Lookout::Mock::Method::Calls
+class Lookout::Mock::Method::Calls
   Error = Class.new(Lookout::Mock::Error)
   TooManyError = Class.new(Error)
   TooFewError = Class.new(Error)
 
-  def initialize(limit)
-    @limit = limit
+  def initialize(range)
+    @range = range
     @calls = 0
   end
 
@@ -23,19 +23,33 @@ module Lookout::Mock::Method::Calls
 
   def ==(other)
     self.class == other.class and
-      limit == other.limit and
+      range == other.range and
       calls == other.calls
+  end
+
+  def to_s
+    if range.begin == range.end
+      range.begin.to_s
+    elsif range.end == 1.0/0
+      '%d..' % range.begin
+    else
+      range.to_s
+    end
   end
 
   protected
 
-  attr_reader :limit, :calls
+  attr_reader :range, :calls
   attr_writer :calls
 
   private
 
   def surpassed?
-    calls > limit
+    calls > range.end
+  end
+
+  def satisfied?
+    range === calls
   end
 
   def error(type)

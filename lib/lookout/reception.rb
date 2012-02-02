@@ -27,21 +27,29 @@ class Lookout::Reception
   end
 
   def at_most(times)
-    limit(Lookout::Mock::Method::Calls::Upper,
-          times,
-          'cannot convert upper mock method invocation limit to Integer: %s')
+    range('cannot convert upper mock method invocation limit to Integer: %s', times){ |i|
+      # TODO: Might want to remove this raise, as #at_most(0) is now the same
+      # as #exactly(0).
+      raise ArgumentError,
+        'upper mock method invocation limit must be positive: %d < 1' % i if i < 1
+      0..i
+    }
   end
 
   def exactly(times)
-    limit(Lookout::Mock::Method::Calls::Exactly,
-          times,
-          'cannot convert expected mock method invocation count to Integer: %s')
+    range('cannot convert expected mock method invocation count to Integer: %s', times){ |i|
+      raise ArgumentError,
+        'expected mock method invocation count must be non-negative: %d < 0' % i if i < 0
+      i..i
+    }
   end
 
   def at_least(times)
-    limit(Lookout::Mock::Method::Calls::Lower,
-          times,
-          'cannot convert lower mock method invocation limit to Integer: %s')
+    range('cannot convert lower mock method invocation limit to Integer: %s', times){ |i|
+      raise ArgumentError,
+        'lower mock method invocation limit must be positive: %d < 1' % i if i < 1
+      i..1.0/0
+    }
   end
 
   def to_lookout_expected
@@ -70,8 +78,12 @@ class Lookout::Reception
 
   private
 
-  def limit(calls, times, format)
-    self.calls = calls.new(begin times.to_int; rescue => e; raise e, format % e end)
+  def range(format, times)
+    self.calls = Lookout::Mock::Method::Calls.new(yield begin
+                                                    times.to_int
+                                                  rescue => e
+                                                    raise e, format % e
+                                                  end)
     self
   end
 end

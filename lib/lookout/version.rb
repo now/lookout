@@ -100,9 +100,6 @@ module Lookout
         lookout/mock/method/arguments/list.rb
         lookout/mock/method/arguments/none.rb
         lookout/mock/method/calls.rb
-        lookout/mock/method/calls/exactly.rb
-        lookout/mock/method/calls/lower.rb
-        lookout/mock/method/calls/upper.rb
         lookout/mock/method/defined.rb
         lookout/mock/method/undefined.rb
         lookout/mock/methods.rb
