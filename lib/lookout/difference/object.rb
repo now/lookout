@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Difference::Object < Lookout::Difference
+class Lookout::Difference::Object
   def initialize(actual, expected)
     @actual, @expected = actual, expected
   end
 
   def message
     '%s≠%s' % [inspect_actual, inspect_expected]
+  end
+
+  def diff
+    []
   end
 
   def ==(other)
@@ -21,10 +25,10 @@ class Lookout::Difference::Object < Lookout::Difference
   private
 
   def inspect_actual
-    ::Lookout::Inspect::Actual.new(@actual).call
+    Lookout::Inspect::Actual.new(@actual).call
   end
 
   def inspect_expected
-    ::Lookout::Inspect::Expected.new(@expected).call
+    Lookout::Inspect::Expected.new(@expected).call
   end
 end

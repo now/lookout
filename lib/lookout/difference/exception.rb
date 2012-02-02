@@ -12,10 +12,10 @@ class Lookout::Difference::Exception < Lookout::Difference::Object
 
   def diff
     return super unless @expected.class == @actual.class and
-      ::String === @expected.message and
+      String === @expected.message and
       not @regexp and
       (m = @actual.message rescue nil) and
-      ::String === m
+      String === m
     @expected.message.to_lookout_expected.difference(m).diff
   end
 
