@@ -49,6 +49,7 @@ module Lookout
         lookout/difference/module.rb
         lookout/difference/regexp.rb
         lookout/difference/string.rb
+        lookout/difference/symbol.rb
         lookout/encode.rb
         lookout/expect.rb
         lookout/expect/object.rb
@@ -78,6 +79,7 @@ module Lookout
         lookout/expected/range.rb
         lookout/expected/regexp.rb
         lookout/expected/string.rb
+        lookout/expected/symbol.rb
         lookout/expected/trueclass.rb
         lookout/expectations.rb
         lookout/expectations/context.rb

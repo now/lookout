@@ -105,6 +105,24 @@ Expectations do
   # Expect Object not to be nil.
   expect Object.not.to.be.nil?
 
+  # Query Expectations
+
+  expect :nil? do
+    nil
+  end
+
+  expect :not_nil? do
+    Object.new
+  end
+
+  expect :empty? do
+    ''
+  end
+
+  expect :not_empty? do
+    'abc'
+  end
+
   # Behavior-based Expectations
 
   # Use a mock to verify that a method is called appropriately.

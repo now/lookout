@@ -221,6 +221,24 @@
       alternatives that follow it in the list.  ‹#Be› and ‹#have› must be
       followed by a call to a method.
 
+      As a special case, query methods can also have expectations placed upon
+      them.  Simply expect a symbol ending with ‹?›:
+
+        expect :nil? do
+          nil
+        end
+
+      To expect it’s negation, expect the same symbol beginning with ‹not_›:
+
+        expect :not_nil? do
+          Object.new
+        end
+
+      Both of these cases can be dealt with by expecting ‹true› or ‹false›, or
+      by using the appropriate ‹#not› and ‹#to›, but they report nicer failures
+      than the earlier and execute faster than the latter.  They also make the
+      tests intent clearer.
+
   § Expectations on Behavior
 
       We expect our objects to be on their best behavior.  Lookout allows you

@@ -86,6 +86,12 @@ class String
   end
 end
 
+class Symbol
+  def to_lookout_expected
+    Lookout::Expected::Symbol.new(self)
+  end
+end
+
 def Expectations(&block)
   Lookout::Expectations.evaluate(Lookout.location(caller.first).first, &block)
   self
