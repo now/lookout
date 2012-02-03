@@ -2,6 +2,6 @@
 
 class Lookout::Difference::Lookout::Output < Lookout::Difference::Object
   def diff
-    @expected.diff(@actual)
+    expected.diff(actual)
   end
 end

@@ -2,6 +2,6 @@
 
 class Lookout::Difference::Module < Lookout::Difference::Object
   def symbol
-    Module === @actual ? '≠' : '≉'
+    Module === actual ? '≠' : '≉'
   end
 end

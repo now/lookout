@@ -2,6 +2,6 @@
 
 class Lookout::Difference::Regexp < Lookout::Difference::Object
   def symbol
-    Regexp === @actual ? '≠' : '≉'
+    Regexp === actual ? '≠' : '≉'
   end
 end

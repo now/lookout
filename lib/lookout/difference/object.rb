@@ -19,17 +19,16 @@ class Lookout::Difference::Object
       diff.to_s == other.diff.to_s
   end
 
-  # TODO: Use these internally
   attr_reader :actual, :expected
 
   private
 
   def inspect_actual
-    Lookout::Inspect::Actual.new(@actual).call
+    Lookout::Inspect::Actual.new(actual).call
   end
 
   def inspect_expected
-    Lookout::Inspect::Expected.new(@expected).call
+    Lookout::Inspect::Expected.new(expected).call
   end
 
   def symbol

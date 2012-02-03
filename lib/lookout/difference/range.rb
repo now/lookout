@@ -2,6 +2,6 @@
 
 class Lookout::Difference::Range < Lookout::Difference::Object
   def symbol
-    Range === @actual ? '≠' : '∉'
+    Range === actual ? '≠' : '∉'
   end
 end

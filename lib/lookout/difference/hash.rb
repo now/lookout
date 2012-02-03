@@ -2,11 +2,11 @@
 
 class Lookout::Difference::Hash < Lookout::Difference::Object
   def diff
-    return super if @expected.size == 1 or not Hash === @actual
+    return super if expected.size == 1 or not Hash === actual
     Lookout::Diff::Formats::Set.
       new(Lookout::Diff::Operations.
             new(Lookout::Diff::Algorithms::Difflib.
-                  new(array(@actual), array(@expected))))
+                  new(array(actual), array(expected))))
   end
 
   def array(hash)

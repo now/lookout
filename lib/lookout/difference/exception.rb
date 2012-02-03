@@ -11,17 +11,17 @@ class Lookout::Difference::Exception < Lookout::Difference::Object
   end
 
   def diff
-    return super unless @expected.class == @actual.class and
-      String === @expected.message and
+    return super unless expected.class == actual.class and
+      String === expected.message and
       not @regexp and
-      (m = @actual.message rescue nil) and
+      (m = actual.message rescue nil) and
       String === m
-    @expected.message.to_lookout_expected.difference(m).diff
+    expected.message.to_lookout_expected.difference(m).diff
   end
 
   private
 
   def inspect_expected
-    @regexp ? '#<%s: %p>' % [@expected.class, @regexp] : super
+    @regexp ? '#<%s: %p>' % [expected.class, @regexp] : super
   end
 end
