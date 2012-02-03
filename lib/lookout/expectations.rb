@@ -41,7 +41,7 @@ class Lookout::Expectations
       context.instance_eval(&expectations)
     end
     self
-  rescue Interrupt, NoMemoryError, SignalException, SystemExit
+  rescue NoMemoryError, SignalException, SystemExit
     raise
   rescue Exception => e
     raise unless location = (Array(e.backtrace).first rescue nil)
