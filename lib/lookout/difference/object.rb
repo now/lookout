@@ -6,7 +6,7 @@ class Lookout::Difference::Object
   end
 
   def message
-    '%s≠%s' % [inspect_actual, inspect_expected]
+    '%s%s%s' % [inspect_actual, symbol, inspect_expected]
   end
 
   def diff
@@ -30,5 +30,9 @@ class Lookout::Difference::Object
 
   def inspect_expected
     Lookout::Inspect::Expected.new(@expected).call
+  end
+
+  def symbol
+    '≠'
   end
 end
