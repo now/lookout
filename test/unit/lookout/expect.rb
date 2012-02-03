@@ -2,7 +2,7 @@
 
 Expectations do
   expect Lookout::Expect::Exception do
-    Lookout::Expect.actualize(StandardError.new, 'test', 1)
+    Lookout::Expect.expect(StandardError.new, 'test', 1)
   end
 
   expect NoMethodError do
@@ -10,6 +10,6 @@ Expectations do
   end
 
   expect Lookout::Expect::Object do
-    Lookout::Expect.actualize(Lookout::Aphonic.new, 'test', 1)
+    Lookout::Expect.expect(Lookout::Aphonic.new, 'test', 1)
   end
 end

@@ -5,7 +5,7 @@ class Lookout::Expected::Object
     @subject = subject
   end
 
-  def actualize(file, line, &block)
+  def expect(file, line, &block)
     Lookout::Expect::Object.new(self, file, line, &block)
   end
 

@@ -2,11 +2,11 @@
 
 Expectations do
   expect Lookout::Expect::Exception do
-    RuntimeError.new('error').to_lookout_expected.actualize('test', 1)
+    RuntimeError.new('error').to_lookout_expected.expect('test', 1)
   end
 
   expect Lookout::Results::Success.new('test', 1) do
-    RuntimeError.new('error').to_lookout_expected.actualize('test', 1){ raise 'error' }.call
+    RuntimeError.new('error').to_lookout_expected.expect('test', 1){ raise 'error' }.call
   end
 
   expect Lookout::Results::Failure.
@@ -14,14 +14,14 @@ Expectations do
         1,
         Lookout::Difference::Exception.new(RuntimeError.new('b'),
                                            RuntimeError.new('a'))) do
-    RuntimeError.new('a').to_lookout_expected.actualize('test', 1){ raise 'b' }.call
+    RuntimeError.new('a').to_lookout_expected.expect('test', 1){ raise 'b' }.call
   end
 
   expect Lookout::Results::Error do
-    StandardError.new('a').to_lookout_expected.actualize('test', 1){ raise 'b' }.call
+    StandardError.new('a').to_lookout_expected.expect('test', 1){ raise 'b' }.call
   end
 
   expect 'RuntimeError≠StandardError' do
-    StandardError.new('a').to_lookout_expected.actualize('test', 1){ raise 'b' }.call.message
+    StandardError.new('a').to_lookout_expected.expect('test', 1){ raise 'b' }.call.message
   end
 end

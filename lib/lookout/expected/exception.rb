@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::Exception < Lookout::Expected::Object
-  def actualize(file, line, &block)
+  def expect(file, line, &block)
     Lookout::Expect::Exception.new(self, file, line, &block)
   end
 

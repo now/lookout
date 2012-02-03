@@ -2,7 +2,7 @@
 
 Expectations do
   expect Lookout::Expect::Lookout::Reception do
-    Object.new.to.receive.call.to_lookout_expected.actualize('test', 1)
+    Object.new.to.receive.call.to_lookout_expected.expect('test', 1)
   end
 
   expect Lookout::Expected::Lookout::Reception do

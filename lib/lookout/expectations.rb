@@ -48,7 +48,7 @@ class Lookout::Expectations
     file, line = Lookout.location(location)
     raise unless file and line
     # TODO: raise unless file == @path?
-    yield nil.to_lookout_expected.actualize(file, line){ raise e }
+    yield nil.to_lookout_expected.expect(file, line){ raise e }
     self
   end
 end

@@ -2,7 +2,7 @@
 
 Expectations do
   expect Lookout::Expect::Lookout::State do
-    Object.new.to.be.running?.to_lookout_expected.actualize('test', 1)
+    Object.new.to.be.running?.to_lookout_expected.expect('test', 1)
   end
 
   expect true do

@@ -16,7 +16,7 @@ ARGV.each do |arg|
     file = File.expand_path(arg)
     expectations = Lookout::Expectations.new(file)
     if line
-      target = nil.to_lookout_expected.actualize(file, line){
+      target = nil.to_lookout_expected.expect(file, line){
         raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
       }
       [(expectations.take_while{ |expect| expect <= target }.last or target)]

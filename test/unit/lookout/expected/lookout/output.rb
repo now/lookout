@@ -2,7 +2,7 @@
 
 Expectations do
   expect Lookout::Expect::Lookout::Output do
-    Lookout::Output.new('a').to_lookout_expected.actualize('test', 1)
+    Lookout::Output.new('a').to_lookout_expected.expect('test', 1)
   end
 
   expect true do
