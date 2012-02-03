@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect true do
-    /a/.to_lookout_expected =~ 'a'
+  expect nil do
+    /a/.to_lookout_expected.difference('a')
   end
 
-  expect true do
-    /a/.to_lookout_expected =~ /a/
+  expect nil do
+    /a/.to_lookout_expected.difference(/a/)
   end
 
-  expect false do
-    /a/.to_lookout_expected =~ 'b'
+  expect Lookout::Difference::Regexp do
+    /a/.to_lookout_expected.difference('b')
   end
 
-  expect false do
-    /a/.to_lookout_expected =~ /b/
+  expect Lookout::Difference::Regexp do
+    /a/.to_lookout_expected.difference(/b/)
   end
 end

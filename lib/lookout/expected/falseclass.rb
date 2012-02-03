@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Expected::FalseClass < Lookout::Expected::Object
-  def =~(other)
-    not other
+  def difference(other)
+    super((not not other))
   end
 end

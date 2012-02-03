@@ -29,8 +29,8 @@ class Lookout::Expect::Object
   end
 
   def check(actual)
-    @expected =~ actual ?
-      Lookout::Results::Success.new(file, line) :
-      Lookout::Results::Failure.new(file, line, @expected.difference(actual))
+    (difference = @expected.difference(actual)) ?
+      Lookout::Results::Failure.new(file, line, difference) :
+      Lookout::Results::Success.new(file, line)
   end
 end

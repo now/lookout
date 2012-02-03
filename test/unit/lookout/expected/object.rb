@@ -5,20 +5,20 @@ Expectations do
     Object.new.to_lookout_expected.expect('test', 1)
   end
 
-  expect true do
+  expect nil do
     object = Object.new
-    object.to_lookout_expected =~ object
+    object.to_lookout_expected.difference(object)
   end
 
-  expect true do
-    1.to_lookout_expected =~ 1
+  expect nil do
+    1.to_lookout_expected.difference(1)
   end
 
-  expect false do
-    Object.new.to_lookout_expected =~ Object.new
+  expect Lookout::Difference::Object do
+    Object.new.to_lookout_expected.difference(Object.new)
   end
 
-  expect false do
-    1.to_lookout_expected =~ 2
+  expect Lookout::Difference::Object do
+    1.to_lookout_expected.difference(2)
   end
 end

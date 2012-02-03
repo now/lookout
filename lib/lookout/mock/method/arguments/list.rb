@@ -6,7 +6,7 @@ class Lookout::Mock::Method::Arguments::List
   end
 
   def =~(other)
-    args.to_lookout_expected =~ other
+    not args.to_lookout_expected.difference(other)
   end
 
   def ==(other)

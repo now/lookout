@@ -5,11 +5,9 @@ class Lookout::Expected::Lookout::Warning < Lookout::Expected::Lookout::Output
     Lookout::Expect::Lookout::Warning.new(self, file, line, &block)
   end
 
-  def =~(other)
-    subject === other or subject == other
-  end
-
   def difference(other)
-    self =~ other ? nil : Lookout::Difference::Lookout::Warning.new(other, subject)
+    (subject === other or subject == other) ?
+      nil :
+      Lookout::Difference::Lookout::Warning.new(other, subject)
   end
 end

@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect false do
-    %w[abc].to_lookout_expected =~ nil
+  expect Lookout::Difference::Array do
+    %w[abc].to_lookout_expected.difference(nil)
   end
 
-  expect false do
-    %w[abc].to_lookout_expected =~ []
+  expect Lookout::Difference::Array do
+    %w[abc].to_lookout_expected.difference([])
   end
 
-  expect true do
-    %w[abc].to_lookout_expected =~ %w[abc]
+  expect nil do
+    %w[abc].to_lookout_expected.difference(%w[abc])
   end
 
-  expect true do
-    [Integer].to_lookout_expected =~ [1]
+  expect nil do
+    [Integer].to_lookout_expected.difference([1])
   end
 end

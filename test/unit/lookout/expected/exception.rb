@@ -5,20 +5,20 @@ Expectations do
     RuntimeError.new('a').to_lookout_expected.expect('test', 1)
   end
 
-  expect true do
+  expect nil do
     a = RuntimeError.new('a')
-    a.to_lookout_expected =~ a
+    a.to_lookout_expected.difference(a)
   end
 
-  expect true do
-    RuntimeError.new('a').to_lookout_expected =~ (begin raise 'a'; rescue => e; e end)
+  expect nil do
+    RuntimeError.new('a').to_lookout_expected.difference(begin raise 'a'; rescue => e; e end)
   end
 
-  expect false do
-    RuntimeError.new('a').to_lookout_expected =~ RuntimeError.new('b')
+  expect Lookout::Difference::Exception do
+    RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b'))
   end
 
-  expect false do
-    RuntimeError.new('a').to_lookout_expected =~ StandardError.new('a')
+  expect Lookout::Difference::Exception do
+    RuntimeError.new('a').to_lookout_expected.difference(StandardError.new('a'))
   end
 end

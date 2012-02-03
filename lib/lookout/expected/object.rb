@@ -9,12 +9,8 @@ class Lookout::Expected::Object
     Lookout::Expect::Object.new(self, file, line, &block)
   end
 
-  def =~(other)
-    subject == other
-  end
-
   def difference(other)
-    self =~ other ? nil : Lookout::Difference::Object.new(other, subject)
+    subject == other ? nil : Lookout::Difference::Object.new(other, subject)
   end
 
   # TODO: Might be able to remove this.

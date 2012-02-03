@@ -5,15 +5,15 @@ Expectations do
     Lookout::Warning.new('a').to_lookout_expected.expect('test', 1)
   end
 
-  expect true do
-    Lookout::Warning.new('a').to_lookout_expected =~ Lookout::Warning.new('a')
+  expect nil do
+    Lookout::Warning.new('a').to_lookout_expected.difference(Lookout::Warning.new('a'))
   end
 
-  expect false do
-    Lookout::Warning.new('a').to_lookout_expected =~ Lookout::Warning.new('b')
+  expect Lookout::Difference::Lookout::Warning do
+    Lookout::Warning.new('a').to_lookout_expected.difference(Lookout::Warning.new('b'))
   end
 
-  expect true do
-    Lookout::Warning.new('a').to_lookout_expected =~ Lookout::Warning.new('/a/b/c:1: warning: a')
+  expect nil do
+    Lookout::Warning.new('a').to_lookout_expected.difference(Lookout::Warning.new('/a/b/c:1: warning: a'))
   end
 end

@@ -5,11 +5,11 @@ Expectations do
     /a/
   end
 
-  expect true do
-    Lookout::Literal.new(/a/).to_lookout_expected =~ /a/
+  expect nil do
+    Lookout::Literal.new(/a/).to_lookout_expected.difference(/a/)
   end
 
-  expect false do
-    Lookout::Literal.new(/a/).to_lookout_expected =~ 'a'
+  expect Lookout::Difference::Object do
+    Lookout::Literal.new(/a/).to_lookout_expected.difference('a')
   end
 end

@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect true do
-    true.to_lookout_expected =~ true
+  expect nil do
+    true.to_lookout_expected.difference(true)
   end
 
-  expect false do
-    true.to_lookout_expected =~ false
+  expect Lookout::Difference::Object do
+    true.to_lookout_expected.difference(false)
   end
 
-  expect false do
-    true.to_lookout_expected =~ nil
+  expect Lookout::Difference::Object do
+    true.to_lookout_expected.difference(nil)
   end
 
-  expect true do
-    true.to_lookout_expected =~ 1
+  expect nil do
+    true.to_lookout_expected.difference(1)
   end
 
-  expect true do
-    true.to_lookout_expected =~ stub(:== => proc{ raise 'error' })
+  expect nil do
+    true.to_lookout_expected.difference(stub(:== => proc{ raise 'error' }))
   end
 end

@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect false do
-    {'a' => 1}.to_lookout_expected =~ 'b'
+  expect Lookout::Difference::Hash do
+    {'a' => 1}.to_lookout_expected.difference('b')
   end
 
-  expect false do
-    {'a' => 1, 'b' => 2}.to_lookout_expected =~ {'a' => 1}
+  expect Lookout::Difference::Hash do
+    {'a' => 1, 'b' => 2}.to_lookout_expected.difference({'a' => 1})
   end
 
-  expect false do
-    {'a' => 1, 'b' => 2}.to_lookout_expected =~ {'a' => 1, 'b' => 3}
+  expect Lookout::Difference::Hash do
+    {'a' => 1, 'b' => 2}.to_lookout_expected.difference({'a' => 1, 'b' => 3})
   end
 
-  expect true do
-    {'a' => 1, 'b' => 2}.to_lookout_expected =~ {'a' => 1, 'b' => 2}
+  expect nil do
+    {'a' => 1, 'b' => 2}.to_lookout_expected.difference({'a' => 1, 'b' => 2})
   end
 
-  expect true do
-    {'a' => Integer, 'b' => 2}.to_lookout_expected =~ {'a' => 1, 'b' => 2}
+  expect nil do
+    {'a' => Integer, 'b' => 2}.to_lookout_expected.difference({'a' => 1, 'b' => 2})
   end
 end

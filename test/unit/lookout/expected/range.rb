@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect true do
-    (1..5).to_lookout_expected =~ 3
+  expect nil do
+    (1..5).to_lookout_expected.difference(3)
   end
 
-  expect false do
-    (1..5).to_lookout_expected =~ 6
+  expect Lookout::Difference::Range do
+    (1..5).to_lookout_expected.difference(6)
   end
 
-  expect true do
-    (1..5).to_lookout_expected =~ (1..5)
+  expect nil do
+    (1..5).to_lookout_expected.difference((1..5))
   end
 
-  expect false do
-    (1..5).to_lookout_expected =~ 'a'
+  expect Lookout::Difference::Range do
+    (1..5).to_lookout_expected.difference('a')
   end
 end

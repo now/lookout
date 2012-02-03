@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect true do
-    String.to_lookout_expected =~ 'a'
+  expect nil do
+    String.to_lookout_expected.difference('a')
   end
 
-  expect false do
-    String.to_lookout_expected =~ 1
+  expect Lookout::Difference::Module do
+    String.to_lookout_expected.difference(1)
   end
 
-  expect true do
-    String.to_lookout_expected =~ String
+  expect nil do
+    String.to_lookout_expected.difference(String)
   end
 
-  expect false do
-    String.to_lookout_expected =~ Integer
+  expect Lookout::Difference::Module do
+    String.to_lookout_expected.difference(Integer)
   end
 
-  expect true do
-    Module.to_lookout_expected =~ String
+  expect nil do
+    Module.to_lookout_expected.difference(String)
   end
 end
