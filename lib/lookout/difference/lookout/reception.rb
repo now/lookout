@@ -7,6 +7,6 @@ class Lookout::Difference::Lookout::Reception < Lookout::Difference::Range
   end
 
   def diff
-    [message]
+    [@message]
   end
 end
