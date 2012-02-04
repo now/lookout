@@ -2,16 +2,30 @@
 
 Expectations do
   expect Lookout::Expect::Lookout::Reception do
-    Object.new.to.receive.call.to_lookout_expected.expect('test', 1)
+    'a'.to.receive.call.once.to_lookout_expected.expect('test', 1)
   end
 
-  expect Lookout::Expected::Lookout::Reception do
-    Object.new.to.receive.call.to_lookout_expected.define(Lookout::Mock::Methods.new)
+  expect Lookout::Results::Success.new('test', 1) do
+    'a'.to.receive.call.once.to_lookout_expected.expect('test', 1){ |o| o.call }.call
   end
 
-  expect 1 do
-    o = Object.new
-    o.to.receive.call{ 1 }.to_lookout_expected.define(Lookout::Mock::Methods.new)
-    o.call
+  expect Lookout::Results::Failure.
+    new('test',
+        1,
+        Lookout::Difference::Lookout::Reception.
+          new(0,
+              1..1,
+              '"a"#call: unexpected number of invocations (0 for 1)')) do
+    'a'.to.receive.call.once.to_lookout_expected.expect('test', 1).call
+  end
+
+  expect Lookout::Results::Failure.
+    new('test',
+        1,
+        Lookout::Difference::Lookout::Reception.
+          new(0,
+              1..1,
+              '"a"#call: unexpected number of invocations (0 for 1)')) do
+    'a'.to.receive.call.once.to_lookout_expected.expect('test', 1){ }.call
   end
 end

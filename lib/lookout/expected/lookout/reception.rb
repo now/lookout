@@ -10,8 +10,13 @@ class Lookout::Expected::Lookout::Reception < Lookout::Expected::Object
     Lookout::Expect::Lookout::Reception.new(self, file, line, &block)
   end
 
-  def define(methods)
-    methods.define(subject, @method, @calls, *@args, &@body)
-    self
+  def difference(other)
+    Lookout::Mock::Methods.during do |methods|
+      methods.define(subject, @method, @calls, *@args, &@body)
+      other.call
+    end
+    nil
+  rescue Lookout::Mock::Method::Calls::TooFewError => e
+    Lookout::Difference::Lookout::Reception.new(e.calls, e.range, e.message)
   end
 end
