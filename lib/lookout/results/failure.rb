@@ -22,6 +22,8 @@ class Lookout::Results::Failure
     [super, difference_to_s].compact.join(': ')
   end
 
+  protected
+
   attr_reader :difference
 
   def difference_to_s
