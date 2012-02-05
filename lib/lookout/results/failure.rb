@@ -8,14 +8,12 @@ class Lookout::Results::Failure
     @difference = difference
   end
 
-  # TODO: @difference isn’t guaranteed to not change, so these methods need to
-  # be adjusted.
   def ==(other)
     super and difference == other.difference
   end
 
   def hash
-    @hash ||= super ^ difference.hash
+    super ^ difference.hash
   end
 
   def to_s
