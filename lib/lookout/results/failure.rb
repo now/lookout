@@ -17,7 +17,7 @@ class Lookout::Results::Failure
   end
 
   def to_s
-    [super, difference_to_s].compact.join(': ')
+    [super, difference_to_s].join(': ')
   end
 
   protected
