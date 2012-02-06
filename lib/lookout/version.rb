@@ -60,7 +60,6 @@ module Lookout
         lookout/expect/lookout.rb
         lookout/expect/lookout/output.rb
         lookout/expect/lookout/reception.rb
-        lookout/expect/lookout/state.rb
         lookout/expect/lookout/warning.rb
         lookout/expected.rb
         lookout/expected/object.rb

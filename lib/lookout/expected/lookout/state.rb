@@ -6,11 +6,10 @@ class Lookout::Expected::Lookout::State < Lookout::Expected::Object
     @verify = verify
   end
 
-  def expect(file, line, &block)
-    Lookout::Expect::Lookout::State.new(self, file, line, &block)
-  end
-
-  def verify
+  def difference(other)
     @verify.call
+    nil
+  rescue Lookout::State::Error => e
+    Lookout::Difference::Lookout::State.new(e.message)
   end
 end

@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Expect::Lookout::State do
-    Object.new.to.be.running?.to_lookout_expected.expect('test', 1)
+  expect nil do
+    Lookout::Expected::Lookout::State.new(nil, proc{ true }).difference(:unused)
   end
 
-  expect true do
-    Lookout::Expected::Lookout::State.new(nil, proc{ true }).verify
-  end
-
-  expect false do
-    Lookout::Expected::Lookout::State.new(nil, proc{ false }).verify
+  expect nil do
+    Lookout::Expected::Lookout::State.new(nil, proc{ false }).difference(:unused)
   end
 end

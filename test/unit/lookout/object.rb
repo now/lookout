@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::State::Error.new(/expected .* to be nil?/) do
-    true.to.be.nil?.to_lookout_expected.verify
+  expect Lookout::Difference::Lookout::State.new('expected true to be nil?') do
+    true.to.be.nil?.to_lookout_expected.difference(:unused)
   end
 
-  expect true do
-    nil.to.be.nil?.to_lookout_expected.verify
+  expect nil do
+    nil.to.be.nil?.to_lookout_expected.difference(:unused)
   end
 
-  expect Lookout::State::Error.new(/expected .* not to be nil?/) do
-    nil.not.to.be.nil?.to_lookout_expected.verify
+  expect Lookout::Difference::Lookout::State.new('expected nil not to be nil?') do
+    nil.not.to.be.nil?.to_lookout_expected.difference(:unused)
   end
 
-  expect true do
-    true.not.to.be.nil?.to_lookout_expected.verify
+  expect nil do
+    true.not.to.be.nil?.to_lookout_expected.difference(:unused)
   end
 end
