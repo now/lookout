@@ -25,7 +25,7 @@ class Lookout::Expect::Object
   private
 
   def evaluate_block(subject = @expected.subject)
-    @block ? Context.new(subject, &@block).evaluate : false
+    Context.new(subject, &@block).evaluate
   end
 
   def check(actual)
