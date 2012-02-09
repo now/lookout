@@ -84,27 +84,6 @@ Expectations do
     raise StandardError.new('message')
   end
 
-  # State-based Fluent Boolean Expectations
-
-  # Expect an object to “be” something.
-  expect(Class.new{ attr_accessor :running }.new.to.be.running) do |process|
-    process.running = true
-  end
-
-  # Expect an object to “have” something.
-  expect(Class.new{ attr_accessor :finished }.new.to.have.finished) do |process|
-    process.finished = true
-  end
-
-  # Expect nil to respond to #nil?.
-  expect nil.to.respond_to? :nil?
-
-  # Expect nil to be nil.
-  expect nil.to.be.nil?
-
-  # Expect Object not to be nil.
-  expect Object.not.to.be.nil?
-
   # Query Expectations
 
   expect :nil? do
@@ -123,7 +102,7 @@ Expectations do
     'abc'
   end
 
-  # Explicit expectations on the result
+  # Explicit Query Expectations
 
   # Expect [] to be empty
   expect result.to.be.empty? do

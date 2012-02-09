@@ -1,24 +1,30 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Diff::Range.new('').to.be.empty?
-  expect Lookout::Diff::Range.new('a', 0..-1).to.be.empty?
-  expect Lookout::Diff::Range.new('a', 0...0).to.be.empty?
-  expect Lookout::Diff::Range.new('a', 0..0).not.to.be.empty?
+  expect result.empty? do Lookout::Diff::Range.new('') end
+  expect result.empty? do Lookout::Diff::Range.new('a', 0..-1) end
+  expect result.empty? do Lookout::Diff::Range.new('a', 0...0) end
+  expect result.not.empty? do Lookout::Diff::Range.new('a', 0..0) end
 
-  expect Lookout::Diff::Range.new('').to.have.size.equal?(0)
-  expect Lookout::Diff::Range.new('a', 0...0).to.have.size.equal?(0)
-  expect Lookout::Diff::Range.new('a', 0..0).to.have.size.equal?(1)
+  expect 0 do Lookout::Diff::Range.new('').size end
+  expect 0 do Lookout::Diff::Range.new('a', 0...0).size end
+  expect 1 do Lookout::Diff::Range.new('a', 0..0).size end
 
-  expect Lookout::Diff::Range.new('a', 0..0).not.to.be.
-    begins_before?(Lookout::Diff::Range.new('a', 0..1))
-  expect Lookout::Diff::Range.new('a', 0..0).to.be.
-    begins_before?(Lookout::Diff::Range.new('a', 1..1))
+  expect false do
+    Lookout::Diff::Range.new('a', 0..0).begins_before? Lookout::Diff::Range.new('a', 0..1)
+  end
 
-  expect Lookout::Diff::Range.new('a', 0..0).not.to.be.
-    ends_after?(Lookout::Diff::Range.new('a', 0..1))
-  expect Lookout::Diff::Range.new('a', 1..1).to.be.
-    ends_after?(Lookout::Diff::Range.new('a', 0..0))
+  expect true do
+    Lookout::Diff::Range.new('a', 0..0).begins_before? Lookout::Diff::Range.new('a', 1..1)
+  end
+
+  expect false do
+    Lookout::Diff::Range.new('a', 0..0).ends_after? Lookout::Diff::Range.new('a', 0..1)
+  end
+
+  expect true do
+    Lookout::Diff::Range.new('a', 1..1).ends_after? Lookout::Diff::Range.new('a', 0..0)
+  end
 
   expect Lookout::Diff::Range.new('abc', 2..2) do
     Lookout::Diff::Range.new('abc').begin_after(Lookout::Diff::Range.new('abc', 0..1))

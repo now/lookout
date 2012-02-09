@@ -172,57 +172,10 @@
       investigation into whether or not this is a bug, but I’ll leave that up
       to the reader to decide.)
 
-      Lookout further provides a fluent way of setting up expectations on
-      boolean results.  An object can “be”
-
-        expect Class.new{ attr_accessor :running; }.new.to.be.running do |process|
-          process.running = true
-        end
-
-      or “not be”
-
-        expect Class.new{ attr_accessor :running; }.new.not.to.be.running do |process|
-          process.running = false
-        end
-
-      or “have”
-
-        expect Class.new{ attr_accessor :finished; }.new.to.have.finished do |process|
-          process.finished = true
-        end
-
-      or “not have”
-
-        expect Class.new{ attr_accessor :finished; }.new.not.to.have.finished do |process|
-          process.finished = false
-        end
-
-      On the same note
-
-        expect nil.to.be.nil?
-
-      and
-
-        expect Object.new.not.to.be.nil?
-
-      As not every boolean method “is” or “has” you can even
-
-        expect nil.to.respond_to? :nil?
-
-      The rules here are that all ‹Objects› respond to ‹#to›.  After ‹#to› you
-      may call
-
-    •   ‹#not›
-    •   ‹#be›
-    •   ‹#have›
-    •   Any method whose name ends with ‹?›
-
-      A call to ‹#not› must be followed by a call to one of the three
-      alternatives that follow it in the list.  ‹#Be› and ‹#have› must be
-      followed by a call to a method.
-
-      As a special case, query methods can also have expectations placed upon
-      them.  Simply expect a symbol ending with ‹?›:
+      Symbols are generally matched against symbols, but as a special case,
+      symbols ending with ‹?› are seen as expectations on the result of query
+      methods on the result of the block.  Simply expect a symbol ending with
+      ‹?›:
 
         expect :nil? do
           nil
@@ -234,10 +187,20 @@
           Object.new
         end
 
-      Both of these cases can be dealt with by expecting ‹true› or ‹false›, or
-      by using the appropriate ‹#not› and ‹#to›, but they report nicer failures
-      than the earlier and execute faster than the latter.  They also make the
-      tests intent clearer.
+      This is the same as
+
+        expect true do
+          nil.nil?
+        end
+
+      and
+
+        expect false do
+          Object.new.nil?
+        end
+
+      but provides much clearer failure messages.  It also makes the
+      expectation’s intent a lot clearer.
 
       There’s also a way to make the expectations of query methods explicit by
       invoking methods on the result of the block.  For example, to check that
@@ -275,6 +238,24 @@
       or any other method you will want to call on the result.  The methods
       ‹#to›, ‹#be›, and ‹#have› do nothing except improve readability.  The
       ‹#not› method inverts the expectation.
+
+      If you need to literally check against any of the types of objects
+      otherwise treated specially, that is, any instances of
+
+    •   ‹Module›
+    •   ‹Range›
+    •   ‹Regexp›
+    •   ‹Exception›
+    •   ‹Symbol›, given that it ends with ‹?›
+
+      you can do so by wrapping it in ‹literal(…)›:
+
+        expect literal(:empty?) do
+          :empty?
+        end
+
+      You almost never need to do this, as, for all but symbols, instances will
+      match accordingly as well.
 
   § Expectations on Behavior
 
@@ -726,6 +707,18 @@
       When a mock method is called too many times, this is reported
       immediately, with a full backtrace.  This makes it easier to pin down
       what’s wrong with the code.
+
+      Query expectations were added.
+
+      Explicit query expectations were added.
+
+      Fluent boolean expectations, for example, ‹expect nil.to.be.nil?› have
+      been replaced by query expectations (‹expect :nil? do nil end›) and
+      explicit query expectations (‹expect result.to.be.nil? do nil end›).
+      This was done to discourage creating objects as the expected value and
+      creating objects that change during the course of the test.
+
+      The ‹literal› expectation was added.
 
 § Contributors
 

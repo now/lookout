@@ -8,7 +8,7 @@ class Lookout::Expected::Symbol < Lookout::Expected::Object
 
   def difference(other)
     @query ?
-      (!!other.send(@query) ^ !!@negated ?
+      ((not not other.send(@query)) ^ !!@negated ?
        nil :
        Lookout::Difference::Symbol.new(other, subject, @query, @negated)) :
       super

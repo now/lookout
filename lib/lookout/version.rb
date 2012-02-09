@@ -50,7 +50,6 @@ module Lookout
         lookout/difference/lookout/actual/not.rb
         lookout/difference/lookout/output.rb
         lookout/difference/lookout/reception.rb
-        lookout/difference/lookout/state.rb
         lookout/difference/lookout/warning.rb
         lookout/difference/module.rb
         lookout/difference/regexp.rb
@@ -80,7 +79,6 @@ module Lookout
         lookout/expected/lookout/actual/not.rb
         lookout/expected/lookout/output.rb
         lookout/expected/lookout/reception.rb
-        lookout/expected/lookout/state.rb
         lookout/expected/lookout/warning.rb
         lookout/expected/module.rb
         lookout/expected/range.rb
@@ -119,15 +117,6 @@ module Lookout
         lookout/object/not/receive.rb
         lookout/object/to.rb
         lookout/object/to/receive.rb
-        lookout/state.rb
-        lookout/state/recording.rb
-        lookout/state/verify.rb
-        lookout/state/be.rb
-        lookout/state/have.rb
-        lookout/state/not.rb
-        lookout/state/not/verify.rb
-        lookout/state/not/be.rb
-        lookout/state/not/have.rb
         lookout/result.rb
         lookout/results.rb
         lookout/results/error.rb
