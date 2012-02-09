@@ -5,7 +5,7 @@ module Lookout::Expect
     def expect(subject, file, line, &block)
       begin
         subject.to_lookout_expected
-      rescue NoMethodError
+      rescue ::NoMethodError
         ::Lookout::Expected::Object.new(subject)
       end.expect(file, line, &block)
     end
