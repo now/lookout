@@ -720,6 +720,9 @@
 
       The ‹literal› expectation was added.
 
+      Equality (‹#==›) is now checked before “caseity” (‹#===›) for modules,
+      ranges, and regular expressions to match the documentation.
+
 § Contributors
 
     Contributors to the original expectations codebase are mentioned there.  We
