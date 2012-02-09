@@ -25,6 +25,8 @@ class Lookout::Actual::Methods
     '#' + methods.map(&:to_s).join('#')
   end
 
+  alias inspect to_s
+
   protected
 
   attr_reader :methods

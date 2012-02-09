@@ -22,6 +22,8 @@ class Lookout::Actual::Methods::Method
                 block ? '{ … }' : '']
   end
 
+  alias inspect to_s
+
   protected
 
   attr_reader :name, :args, :block
