@@ -22,7 +22,7 @@ class Lookout::Actual::Methods
   alias eql? ==
 
   def to_s
-    '#' + methods.map(&:to_s).join('#')
+    methods.map(&:to_s).join('')
   end
 
   alias inspect to_s

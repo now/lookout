@@ -17,7 +17,7 @@ class Lookout::Actual::Methods::Method
   end
 
   def to_s
-    '%s%s%s' % [name,
+    '#%s%s%s' % [name,
                 args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
                 block ? '{ … }' : '']
   end
