@@ -239,6 +239,43 @@
       than the earlier and execute faster than the latter.  They also make the
       tests intent clearer.
 
+      There’s also a way to make the expectations of query methods explicit by
+      invoking methods on the result of the block.  For example, to check that
+      the Array ‹[1, 2, 3]› includes ‹1› you could write
+
+        expect result.to.include? 1 do
+          [1, 2, 3].reject{ |e| e.even? }
+        end
+
+      You could likewise check that the result doesn’t include 2:
+
+        expect result.not.to.include? 2 do
+          [1, 2, 3].reject{ |e| e.even? }
+        end
+
+      This is the same as (and executes a little bit slower than) writing
+
+        expect false do
+          [1, 2, 3].reject{ |e| e.even? }.include? 2
+        end
+
+      but provides much clearer failure messages.  Given that these two last
+      examples would fail, you’d get a message saying “[1, 2, 3]#include?(2)”
+      instead of the terser “true≠false”.  It also clearly separates the actual
+      expectation from the set-up.
+
+      The keyword for this kind of expectations is ‹result›.  This may be
+      followed by any of the methods
+
+    •   ‹#not›
+    •   ‹#to›
+    •   ‹#be›
+    •   ‹#have›
+
+      or any other method you will want to call on the result.  The methods
+      ‹#to›, ‹#be›, and ‹#have› do nothing except improve readability.  The
+      ‹#not› method inverts the expectation.
+
   § Expectations on Behavior
 
       We expect our objects to be on their best behavior.  Lookout allows you

@@ -16,6 +16,10 @@ class Lookout::Expectations::Context
     self
   end
 
+  def result
+    Lookout::Actual.new
+  end
+
   def literal(subject)
     Lookout::Literal.new(subject)
   end

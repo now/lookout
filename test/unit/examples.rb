@@ -123,6 +123,28 @@ Expectations do
     'abc'
   end
 
+  # Explicit expectations on the result
+
+  # Expect [] to be empty
+  expect result.to.be.empty? do
+    []
+  end
+
+  # Expect [1, 2, 3] with all Integers removed to be empty
+  expect result.to.be.empty? do
+    [1, 2, 3].reject{ |e| Integer === e }
+  end
+
+  # Expect [1, 2, 3] with all even integers removed to include 1
+  expect result.to.include? 1 do
+    [1, 2, 3].reject{ |e| e.even? }
+  end
+
+  # Expect [1, 2, 3] with all even integers removed not to include 2
+  expect result.not.to.include? 2 do
+    [1, 2, 3].reject{ |e| e.even? }
+  end
+
   # Behavior-based Expectations
 
   # Use a mock to verify that a method is called appropriately.

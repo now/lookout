@@ -6,7 +6,7 @@ class Lookout::Difference::Object
   end
 
   def message
-    '%s%s%s' % [inspect_actual, symbol, inspect_expected]
+    '%s%s%s' % order
   end
 
   def diff
@@ -22,6 +22,10 @@ class Lookout::Difference::Object
   attr_reader :actual, :expected
 
   private
+
+  def order
+    [inspect_actual, symbol, inspect_expected]
+  end
 
   def inspect_actual
     Lookout::Inspect::Actual.new(actual).call

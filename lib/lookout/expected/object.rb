@@ -13,6 +13,13 @@ class Lookout::Expected::Object
     subject == other ? nil : Lookout::Difference::Object.new(other, subject)
   end
 
+  def ==(other)
+    self.class == other.class and
+      subject == other.subject
+  end
+
+  alias eql? ==
+
   # TODO: Might be able to remove this.
   attr_reader :subject
 end
