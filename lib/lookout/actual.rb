@@ -2,7 +2,7 @@
 
 class Lookout::Actual < Lookout::Aphonic
   def initialize
-    @methods = Lookout::Actual::Methods.new
+    @methods = Methods.new
   end
 
   def not
