@@ -166,12 +166,6 @@
           raise StandardError.new('message')
         end
 
-      (Note that some of Ruby’s built-in error classes have slightly
-      complicated behavior and will not allow you to pass a ‹Regexp› as a
-      parameter.  ‹NameError› is such a class.  This may warrant further
-      investigation into whether or not this is a bug, but I’ll leave that up
-      to the reader to decide.)
-
       Symbols are generally matched against symbols, but as a special case,
       symbols ending with ‹?› are seen as expectations on the result of query
       methods on the result of the block.  Simply expect a symbol ending with
