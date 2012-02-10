@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Difference::Lookout::Actual::Not < Lookout::Difference::Lookout::Actual
-  private
-
-  def symbol
-    ''
-  end
+module Lookout::Difference::Lookout::Actual::Not
 end

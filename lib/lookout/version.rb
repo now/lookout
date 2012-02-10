@@ -17,9 +17,9 @@ module Lookout
         lookout/object.rb
         lookout/aphonic.rb
         lookout/actual.rb
+        lookout/actual/method.rb
         lookout/actual/not.rb
-        lookout/actual/methods.rb
-        lookout/actual/methods/method.rb
+        lookout/actual/not/method.rb
         lookout/diff.rb
         lookout/diff/range.rb
         lookout/diff/algorithms.rb
@@ -47,7 +47,9 @@ module Lookout
         lookout/difference/range.rb
         lookout/difference/lookout.rb
         lookout/difference/lookout/actual.rb
+        lookout/difference/lookout/actual/method.rb
         lookout/difference/lookout/actual/not.rb
+        lookout/difference/lookout/actual/not/method.rb
         lookout/difference/lookout/output.rb
         lookout/difference/lookout/reception.rb
         lookout/difference/lookout/warning.rb
@@ -76,7 +78,9 @@ module Lookout
         lookout/expected/hash.rb
         lookout/expected/lookout.rb
         lookout/expected/lookout/actual.rb
+        lookout/expected/lookout/actual/method.rb
         lookout/expected/lookout/actual/not.rb
+        lookout/expected/lookout/actual/not/method.rb
         lookout/expected/lookout/output.rb
         lookout/expected/lookout/reception.rb
         lookout/expected/lookout/warning.rb

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Actual::Methods::Method
+class Lookout::Actual::Method
   def initialize(name, *args, &block)
     @name, @args, @block = name, args, block
   end
@@ -20,6 +20,10 @@ class Lookout::Actual::Methods::Method
     '#%s%s%s' % [name,
                 args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
                 block ? '{ … }' : '']
+  end
+
+  def to_lookout_expected
+    Lookout::Expected::Lookout::Actual::Method.new(self)
   end
 
   alias inspect to_s

@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Actual < Lookout::Aphonic
-  def initialize
-    @methods = Methods.new
-  end
-
   def not
     Lookout::Actual::Not.new
   end
@@ -21,14 +17,9 @@ class Lookout::Actual < Lookout::Aphonic
     self
   end
 
-  def to_lookout_expected
-    Lookout::Expected::Lookout::Actual.new(@methods)
-  end
-
   private
 
   def method_missing(method, *args, &block)
-    @methods.push method, *args, &block
-    self
+    Method.new(method, *args, &block)
   end
 end

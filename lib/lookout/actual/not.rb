@@ -5,7 +5,9 @@ class Lookout::Actual::Not < Lookout::Actual
     Lookout::Actual.new
   end
 
-  def to_lookout_expected
-    Lookout::Expected::Lookout::Actual::Not.new(@methods)
+  private
+
+  def method_missing(method, *args, &block)
+    Method.new(method, *args, &block)
   end
 end
