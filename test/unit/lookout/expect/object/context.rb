@@ -25,7 +25,7 @@ Expectations do
     Lookout::Expect::Object::Context.new{ Object.new.tap{ |o| stub(o).a{ 1 } }.a }.evaluate
   end
 
-  expect ArgumentError.new('wrong number of arguments (1 for 0): stub(…).a(1){ … } should be stub(…).a{ … }') do
+  expect ArgumentError do
     Lookout::Expect::Object::Context.new{ Object.new.tap{ |o| stub(o).a(1){ 1 } }.a }.evaluate
   end
 

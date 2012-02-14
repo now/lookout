@@ -61,6 +61,7 @@ module Lookout
         lookout/expect.rb
         lookout/expect/object.rb
         lookout/expect/object/context.rb
+        lookout/expect/object/context/stub.rb
         lookout/expect/classes.rb
         lookout/expect/classes/exception.rb
         lookout/expect/exception.rb
