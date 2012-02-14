@@ -14,22 +14,12 @@ class Lookout::Expect::Object::Context
 
   private
 
-  def stub(object = (default = true; nil))
-    return Lookout::Stub::Object.new if default
-    @stubs = Lookout::Stub::Methods.new unless @stubs
+  def stub(object = {})
     case object
     when Hash
-      Lookout::Stub::Object.new.tap{ |stub|
-        object.each do |name, value|
-          if Proc === value
-            @stubs.define(stub, name, &value)
-          else
-            @stubs.define(stub, name){ value }
-          end
-        end
-      }
+      Lookout::Stub::Object.new(object)
     else
-      Stub.new(@stubs, object)
+      Stub.new(@stubs ||= Lookout::Stub::Methods.new, object)
     end
   end
 
