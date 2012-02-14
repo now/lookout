@@ -8,7 +8,7 @@ class Lookout::Stub::Object
       meta.module_eval do
         case value
         when Proc
-          if value.lambda?
+          if (value.lambda? rescue false)
             define_method name, value
           else
             define_method name do |*args, &block|
