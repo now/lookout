@@ -4,7 +4,7 @@ class Lookout::Stub::Method::Undefined
   include Lookout::Stub::Method
 
   def define
-    meta.module_exec(method, visibility, stash, defined) do |method, visibility, stash, defined|
+    meta.module_exec method, visibility, stash, defined do |method, visibility, stash, defined|
       alias_method stash, method if
         method_defined? method or private_method_defined? method
       define_method method do |*args, &block|
