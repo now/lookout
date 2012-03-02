@@ -4,7 +4,7 @@ class Lookout::Stub::Method::Undefined
   include Lookout::Stub::Method
 
   def define
-    meta.module_exec method, stash, defined do |method, stash, defined|
+    meta_exec method, stash, defined do |method, stash, defined|
       visibility = private_method_defined?(method) ? :private :
         protected_method_defined?(method) ? :protected :
         :public

@@ -8,7 +8,7 @@ class Lookout::Stub::Method::Defined
   end
 
   def undefine
-    meta.module_exec method, stash do |method, stash|
+    meta_exec method, stash do |method, stash|
       remove_method method
       if method_defined? stash or private_method_defined? stash
         alias_method method, stash
