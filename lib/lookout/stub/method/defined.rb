@@ -3,20 +3,35 @@
 class Lookout::Stub::Method::Defined
   include Lookout::Stub::Method
 
+  def initialize(object, method, visibility, unbound, &body)
+    super object, method, &body
+    @visibility, @unbound = visibility, unbound
+  end
+
+  def ==(other)
+    super and
+      visibility == other.visibility and
+      unbound == other.unbound
+  end
+
   def call(*args, &block)
     body.call(*args, &block)
   end
 
   def undefine
-    meta_exec method, stash do |method, stash|
+    meta_exec method, visibility, unbound do |method, visibility, unbound|
       remove_method method
-      if method_defined? stash or private_method_defined? stash
-        alias_method method, stash
-        remove_method stash
+      if unbound
+        define_method method, unbound
+        send visibility, method
       end
     end
     undefined
   end
+
+  protected
+
+  attr_reader :visibility, :unbound
 
   private
 

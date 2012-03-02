@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
 module Lookout::Mock::Method
-  def initialize(object, method, calls, *args, &body)
-    super object, method, &body
-    @calls, @args = calls, Arguments.new(*args)
-  end
-
   def ==(other)
     super and
       calls == other.calls and
@@ -21,10 +16,4 @@ module Lookout::Mock::Method
   protected
 
   attr_reader :calls, :args
-
-  private
-
-  def stash
-    :"__mocked_method_#{method}"
-  end
 end

@@ -20,10 +20,6 @@ module Lookout::Stub::Method
 
   Nil = proc{ Lookout::Stub::Object.new }
 
-  def stash
-    :"__stubbed_method_#{method}"
-  end
-
   def meta_exec(*args, &block)
     (Kernel == object ? object : (class << object; self; end)).module_exec(*args, &block)
   end
