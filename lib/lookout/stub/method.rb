@@ -12,6 +12,12 @@ module Lookout::Stub::Method
       body == other.body
   end
 
+  def to_s
+    '%s%s%s' % [Lookout::Inspect.new(object, 'object').call,
+                Class === object ? '.' : '#',
+                method]
+  end
+
   protected
 
   attr_reader :object, :method, :body
@@ -19,8 +25,4 @@ module Lookout::Stub::Method
   private
 
   Nil = proc{ Lookout::Stub::Object.new }
-
-  def meta_exec(*args, &block)
-    (Kernel == object ? object : (class << object; self; end)).module_exec(*args, &block)
-  end
 end

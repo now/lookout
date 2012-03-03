@@ -3,39 +3,30 @@
 class Lookout::Stub::Method::Defined
   include Lookout::Stub::Method
 
-  def initialize(object, method, visibility, unbound, &body)
+  def initialize(object, method, &body)
     super object, method, &body
-    @visibility, @unbound = visibility, unbound
+    @definition = Definition.new(object, method){ |*args, &block|
+      call(*args, &block)
+    }
   end
 
   def ==(other)
     super and
-      visibility == other.visibility and
-      unbound == other.unbound
-  end
-
-  def call(*args, &block)
-    body.call(*args, &block)
+      definition == other.definition
   end
 
   def undefine
-    meta_exec method, visibility, unbound do |method, visibility, unbound|
-      remove_method method
-      if unbound
-        define_method method, unbound
-        send visibility, method
-      end
-    end
-    undefined
+    definition.undefine
+    Undefined.new(object, method, &body)
   end
 
   protected
 
-  attr_reader :visibility, :unbound
+  attr_reader :definition
 
   private
 
-  def undefined
-    Undefined.new(object, method, &body)
+  def call(*args, &block)
+    body.call(*args, &block)
   end
 end

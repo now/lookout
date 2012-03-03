@@ -104,6 +104,7 @@ module Lookout
         lookout/stub.rb
         lookout/stub/method.rb
         lookout/stub/method/defined.rb
+        lookout/stub/method/defined/definition.rb
         lookout/stub/method/undefined.rb
         lookout/stub/methods.rb
         lookout/stub/object.rb
