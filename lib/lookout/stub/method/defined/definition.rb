@@ -8,7 +8,8 @@ class Lookout::Stub::Method::Defined::Definition
         private_method_defined?(method) ? [:private, private_instance_methods(false)] :
         protected_method_defined?(method) ? [:protected, protected_instance_methods(false)] :
         public_method_defined?(method) ? [nil, instance_methods(false)] : [nil, []]
-      unbound = methods.include?(method) ? instance_method(method) : nil
+      unbound = methods.include?(RUBY_VERSION < '1.9' ? method.to_s : method) ?
+        instance_method(method) : nil
       define_method method do |*args, &block|
         body.call(*args, &block)
       end
