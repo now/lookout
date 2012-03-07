@@ -3,7 +3,7 @@
 require 'lookout/manifest'
 
 module Lookout
-  Version = '2.4.0'
+  Version = '3.0.0'
 
   Class.new(Manifest){
     def requires
