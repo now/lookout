@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+module Lookout end
+
 class Lookout::Manifest
   class << self
     def attach(container, version = :Version)
