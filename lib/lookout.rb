@@ -9,7 +9,7 @@ module Lookout
   end
 
   load File.expand_path('../lookout/version.rb', __FILE__)
-  Version.manifest.load(__FILE__)
+  Version.load
 end
 
 class Object

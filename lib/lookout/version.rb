@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout/manifest'
+require 'inventory'
 
 module Lookout
-  Version = '3.0.0'
-
-  Class.new(Manifest){
+  Version = Inventory.new(3, 0, 0){
     def requires
       %w'
         stringio
@@ -137,11 +135,7 @@ module Lookout
     def additional_libs
       super +
         %w'
-          lookout/manifest.rb
           lookout/rake/tasks.rb
-          lookout/rake/tasks/gem.rb
-          lookout/rake/tasks/manifest.rb
-          lookout/rake/tasks/tags.rb
           lookout/rake/tasks/test.rb
           lookout/rake/tasks/test/loader.rb
         '
@@ -151,9 +145,6 @@ module Lookout
     def unit_tests
       super - %w'
         lookout/rake/tasks.rb
-        lookout/rake/tasks/gem.rb
-        lookout/rake/tasks/manifest.rb
-        lookout/rake/tasks/tags.rb
         lookout/rake/tasks/test.rb
         lookout/rake/tasks/test/loader.rb
       '
@@ -164,5 +155,5 @@ module Lookout
         examples.rb
       '
     end
-  }.attach self
+  }
 end

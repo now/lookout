@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Rake::Tasks::Test < Rake::TaskLib
+class Lookout::Rake::Tasks::Test
+  include Rake::DSL
+
   LoaderPath = File.join(File.dirname(__FILE__), 'test/loader.rb')
   Paths = %w'lib'
 
@@ -9,7 +11,9 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
     self.paths = options.fetch(:paths, Paths)
     self.requires = options.fetch(:requires, [])
     self.files = options.fetch(:files){ ENV.include?('TEST') ? FileList[ENV['TEST']] : nil }
-    manifest = options[:manifest] || Lookout::Rake::Tasks.manifest and self.manifest = manifest
+    inventory = options[:inventory] ||
+      (defined? Inventory::Rake::Tasks and Inventory::Rake::Tasks.inventory) and
+      self.inventory = inventory
     self.specification = options.fetch(:specification) if options.include? :specification
     yield self if block_given?
     define
@@ -20,27 +24,40 @@ class Lookout::Rake::Tasks::Test < Rake::TaskLib
 
   def paths
     return @paths if @paths
-    self.specification = Lookout::Rake::Tasks.specification
+    self.specification = specification
+    @paths
   end
 
   def requires
     return @requires unless @requires.empty?
-    self.specification = Lookout::Rake::Tasks.specification
+    self.specification = specification
+    @requires
   end
 
   def files
     @files ||= FileList['test/unit/**/*.rb']
   end
 
-  def manifest=(manifest)
-    self.paths = manifest.lib_directories
-    self.requires = [manifest.package_require]
-    @files ||= manifest.unit_test_files
+  def inventory=(inventory)
+    self.paths = inventory.lib_directories
+    self.requires = [inventory.package_require]
+    @files ||= inventory.unit_test_files
+    inventory
+  end
+
+  def specification
+    return @specification if @specification
+    return nil unless defined? ::Gem
+    gemspec = Dir['*.gemspec'].first
+    fail 'gem specification was not given and could not be found in project root: %s' %
+      Dir.pwd unless gemspec
+    @specification = Gem::Specification.load(gemspec)
   end
 
   def specification=(specification)
     self.paths = specification.require_paths
     self.requires = [specification.name.gsub('-', '/')]
+    specification
   end
 
   def define
