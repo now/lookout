@@ -67,6 +67,8 @@ class Lookout::Rake::Tasks::Test
     end
 
     task :default => @name unless Rake::Task.task_defined? :default
+
+    task :check => :test if @name == :test
   end
 
   def options
