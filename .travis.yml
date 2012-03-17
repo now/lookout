@@ -1,5 +1,4 @@
 language: ruby
-before_script: gem install inventory --no-rdoc --no-ri
 rvm:
   - 1.8.7
   - 1.9.3

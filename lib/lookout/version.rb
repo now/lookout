@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-p $:, $LOADED_FEATURES
-
 require 'inventory'
 
 module Lookout
