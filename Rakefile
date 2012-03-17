@@ -11,7 +11,7 @@ Inventory::Rake::Tasks.define Lookout::Version, :gem => proc{ |_, s|
   s.email = 'now@bitwi.se'
   s.homepage = 'https://github.com/now/lookout'
 
-  s.add_development_dependency 'yard', '~> 0.6.0'
+  s.add_development_dependency 'yard', '~> 0.7.0'
 
   s.add_runtime_dependency 'inventory', '~> 0.2.0'
 }
