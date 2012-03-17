@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  # TODO: Move these tests to Difference::Array
   expect [] do
     %w[abc].to_lookout_expected.difference(%w[def]).diff
   end
