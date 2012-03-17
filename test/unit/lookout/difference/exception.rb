@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  # TODO: More tests for #diff
+  expect [] do
+    RuntimeError.new.to_lookout_expected.difference(ArgumentError.new).diff
+  end
+
+  expect [] do
+    RuntimeError.new(/a/).to_lookout_expected.difference(RuntimeError.new('b')).diff
+  end
+
+  expect [] do
+    RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).message{ raise } }).diff
+  end
+
   expect [] do
     RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).message{ nil } }).diff
   end
