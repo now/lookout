@@ -25,6 +25,10 @@ Expectations do
     ArgumentError.to_lookout_expected.expect('test', 1){ raise 'error' }.call
   end
 
+  expect Lookout::Results::Failure.new('test', 1, Lookout::Difference::Object.new(nil, RuntimeError)) do
+    RuntimeError.to_lookout_expected.expect('test', 1){ nil }.call
+  end
+
   expect Lookout::Results::Error do
     ArgumentError.to_lookout_expected.expect('test', 1){
       raise Class.new(RuntimeError){
