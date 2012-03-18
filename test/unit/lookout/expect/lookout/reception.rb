@@ -27,7 +27,7 @@ Expectations do
     stub.not.to.receive.call.to_lookout_expected.expect('test', 1){ |o| o.call }.call
   end
 
-  expect 'stub#call: unexpected number of invocations (1 for 0) (Lookout::Mock::Method::Calls::TooManyError)' do
+  expect 'stub#call: unexpected number of invocations (1 for 0)' do
     stub.not.to.receive.call.to_lookout_expected.expect('test', 1){ |o| o.call }.call.exception.message
   end
 
@@ -39,7 +39,7 @@ Expectations do
     stub.to.receive.call(1).to_lookout_expected.expect('test', 1){ |o| o.call }.call
   end
 
-  expect 'stub#call: unexpected arguments ([]≠[1]) (Lookout::Mock::Method::Arguments::Error)' do
+  expect 'stub#call: unexpected arguments ([]≠[1])' do
     stub.to.receive.call(1).to_lookout_expected.expect('test', 1){ |o| o.call }.call.exception.message
   end
 end

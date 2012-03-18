@@ -21,7 +21,7 @@ Expectations do
     stub(:== => proc{ raise 'error' }).to_lookout_expected.expect('test', 1){ 2 }.call
   end
 
-  expect 'error (RuntimeError)' do
+  expect 'error' do
     stub(:== => proc{ raise 'error' }).to_lookout_expected.expect('test', 1){ 2 }.call.exception.message
   end
 

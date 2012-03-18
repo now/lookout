@@ -10,11 +10,11 @@ class Lookout::Inspect
   rescue => e
     '(cannot encode inspected %s for output: %s; %s)' %
       [@type,
-       Error.new(e).call,
+       Lookout::Exception.new(e).message,
        begin
          'dumping instead: %s' % [inspection.dump]
        rescue => inner
-         'dumping also failed: %s' % Error.new(inner).call
+         'dumping also failed: %s' % Lookout::Exception.new(inner).message
        end]
   end
 
@@ -23,6 +23,6 @@ class Lookout::Inspect
   def inspect_object
     String(@object.inspect)
   rescue => e
-    '(cannot inspect %s: %s)' % [@type, Error.new(e).call]
+    '(cannot inspect %s: %s)' % [@type, Lookout::Exception.new(e).message]
   end
 end

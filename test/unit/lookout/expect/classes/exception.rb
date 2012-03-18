@@ -24,4 +24,14 @@ Expectations do
   expect Lookout::Results::Error do
     ArgumentError.to_lookout_expected.expect('test', 1){ raise 'error' }.call
   end
+
+  expect Lookout::Results::Error do
+    ArgumentError.to_lookout_expected.expect('test', 1){
+      raise Class.new(RuntimeError){
+        def class
+          raise 'no class for you'
+        end
+      }
+    }.call
+  end
 end

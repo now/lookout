@@ -56,6 +56,9 @@ module Lookout
         lookout/difference/string.rb
         lookout/difference/symbol.rb
         lookout/encode.rb
+        lookout/exception.rb
+        lookout/exception/backtrace.rb
+        lookout/exception/unknown.rb
         lookout/expect.rb
         lookout/expect/object.rb
         lookout/expect/object/context.rb
@@ -94,7 +97,6 @@ module Lookout
         lookout/inspect.rb
         lookout/inspect/actual.rb
         lookout/inspect/argument.rb
-        lookout/inspect/error.rb
         lookout/inspect/expected.rb
         lookout/literal.rb
         lookout/output.rb
@@ -124,8 +126,6 @@ module Lookout
         lookout/result.rb
         lookout/results.rb
         lookout/results/error.rb
-        lookout/results/error/exception.rb
-        lookout/results/error/exception/backtrace.rb
         lookout/results/failure.rb
         lookout/results/success.rb
         lookout/warning.rb

@@ -5,7 +5,7 @@ class Lookout::Results::Error
 
   def initialize(file, line, message, exception)
     super file, line
-    @message, @exception = message, Exception.new(exception)
+    @message, @exception = message, Lookout::Exception.new(exception)
   end
 
   def ==(other)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Results::Error::Exception::Backtrace
+class Lookout::Exception::Backtrace
   class << self
     def from(exception)
       new(nil == exception ? nil : (exception.backtrace rescue nil),
@@ -17,7 +17,7 @@ class Lookout::Results::Error::Exception::Backtrace
                        Lookout::Encode.new(line).call
                      rescue => e
                        '(cannot retrieve backtrace entry: %s)' %
-                         Lookout::Inspect::Error.new(e).call
+                         Lookout::Exception.new(e).message
                      end
                    }
                  else
