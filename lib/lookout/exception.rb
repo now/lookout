@@ -35,7 +35,7 @@ class Lookout::Exception
       'unhandled exception'
     elsif message.empty?
       type_name
-    elsif type_name.empty? or type_name =~ /\A#/
+    elsif type_name.empty? or type_name.start_with? '#'
       message
     else
       before, newline, after = message.partition("\n")
