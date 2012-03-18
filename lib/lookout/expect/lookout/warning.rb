@@ -6,18 +6,20 @@ class Lookout::Expect::Lookout::Warning < Lookout::Expect::Object
   def evaluate_block
     output = StringIO.new
     saved_stderr = $stderr
-    $stderr = output
     begin
+      $stderr = output
       saved_verbose = $VERBOSE
-      $VERBOSE = true
       begin
-        super
-        @expected.subject.class.new(output.string)
+        $VERBOSE = true
+        begin
+          super
+          @expected.subject.class.new(output.string)
+        ensure
+          $VERBOSE = saved_verbose
+        end
       ensure
-        $VERBOSE = saved_verbose
+        $stderr = saved_stderr
       end
-    ensure
-      $stderr = saved_stderr
     end
   end
 end
