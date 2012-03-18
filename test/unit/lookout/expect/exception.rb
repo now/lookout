@@ -24,4 +24,40 @@ Expectations do
   expect 'RuntimeError≠StandardError' do
     StandardError.new('a').to_lookout_expected.expect('test', 1){ raise 'b' }.call.message
   end
+
+  expect Lookout::Results::Error do
+    RuntimeError.new.to_lookout_expected.expect('test', 1){
+      raise Class.new(RuntimeError){
+        def class
+          raise 'no class for you'
+        end
+      }
+    }.call
+  end
+
+  expect '(cannot determine class of exception: no class for you)≠RuntimeError' do
+    RuntimeError.new.to_lookout_expected.expect('test', 1){
+      raise Class.new(RuntimeError){
+        def class
+          raise 'no class for you'
+        end
+      }
+    }.call.message
+  end
+
+  expect Lookout::Results::Error do
+    Class.new(RuntimeError){
+      def class
+        raise 'no class for you'
+      end
+    }.new('a').to_lookout_expected.expect('test', 1){ raise 'b' }.call
+  end
+
+  expect 'RuntimeError≠Exception' do
+    Class.new(RuntimeError){
+      def class
+        raise 'no class for you'
+      end
+    }.new('a').to_lookout_expected.expect('test', 1){ raise 'b' }.call.message
+  end
 end
