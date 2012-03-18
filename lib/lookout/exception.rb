@@ -48,11 +48,7 @@ class Lookout::Exception
   end
 
   def type
-    @type ||= begin
-                exception.class
-              rescue => e
-                Unknown.new(e)
-              end
+    @type ||= begin exception.class; rescue => e; Unknown.new(e) end
   end
 
   def type_name
