@@ -7,7 +7,6 @@ class Lookout::Expectations
 
   class << self
     def load(path)
-      # TODO: Should wait for @@expectations[path] to be unset.
       @@expectations[path] = []
       begin
         begin
@@ -47,7 +46,6 @@ class Lookout::Expectations
     raise unless location = (Array(e.backtrace).first rescue nil)
     file, line = Lookout.location(location)
     raise unless file and line
-    # TODO: raise unless file == @path?
     yield nil.to_lookout_expected.expect(file, line){ raise e }
     self
   end
