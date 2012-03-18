@@ -11,13 +11,12 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
   # called, but it’s safer to have this test here as well, at least until we
   # figure out why Ruby doesn’t make sure of this.
   def difference(other)
-    (subject.equal?(other) or
-     (subject.class == other.class and
-      (other.respond_to? :message rescue false) and
-      (m = other.message rescue nil) and
-      (regexp ? regexp === m : subject.message == m))) ?
-      nil :
-      Lookout::Difference::Exception.new(other, subject, regexp)
+    Lookout::Difference::Exception.new(other, subject, regexp) unless
+      subject.equal?(other) or
+      (subject.class == other.class and
+       (other.respond_to? :message rescue false) and
+       (m = other.message rescue nil) and
+       (regexp ? regexp === m : subject.message == m))
   end
 
   # The first test works in Ruby 1.8.  In Ruby 1.9, however, #message always

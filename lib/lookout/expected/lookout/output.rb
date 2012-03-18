@@ -6,6 +6,7 @@ class Lookout::Expected::Lookout::Output < Lookout::Expected::Object
   end
 
   def difference(other)
-    subject == other ? nil : Lookout::Difference::Lookout::Output.new(other, subject)
+    Lookout::Difference::Lookout::Output.new(other, subject) unless
+      subject == other
   end
 end

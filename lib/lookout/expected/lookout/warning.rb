@@ -6,8 +6,8 @@ class Lookout::Expected::Lookout::Warning < Lookout::Expected::Lookout::Output
   end
 
   def difference(other)
-    (subject === other or subject == other) ?
-      nil :
-      Lookout::Difference::Lookout::Warning.new(other, subject)
+    Lookout::Difference::Lookout::Warning.new(other, subject) unless
+      subject === other or
+      subject == other
   end
 end
