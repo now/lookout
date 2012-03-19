@@ -2,10 +2,8 @@
 
 class Lookout::Stub::Object
   def initialize(methods = {})
-    meta = nil
-    methods.each do |name, value|
-      meta ||= (class << self; self; end)
-      meta.module_eval do
+    (class << self; self; end).module_eval do
+      methods.each do |name, value|
         case value
         when Proc
           if (value.lambda? rescue false)
@@ -21,7 +19,7 @@ class Lookout::Stub::Object
           end
         end
       end
-    end
+    end unless methods.empty?
   end
 
   def inspect
