@@ -14,10 +14,10 @@ ARGV.each do |arg|
   elsif not only_load and arg =~ /\A-l(.*)/
     line = $1.to_i
   else
-    file = arg
+    file = File.expand_path(arg, pwd)
     expectations = Lookout::Expectations.new(file)
     if line
-      target = nil.to_lookout_expected.expect(File.expand_path(file), line){
+      target = nil.to_lookout_expected.expect(file, line){
         raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
       }
       [(expectations.take_while{ |expect| expect <= target }.last or target)]

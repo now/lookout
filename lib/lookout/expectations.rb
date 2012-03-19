@@ -7,25 +7,23 @@ class Lookout::Expectations
 
   class << self
     def load(path)
-      expanded = File.expand_path(path)
-      @@expectations[expanded] = []
+      @@expectations[path] = []
       begin
         begin
-          Kernel.load expanded, true
+          Kernel.load path, true
         rescue LoadError => e
           raise e, 'cannot load expectations from file: %s: no such file or directory' % path
         rescue SyntaxError => e
           raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
           raise SyntaxError, matches[2], [matches[1]] + e.backtrace
         end
-        @@expectations[expanded]
+        @@expectations[path]
       ensure
-        @@expectations.delete expanded
+        @@expectations.delete path
       end
     end
 
     def evaluate(path, &block)
-      # Path is an expanded path, as we call Kernel.load with an expanded path.
       @@expectations[path] << block
       self
     end
