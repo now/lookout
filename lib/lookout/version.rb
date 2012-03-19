@@ -141,11 +141,8 @@ module Lookout
         '
     end
 
-    # TODO: Add tests for these files as well.
     def unit_tests
       super - %w'
-        lookout/rake/tasks.rb
-        lookout/rake/tasks/test.rb
         lookout/rake/tasks/test/loader.rb
       '
     end
