@@ -24,6 +24,8 @@ class Lookout::Results::Failure
 
   attr_reader :difference
 
+  private
+
   def difference_to_s
     begin
       m = difference.message
@@ -34,7 +36,12 @@ class Lookout::Results::Failure
                                          difference.expected).message,
          e.message]
     end
-    return 'the actual result differed from the expected value when the expectation was executed, but now either one or both have changed in a way that they now no longer appear different, possibly due to timing-dependent or interoperating expectations; to get a meaningful difference report, make sure that these values don’t change after the expectation is executed' if m.empty?
+    return 'the actual result differed from the expected value when the ' \
+      'expectation was executed, but now either one or both have changed in ' \
+      'a way that they now no longer appear different, possibly due to ' \
+      'timing-dependent or interoperating expectations; to get a meaningful ' \
+      'difference report, make sure that these values don’t change after ' \
+      'the expectation is executed' if m.empty?
     begin
       d = difference.diff.to_a.join("\n")
     rescue => e
