@@ -1,19 +1,6 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  # TODO: Are these three tests worth it?
-  expect true do
-    Lookout::Results::Failure.new('a', 1, nil) == Lookout::Results::Failure.new('a', 1, nil)
-  end
-
-  expect true do
-    Lookout::Results::Failure.new('a', 1, 'b') == Lookout::Results::Failure.new('a', 1, 'b')
-  end
-
-  expect false do
-    Lookout::Results::Failure.new('a', 1, nil) == Lookout::Results::Failure.new('a', 1, 'b')
-  end
-
   expect "test:1: 2≠1" do
     Lookout::Results::Failure.new('test', 1, 1.to_lookout_expected.difference(2)).to_s
   end
