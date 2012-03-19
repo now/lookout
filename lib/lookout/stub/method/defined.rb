@@ -11,8 +11,7 @@ class Lookout::Stub::Method::Defined
   end
 
   def ==(other)
-    super and
-      definition == other.definition
+    super and definition == other.definition
   end
 
   def undefine
