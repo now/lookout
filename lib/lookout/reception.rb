@@ -28,8 +28,6 @@ class Lookout::Reception
 
   def at_most(times)
     range('cannot convert upper mock method invocation limit to Integer: %s', times){ |i|
-      # TODO: Might want to remove this raise, as #at_most(0) is now the same
-      # as #exactly(0).
       raise ArgumentError,
         'upper mock method invocation limit must be positive: %d < 1' % i if i < 1
       0..i
