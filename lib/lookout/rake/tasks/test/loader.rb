@@ -5,6 +5,7 @@ require 'lookout'
 failed = false
 line = nil
 only_load = false
+pwd = Dir.pwd
 ARGV.each do |arg|
   if not only_load and arg == '--'
     only_load = true
@@ -13,10 +14,10 @@ ARGV.each do |arg|
   elsif not only_load and arg =~ /\A-l(.*)/
     line = $1.to_i
   else
-    file = File.expand_path(arg)
+    file = arg
     expectations = Lookout::Expectations.new(file)
     if line
-      target = nil.to_lookout_expected.expect(file, line){
+      target = nil.to_lookout_expected.expect(File.expand_path(file), line){
         raise RuntimeError, 'line expectation not found: %s:%d' % [file, line]
       }
       [(expectations.take_while{ |expect| expect <= target }.last or target)]
@@ -26,7 +27,8 @@ ARGV.each do |arg|
       result = expect.call
       next if Lookout::Results::Success === result
       failed = true
-      $stderr.puts result
+      message = result.to_s
+      $stderr.puts message.start_with?(pwd) ? message[pwd.length+1..-1] : message
     end
   end
 end
