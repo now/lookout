@@ -20,6 +20,5 @@ class Lookout::Expected::Object
 
   alias eql? ==
 
-  # TODO: Might be able to remove this.
   attr_reader :subject
 end
