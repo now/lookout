@@ -57,6 +57,6 @@ Coverage.result.
       [relativize.call(file),
        lines.one? ? lines.begin : ('%d-%d' % [lines.begin, lines.end])]
   end
-end if defined? Coverage
+end if defined? Coverage and not failed
 
 exit false if failed
