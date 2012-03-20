@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout'
+pwd = Dir.pwd
+relativize = lambda{ |path| path.start_with?(pwd) ? path[pwd.length+1..-1] : path }
 
 line = nil
 only_load = false
 files = []
-pwd = Dir.pwd
 ARGV.each do |arg|
   if not only_load and arg == '--'
     only_load = true
@@ -21,6 +21,8 @@ ARGV.each do |arg|
   end
 end
 
+require 'lookout'
+
 failed = false
 files.each do |expanded, file|
   expectations = Lookout::Expectations.new(expanded)
@@ -35,12 +37,15 @@ files.each do |expanded, file|
     result = expect.call
     next if Lookout::Results::Success === result
     failed = true
-    message = result.to_s
-    $stderr.puts message.start_with?(pwd) ? message[pwd.length+1..-1] : message
+    $stderr.puts relativize.call(result.to_s)
   end
 end
 
-Coverage.result.select{ |file, _| files.assoc(file) }.each do |file, counts|
+Coverage.result.
+  select{ |file, _| file.start_with? pwd }.
+  reject{ |file, _| files.assoc(file) }.
+  sort.
+  each do |file, counts|
   counts.
   each_cons(2).
   with_index.
@@ -49,7 +54,7 @@ Coverage.result.select{ |file, _| files.assoc(file) }.each do |file, counts|
   map{ |e| e.first.last+2..e.last.last+2 }.
   each do |lines|
     $stderr.puts '%s:%s: not covered by test' %
-      [files.assoc(file).last,
+      [relativize.call(file),
        lines.one? ? lines.begin : ('%d-%d' % [lines.begin, lines.end])]
   end
 end if defined? Coverage

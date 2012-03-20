@@ -63,7 +63,12 @@ class Lookout::Rake::Tasks::Test
   def define
     desc @name == :test ? 'Run tests' : 'Run tests for %s' % @name
     task @name do
-      ruby '-w %s -- %s %s' % [options, escape(LoaderPath), arguments]
+      run
+    end
+
+    desc @name == :test ? 'Check test coverage' : 'Check test coverage for %s' % @name
+    task :"#{@name}:coverage" do
+      run %w'-c'
     end
 
     task :default => @name unless Rake::Task.task_defined? :default
@@ -73,12 +78,19 @@ class Lookout::Rake::Tasks::Test
 
   private
 
+  def run(additional = [])
+    ruby '-w %s -- %s %s' % [options, escape(LoaderPath), arguments(additional)]
+  end
+
   def options
     paths.uniq.map{ |p| '-I%s' % p }.join(' ')
   end
 
-  def arguments
-    requires.uniq.map{ |r| '-r%s' % r }.concat(line).push('--').concat(tests).join(' ')
+  def arguments(additional)
+    requires.uniq.map{ |r| '-r%s' % r }.
+      concat(line).concat(additional).
+      push('--').
+      concat(tests).join(' ')
   end
 
   def line
