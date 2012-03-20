@@ -42,4 +42,12 @@ Expectations do
   expect 1 do
     Lookout::Stub::Object.new(:a => 1).a
   end
+
+  expect 1 do
+    Lookout::Stub::Object.new(:a => 1).a(2)
+  end
+
+  expect 1 do
+    Lookout::Stub::Object.new(:a => 1).a(2){ 3 }
+  end
 end

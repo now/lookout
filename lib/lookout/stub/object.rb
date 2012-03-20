@@ -14,7 +14,7 @@ class Lookout::Stub::Object
             end
           end
         else
-          define_method name do
+          define_method name do |*|
             value
           end
         end
