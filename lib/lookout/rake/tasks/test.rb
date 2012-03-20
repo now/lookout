@@ -12,7 +12,7 @@ class Lookout::Rake::Tasks::Test
     self.requires = options.fetch(:requires, [])
     self.files = options.fetch(:files){ ENV.include?('TEST') ? FileList[ENV['TEST']] : nil }
     inventory = options[:inventory] ||
-      (feature? 'Inventory::Rake::Tasks' and Inventory::Rake::Tasks.inventory) and
+      (tasks = feature?('Inventory::Rake::Tasks') and tasks.inventory) and
       self.inventory = inventory
     self.specification = options.fetch(:specification) if options.include? :specification
     yield self if block_given?
@@ -23,7 +23,7 @@ class Lookout::Rake::Tasks::Test
   attr_writer :paths, :requires, :files
 
   def paths
-    return @paths if @paths
+    return @paths if @paths and not @paths.equal? Paths
     self.specification = specification
     @paths
   end
