@@ -298,7 +298,7 @@
       to be:
 
         expect mock.to.receive.to_str(without_arguments){ '123' } do |o|
-          String(o)
+          o.to_str
         end
 
       Here, ‹#mock› creates a mock object, an object that doesn’t respond to
@@ -313,7 +313,7 @@
       thus fits the bill.
 
         expect stub.to.receive.to_str(without_arguments){ '123' } do |o|
-          String(o) if o.convertable?
+          o.to_str if o.convertable?
         end
 
       We can also use stubs without any expectations on them:

@@ -189,13 +189,13 @@ Expectations do
 
   # Use a mock to verify that a method is called appropriately.
   expect mock.to.receive.to_str(without_arguments){ '123' } do |o|
-    String(o)
+    o.to_str
   end
 
   # Use a stub that returns stub objects for unknown methods to only verify
   # that a method of interest is called appropriately.
   expect stub.to.receive.to_str(without_arguments){ '123' } do |o|
-    String(o) if o.convertable?
+    o.to_str if o.convertable?
   end
 
   # Use a stub that’s set up with a set of methods.
