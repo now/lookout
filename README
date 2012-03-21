@@ -1,14 +1,22 @@
                                 Lookout
 
-  Lookout is a lightweight unit testing framework. Tests (expectations) can be
-  written as follows
+  Lookout is a unit testing framework that puts your results in focus. Tests
+  (expectations) are written as follows
 
     expect 2 do
       1 + 1
     end
 
-    expect NoMethodError do
-      Object.invalid_method_call
+    expect ArgumentError do
+      Integer('1 + 1')
+    end
+
+    expect Array do
+      [1, 2, 3].select{ |i| i % 2 == 0 }
+    end
+
+    expect [2, 4, 6] do
+      [1, 2, 3].map{ |i| i * 2 }
     end
 
   Lookout is designed to encourage – force, even – unit testing best practices
@@ -27,10 +35,12 @@
 
   Other important points are
 
-•   A unified syntax for setting up both state-based and behavior-based
-    expectations
+•   Putting the expected outcome of a test in focus with the steps of the
+    calculation of the actual result only as a secondary concern
 •   A focus on code readability by providing no mechanism for describing an
     expectation other than the code in the expectation itself
+•   A unified syntax for setting up both state-based and behavior-based
+    expectations
 
   The way Lookout works has been heavily influenced by expectations¹, by
   {Jay Fields}².  The code base was once also heavily based on expectations¹,
@@ -109,6 +119,14 @@
           Enumerable
         end
 
+      or the ‹Class›:
+
+        expect String do
+          String
+        end
+
+      for obvious reasons.
+
       As you may have figured out yourself, this is accomplished by first
       trying ‹#==› and, if it returns ‹false›, then trying ‹#===› on the
       expected ‹Module›.  This is also true of ‹Ranges› and ‹Regexps›.
@@ -146,11 +164,31 @@
       This can be used to capture the output of a formatter that takes an
       output object as a parameter.
 
+      Expecting warnings from code isn’t very common, but should be done:
+
+        expect warning('this is your final one!') do
+          warn 'this is your final one!'
+        end
+
+        expect warning('this is your final one!') do
+          warn '%s:%d: warning: this is your final one!' % [__FILE__, __LINE__]
+        end
+
+      ‹$VERBOSE› is set to ‹true› during the execution of the block, so you
+      don’t need to do so yourself.  If you have other code that depends on the
+      value of $VERBOSE, that can be done with ‹#with_verbose›
+
+        expect nil do
+          with_verbose(nil) do
+            $VERBOSE
+          end
+        end
+
       You should always be expecting errors from – and in, but that’s a
       different story – your code:
 
-        expect NoMethodError do
-          Object.no_method
+        expect ArgumentError do
+          Integer('1 + 1')
         end
 
       Often, not only the type of the error, but its description, is important
@@ -171,26 +209,26 @@
       methods on the result of the block.  Simply expect a symbol ending with
       ‹?›:
 
-        expect :nil? do
-          nil
+        expect :empty? do
+          []
         end
 
       To expect it’s negation, expect the same symbol beginning with ‹not_›:
 
         expect :not_nil? do
-          Object.new
+          [1, 2, 3]
         end
 
       This is the same as
 
         expect true do
-          nil.nil?
+          [].empty?
         end
 
       and
 
         expect false do
-          Object.new.nil?
+          [1, 2, 3].empty?
         end
 
       but provides much clearer failure messages.  It also makes the
@@ -259,16 +297,14 @@
       Mocks let us verify that a method is called in the way that we expect it
       to be:
 
-        expect mock.to.receive.dial('2125551212').twice do |phone|
-          phone.dial('2125551212')
-          phone.dial('2125551212')
+        expect mock.to.receive.to_str(without_arguments){ '123' } do |o|
+          String(o)
         end
 
       Here, ‹#mock› creates a mock object, an object that doesn’t respond to
       anything unless you tell it to.  We tell it to expect to receive a call
-      to ‹#dail› with ‹'2125551212'› as its formal argument, and we expect it
-      to receive it twice.  The mock object is then passed in to the block so
-      that the expectations placed upon it can be fulfilled.
+      to ‹#to_str› without arguments.  The mock object is then passed in to the
+      block so that the expectations placed upon it can be fulfilled.
 
       Sometimes we only want to make sure that a method is called in the way
       that we expect it to be, but we don’t care if any other methods are
@@ -276,10 +312,8 @@
       method and returns a stub object that, again, expects any method, and
       thus fits the bill.
 
-        expect stub.to.receive.dial('2125551212').twice do |phone|
-          phone.dial('2125551212')
-          phone.hangup
-          phone.dial('2125551212')
+        expect stub.to.receive.to_str(without_arguments){ '123' } do |o|
+          String(o) if o.convertable?
         end
 
       We can also use stubs without any expectations on them:
@@ -304,10 +338,18 @@
           a.to_str
         end
 
+      This can also be written as
+
+        expect 'def' do
+          stub('abc').to_str{ 'def' }.to_str
+        end
+
+      if the object isn’t needed further.
+
       You don’t have to use a mock object to verify that a method is called:
 
-        expect Object.to.receive.deal do
-          Object.deal
+        expect Object.to.receive.name do
+          Object.name
         end
 
       As you have figured out by now, the expected method call is set up by
@@ -321,7 +363,7 @@
       introduce them by giving some examples:
 
         expect mock.to.receive.a do |m|
-          …
+          m.a
         end
 
       Here, the method ‹#a› must be called with any number of arguments.  It
@@ -332,13 +374,13 @@
       expectations:
 
         expect mock.to.receive.a(Object) do |m|
-          …
+          m.a 0
         end
 
       If a method must receive a specific argument, you can use that argument:
 
         expect mock.to.receive.a(1..2) do |m|
-          …
+          m.a 1
         end
 
       Again, the same matching rules apply for arguments as they do for state
@@ -349,20 +391,20 @@
       ‹without_arguments›:
 
         expect mock.to.receive.a(without_arguments) do |m|
-          …
+          m.a
         end
 
       You can of course use both ‹Object› and actual arguments:
 
-        expect mock.to.receive.a(Object, 1, Object) do |m|
-          …
+        expect mock.to.receive.a(Object, 2, Object) do |m|
+          m.a nil, 2, '3'
         end
 
       The body of the mock method may be given as the block.  Here, calling
       ‹#a› on ‹m› will give the result ‹1›:
 
         expect mock.to.receive.a{ 1 } do |m|
-          …
+          raise 'not 1' unless m.a == 1
         end
 
       If no body has been given, the result will be a stub object.
@@ -370,7 +412,9 @@
       To take a block, grab a block parameter and ‹#call› it:
 
         expect mock.to.receive.a{ |&b| b.call(1) } do |m|
-          …
+          j = 0
+          m.a{ |i| j = i }
+          raise 'not 1' unless j == 1
         end
 
       To simulate an ‹#each›-like method, ‹#call› the block several times.
@@ -402,7 +446,15 @@
       return something that we can easily control.
 
         expect 6 do |m|
-          account = Account.new
+          account = Class.new{
+            def slips
+              raise 'database not available'
+            end
+
+            def total
+              slips.reduce(0){ |m, n| m.to_i + n.to_i }
+            end
+          }.new
           stub(account).slips{ [1, 2, 3] }
           account.total
         end
@@ -420,7 +472,7 @@
 
       Please note that this makes it impossible to stub a method on a Hash, but
       you shouldn’t be doing that anyway.  In fact, you should never mock or
-      stub methods on value objects.
+      stub methods on value objects or aggregate objects of value objects.
 
 § Integration
 
