@@ -491,6 +491,24 @@
       empty, ‹Module›. The value of ‹A::B::C›, if any, is restored after the
       block returns and any constants that didn’t previously exist are removed.
 
+      Another thing you often need to control in your tests is the value of
+      environment variables.  Depending on such global values is, of course,
+      not a good practice, but is often unavoidable when working with external
+      libraries.  ‹#With_environment› allows you to override the value of
+      environment variables during the execution of a block by giving it a
+      ‹Hash› of key/value pairs where the key is the name of the environment
+      variable and the value is the value that it should have during the
+      execution of that block:
+
+        expect 'hello' do
+          with_environment 'INTRO' => 'hello' do
+            ENV['INTRO']
+          end
+        end
+
+      Any overridden values are restored and any keys that weren’t previously a
+      part of the environment are removed when the block returns.
+
 § Integration
 
     Lookout can be used from Rake¹.  Simply include the following code in

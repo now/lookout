@@ -295,4 +295,11 @@ Expectations do
       A::B::C
     end
   end
+
+  # Override/add environment keys/values during the execution of a block.
+  expect 'hello' do
+    with_environment 'INTRO' => 'hello' do
+      ENV['INTRO']
+    end
+  end
 end

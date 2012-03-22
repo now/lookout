@@ -63,4 +63,16 @@ class Lookout::Expect::Object::Context
       missing.first.__send__(:remove_const, missing.last)
     end
   end
+
+  def with_environment(environment = {})
+    saved = ENV.select{ |key, _| environment.include? key }
+    missing = environment.reject{ |key, _| ENV.include? key }
+    begin
+      ENV.update environment
+      yield
+    ensure
+      ENV.update saved
+      ENV.delete_if{ |key, _| missing.include? key }
+    end
+  end
 end

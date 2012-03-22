@@ -21,12 +21,8 @@ Expectations do
     Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(0, 1, 0, 'test/lib/test/version.rb')){ |t|
       stub(t).ruby{ |s| command = s }
     }
-    saved_line = ENV['LINE']
-    ENV['LINE'] = '123'
-    begin
+    with_environment 'LINE' => '123' do
       Rake.application[:test].invoke
-    ensure
-      ENV['LINE'] = saved_line
     end
     command
   end

@@ -58,4 +58,10 @@ Expectations do
       ::Inventory::Rake::Tasks
     end
   end
+
+  expect '123' do
+    with_environment 'LINE' => '123' do
+      ENV['LINE']
+    end
+  end
 end
