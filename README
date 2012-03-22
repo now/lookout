@@ -474,6 +474,23 @@
       you shouldn’t be doing that anyway.  In fact, you should never mock or
       stub methods on value objects or aggregate objects of value objects.
 
+  § Utilities
+
+      Sometimes you need to override the value of a constant during the
+      execution of some code.  Use ‹#with_constant› to do just that:
+
+        expect 'hello' do
+          with_constant 'A::B::C', 'hello' do
+            A::B::C
+          end
+        end
+
+      Here, the constant ‹A::B::C› is set to ‹'hello'› during the execution of
+      the block.  None of the constants ‹A›, ‹B›, and ‹C› need to exist for
+      this to work.  If a costant doesn’t exist it’s created and set to a new,
+      empty, ‹Module›. The value of ‹A::B::C›, if any, is restored after the
+      block returns and any constants that didn’t previously exist are removed.
+
 § Integration
 
     Lookout can be used from Rake¹.  Simply include the following code in

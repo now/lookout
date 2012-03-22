@@ -44,18 +44,19 @@ Expectations do
 
   expect '-w -Ilib -- %s -rtest -- test/unit/test.rb test/unit/test/version.rb' %
       Lookout::Rake::Tasks::Test::LoaderPath do
-    tasks = stub(:name => 'Inventory::Rake::Tasks',
-                 :inventory => Inventory.new(0, 1, 0, 'test/lib/test/version.rb'))
-    rake = stub(:const_get => tasks)
-    inventory = stub(:const_get => rake)
-    stub(Object).const_get{ inventory }
-    command = nil
-    Rake.application = Rake::Application.new
-    Lookout::Rake::Tasks::Test.new{ |t|
-      stub(t).ruby{ |s| command = s }
-    }
-    Rake.application[:test].invoke
-    command
+    with_constant 'Inventory::Rake::Tasks', Module.new do
+      stub(Inventory::Rake::Tasks).inventory{
+        Inventory.new(0, 1, 0, 'test/lib/test/version.rb')
+      }
+      stub($LOADED_FEATURES).any?{ true }
+      command = nil
+      Rake.application = Rake::Application.new
+      Lookout::Rake::Tasks::Test.new{ |t|
+        stub(t).ruby{ |s| command = s }
+      }
+      Rake.application[:test].invoke
+      command
+    end
   end
 
   expect RuntimeError.new(/\Agem specification was not given/) do

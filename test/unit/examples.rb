@@ -284,4 +284,15 @@ Expectations do
     s = stub(:a => 1, :b => 2)
     s.a + s.b
   end
+
+
+
+  # Utilities
+
+  # Override the value of a constant during the execution of a block.
+  expect 'hello' do
+    with_constant 'A::B::C', 'hello' do
+      A::B::C
+    end
+  end
 end

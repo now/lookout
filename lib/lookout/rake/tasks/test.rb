@@ -12,7 +12,7 @@ class Lookout::Rake::Tasks::Test
     self.requires = options.fetch(:requires, [])
     self.files = options.fetch(:files){ ENV.include?('TEST') ? FileList[ENV['TEST']] : nil }
     inventory = options[:inventory] ||
-      (tasks = feature?('Inventory::Rake::Tasks') and tasks.inventory) and
+      (provided?('inventory/rake/tasks') and Inventory::Rake::Tasks.inventory) and
       self.inventory = inventory
     self.specification = options.fetch(:specification) if options.include? :specification
     yield self if block_given?
@@ -106,8 +106,7 @@ class Lookout::Rake::Tasks::Test
     path.gsub(/([^A-Za-z0-9_\-.,:\/@\n])/n, '\\\\\\1').gsub(/\n/, "'\n'")
   end
 
-  def feature?(path)
-    const = path.split('::').reduce(Object){ |o, e| begin o.const_get(e); rescue NameError; return nil; end }
-    const.name == path ? const : nil
+  def provided?(path)
+    $LOADED_FEATURES.any?{ |e| e.end_with? path + File.extname(e) }
   end
 end

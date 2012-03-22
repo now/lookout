@@ -52,4 +52,10 @@ Expectations do
       $VERBOSE == saved_verbose
     }.evaluate
   end
+
+  expect 'hello' do
+    with_constant 'Inventory::Rake::Tasks', 'hello' do
+      ::Inventory::Rake::Tasks
+    end
+  end
 end
