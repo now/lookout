@@ -9,7 +9,9 @@ module Lookout::Result
 
   def <=>(other)
     return nil unless self.class == other.class
-    [file, line] <=> [other.file, other.line]
+    (file <=> other.file).nonzero? or
+      (line <=> other.line).nonzero? or
+      0
   end
 
   alias eql? ==

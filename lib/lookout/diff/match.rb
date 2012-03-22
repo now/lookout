@@ -25,8 +25,11 @@ class Lookout::Diff::Match
 
   def <=>(other)
     return nil unless self.class == other.class
-    [from.begin, from.end, to.begin, to.end] <=>
-      [other.from.begin, other.from.end, other.to.begin, other.to.end]
+    (from.begin <=> other.from.begin).nonzero? or
+      (from.end <=> other.from.end).nonzero? or
+      (to.begin <=> other.to.begin).nonzero? or
+      (to.end <=> other.to.end).nonzero? or
+      0
   end
 
   def inspect
