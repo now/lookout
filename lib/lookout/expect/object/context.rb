@@ -66,6 +66,7 @@ class Lookout::Expect::Object::Context
 
   def with_environment(environment = {})
     saved = ENV.select{ |key, _| environment.include? key }
+    saved = Hash[*saved.flatten] if RUBY_VERSION < '1.9'
     missing = environment.reject{ |key, _| ENV.include? key }
     begin
       ENV.update environment
