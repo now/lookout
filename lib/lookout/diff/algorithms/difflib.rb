@@ -1,17 +1,42 @@
 # -*- coding: utf-8 -*-
 
+# The difflib algorithm is based on the algorithm employed by the difflib
+# library for Python, which is, in turn, based on an algorithm by Ratcliff and
+# Obershelp.
+#
+# It’s implemented as an Enumerable over the {Lookout::Diff::Match}es between
+# two sequences, which makes it useful for a wide class of objects.
+#
+# @see http://docs.python.org/library/difflib.html
 class Lookout::Diff::Algorithms::Difflib
   include Enumerable
 
-  def initialize(from, to, &is_junk)
-    @from, @to, @is_junk = from, to, is_junk
+  # Initializes the algorithm object.  Optionally takes a block to determine
+  # what elements in _to_ are to be ignored.  This can be used to, for example,
+  # ignore whitespace differences.
+  #
+  # The elements in _from_ and _to_ must respond to #hash and #==.
+  #
+  # @param [#[]] from The original Enumerable
+  # @param [#[]] to The new Enumerable that _from_ should become
+  # @yieldparam element [Object] Element from _to_ to check if it should be ignored
+  # @yieldreturn [Boolean] `True` if the element should be ignored
+  def initialize(from, to, &ignorable)
+    @from, @to, @ignorable = from, to, ignorable
   end
 
+  # Enumerates the matches between the two sequences.  There will always be at
+  # least one match yielded, the one at the end of the sequences.
+  #
+  # @yieldparam match [Lookout::Diff::Match] Match between the two sequences
+  # @return [Lookout::Diff::Algorithms::Difflib] self
+  # @return [Enumerator] An Enumerator over the matches between the two
+  #   sequences, if no block given
   def each
     return enum_for(__method__) unless block_given?
     current = Lookout::Diff::Match.new(Lookout::Diff::Range.new(@from, 0...0),
                                        Lookout::Diff::Range.new(@to, 0...0))
-    stack = [Position.origin(@from, @to, &@is_junk)]
+    stack = [Position.origin(@from, @to, &@ignorable)]
     until stack.empty?
       case item = stack.pop
       when Position

@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+# Keeps track of a position into the two sequences currently being “diffed” of
+# the difflib algorithm and generates matches and new positions based on this
+# position.
+#
+# @private
 class Lookout::Diff::Algorithms::Difflib::Position
   class << self
     def origin(from, to)
