@@ -60,7 +60,7 @@ class Lookout::Expect::Object::Context
         parent.const_set(parts.last, saved) unless missing
       end
     ensure
-      missing.first.__send__(:remove_const, missing.last)
+      missing.first.__send__(:remove_const, missing.last) if missing
     end
   end
 
