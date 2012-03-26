@@ -12,27 +12,27 @@ class Lookout::Diff::Range
   end
 
   def size
-    range.end - range.begin + 1
+    self.end - self.begin + 1
   end
 
   def touches?(other)
-    range.end + 1 == other.begin
+    self.end + 1 == other.begin
   end
 
   def begins_before?(other)
-    range.begin < other.range.begin
+    self.begin < other.begin
   end
 
   def ends_after?(other)
-    range.end > other.range.end
+    self.end > other.end
   end
 
   def begin_after(other)
-    self.class.new(items, other.range.end + 1..range.end)
+    self.class.new(items, other.end + 1..self.end)
   end
 
   def end_before(other)
-    self.class.new(items, range.begin...other.range.begin)
+    self.class.new(items, self.begin...other.begin)
   end
 
   def at(range)
@@ -40,15 +40,15 @@ class Lookout::Diff::Range
   end
 
   def +(other)
-    self.class.new(items, range.begin..other.range.end)
+    self.class.new(items, self.begin..other.end)
   end
 
   def begin_at(index)
-    self.class.new(items, index..range.end)
+    self.class.new(items, index..self.end)
   end
 
   def end_at(index)
-    self.class.new(items, range.begin..index)
+    self.class.new(items, self.begin..index)
   end
 
   def each
