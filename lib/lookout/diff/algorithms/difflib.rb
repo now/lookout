@@ -55,8 +55,7 @@ class Lookout::Diff::Algorithms::Difflib
       end
     end
     yield current unless current.empty?
-    yield Lookout::Diff::Match.new(current.from.at(@from.size...@from.size),
-                                   current.to.at(@to.size...@to.size))
+    yield current.at(@from.size...@from.size, @to.size...@to.size)
     self
   end
 end

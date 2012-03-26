@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Range
-  include Enumerable
+  include Enumerable, Comparable
 
   def initialize(items, range = 0...items.size)
     @items, @range = items, range.exclude_end? ? range.begin..range.end - 1 : range
@@ -13,6 +13,10 @@ class Lookout::Diff::Range
 
   def size
     range.end - range.begin + 1
+  end
+
+  def touches?(other)
+    range.end + 1 == other.begin
   end
 
   def begins_before?(other)
@@ -79,9 +83,11 @@ class Lookout::Diff::Range
     range.end
   end
 
-  def ==(other)
-    self.class == other.class and
-      range == other.range and items == other.items
+  def <=>(other)
+    return nil unless self.class == other.class and items == other.items
+    (self.begin <=> other.begin).nonzero? or
+      (self.end <=> other.end).nonzero? or
+      0
   end
 
   alias eql? ==
