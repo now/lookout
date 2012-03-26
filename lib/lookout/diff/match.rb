@@ -20,6 +20,12 @@ class Lookout::Diff::Match
     from.size
   end
 
+  # Returns a new match encompassing the ranges of self and _other_.
+  # Logically, _other_ should be touching self, that is, {#touches?}(_other_),
+  # but this isn’t enforced.
+  #
+  # @param [Match] other The match to extend self with
+  # @return [Match] A new match encompassing the ranges of self and _other_
   def +(other)
     self.class.new(from + other.from, to + other.to)
   end
