@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
 
+# Represents a matching pair of {Range}s of the sequences being “diffed”.
 class Lookout::Diff::Match
   include Comparable
 
+  # @param [Range] from The range of the original sequence
+  # @param [Range] to The range of the new sequence
   def initialize(from, to)
     @from, @to = from, to
   end
 
+  # @return [Boolean] True if the match is empty
   def empty?
     from.empty?
   end
 
+  # @return [Boolean] The number of matching elements
   def size
     from.size
   end

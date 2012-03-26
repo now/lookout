@@ -4,8 +4,8 @@
 # library for Python, which is, in turn, based on an algorithm by Ratcliff and
 # Obershelp.
 #
-# It’s implemented as an Enumerable over the {Lookout::Diff::Match}es between
-# two sequences, which makes it useful for a wide class of objects.
+# It’s implemented as an Enumerable over the {Match}es between two sequences,
+# which makes it useful for a wide class of objects.
 #
 # @see http://docs.python.org/library/difflib.html
 class Lookout::Diff::Algorithms::Difflib
@@ -25,13 +25,15 @@ class Lookout::Diff::Algorithms::Difflib
     @from, @to, @ignorable = from, to, ignorable
   end
 
-  # Enumerates the matches between the two sequences.  There will always be at
-  # least one match yielded, the one at the end of the sequences.
+  # @overload
+  #   Enumerates the matches between the two sequences.  There will always be
+  #   at least one match yielded, the one at the end of the sequences.
   #
-  # @yieldparam match [Lookout::Diff::Match] Match between the two sequences
-  # @return [Lookout::Diff::Algorithms::Difflib] self
-  # @return [Enumerator] An Enumerator over the matches between the two
-  #   sequences, if no block given
+  #   @yieldparam match [Match] Match between the two sequences
+  #   @return [Difflib] self
+  # @overload
+  #   @return [Enumerator] An Enumerator over the matches between the two
+  #     sequences
   def each
     return enum_for(__method__) unless block_given?
     current = Lookout::Diff::Match.new(Lookout::Diff::Range.new(@from, 0...0),

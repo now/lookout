@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# “Diff” output formats.
+# Namespace for “diff” output formats.
 module Lookout::Diff::Formats
 end

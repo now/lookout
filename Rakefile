@@ -24,7 +24,9 @@ class Yard
 
   def initialize(options = {})
     self.name = options.fetch(:name, :html)
-    self.options = options.fetch(:options){ ENV.include?('OPTIONS') ? ENV['OPTIONS'] : %w'--no-private --markup markdown' }
+    # TODO: Use shell splitting here
+    self.options = options.fetch(:options, %w'--no-private --markup markdown')
+    self.options += ENV['OPTIONS'].split(' ') if ENV.include? 'OPTIONS'
     self.inventory = options.fetch(:inventory, Inventory::Rake::Tasks.inventory)
     self.files = options.fetch(:files){ ENV.include?('FILES') ? FileList[ENV['FILES']] : inventory.lib_files }
     yield self if block_given?
@@ -39,19 +41,19 @@ class Yard
       'Generate documentation for %s in HTML format' % name
     task name do
       require 'yard'
-      Rake.rake_output_message 'yard doc %s' % arguments.join(' ') if verbose
       yardoc = YARD::CLI::Yardoc.new
       yardoc.parse_arguments(*arguments)
       yardoc.options[:files] = []
       yardoc.options[:readme] = nil
+      Rake.rake_output_message 'yard doc %s' % arguments(yardoc.yardopts).join(' ') if verbose
       yardoc.run(nil)
     end
   end
 
   private
 
-  def arguments
-    options.dup.push('--').concat(files)
+  def arguments(additional = [])
+    options.dup.concat(additional).push('--').concat(files)
   end
 end
 Yard.new
