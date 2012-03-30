@@ -10,12 +10,12 @@ class Lookout::Diff::Match
     @from, @to = from, to
   end
 
-  # @return [Boolean] True if the match is empty
+  # @return True if the match is empty
   def empty?
     from.empty?
   end
 
-  # @return [Boolean] The number of matching elements
+  # @return [Integer] The number of matching elements
   def size
     from.size
   end
@@ -30,10 +30,13 @@ class Lookout::Diff::Match
     self.class.new(from + other.from, to + other.to)
   end
 
+  # @param [Match] other The match to check against
+  # @return True if {#from} and {#to} {Range#touches? #touches?} those of _other_
   def touches?(other)
     from.touches? other.from and to.touches? other.to
   end
 
+  # @private
   def <=>(other)
     return nil unless self.class == other.class
     (from <=> other.from).nonzero? or
@@ -43,13 +46,19 @@ class Lookout::Diff::Match
 
   alias eql? ==
 
+  # @private
   def inspect
     '#<%s %p==%p>' % [self.class, from, to]
   end
 
+  # @return [Match] A new match with {#from} and {#to} {Range#at #at} _from_ and _to_
   def at(from, to)
     self.class.new(self.from.at(from), self.to.at(to))
   end
 
-  attr_reader :from, :to
+  # @return [Range] The range of the original sequence
+  attr_reader :from
+
+  # @return [Range] The range of the new sequence
+  attr_reader :to
 end
