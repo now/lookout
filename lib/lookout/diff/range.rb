@@ -68,13 +68,13 @@ class Lookout::Diff::Range
   end
 
   # @param [Integer] index Index into the sequence to begin this range at
-  # @param [Range] A new range beginning at _index_
+  # @return [Range] A new range beginning at _index_
   def begin_at(index)
     at(index..self.end)
   end
 
   # @param [Integer] index Index into the sequence to end this range at
-  # @param [Range] A new range ending at _index_
+  # @return [Range] A new range ending at _index_
   def end_at(index)
     at(self.begin..index)
   end
