@@ -20,18 +20,18 @@ class Lookout::Diff::Match
     from.size
   end
 
-  # Returns a new match encompassing the ranges of self and _other_.
-  # Logically, _other_ should be touching self, that is, {#touches?}(_other_),
-  # but this isn’t enforced.
-  #
-  # @param [Match] other The match to extend self with
-  # @return [Match] A new match encompassing the ranges of self and _other_
+  # @param [Match] other
+  # @return [Match] A new match encompassing the ranges of the receiver and
+  #   _other_
+  # @note Logically, _other_ should be touching the receiver, that is,
+  #   {#touches?}(_other_), but this isn’t enforced.
   def +(other)
     self.class.new(from + other.from, to + other.to)
   end
 
-  # @param [Match] other The match to check against
-  # @return True if {#from} and {#to} {Range#touches? #touches?} those of _other_
+  # @param [Match] other
+  # @return True if {#from} and {#to} {Range#touches? #touches?} those of
+  #   _other_
   def touches?(other)
     from.touches? other.from and to.touches? other.to
   end
@@ -44,6 +44,7 @@ class Lookout::Diff::Match
       0
   end
 
+  # @return [Boolean]
   alias eql? ==
 
   # @private
@@ -51,6 +52,8 @@ class Lookout::Diff::Match
     '#<%s %p==%p>' % [self.class, from, to]
   end
 
+  # @param [::Range] from
+  # @param [::Range] to
   # @return [Match] A new match with {#from} and {#to} {Range#at #at} _from_ and _to_
   def at(from, to)
     self.class.new(self.from.at(from), self.to.at(to))

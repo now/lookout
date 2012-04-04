@@ -8,9 +8,7 @@
 class Lookout::Diff::Formats::Inline
   include Enumerable
 
-  # Initializes the inline format.
-  #
-  # @param [Operations] Operations to format
+  # @param [Operations] operations Operations to format
   def initialize(operations)
     @to_s = ToS.new(operations).to_s
   end
@@ -18,8 +16,8 @@ class Lookout::Diff::Formats::Inline
   # @overload
   #   Enumerates the formatted operations.
   #
-  #   @yieldparam string [String] Formatted operation
-  #   @return [Inline] self
+  #   @yieldparam [String] string
+  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the formatted operations
   def each
@@ -28,7 +26,7 @@ class Lookout::Diff::Formats::Inline
     self
   end
 
-  # @return [String] The String concatenation of the formatted operations
+  # @return [String] The concatenation of the formatted operations
   def to_s
     @to_s
   end

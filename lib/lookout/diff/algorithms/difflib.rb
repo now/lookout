@@ -19,8 +19,8 @@ class Lookout::Diff::Algorithms::Difflib
   #
   # @param [#[]] from The original Enumerable
   # @param [#[]] to The new Enumerable that _from_ should become
-  # @yieldparam element [Object] Element from _to_ to check if it should be ignored
-  # @yieldreturn [Boolean] `True` if the element should be ignored
+  # @yieldparam element
+  # @yieldreturn [Boolean]
   def initialize(from, to, &ignorable)
     @from, @to, @ignorable = from, to, ignorable
   end
@@ -29,8 +29,8 @@ class Lookout::Diff::Algorithms::Difflib
   #   Enumerates the matches between the two sequences.  There will always be
   #   at least one match yielded, the one at the end of the sequences.
   #
-  #   @yieldparam match [Match] Match between the two sequences
-  #   @return [Difflib] self
+  #   @yieldparam [Match] match
+  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the matches between the two
   #     sequences

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Represents a sequence of {Operations} that are bundled together into
-# {Group}s, providing a folded view of the sequences being “diffed”, that can
-# then be used to show only the subsequences that differ, folding away the
+# Represents a sequence of {Operations} that are bundled together into {Group}s
+# that can then be used to show the subsequences that differ, folding away the
 # subsequnces that are the same, only keeping some context around the folding
 # points.
 class Lookout::Diff::Groups
@@ -20,8 +19,8 @@ class Lookout::Diff::Groups
   # @overload
   #   Enumerates the groups of operations.
   #
-  #   @yieldparam [Group] group The group of operations
-  #   @return [Groups] self
+  #   @yieldparam [Group] group
+  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the groups of operations
   def each

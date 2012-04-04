@@ -5,50 +5,48 @@
 class Lookout::Diff::Group
   include Enumerable
 
-  # Initializes the group object with an initial sequence of operations.
-  #
-  # @param [Array<Operation>] operations Initial sequence of operations in this
-  #   group
+  # @param [Array<Operation>] operations Initial sequence of operations
   def initialize(*operations)
     @operations = operations
   end
 
-  # @return [Boolean] True if this group doesn’t contain any operations
+  # @return [Boolean] True if the receiver doesn’t contain any operations
   def empty?
     operations.empty?
   end
 
-  # Adds an operation to this group.
+  # Adds _operation_ to the receiver.
   #
-  # @param [Operation] operation The operation to add.
-  # @return [Group] self
+  # @param [Operation] operation
+  # @return [self]
   def <<(operation)
     operations << operation
     self
   end
 
-  # Folds the last operation in this group.
+  # {Operation#<< Folds} the last operation, leaving _context_ elements of
+  # context.
   #
-  # @param [Integer] context The number of elements to leave as context
-  # @return [Group] self
+  # @param [Integer] context
+  # @return [self]
   def fold(context)
     operations[-1] = operations[-1] << context
     self
   end
 
-  # @return [Boolean] True if this group contains one operation and that
-  #   operation represents parity
+  # @return [Boolean] True if the receiver contains one operation and that
+  #   operation represents {Operation#parity? parity}
   def parity?
     operations.size == 1 and operations.first.parity?
   end
 
   # @overload
-  #   Enumerates the operations in this group.
+  #   Enumerates the operations.
   #
-  #   @yieldparam [Operation] operation The operation
-  #   @return [Group] self
+  #   @yieldparam [Operation] operation
+  #   @return [self]
   # @overload
-  #   @return [Enumerator] An Enumerator over the operations in this group
+  #   @return [Enumerator] An Enumerator over the operations
   def each
     return enum_for(__method__) unless block_given?
     operations.each do |operation|
@@ -69,14 +67,15 @@ class Lookout::Diff::Group
     range(:to)
   end
 
-  # @param [Group] other Group to compare this group to
-  # @return [Boolean] True if this group is equal to _other_
+  # @param [Group] other
+  # @return [Boolean] True if the receiver’s class and operations `#==` those of
+  #   _other_
   def ==(other)
     self.class == other.class and
       operations == other.operations
   end
 
-  # @return [String] The inspection of this group
+  # @private
   def inspect
     '#<%s %p>' % [self.class, operations]
   end

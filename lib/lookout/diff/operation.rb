@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# Base class for operations describing the changes to perform to get from the
+# original sequence to the new sequence in a “diff”.
 class Lookout::Diff::Operation
   def initialize(from, to)
     @from, @to = from, to
@@ -25,6 +27,7 @@ class Lookout::Diff::Operation
     self.class == other.class and from == other.from and to == other.to
   end
 
+  # @private
   def inspect
     '#<%s %p,%p>' % [self.class, from, to]
   end

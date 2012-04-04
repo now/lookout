@@ -7,9 +7,7 @@
 class Lookout::Diff::Formats::Set
   include Enumerable
 
-  # Initializes the set format.
-  #
-  # @param [Operations] Operations to format
+  # @param [Operations] operations Operations to format
   def initialize(operations)
     @operations = operations
   end
@@ -17,8 +15,8 @@ class Lookout::Diff::Formats::Set
   # @overload
   #   Enumerates the formatted operations.
   #
-  #   @yieldparam string [String] Formatted operation
-  #   @return [Set] self
+  #   @yieldparam [String] string
+  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the formatted operations
   def each
@@ -30,7 +28,7 @@ class Lookout::Diff::Formats::Set
     self
   end
 
-  # @return [String] The String concatenation of the formatted operations
+  # @return [String] The concatenation of the formatted operations
   def to_s
     to_a.join("\n")
   end
