@@ -43,7 +43,7 @@ class Lookout::Diff::Formats::Inline
       '[-%s-]' % operation.from.to_items
     end
 
-    def equal(operation)
+    def copy(operation)
       operation.from.to_items
     end
 

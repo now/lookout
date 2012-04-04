@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Lookout::Diff::Operations::Equal < Lookout::Diff::Operation
+class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
   def foldable?(window)
     from.size > window
   end
@@ -20,6 +20,6 @@ class Lookout::Diff::Operations::Equal < Lookout::Diff::Operation
   end
 
   def apply(object)
-    object.equal(self)
+    object.copy(self)
   end
 end

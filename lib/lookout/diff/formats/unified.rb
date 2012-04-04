@@ -45,7 +45,7 @@ class Lookout::Diff::Formats::Unified
       mark('-', operation.from)
     end
 
-    def equal(operation)
+    def copy(operation)
       mark(' ', operation.from)
     end
 

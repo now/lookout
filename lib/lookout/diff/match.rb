@@ -54,7 +54,8 @@ class Lookout::Diff::Match
 
   # @param [::Range] from
   # @param [::Range] to
-  # @return [Match] A new match with {#from} and {#to} {Range#at #at} _from_ and _to_
+  # @return [Match] A new match with {#from} and {#to} {Range#at #at} _from_
+  #   and _to_
   def at(from, to)
     self.class.new(self.from.at(from), self.to.at(to))
   end

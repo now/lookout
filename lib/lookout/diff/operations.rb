@@ -13,8 +13,8 @@ class Lookout::Diff::Operations
     @matches.each do |match|
       type = typeify(from, to, match)
       yield type.new(match.from.at(from...match.from.begin),
-                     match.to.at(to...match.to.begin)) unless type == Equal
-      yield Equal.new(match.from, match.to) unless match.empty?
+                     match.to.at(to...match.to.begin)) unless type == Copy
+      yield Copy.new(match.from, match.to) unless match.empty?
       from, to = match.from.end + 1, match.to.end + 1
     end
     self
@@ -26,7 +26,7 @@ class Lookout::Diff::Operations
     if    from < match.from.begin and to < match.to.begin then Replace
     elsif from < match.from.begin                         then Delete
     elsif to < match.to.begin                             then Insert
-    else                                                       Equal
+    else                                                       Copy
     end
   end
 end

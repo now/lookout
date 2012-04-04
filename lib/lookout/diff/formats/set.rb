@@ -49,7 +49,7 @@ class Lookout::Diff::Formats::Set
       mark('-', operation.from)
     end
 
-    def equal(operation)
+    def copy(operation)
     end
 
     def insert(operation)

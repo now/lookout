@@ -34,7 +34,7 @@ module Lookout
         lookout/diff/operation.rb
         lookout/diff/operations.rb
         lookout/diff/operations/delete.rb
-        lookout/diff/operations/equal.rb
+        lookout/diff/operations/copy.rb
         lookout/diff/operations/insert.rb
         lookout/diff/operations/replace.rb
         lookout/difference.rb
