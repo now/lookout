@@ -129,7 +129,6 @@ class Lookout::Diff::Range
     range.end
   end
 
-  # @private
   def <=>(other)
     return nil unless self.class == other.class and items == other.items
     (self.begin <=> other.begin).nonzero? or
@@ -140,7 +139,6 @@ class Lookout::Diff::Range
   # @return [Boolean]
   alias eql? ==
 
-  # @private
   def inspect
     '%p[%p]' % [items, range]
   end

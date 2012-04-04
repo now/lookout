@@ -23,10 +23,10 @@ class Yard
   include Rake::DSL
 
   def initialize(options = {})
+    require 'shellwords'
     self.name = options.fetch(:name, :html)
-    # TODO: Use shell splitting here
-    self.options = options.fetch(:options, %w'--no-private --markup markdown')
-    self.options += ENV['OPTIONS'].split(' ') if ENV.include? 'OPTIONS'
+    self.options = options.fetch(:options, %w"--no-private --query !docstring.blank? --markup markdown")
+    self.options += Shellwords.split(ENV['OPTIONS']) if ENV.include? 'OPTIONS'
     self.inventory = options.fetch(:inventory, Inventory::Rake::Tasks.inventory)
     self.files = options.fetch(:files){ ENV.include?('FILES') ? FileList[ENV['FILES']] : inventory.lib_files }
     yield self if block_given?
@@ -45,7 +45,7 @@ class Yard
       yardoc.parse_arguments(*arguments)
       yardoc.options[:files] = []
       yardoc.options[:readme] = nil
-      Rake.rake_output_message 'yard doc %s' % arguments(yardoc.yardopts).join(' ') if verbose
+      Rake.rake_output_message 'yard doc %s' % Shellwords.join(arguments(yardoc.yardopts)) if verbose
       yardoc.run(nil)
     end
   end

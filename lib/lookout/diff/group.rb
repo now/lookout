@@ -75,7 +75,6 @@ class Lookout::Diff::Group
       operations == other.operations
   end
 
-  # @private
   def inspect
     '#<%s %p>' % [self.class, operations]
   end

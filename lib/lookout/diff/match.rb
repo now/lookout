@@ -36,7 +36,6 @@ class Lookout::Diff::Match
     from.touch? other.from and to.touch? other.to
   end
 
-  # @private
   def <=>(other)
     return nil unless self.class == other.class
     (from <=> other.from).nonzero? or
@@ -47,7 +46,6 @@ class Lookout::Diff::Match
   # @return [Boolean]
   alias eql? ==
 
-  # @private
   def inspect
     '#<%s %p==%p>' % [self.class, from, to]
   end

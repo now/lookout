@@ -1,12 +1,24 @@
 # -*- coding: utf-8 -*-
 
+# Represents a sequence of {Operation}s based on a sequence of {Match}es.  Each
+# match is turned into a {Copy}, {Delete}, {Insert}, or {Replace} operation
+# based on its relation to other matches in the sequence of matches.  Empty
+# copy operations will never be a part of this sequence.
 class Lookout::Diff::Operations
   include Enumerable
 
+  # @param [Matches] matches The matches to convert to operations
   def initialize(matches)
     @matches = matches
   end
 
+  # @overload
+  #   Enumerates the operations.
+  #
+  #   @yieldparam [Operation] operation
+  #   @return [self]
+  # @overload
+  #   @return [Enumerator] An Enumerator over the operations
   def each
     return enum_for(__method__) unless block_given?
     from = to = 0
