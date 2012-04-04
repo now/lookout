@@ -48,7 +48,7 @@ class Lookout::Diff::Algorithms::Difflib
         stack.push match
         stack.push item.end_before(match) if item.begins_before? match
       when Lookout::Diff::Match
-        if current.touches? item
+        if current.touch? item
           current += item
         else
           yield current unless current.empty?

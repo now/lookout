@@ -23,17 +23,17 @@ class Lookout::Diff::Match
   # @param [Match] other
   # @return [Match] A new match encompassing the ranges of the receiver and
   #   _other_
-  # @note Logically, _other_ should be touching the receiver, that is,
-  #   {#touches?}(_other_), but this isn’t enforced.
+  # @note Logically, the receiver should {#touch?} _other_, but this isn’t
+  #   enforced.
   def +(other)
     self.class.new(from + other.from, to + other.to)
   end
 
   # @param [Match] other
-  # @return True if {#from} and {#to} {Range#touches? #touches?} those of
+  # @return True if {#from} and {#to} {Range#touch? #touch?} those of
   #   _other_
-  def touches?(other)
-    from.touches? other.from and to.touches? other.to
+  def touch?(other)
+    from.touch? other.from and to.touch? other.to
   end
 
   # @private

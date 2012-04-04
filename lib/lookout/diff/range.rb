@@ -22,7 +22,7 @@ class Lookout::Diff::Range
 
   # @param [Range] other
   # @return True if {#end} + 1 = _other_{#begin}
-  def touches?(other)
+  def touch?(other)
     self.end + 1 == other.begin
   end
 
@@ -58,8 +58,8 @@ class Lookout::Diff::Range
 
   # @param [Range] other
   # @return [Range] A new range encompassing the receiver and _other_
-  # @note Logically, _other_ should be touching the receiver, that is,
-  #   {#touches?}(_other_), but this isn’t enforced.
+  # @note Logically, the receiver should {#touch?} _other_, but this isn’t
+  #   enforced.
   def +(other)
     at(self.begin..other.end)
   end
