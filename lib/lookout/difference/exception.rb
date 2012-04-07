@@ -6,10 +6,6 @@ class Lookout::Difference::Exception < Lookout::Difference::Object
     super actual, expected
   end
 
-  def message
-    @regexp ? '%s≉%s' % [inspect_actual, inspect_expected] : super
-  end
-
   def diff
     return super unless expected.class == actual.class and
       String === expected.message and
@@ -23,5 +19,9 @@ class Lookout::Difference::Exception < Lookout::Difference::Object
 
   def inspect_expected
     @regexp ? '#<%s: %p>' % [expected.class, @regexp] : super
+  end
+
+  def symbol
+    @regexp ? '≉' : super
   end
 end
