@@ -2,9 +2,6 @@
 
 # Base class for operations describing the changes to perform to get from the
 # original sequence to the new sequence in a “diff”.
-#
-# Subclasses must implement #apply that’s used in a double dispatch for
-# enumerating operations, see, for example, {Operations::Copy#apply}.
 class Lookout::Diff::Operation
   # @param [Range] from The range of the original sequence
   # @param [Range] to The range of the new sequence
@@ -13,10 +10,10 @@ class Lookout::Diff::Operation
   end
 
   # @param [Integer] window
-  # @return [Boolean] True if the receiver represents an operation that is
-  #   uninteresting to the actual “diff” and can be meaningfully folded inside
-  #   _window_, that is, is larger than _window_
-  def foldable?(window)
+  # @return [Boolean] True if the operation is uninteresting to the actual
+  #   “diff” and can be meaningfully folded inside _window_, that is, is larger
+  #   than _window_
+  def foldable?(window, stuff)
     false
   end
 
@@ -59,4 +56,13 @@ class Lookout::Diff::Operation
 
   # @return [Range] The range of the new sequence
   attr_reader :to
+
+  # Implements a double dispatch for enumerating operations, where _object_ is
+  # sent the last part of the receiver’s class’ _name_ with the receiver as the
+  # lone argument.
+  # @param [Object] object
+  # @return The result of _object_#_name_(self)
+  def apply(object)
+    object.send(@apply ||= self.class.name.split('::').last.downcase.to_sym, self)
+  end
 end

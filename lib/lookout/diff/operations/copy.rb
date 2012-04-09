@@ -25,10 +25,4 @@ class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
   def parity?
     from == to
   end
-
-  # @param [Object] object
-  # @return The result of _object_#copy(self)
-  def apply(object)
-    object.copy(self)
-  end
 end

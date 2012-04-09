@@ -12,6 +12,7 @@ Inventory::Rake::Tasks.define Lookout::Version, :gem => proc{ |_, s|
   s.homepage = 'https://github.com/now/lookout'
 
   s.add_development_dependency 'yard', '~> 0.7.0'
+  s.add_development_dependency 'yard-method-overrides', '~> 0.1.0'
 
   s.add_runtime_dependency 'inventory', '~> 0.2.0'
 }
@@ -25,7 +26,7 @@ class Yard
   def initialize(options = {})
     require 'shellwords'
     self.name = options.fetch(:name, :html)
-    self.options = options.fetch(:options, %w"--no-private --query !docstring.blank? --markup markdown")
+    self.options = options.fetch(:options, %w'--no-private --protected --private --query !docstring.blank? --markup markdown --no-stats')
     self.options += Shellwords.split(ENV['OPTIONS']) if ENV.include? 'OPTIONS'
     self.inventory = options.fetch(:inventory, Inventory::Rake::Tasks.inventory)
     self.files = options.fetch(:files){ ENV.include?('FILES') ? FileList[ENV['FILES']] : inventory.lib_files }
