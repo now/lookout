@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+# The main namespace of the Lookout library.
 module Lookout
   class << self
     # @private
@@ -104,7 +105,6 @@ class Symbol
   end
 end
 
-# @private
 def Expectations(&block)
   Lookout::Expectations.evaluate(Lookout.location(caller.first).first, &block)
   self

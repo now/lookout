@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# Represents an error result.  It’s used when the evalution of an expect block
+# failed.
 class Lookout::Results::Error
   include Lookout::Result
 

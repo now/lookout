@@ -4,7 +4,7 @@
 # generation.  It’s used by {Expected} and {Expect} to generate the messages
 # and differences associated with their expected values and actual results.
 #
-# {Object} is the base class for all objects defined under this namespace, so
+# {Object} is the base class for all classes defined under this namespace, so
 # look to it for guidance.
 module Lookout::Difference
 end

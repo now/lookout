@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Generates difference reports between {::Object}s.  This is the base
-# difference class and should be subclassed unless something more specific fits
+# difference class and should be subclassed if something more specific fits
 # the bill.  The objects are assumed to differ and you’ll surely get confused
 # if they don’t.  Determining if the objects do differ is, however, up to the
 # caller.

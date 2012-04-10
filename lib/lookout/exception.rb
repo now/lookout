@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
+# Provides non-failing access to some of {::Exception}’s methods.  It’s used in
+# subsystems where unhandled failure isn’t an option, such as {Inspect} and
+# {Results::Error}.  It also uses {Encode} so that all strings are ready for
+# output.
 class Lookout::Exception
+  # @param [::Exception] exception The exception that should be represented
   def initialize(exception)
     @exception = exception
   end
 
-  def ==(other)
-    self.class == other.class and
-      exception == other.exception
-  end
-
-  alias eql? ==
-
-  def hash
-    @hash ||= self.class.hash ^ exception.hash
-  end
-
+  # @return [String] The UTF-8-encoded exception message or the UTF-8-encoded
+  #   exception message of any exception that was raised while trying to retrieve
+  #   it
   def message
     @message ||= encode(begin
                           String(exception.message)
@@ -26,6 +23,9 @@ class Lookout::Exception
                         end)
   end
 
+  # @return [String] A heuristically generated UTF-8-encoded exception message
+  #   “header”, possibly containing the exception message and the excoption’s
+  #   class’ name
   def header
     # Chomping off a \n here isn’t 100 percent compatible with how Ruby 1.9
     # does it, but it simplifies the code and also makes the output better if
@@ -43,14 +43,20 @@ class Lookout::Exception
     end
   end
 
+  # @return [Backtrace] A non-failing backtrace wrapper of the exception
+  #   backtrace
   def backtrace
     @backtrace ||= Backtrace.from(exception)
   end
 
+  # @return [#name, #inspect] Either the exception’s class or an {Unknown}
+  #   wrapper around the exception that was raised while trying to determine
+  #   the class
   def type
     @type ||= begin exception.class; rescue => e; Unknown.new(e) end
   end
 
+  # @return [String] The UTF-8-encoded name of the exception’s class
   def type_name
     @type_name ||= begin
                       Lookout::Encode.new(type.name).call
@@ -60,8 +66,23 @@ class Lookout::Exception
                     end
   end
 
+  # @return [String] The {#header} and {#backtrace} separated by a newline
   def to_s
     "%s\n%s" % [header, backtrace]
+  end
+
+  # @return [Boolean] True if the receiver’s class and exception `#==` those of
+  #   _other_
+  def ==(other)
+    self.class == other.class and
+      exception == other.exception
+  end
+
+  # @return [Boolean]
+  alias eql? ==
+
+  def hash
+    @hash ||= self.class.hash ^ exception.hash
   end
 
   protected
