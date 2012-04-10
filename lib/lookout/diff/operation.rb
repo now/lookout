@@ -13,7 +13,7 @@ class Lookout::Diff::Operation
   # @return [Boolean] True if the operation is uninteresting to the actual
   #   “diff” and can be meaningfully folded inside _window_, that is, is larger
   #   than _window_
-  def foldable?(window, stuff)
+  def foldable?(window)
     false
   end
 
