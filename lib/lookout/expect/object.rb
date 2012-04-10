@@ -42,7 +42,7 @@ class Lookout::Expect::Object
   # @return [::String] The expanded path to the file containing the expectation
   attr_reader :file
 
-  # @return [::Integer] The line in #file on which the expectation is defined
+  # @return [::Integer] The line in {#file} on which the expectation is defined
   attr_reader :line
 
   private
