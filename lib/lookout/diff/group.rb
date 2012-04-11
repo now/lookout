@@ -5,7 +5,7 @@
 class Lookout::Diff::Group
   include Enumerable
 
-  # @param [Array<Operation>] operations Initial sequence of operations
+  # @param [Operation, …] *operations Initial sequence of operations
   def initialize(*operations)
     @operations = operations
   end

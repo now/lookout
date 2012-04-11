@@ -10,8 +10,8 @@ class Lookout::Expect::Object
 
   # Sets up the expect block for execution on #call.
   # @param [Expected::Object] expected The expected object
-  # @param [::String] file The expanded path to the file containing the
-  #   expectation
+  # @param [::String] file The expanded path of the file containing the
+  #   expect block
   # @param [::Integer] line The line in _file_ on which the expectation is
   #   defined
   # @yieldparam [::Object] subject The expected value

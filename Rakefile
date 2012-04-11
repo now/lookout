@@ -26,7 +26,7 @@ class Yard
   def initialize(options = {})
     require 'shellwords'
     self.name = options.fetch(:name, :html)
-    self.options = options.fetch(:options, Shellwords.split('--no-private --protected --private --query "!docstring.blank?&&!(visibility!=:public&&(@return.text==\'\'||docstring.start_with?(\'Returns the value of attribute \', \'Sets the attribute \')))||root?" --markup markdown --no-stats'))
+    self.options = options.fetch(:options, Shellwords.split('--no-private --protected --private --query "!docstring.blank?&&!(visibility!=:public&&((@return.text==\'\'&&@return.types==%w\'Boolean\')||docstring.start_with?(\'Returns the value of attribute \', \'Sets the attribute \')))||root?" --markup markdown --no-stats'))
     self.options += Shellwords.split(ENV['OPTIONS']) if ENV.include? 'OPTIONS'
     self.inventory = options.fetch(:inventory, Inventory::Rake::Tasks.inventory)
     self.files = options.fetch(:files){ ENV.include?('FILES') ? FileList[ENV['FILES']] : inventory.lib_files }

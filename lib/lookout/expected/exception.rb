@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
+# Represents expected {::Exception}s.
 class Lookout::Expected::Exception < Lookout::Expected::Object
+  # @param (see Object#expect)
+  # @yieldparam (see Object#expect)
+  # @yieldreturn (see Object#expect)
+  # @return [Lookout::Expect::Exception] An expect block for the receiver
   def expect(file, line, &block)
     Lookout::Expect::Exception.new(self, file, line, &block)
   end
 
-  # This test doesn’t quite match that which Ruby defines, as we make sure that
-  # the classes are the same.
-  # Lookout::Expect::StandardError makes sure of this before this method is
-  # called, but it’s safer to have this test here as well, at least until we
-  # figure out why Ruby doesn’t make sure of this.
+  # @param [::Exception] other
+  # @return [Lookout::Difference::Exception, nil] A difference report generator
+  #   between _other_ and {#subject}, unless they’re #equal? or their classes
+  #   are `#==` and their messages match or {#subject}s message is a Regexp
+  #   that matches other’s message
   def difference(other)
     Lookout::Difference::Exception.new(other, subject, regexp) unless
       subject.equal?(other) or
@@ -19,10 +24,13 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
        (regexp ? regexp === m : subject.message == m))
   end
 
+  private
+
   # The first test works in Ruby 1.8.  In Ruby 1.9, however, #message always
   # returns a String, unless the conversion raises an error.  Sadly, this
   # conversion can’t keep track of the ‘e’ and ‘n’ options for encoding
   # handling.
+  # @api private
   def regexp
     return @regexp if defined? @regexp
     return @regexp = subject.message if Regexp === subject.message
