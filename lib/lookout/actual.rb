@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Proxies the actual result of the expect block.  This allows the user to set
-# up a query method that should be invoked on the actual result and have that
-# result be checked.  This is used by {Lookout::Expectations::Context#result}.
+# Proxies the actual result of the {Lookout::Expect expect block}.  This allows
+# the user to set up a query method that should be invoked on the actual result
+# and have that result be checked.  This is used by
+# {Lookout::Expectations::Context#result}.
 class Lookout::Actual < Lookout::Aphonic
   # @return [Lookout::Actual::Not] A result proxy that is the inversion of the
   #   receiver
