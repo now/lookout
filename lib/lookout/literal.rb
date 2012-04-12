@@ -6,10 +6,15 @@
 # the object would normally return.  This allows us to expect a literal {Range}
 # instead of allowing either a Range or an item included in the range.
 class Lookout::Literal
+  # @param [Object] subject The test subject (expected value) that should be
+  #   matched literally
   def initialize(subject)
     @subject = subject
   end
 
+  # @param [Lookout::Literal] other
+  # @return [Boolean] True if the receiver’s class and subject `#==` those of
+  #   _other_
   def ==(other)
     self.class == other.class and
       subject == other.subject
@@ -25,6 +30,8 @@ class Lookout::Literal
     'literal(%p)' % output
   end
 
+  # @return [Lookout::Expected::Object] An expected value wrapper around the
+  #   subject
   def to_lookout_expected
     Lookout::Expected::Object.new(@subject)
   end
