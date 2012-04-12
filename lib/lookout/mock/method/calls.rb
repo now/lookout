@@ -1,47 +1,42 @@
 # -*- coding: utf-8 -*-
 
+# Tracks the range of expected method calls and the actual method calls made.
 class Lookout::Mock::Method::Calls
-  class Error < Lookout::Mock::Error
-    def initialize(message, calls, range)
-      super message
-      @calls, @range = calls, range
-    end
-
-    def ==(other)
-      super and
-        self.class == other.class and
-        calls == other.calls and
-        range == other.range
-    end
-
-    attr_reader :calls, :range
-  end
-
-  TooManyError = Class.new(Error)
-  TooFewError = Class.new(Error)
-
+  # @param [Range] range The expected number of calls
   def initialize(range)
     @range = range
     @calls = 0
   end
 
+  # Increases the call count.
+  # @return [self]
+  # @raise [Calls::TooManyError] If the method was called more than the
+  #   expected maximum number of times
   def call
     self.calls += 1
     error TooManyError if calls > range.end
     self
   end
 
+  # Verifies that the appropriate number of calls were made to the method.
+  # @return [self]
+  # @raise [Calls::TooFewError] If the method wasn’t called the expected
+  #   minimum number of times
   def verify
     error TooFewError unless range === calls
     self
   end
 
+  # @param [Calls] other
+  # @return [Boolean] True if the receiver’s class, expected number of calls,
+  #   and actual call count `#==` those of _other_
   def ==(other)
     self.class == other.class and
       range == other.range and
       calls == other.calls
   end
 
+  # @return [String] A String representation of the expected number of calls
   def to_s
     if range.begin == range.end
       range.begin.to_s
@@ -59,6 +54,7 @@ class Lookout::Mock::Method::Calls
 
   private
 
+  # @api private
   def error(type)
     raise type.
       new('unexpected number of invocations (%d for %s)' % [calls, self],

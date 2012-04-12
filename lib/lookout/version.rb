@@ -109,12 +109,17 @@ module Lookout
         lookout/stub/methods.rb
         lookout/stub/object.rb
         lookout/mock.rb
+        lookout/mock/error.rb
         lookout/mock/method.rb
         lookout/mock/method/arguments.rb
         lookout/mock/method/arguments/any.rb
+        lookout/mock/method/arguments/error.rb
         lookout/mock/method/arguments/list.rb
         lookout/mock/method/arguments/none.rb
         lookout/mock/method/calls.rb
+        lookout/mock/method/calls/error.rb
+        lookout/mock/method/calls/toofewerror.rb
+        lookout/mock/method/calls/toomanyerror.rb
         lookout/mock/method/defined.rb
         lookout/mock/method/undefined.rb
         lookout/mock/methods.rb

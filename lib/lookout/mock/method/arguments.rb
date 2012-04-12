@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 
+# Arguments that should be passed to the mock method.  Sets things up based on
+# what kind of arguments were passed to it and may then be used to {#verify}
+# that arguments that don’t {Lookout::Difference differ} from them are
+# subsequently passed to the mock method.
 class Lookout::Mock::Method::Arguments
-  Error = Class.new(Lookout::Mock::Error)
-
+  # Sets up the expected arguments to a mock method.  If _args_ is #empty?,
+  # {Any} will be used.  If _args_ contains an {Any} or a {None}, they’ll be
+  # used.  Otherwise, _args_ will be wrapped in a {List}.
+  # @param [Object, …] *args The expected arguments
   def initialize(*args)
     @args = if args.empty? then Any.new
             elsif any = args.find{ |e| Any === e } then any
@@ -11,33 +17,40 @@ class Lookout::Mock::Method::Arguments
             end
   end
 
+  # Checks for {Lookout::Difference differences} between _args_ and the
+  # expected ones.
+  # @param [Object, …] *args
+  # @raise [Error] If the passed _args_ differ from the expected ones.
   def verify(*args)
     self.args =~ args or
       raise Error, 'unexpected arguments ([%s]≠[%s])' % [List.new(*args), self.args]
   end
 
+  # @param [Arguments] other
+  # @return [Boolean] True if the receiver’s class and expected arguments `#==`
+  #   those of _other_
   def ==(other)
     self.class == other.class and
-      object == other.object and
-      method == other.method and
       args == other.args
   end
 
   alias eql? ==
 
   def hash
-    self.class.hash ^ object.hash ^ method.hash ^ args.hash
+    self.class.hash ^ args.hash
   end
 
+  # @return [String] The arguments as a String argument list
   def to_s
     (result = args.to_s).empty? ? result : '(%s)' % result
   end
 
+  # @return [Object, Array<Object>] The expected arguments as an array
   def to_a
     args.to_a
   end
 
   protected
 
-  attr_reader :object, :method, :args
+  attr_reader :args
 end
