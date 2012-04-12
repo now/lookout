@@ -2,11 +2,9 @@
 
 # Base module for mock methods.
 module Lookout::Mock::Method
-  # @param [Object] object The object that the mock method will be applied to
-  # @param [Symbol] method The method to mock
+  # @param (see Stub::Method#initialize)
   # @param [Calls] calls The expected number of calls that should be made
   # @param [Object, …] *args The expected arguments
-  # @param [Proc] &body The block to use as a method definition
   # @see Stub::Method#initialize
   # @see Stub::Method::Defined#initialize
   def initialize(object, method, calls, *args, &body)

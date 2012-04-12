@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 
+# A stub methods definition.
 class Lookout::Stub::Method::Defined::Definition
+  # Saves the current definition of the method, if any, then replaces it with
+  # its own, maintaining its visibility.
+  # @param [Object] object The object that _method_ will be applied to
+  # @param [Symbol] method The method name
+  # @param [Proc] &body The block to use as a method definition
   def initialize(object, method, &body)
     @object, @method = object, method
     @visibility, @unbound = meta_exec{
@@ -18,6 +24,9 @@ class Lookout::Stub::Method::Defined::Definition
     }
   end
 
+  # Undefines the stub method, restoring the methods previous definition and
+  # its visibility, if one existed.
+  # @return [self]
   def undefine
     meta_exec method, visibility, unbound do |method, visibility, unbound|
       remove_method method
@@ -29,6 +38,8 @@ class Lookout::Stub::Method::Defined::Definition
     self
   end
 
+  # @return [Boolean] True if the receiver’s class, object, method name,
+  #   visibility, and previous definition `#==` those of _other_
   def ==(other)
     self.class == other.class and
       object == other.object and
