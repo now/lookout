@@ -19,7 +19,7 @@ module Lookout
         lookout/actual/not.rb
         lookout/actual/not/method.rb
         lookout/diff.rb
-        lookout/diff/range.rb
+        lookout/diff/slice.rb
         lookout/diff/algorithms.rb
         lookout/diff/algorithms/difflib.rb
         lookout/diff/algorithms/difflib/position.rb

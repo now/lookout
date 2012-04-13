@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Lookout::Diff::Algorithms::Difflib::Position::To <
-      Lookout::Diff::Range
+      Lookout::Diff::Slice
   def initialize(items, range = 0...items.size, indexes = nil)
     super items, range
     @indexes = indexes
@@ -38,7 +38,7 @@ class Lookout::Diff::Algorithms::Difflib::Position::To <
   end
 
   def at(range)
-    Lookout::Diff::Range.new(items, range)
+    Lookout::Diff::Slice.new(items, range)
   end
 
   def ==(other)

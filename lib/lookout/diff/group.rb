@@ -55,16 +55,16 @@ class Lookout::Diff::Group
     self
   end
 
-  # @return [Range] The range of the original sequence between the first
+  # @return [Slice] The slice of the original sequence between the first
   #   operation’s beginning and the last operation’s end
   def from
-    range(:from)
+    slice(:from)
   end
 
-  # @return [Range] The range of the new sequence between the first operation’s
+  # @return [Slice] The slice of the new sequence between the first operation’s
   #   beginning and the last operation’s end
   def to
-    range(:to)
+    slice(:to)
   end
 
   # @param [Group] other
@@ -85,7 +85,7 @@ class Lookout::Diff::Group
 
   private
 
-  def range(target)
+  def slice(target)
     # TODO: Should be #end_after(operations.last.send(target))
     operations.first.send(target).end_at(operations.last.send(target).end)
   end

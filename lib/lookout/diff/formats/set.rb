@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # Formats {Operation}s on an undordered set.  This is used by
-# {Difference::Hash}.  Added ranges of elements are shown having each element
-# prefixed by “+” and deleted ranges of elements by “-”.  Replaced ranges are
-# shown as a deleted range followed by an added range.
+# {Difference::Hash}.  Added subsequences are shown having each element
+# prefixed by “+” and deleted subsequences by “-”.  Replaced subsequences are
+# shown as a deleted subsequence followed by an added subsequence.
 class Lookout::Diff::Formats::Set
   include Enumerable
 
@@ -66,8 +66,8 @@ class Lookout::Diff::Formats::Set
 
     private
 
-    def mark(mark, range)
-      range.map{ |item| '%s%s' % [mark, item] }
+    def mark(mark, slice)
+      slice.map{ |item| '%s%s' % [mark, item] }
     end
   end
 end

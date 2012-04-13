@@ -3,8 +3,8 @@
 # Base class for operations describing the changes to perform to get from the
 # original sequence to the new sequence in a “diff”.
 class Lookout::Diff::Operation
-  # @param [Range] from The range of the original sequence
-  # @param [Range] to The range of the new sequence
+  # @param [Slice] from The slice of the original sequence
+  # @param [Slice] to The slice of the new sequence
   def initialize(from, to)
     @from, @to = from, to
   end
@@ -51,10 +51,10 @@ class Lookout::Diff::Operation
     '#<%s %p,%p>' % [self.class, from, to]
   end
 
-  # @return [Range] The range of the original sequence
+  # @return [Slice] The slice of the original sequence
   attr_reader :from
 
-  # @return [Range] The range of the new sequence
+  # @return [Slice] The slice of the new sequence
   attr_reader :to
 
   # Implements a double dispatch for enumerating operations, where _object_ is

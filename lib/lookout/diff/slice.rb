@@ -1,63 +1,63 @@
 # -*- coding: utf-8 -*-
 
-# Represents a range of a sequence being “diffed”.
-class Lookout::Diff::Range
+# Represents a slice of a sequence being “diffed”.
+class Lookout::Diff::Slice
   include Enumerable, Comparable
 
   # @param [Enumerable] items Sequence being “diffed”
-  # @param [::Range] range The range of _items_ being represented
+  # @param [Range] range The range of _items_ being represented
   def initialize(items, range = 0...items.size)
     @items, @range = items, range.exclude_end? ? range.begin..range.end - 1 : range
   end
 
-  # @return True if this range doesn’t include any elements
+  # @return True if this slice doesn’t include any elements
   def empty?
     size < 1
   end
 
-  # @return [Integer] The number of elements in this range
+  # @return [Integer] The number of elements in this slice
   def size
     self.end - self.begin + 1
   end
 
-  # @param [Range] other
+  # @param [Slice] other
   # @return True if {#end} + 1 = _other_{#begin}
   def touch?(other)
     self.end + 1 == other.begin
   end
 
-  # @param [Range] other
+  # @param [Slice] other
   # @return True if {#begin} < _other_{#begin}
   def begin_before?(other)
     self.begin < other.begin
   end
 
-  # @param [Range] other
+  # @param [Slice] other
   # @return True if {#end} > _other_{#end}
   def end_after?(other)
     self.end > other.end
   end
 
-  # @param [Range] other
-  # @return [Range] A new range beginning at _other_{#end} + 1
+  # @param [Slice] other
+  # @return [Slice] A new slice beginning at _other_{#end} + 1
   def begin_after(other)
     begin_at(other.end + 1)
   end
 
-  # @param [Range] other
-  # @return [Range] A new range ending at _other_{#begin} - 1
+  # @param [Slice] other
+  # @return [Slice] A new slice ending at _other_{#begin} - 1
   def end_before(other)
     end_at(other.begin - 1)
   end
 
-  # @param [::Range] range
-  # @return [Range] A new range spanning the items of _range_
+  # @param [Range] range
+  # @return [Slice] A new slice spanning the items of _range_
   def at(range)
     self.class.new(items, range)
   end
 
-  # @param [Range] other
-  # @return [Range] A new range encompassing the receiver and _other_
+  # @param [Slice] other
+  # @return [Slice] A new slice encompassing the receiver and _other_
   # @note Logically, the receiver should {#touch?} _other_, but this isn’t
   #   enforced.
   def +(other)
@@ -65,13 +65,13 @@ class Lookout::Diff::Range
   end
 
   # @param [Integer] index
-  # @return [Range] A new range beginning at _index_
+  # @return [Slice] A new slice beginning at _index_
   def begin_at(index)
     at(index..self.end)
   end
 
   # @param [Integer] index
-  # @return [Range] A new range ending at _index_
+  # @return [Slice] A new slice ending at _index_
   def end_at(index)
     at(self.begin..index)
   end

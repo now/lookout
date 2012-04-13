@@ -36,8 +36,8 @@ class Lookout::Diff::Algorithms::Difflib
   #     sequences
   def each
     return enum_for(__method__) unless block_given?
-    current = Lookout::Diff::Match.new(Lookout::Diff::Range.new(@from, 0...0),
-                                       Lookout::Diff::Range.new(@to, 0...0))
+    current = Lookout::Diff::Match.new(Lookout::Diff::Slice.new(@from, 0...0),
+                                       Lookout::Diff::Slice.new(@to, 0...0))
     stack = [Position.origin(@from, @to, &@ignorable)]
     until stack.empty?
       case item = stack.pop

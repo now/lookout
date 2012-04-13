@@ -69,8 +69,8 @@ class Lookout::Diff::Formats::Unified
 
     private
 
-    def mark(mark, range)
-      range.map{ |item| '%s%s' % [mark, item] }
+    def mark(mark, slice)
+      slice.map{ |item| '%s%s' % [mark, item] }
     end
   end
 end

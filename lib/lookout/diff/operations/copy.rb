@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# Represents a range that should be copied from the original sequence.
+# Represents a slice that should be copied from the original sequence.
 class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
   # @param [Integer] window
-  # @return [Boolean] True if the range of the original sequence is larger than _window_
-  #   ({#from}{Range#size #size} > _window_)
+  # @return [Boolean] True if the slice of the original sequence is larger than
+  #   _window_ ({#from}{Range#size #size} > _window_)
   def foldable?(window)
     from.size > window
   end
