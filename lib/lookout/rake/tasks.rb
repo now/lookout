@@ -2,8 +2,13 @@
 
 require 'rake'
 
-module Lookout module Rake end end
+module Lookout
+  # Namespace for Rake-related namespaces.
+  module Rake
+  end
+end
 
+# Namespace for Rake tasks.
 module Lookout::Rake::Tasks
   %w'test'.each do |file|
     load File.expand_path('../tasks/%s.rb' % file, __FILE__)

@@ -1,11 +1,33 @@
 # -*- coding: utf-8 -*-
 
+# Rake task for running expectation tests.
 class Lookout::Rake::Tasks::Test
   include Rake::DSL
 
   LoaderPath = File.join(File.dirname(__FILE__), 'test/loader.rb')
   Paths = %w'lib'
 
+  # Defines a Rake task for running expectation tests named _:name_.  Also
+  # defines a task for running expectations with coverage name
+  # _:name_:coverage.  If _:name_ `#==` `:test`, then the default task is set
+  # to depend on it, unless the default task has already been defined, as well
+  # as the `:check` task.
+  # @param [Hash] options
+  # @option options [Symbol] :name (:test) The name of the task
+  # @option options [Array<String>] :paths (['lib']) The paths to add to
+  #   `$LOAD_PATH`
+  # @option options [Array<String>] :requires ([]) The libraries to require
+  # @option options [Array<String>] :files (FileList[ENV['TEST']]) The
+  #   expectation files to load
+  # @option options [Inventory] :inventory (Inventory::Rake::Tasks.inventory)
+  #   The Inventory to look for :paths, :requires, and :files in, see
+  #   {#inventory=} (the default is only used if `inventory/rake/tasks` has
+  #   been required)
+  # @option options [Gem::Specification] :specification The Gem specification
+  #   to look for :paths and :requires in, see {#specification=}
+  # @yield [?] The _task_ being created so that it may be adjusted further
+  #   before being defined
+  # @yieldparam [Test] task
   def initialize(options = {})
     self.name = options.fetch(:name, :test)
     self.paths = options.fetch(:paths, Paths)
@@ -19,25 +41,52 @@ class Lookout::Rake::Tasks::Test
     define
   end
 
-  attr_accessor :name
-  attr_writer :paths, :requires, :files
+  # @return [Symbol] The name of the task
+  attr_reader :name
 
+  # @param [Symbol] value
+  # @return [Symbol] The new name of the task: _value_
+  attr_writer :name
+
+  # @return [Array<String>] The paths to add to `$LOAD_PATH`; may load
+  #   {#specification}
   def paths
     return @paths if @paths and not @paths.equal? Paths
     self.specification = specification
     @paths
   end
 
+  # @param [Array<String>] value
+  # @return [Array<String>] The new paths to add to `$LOAD_PATH`: _value_
+  attr_writer :paths
+
+  # @return [Array<String>] The libraries to require; may load {#specification}
   def requires
     return @requires unless @requires.empty?
     self.specification = specification
     @requires
   end
 
+  # @param [Array<String>] value
+  # @return [Array<String>] The new libraries to require: _value_
+  attr_writer :requires
+
+  # @return [Array<String>] The expectation files to load; defaults to
+  #   `FileList['test/unit/**/*.rb]`
   def files
     @files ||= FileList['test/unit/**/*.rb']
   end
 
+  # @param [Array<String>] value
+  # @return [Array<String>] The new expectation files to load: _value_
+  attr_writer :files
+
+  # @return [Inventory] The inventory to use
+  attr_reader :inventory
+
+  # @param [Inventory] value
+  # @return [Inventory] The new inventory to use for {#paths}, {#requires}, and
+  #   {#files}: _value_
   def inventory=(inventory)
     self.paths = inventory.lib_directories
     self.requires = [inventory.package_require]
@@ -45,6 +94,10 @@ class Lookout::Rake::Tasks::Test
     inventory
   end
 
+  # @return [Gem::Specification] The specification to use; will try to find one
+  #   by looking for `*.gemspec` in the current directory
+  # @raise [RuntimeError] If no specification has been set and one can’t be
+  #   found in the current directory (the project root directory)
   def specification
     return @specification if defined? @specification
     return nil unless defined? ::Gem
@@ -54,6 +107,9 @@ class Lookout::Rake::Tasks::Test
     @specification = Gem::Specification.load(gemspec)
   end
 
+  # @param [Gem::Specification] specification
+  # @return [Gem::Specification] The new specification to use for {#paths} and
+  #   {#requires}: _specification_
   def specification=(specification)
     self.paths = specification.require_paths
     self.requires = [specification.name.gsub('-', '/')]

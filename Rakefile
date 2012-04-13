@@ -46,6 +46,7 @@ class Yard
       yardoc.parse_arguments(*arguments)
       yardoc.options[:files] = []
       yardoc.options[:readme] = nil
+      yardoc.options[:source_code_url] = 'https://github.com/now/lookout/blob/master/%s#L%d'
       Rake.rake_output_message 'yard doc %s' % Shellwords.join(arguments(yardoc.yardopts)) if verbose
       yardoc.run(nil)
     end
