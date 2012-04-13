@@ -44,9 +44,9 @@ class Lookout::Diff::Algorithms::Difflib
       when Position
         match = item.match
         next if match.empty?
-        stack.push item.begin_after(match) if item.ends_after? match
+        stack.push item.begin_after(match) if item.end_after? match
         stack.push match
-        stack.push item.end_before(match) if item.begins_before? match
+        stack.push item.end_before(match) if item.begin_before? match
       when Lookout::Diff::Match
         if current.touch? item
           current += item

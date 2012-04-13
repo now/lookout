@@ -26,12 +26,12 @@ class Lookout::Diff::Algorithms::Difflib::Position
     junk.empty? ? match : expand(expand(match, false), true)
   end
 
-  def begins_before?(match)
-    from.begins_before? match.from and to.begins_before? match.to
+  def begin_before?(match)
+    from.begin_before? match.from and to.begin_before? match.to
   end
 
-  def ends_after?(match)
-    from.ends_after? match.from and to.ends_after? match.to
+  def end_after?(match)
+    from.end_after? match.from and to.end_after? match.to
   end
 
   def begin_after(match)

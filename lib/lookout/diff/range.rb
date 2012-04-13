@@ -28,13 +28,13 @@ class Lookout::Diff::Range
 
   # @param [Range] other
   # @return True if {#begin} < _other_{#begin}
-  def begins_before?(other)
+  def begin_before?(other)
     self.begin < other.begin
   end
 
   # @param [Range] other
   # @return True if {#end} > _other_{#end}
-  def ends_after?(other)
+  def end_after?(other)
     self.end > other.end
   end
 

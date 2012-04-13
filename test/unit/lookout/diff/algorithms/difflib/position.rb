@@ -50,26 +50,26 @@ Expectations do
 
   expect false do
     Lookout::Diff::Algorithms::Difflib::Position.origin('abc', 'abc').
-      begins_before? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 0..0),
-                                              Lookout::Diff::Range.new('abc', 0..0))
+      begin_before? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 0..0),
+                                             Lookout::Diff::Range.new('abc', 0..0))
   end
 
   expect true do
     Lookout::Diff::Algorithms::Difflib::Position.origin('abc', 'abc').
-      begins_before? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 1..1),
-                                              Lookout::Diff::Range.new('abc', 1..1))
+      begin_before? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 1..1),
+                                             Lookout::Diff::Range.new('abc', 1..1))
   end
 
   expect false do
     Lookout::Diff::Algorithms::Difflib::Position.origin('abc', 'abc').
-      ends_after? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 3..3),
-                                           Lookout::Diff::Range.new('abc', 3..3))
+      end_after? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 3..3),
+                                          Lookout::Diff::Range.new('abc', 3..3))
   end
 
   expect true do
     Lookout::Diff::Algorithms::Difflib::Position.origin('abc', 'abc').
-      ends_after? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 1..1),
-                                           Lookout::Diff::Range.new('abc', 1..1))
+      end_after? Lookout::Diff::Match.new(Lookout::Diff::Range.new('abc', 1..1),
+                                          Lookout::Diff::Range.new('abc', 1..1))
   end
 
   expect Lookout::Diff::Algorithms::Difflib::Position.

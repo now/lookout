@@ -11,19 +11,19 @@ Expectations do
   expect 1 do Lookout::Diff::Range.new('a', 0..0).size end
 
   expect false do
-    Lookout::Diff::Range.new('a', 0..0).begins_before? Lookout::Diff::Range.new('a', 0..1)
+    Lookout::Diff::Range.new('a', 0..0).begin_before? Lookout::Diff::Range.new('a', 0..1)
   end
 
   expect true do
-    Lookout::Diff::Range.new('a', 0..0).begins_before? Lookout::Diff::Range.new('a', 1..1)
+    Lookout::Diff::Range.new('a', 0..0).begin_before? Lookout::Diff::Range.new('a', 1..1)
   end
 
   expect false do
-    Lookout::Diff::Range.new('a', 0..0).ends_after? Lookout::Diff::Range.new('a', 0..1)
+    Lookout::Diff::Range.new('a', 0..0).end_after? Lookout::Diff::Range.new('a', 0..1)
   end
 
   expect true do
-    Lookout::Diff::Range.new('a', 1..1).ends_after? Lookout::Diff::Range.new('a', 0..0)
+    Lookout::Diff::Range.new('a', 1..1).end_after? Lookout::Diff::Range.new('a', 0..0)
   end
 
   expect Lookout::Diff::Range.new('abc', 2..2) do
