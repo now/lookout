@@ -36,9 +36,10 @@ class Lookout::Expectations::Context
     Lookout::Literal.new(subject)
   end
 
-  # @return [Lookout::Mock::Object] A mock object
-  def mock
-    Lookout::Mock::Object.new
+  # @param [Hash] methods
+  # @return [Lookout::Mock::Object] A mock object, set up with _methods_
+  def mock(methods = {})
+    Lookout::Mock::Object.new(methods)
   end
 
   # @return [Lookout::Mock::Method::Arguments::None] An object representing
@@ -47,9 +48,10 @@ class Lookout::Expectations::Context
     Lookout::Mock::Method::Arguments::None.new
   end
 
-  # @return [Lookout::Stub::Object] A stub object
-  def stub
-    Lookout::Stub::Object.new
+  # @param [Hash] methods
+  # @return [Lookout::Stub::Object] A stub object, set up with _methods_
+  def stub(methods = {})
+    Lookout::Stub::Object.new(methods)
   end
 
   # @param [String] string

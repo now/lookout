@@ -285,6 +285,16 @@ Expectations do
     s.a + s.b
   end
 
+  # Expect the reception of #a on a stub object that responds to specific methods.
+  expect stub(:a => 1, :b => 2).to.receive.a do |o|
+    o.a + o.b
+  end
+
+  # Expect the reception of #a on a mock object that responds to specific methods.
+  expect mock(:a => 2, :b => 2).to.receive.a do |o|
+    o.a + o.b
+  end
+
 
 
   # Utilities

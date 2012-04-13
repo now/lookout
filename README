@@ -474,6 +474,18 @@
       you shouldn’t be doing that anyway.  In fact, you should never mock or
       stub methods on value objects or aggregate objects of value objects.
 
+      This short-hand notation can also be used for the expected value:
+
+        expect stub(:a => 1, :b => 2).to.receive.a do |o|
+          o.a + o.b
+        end
+
+      and also works for mock objects:
+
+        expect mock(:a => 2, :b => 2).to.receive.a do |o|
+          o.a + o.b
+        end
+
   § Utilities
 
       Sometimes you need to override the value of a constant during the

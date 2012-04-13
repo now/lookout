@@ -2,7 +2,7 @@
 
 # Object that doesn’t respond to anything and throws a mock error whenever it
 # receives a method call.
-class Lookout::Mock::Object
+class Lookout::Mock::Object < Lookout::Stub::Object
   def inspect
     'mock'
   end
