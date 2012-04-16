@@ -5,10 +5,9 @@
 # that arguments that don’t {Lookout::Difference differ} from them are
 # subsequently passed to the mock method.
 class Lookout::Mock::Method::Arguments
-  # Sets up the expected arguments to a mock method.  If _args_ is #empty?,
-  # {Any} will be used.  If _args_ contains an {Any} or a {None}, they’ll be
-  # used.  Otherwise, _args_ will be wrapped in a {List}.
-  # @param [Object, …] *args The expected arguments
+  # Sets up the expected _args_ to a mock method.  If _args_ is #empty?, {Any}
+  # will be used.  If _args_ contains an {Any} or a {None}, they’ll be used.
+  # Otherwise, _args_ will be wrapped in a {List}.  @param [Object, …] *args
   def initialize(*args)
     @args = if args.empty? then Any.new
             elsif any = args.find{ |e| Any === e } then any
@@ -21,6 +20,7 @@ class Lookout::Mock::Method::Arguments
   # expected ones.
   # @param [Object, …] *args
   # @raise [Error] If the passed _args_ differ from the expected ones.
+  # @return [true]
   def verify(*args)
     self.args =~ args or
       raise Error, 'unexpected arguments ([%s]≠[%s])' % [List.new(*args), self.args]

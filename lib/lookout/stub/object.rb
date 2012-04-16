@@ -6,8 +6,7 @@ class Lookout::Stub::Object
   # Maps each method name (Symbol) key in _methods_ to its value definition.
   # If the value of the key is a Proc it’ll be used as the method definition.
   # Otherwise, the method definition will be set up to return the value.
-  # @param [Hash] methods A map of method names (Symbols) to their definitions
-  #   (Procs or Objects)
+  # @param [Hash<Symbol,Object>] methods
   def initialize(methods = {})
     (class << self; self; end).module_eval do
       methods.each do |name, value|

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Mock method collection.  Keeps track of defined mock methods so that they may
-# later be undefined properly.
+# Mock method collection.  Keeps track of defined mock methods so that only one
+# is defined at a time and so that that method may later be undefined properly.
 class Lookout::Mock::Methods < Lookout::Stub::Methods
   class << self
-    # Allows the mocking of methods during the execution of the given block.
-    # Any defined methods will be undefined before this method returns.
-    # @yieldparam [Methods] methods Mock method collection
-    # @return [Object] The result of the given block
+    # Allows the mocking of methods via _methods_ during the execution of the
+    # given block, returning the result of that block.  Any defined methods
+    # will be undefined before this method returns.
+    # @yieldparam [Methods] methods
+    # @return [Object]
     def during
       methods = new
       begin

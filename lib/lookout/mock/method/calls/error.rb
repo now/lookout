@@ -3,9 +3,11 @@
 # Base class for errors raised when the actual number of calls made to a mock
 # method don’t match the expected number of calls.
 class Lookout::Mock::Method::Calls::Error < Lookout::Mock::Error
-  # @param [String] message The error message
-  # @param [Integer] calls The actual number of calls made
-  # @param [Range] range The expected number of calls
+  # Initializes the error with _message_ and the actual number of _calls_ made
+  # and their expected _range_.
+  # @param [String] message
+  # @param [Integer] calls
+  # @param [Range] range
   def initialize(message, calls, range)
     super message
     @calls, @range = calls, range

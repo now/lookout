@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# A stub method that has been defined on its object.  May be {#call}ed and
+# Stub method that has been defined on its object.  May be {#call}ed and
 # {#undefine}d.
 class Lookout::Stub::Method::Defined
   include Lookout::Stub::Method

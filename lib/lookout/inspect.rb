@@ -3,8 +3,10 @@
 # Non-failing inspection of objects.  The inspection is {Lookout::Encode
 # encoded} for output.
 class Lookout::Inspect
-  # @param [Object] object The object to inspect
-  # @param [String] type A description of the type of object being inspected
+  # Non-failing inspection of _object_, using _type_ as a description of the
+  # type of object being inspected for failure outputs.
+  # @param [Object] object
+  # @param [String] type
   def initialize(object, type)
     @object, @type = object, type
   end

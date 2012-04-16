@@ -2,9 +2,11 @@
 
 # Base module for mock methods.
 module Lookout::Mock::Method
+  # Prepares the mock _method_ on _object_, expecting it to be received _calls_
+  # times with _args_ and using _body_ as the method definition.
   # @param (see Stub::Method#initialize)
-  # @param [Calls] calls The expected number of calls that should be made
-  # @param [Object, …] *args The expected arguments
+  # @param [Calls] calls
+  # @param [Object, …] *args
   # @see Stub::Method#initialize
   # @see Stub::Method::Defined#initialize
   def initialize(object, method, calls, *args, &body)

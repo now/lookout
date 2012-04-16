@@ -3,7 +3,8 @@
 # Arguments matcher matching a list of arguments.  It uses
 # {Lookout::Difference} to do the actual work.
 class Lookout::Mock::Method::Arguments::List
-  # @param [Object, …] *args The expected arguments
+  # Expects _args_.
+  # @param [Object, …] *args
   def initialize(*args)
     @args = args
   end
@@ -29,7 +30,7 @@ class Lookout::Mock::Method::Arguments::List
     self.class.hash ^ args.hash
   end
 
-  # @return [String] self as a String argument list
+  # @return [String] The receiver as a String argument list
   def to_s
     Lookout::Inspect::Argument.list(*args)
   end

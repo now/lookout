@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# A mock method that has been defined on its object.  May be {#call}ed and
+# Mock method that has been defined on its object.  May be {#call}ed and
 # {#undefine}d.
 class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
   include Lookout::Mock::Method

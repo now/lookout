@@ -2,14 +2,16 @@
 
 # Base module for stub methods.
 module Lookout::Stub::Method
-  # @param [Object] object The object that _method_ will be applied to
-  # @param [Symbol] method The method name
-  # @param [Proc] &body The block to use as a method definition
+  # Prepares the stub _method_ on _object_, using _body_ as the method
+  # definition.
+  # @param [Object] object
+  # @param [Symbol] method
+  # @param [Proc] &body
   def initialize(object, method, &body)
     @object, @method, @body = object, method.to_sym, body || Nil
   end
 
-  # @param [Lookout::Stub::Method] other
+  # @param [Method] other
   # @return [Boolean] True if the receiver’s class, object, method, and body
   #   `#==` those of _other_
   def ==(other)

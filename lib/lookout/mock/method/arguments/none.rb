@@ -6,7 +6,7 @@ class Lookout::Mock::Method::Arguments::None < Lookout::Mock::Method::Arguments:
     super
   end
 
-  # @return [Object, Array<Object>] self as an array
+  # @return [Object, Array<Object>] The receiver as an array
   def to_a
     [self]
   end

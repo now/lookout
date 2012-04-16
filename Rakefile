@@ -26,7 +26,7 @@ class Yard
   def initialize(options = {})
     require 'shellwords'
     self.name = options.fetch(:name, :html)
-    self.options = options.fetch(:options, Shellwords.split('--no-private --protected --private --query "(!object.docstring.blank?&&!(YARD::CodeObjects::NamespaceObject===object.namespace&&(a=object.namespace.aliases[object])&&object.name==:eql?&&a==:==)&&!(object.visibility!=:public&&((@return.text==\'\'&&@return.types==%w\'Boolean\')||object.docstring.start_with?(\'Returns the value of attribute \', \'Sets the attribute \'))))||object.root?" --markup markdown --no-stats'))
+    self.options = options.fetch(:options, Shellwords.split('--no-private --protected --private --query "(!object.docstring.blank?&&!(YARD::CodeObjects::NamespaceObject===object.namespace&&(a=object.namespace.aliases[object])&&object.name==:eql?&&a==:==)&&!(object.visibility!=:public&&((@return.text==\'\'&&@return.types==%w\'Boolean\')||object.docstring.start_with?(\'Returns the value of attribute \', \'Sets the attribute \')||(@raise&&@raise.types=[]))))||object.root?" --markup markdown --no-stats'))
     self.options += Shellwords.split(ENV['OPTIONS']) if ENV.include? 'OPTIONS'
     self.inventory = options.fetch(:inventory, Inventory::Rake::Tasks.inventory)
     self.files = options.fetch(:files){ ENV.include?('FILES') ? FileList[ENV['FILES']] : inventory.lib_files }

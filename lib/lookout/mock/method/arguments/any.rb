@@ -3,7 +3,7 @@
 # Arguments matcher matching any arguments.
 class Lookout::Mock::Method::Arguments::Any
   # @param [Object] other
-  # @return [Boolean] True
+  # @return [true]
   def =~(other)
     true
   end
@@ -20,12 +20,12 @@ class Lookout::Mock::Method::Arguments::Any
     self.class.hash
   end
 
-  # @return [String] self as a String argument list
+  # @return [String] The receiver as a String argument list
   def to_s
     '*args, &block'
   end
 
-  # @return [Object, Array<Object>] self as an array
+  # @return [Object, Array<Object>] The receiver as an array
   def to_a
     [self]
   end

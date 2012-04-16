@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # Represents the “Expectations” keyword in expectation files and the
-# expectation files themselves.  It’s used by {Rake::Tasks::Test} and
-# should be used by other interfaces as the main access point to expectation
-# files.  It’s implemented as an Enumerable over the expect blocks found in any
-# of the expectations blocks in the expectation file.
+# expectation files themselves.  Used by {Rake::Tasks::Test} and should be used
+# by other interfaces as the main access point to expectation files.
+# Implemented as an Enumerable over the expect blocks found in any of the
+# expectations blocks in the expectation file.
 class Lookout::Expectations
   include Enumerable
 
@@ -34,7 +34,9 @@ class Lookout::Expectations
     end
   end
 
-  # @param [String] path The expanded path of the expectations file
+  # Prepares the enumeration of the expect blocks found in the expectations
+  # file pointed to by the expanded _path_.
+  # @param [String] path
   def initialize(path)
     @path = path
   end

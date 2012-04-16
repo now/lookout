@@ -23,7 +23,7 @@ class Lookout::Expect::Object::Context
   private
 
   # @overload stub(methods = {})
-  #   @param [Hash] methods
+  #   @param [Hash<Symbol,Object>] methods
   #   @return [Lookout::Stub::Object] A stub object set up with _methods_
   # @overload stub(object)
   #   @param [Object] object

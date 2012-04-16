@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# A stub methods definition.
+# Definition of a stub method.
 class Lookout::Stub::Method::Defined::Definition
-  # Saves the current definition of the method, if any, then replaces it with
-  # its own, maintaining its visibility.
-  # @param [Object] object The object that _method_ will be applied to
-  # @param [Symbol] method The method name
-  # @param [Proc] &body The block to use as a method definition
+  # Saves the current definition of _method_ on _object_, if any, then replaces
+  # it with _body_, maintaining its visibility.
+  # @param [Object] object
+  # @param [Symbol] method
+  # @param [Proc] &body
   def initialize(object, method, &body)
     @object, @method = object, method
     @visibility, @unbound = meta_exec{

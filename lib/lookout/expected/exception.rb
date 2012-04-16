@@ -32,7 +32,7 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
   # returns a String, unless the conversion raises an error.  Sadly, this
   # conversion can’t keep track of the ‘e’ and ‘n’ options for encoding
   # handling.
-  # @api private
+  # @private
   def regexp
     return @regexp if defined? @regexp
     return @regexp = expected.message if Regexp === expected.message
