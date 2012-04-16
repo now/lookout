@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Generates difference reports between {::Lookout::Output}s.
+# Difference reports between {::Lookout::Output}s.
 class Lookout::Difference::Lookout::Output < Lookout::Difference::Object
-  # @return [Enumerable] The result of {::Lookout::Output#diff} on {#expected}
-  #   against {#actual}
+  # @return [Enumerable<String>] The result of
+  #   {#expected}{::Lookout::Output#diff #diff}({#actual})
   def diff
     expected.diff(actual)
   end

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# A {Group} represents an ordered sequence of related {Operation}s and is the
-# type enumerated by {Groups}.
+# Ordered sequence of related {Operation}s; type enumerated by {Groups}.
 class Lookout::Diff::Group
   include Enumerable
 
-  # @param [Operation, …] *operations Initial sequence of operations
+  # Initializes the group with an initial sequence of _operations_.
+  # @param [Operation, …] *operations
   def initialize(*operations)
     @operations = operations
   end
@@ -55,16 +55,16 @@ class Lookout::Diff::Group
     self
   end
 
-  # @return [Slice] The slice of the original sequence between the first
-  #   operation’s beginning and the last operation’s end
-  def from
-    slice(:from)
+  # @return [Slice] The slice of the old sequence between the first operation’s
+  #   beginning and the last operation’s end
+  def old
+    slice(:old)
   end
 
   # @return [Slice] The slice of the new sequence between the first operation’s
   #   beginning and the last operation’s end
-  def to
-    slice(:to)
+  def new
+    slice(:new)
   end
 
   # @param [Group] other

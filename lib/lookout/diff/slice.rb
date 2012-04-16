@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# Represents a slice of a sequence being “diffed”.
+# Slice (subsequence) of a sequence being “diffed”.
 class Lookout::Diff::Slice
   include Enumerable, Comparable
 
-  # @param [Enumerable] items Sequence being “diffed”
-  # @param [Range] range The range of _items_ being represented
+  # Initializes a slice of _items_ encompassing _range_.
+  # @param [Enumerable] items
+  # @param [Range] range
   def initialize(items, range = 0...items.size)
     @items, @range = items, range.exclude_end? ? range.begin..range.end - 1 : range
   end
 
-  # @return True if this slice doesn’t include any elements
+  # @return True if {#size} < 1
   def empty?
     size < 1
   end
 
-  # @return [Integer] The number of elements in this slice
+  # @return [Integer] The number of encompassed elements
   def size
     self.end - self.begin + 1
   end
@@ -51,7 +52,7 @@ class Lookout::Diff::Slice
   end
 
   # @param [Range] range
-  # @return [Slice] A new slice spanning the items of _range_
+  # @return [Slice] A new slice encompassing _range_
   def at(range)
     self.class.new(items, range)
   end
@@ -77,12 +78,12 @@ class Lookout::Diff::Slice
   end
 
   # @overload
-  #   Enumerates the receiver’s elements.
+  #   Enumerates the encompassed elements.
   #
   #   @yieldparam element
   #   @return [self]
   # @overload
-  #   @return [Enumerator] An Enumerator over the receiver’s elements
+  #   @return [Enumerator] An Enumerator over the encompassed elements
   def each
     return enum_for(__method__) unless block_given?
     range.each do |index|
@@ -92,14 +93,14 @@ class Lookout::Diff::Slice
   end
 
   # @overload
-  #   Enumerates the receiver’s elements and their indexes.
+  #   Enumerates the encompassed elements and their indexes.
   #
   #   @yieldparam element
   #   @yieldparam [Integer] index
   #   @return [self]
   # @overload
-  #   @return [Enumerator] An Enumerator over the receiver’s elements and their
-  #     indexes
+  #   @return [Enumerator] An Enumerator over the encompassed elements and
+  #     their indexes
   def each_with_index
     return enum_for(__method__) unless block_given?
     range.each do |index|
@@ -108,13 +109,13 @@ class Lookout::Diff::Slice
     self
   end
 
-  # @return [Enumerable] The subsequence represented by the receiver
+  # @return [Enumerable] The encompassed elements
   def to_items
     items[range]
   end
 
   # @param [Integer] index
-  # @return The _index_:th element
+  # @return The _index_’th element
   def [](index)
     items[index]
   end
@@ -129,6 +130,9 @@ class Lookout::Diff::Slice
     range.end
   end
 
+  # @param [Slice] other
+  # @return [Integer, nil] The comparison of the receiver’s {#begin} and {#end}
+  #   against those of _other_
   def <=>(other)
     return nil unless self.class == other.class and items == other.items
     (self.begin <=> other.begin).nonzero? or
@@ -136,7 +140,6 @@ class Lookout::Diff::Slice
       0
   end
 
-  # @return [Boolean]
   alias eql? ==
 
   def inspect

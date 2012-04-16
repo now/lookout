@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Represents the expect block of {Expected::Object}s.  This is the base expect
+# Expect block of {Expected::Object}s.  This is the base expect
 # block class and may be subclassed if some special equality checking needs to
 # be performed, if the execution environment needs to be set up in some way
 # before the expect block is executed, or if the expect block should receive
@@ -8,21 +8,21 @@
 class Lookout::Expect::Object
   include Comparable
 
-  # Sets up the expect block for execution on #call.
-  # @param [Expected::Object] expected The expected object
-  # @param [::String] file The expanded path of the file containing the
-  #   expect block
-  # @param [::Integer] line The line in _file_ on which the expectation is
-  #   defined
-  # @yieldparam [::Object] subject The expected value
-  # @yieldreturn [::Object] The actual result
+  # Sets up the expect block on _line_ in _file_ (the expanded path) to
+  # expect the value that _expected_ wraps, and using the block’s result as the
+  # actual result to pass to {Expected::Object#difference} when {#call}ed.
+  # @param [Expected::Object] expected
+  # @param [::String] file
+  # @param [::Integer] line
+  # @yieldparam [::Object] expected
+  # @yieldreturn [::Object]
   def initialize(expected, file, line, &block)
     @expected, @file, @line, @block = expected, file, line, block
   end
 
   # Evaluates the expect block and checks for differences between its result
   # and the expected value.
-  # @return [Lookout::Results::Error] If an Exception is raised
+  # @return [Results::Error] If an Exception is raised
   # @return (see #check)
   def call
     check(evaluate_block)
@@ -30,6 +30,9 @@ class Lookout::Expect::Object
     Lookout::Results::Error.new(file, line, nil, e)
   end
 
+  # @param [Match] other
+  # @return [Integer, nil] The comparison of the receiver’s {#file} and {#line}
+  #   against those of _other_
   def <=>(other)
     return nil unless self.class == other.class
     (file <=> other.file).nonzero? or
@@ -48,20 +51,19 @@ class Lookout::Expect::Object
   private
 
   # Evaluates the expect block in the proper context and returns its result.
-  # @param [::Object] subject The test subject (expected value) to pass to the
-  #   expect block
+  # @param [::Object] expected The expected value to pass to the expect block
   # @return [::Object] The actual result of evaluating the expect block
-  def evaluate_block(subject = @expected.subject)
-    Context.new(subject, &@block).evaluate
+  def evaluate_block(expected = @expected.expected)
+    Context.new(expected, &@block).evaluate
   end
 
   # Checks for differences between the actual result of evaluating the expect
   # block and the expected value.
   # @param [::Object] actual The actual result of evaluating the expect block
-  # @return [Lookout::Results::Success] If there are no differences between the
-  #   actual result and the expected value
-  # @return [Lookout::Results::Failure] If there are differences between the
-  #   actual result and the expected value
+  # @return [Results::Success] If there are no differences between the actual
+  #   result and the expected value
+  # @return [Results::Failure] If there are differences between the actual
+  #   result and the expected value
   def check(actual)
     (difference = @expected.difference(actual)) ?
       Lookout::Results::Failure.new(file, line, difference) :

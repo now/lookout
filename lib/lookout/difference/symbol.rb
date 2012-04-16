@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Generates difference reports between {::Symbol}s.
+# Difference reports between {::Symbol}s.
 class Lookout::Difference::Symbol < Lookout::Difference::Object
   # @param (see Object#diff)
   # @param [::String, nil] query The name of the query method, if any

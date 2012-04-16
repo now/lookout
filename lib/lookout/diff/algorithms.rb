@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Namespace for the various “diff” algorithms.
+# Namespace for “diff” algorithms.
 module Lookout::Diff::Algorithms
 end

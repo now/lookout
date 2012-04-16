@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# Formats {Group}s in unified format, see
+# Formats {Group}s in unified format.  This format shows {Groups} of related
+# operations, providing a script of changes to be made that is both human and
+# computer readable.  For more information, see
 # {http://en.wikipedia.org/wiki/Diff#Unified_format}.
 #
-# This format is used by {String} for multi-line Strings.
+# This format is used by {Difference::String} for multi-line Strings.
 class Lookout::Diff::Formats::Unified
   include Enumerable
 
-  # @param [Groups] groups Groups to format
+  # Formats _groups_ in unified format.
+  # @param [Groups] groups
   def initialize(groups)
     @groups = groups
   end
@@ -42,15 +45,15 @@ class Lookout::Diff::Formats::Unified
     end
 
     def delete(operation)
-      mark('-', operation.from)
+      mark('-', operation.old)
     end
 
     def copy(operation)
-      mark(' ', operation.from)
+      mark(' ', operation.old)
     end
 
     def insert(operation)
-      mark('+', operation.to)
+      mark('+', operation.new)
     end
 
     def replace(operation)
@@ -59,8 +62,8 @@ class Lookout::Diff::Formats::Unified
 
     def to_s
       lines = ['@@ -%d,%d +%d,%d @@' %
-               [@group.from.begin + 1, @group.from.size,
-                @group.to.begin + 1, @group.to.size]]
+               [@group.old.begin + 1, @group.old.size,
+                @group.new.begin + 1, @group.new.size]]
       @group.each do |operation|
         lines.concat operation.apply(self)
       end

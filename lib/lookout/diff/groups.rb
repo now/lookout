@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# Represents a sequence of {Operations} that are bundled together into {Group}s
-# that can then be used to show the subsequences that differ, folding away the
-# subsequnces that are the same, only keeping some context around the folding
-# points.
+# Sequence of {Operations} bundled together into {Group}s that can then be used
+# to show the subsequences that differ, folding away the subsequences that are
+# the same, only keeping some context around the folding points.
 class Lookout::Diff::Groups
   include Enumerable
 
-  # Initializes this group with its operations and the number of elements to
-  # use as context.
+  # Initializes the sequence with the _operations_ to group and the number of
+  # elements to leave as _context_.
   #
-  # @param [Operations] operations Operations to group
-  # @param [Integer] context The number of elements to leave as context
+  # @param [Operations] operations
+  # @param [Integer] context
   def initialize(operations, context = 3)
     @operations, @context = operations, context
   end

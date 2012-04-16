@@ -85,8 +85,8 @@ class Lookout::Reception
 
   # @param [Reception] other
   # @return [Boolean] True if the receiver’s class, object, method, expected
-  # number of calls, expected argumets, and method definition `#==` those of
-  # _other_
+  #   number of calls, expected argumets, and method definition `#==` those of
+  #   _other_
   def ==(other)
     self.class == other.class and
       object == other.object and

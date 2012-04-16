@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Generates difference reports between {::Range}s.  The report differs from
+# Difference reports between {::Range}s.  The report differs from
 # that of {Object} in that it uses ‘∉’ instead of ‘≠’ to show that the actual
 # result isn’t a member of the expected Range.
 class Lookout::Difference::Range < Lookout::Difference::Object

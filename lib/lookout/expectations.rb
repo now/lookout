@@ -40,7 +40,7 @@ class Lookout::Expectations
   end
 
   # @overload
-  #   Enumerates the expect blocks
+  #   Enumerates the expect blocks.
   #
   #   @yieldparam [Expect::Object] expect
   #   @return [self]

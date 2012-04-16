@@ -5,7 +5,8 @@
 # {Results::Error}.  It also uses {Encode} so that all strings are ready for
 # output.
 class Lookout::Exception
-  # @param [::Exception] exception The exception that should be represented
+  # Provides non-failing access to _exception_’s message, backtrace, and type.
+  # @param [::Exception] exception
   def initialize(exception)
     @exception = exception
   end
@@ -24,7 +25,7 @@ class Lookout::Exception
   end
 
   # @return [String] A heuristically generated UTF-8-encoded exception message
-  #   “header”, possibly containing the exception message and the excoption’s
+  #   “header”, possibly containing the exception message and the exception’s
   #   class’ name
   def header
     # Chomping off a \n here isn’t 100 percent compatible with how Ruby 1.9
@@ -79,7 +80,6 @@ class Lookout::Exception
       exception == other.exception
   end
 
-  # @return [Boolean]
   alias eql? ==
 
   def hash

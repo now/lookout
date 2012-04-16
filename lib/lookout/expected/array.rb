@@ -2,16 +2,15 @@
 
 # Represents expected {::Array}s.
 class Lookout::Expected::Array < Lookout::Expected::Object
-  # @param [::Array] other
-  # @return [Lookout::Difference::Array, nil] A difference report generator
-  #   between _other_ and {#subject}, unless their content exhibit no
-  #   {Object differences}
-  def difference(other)
-    Lookout::Difference::Array.new(other, subject) unless
-      Array === other and
-      subject.size == other.size and
-      subject.enum_for(:none?).with_index{ |v, i|
-        v.to_lookout_expected.difference(other[i])
+  # @param [::Array] actual
+  # @return [Difference::Array, nil] A difference report between _actual_ and
+  #   {#expected} unless their content exhibit no {Object differences}
+  def difference(actual)
+    Lookout::Difference::Array.new(actual, expected) unless
+      Array === actual and
+      expected.size == actual.size and
+      expected.enum_for(:none?).with_index{ |v, i|
+        v.to_lookout_expected.difference(actual[i])
       }
   end
 end

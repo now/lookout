@@ -3,25 +3,27 @@
 # Represents expected {::Exception}s.
 class Lookout::Expected::Exception < Lookout::Expected::Object
   # @param (see Object#expect)
-  # @yieldparam (see Object#expect)
-  # @yieldreturn (see Object#expect)
-  # @return [Lookout::Expect::Exception] An expect block for the receiver
+  # @yieldparam [::Exception] exception
+  # @yieldreturn [::Exception]
+  # @return [Expect::Exception] An expect block for the receiver at
+  #   _line_ in _file_ that’ll yield the expected _exception_ and expect the
+  #   exception to be raised
   def expect(file, line, &block)
     Lookout::Expect::Exception.new(self, file, line, &block)
   end
 
-  # @param [::Exception] other
-  # @return [Lookout::Difference::Exception, nil] A difference report generator
-  #   between _other_ and {#subject}, unless they’re #equal? or their classes
-  #   are `#==` and their messages match or {#subject}s message is a Regexp
-  #   that matches other’s message
-  def difference(other)
-    Lookout::Difference::Exception.new(other, subject, regexp) unless
-      subject.equal?(other) or
-      (subject.class == other.class and
-       (other.respond_to? :message rescue false) and
-       (m = other.message rescue nil) and
-       (regexp ? regexp === m : subject.message == m))
+  # @param [::Exception] actual
+  # @return [Difference::Exception, nil] A difference report between _actual_
+  #   and {#expected} unless they’re #equal? or their classes are `#==` and
+  #   their messages match or {#expected}s message is a Regexp that matches
+  #   actual’s message
+  def difference(actual)
+    Lookout::Difference::Exception.new(actual, expected, regexp) unless
+      expected.equal?(actual) or
+      (expected.class == actual.class and
+       (actual.respond_to? :message rescue false) and
+       (m = actual.message rescue nil) and
+       (regexp ? regexp === m : expected.message == m))
   end
 
   private
@@ -33,8 +35,8 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
   # @api private
   def regexp
     return @regexp if defined? @regexp
-    return @regexp = subject.message if Regexp === subject.message
-    return @regexp = nil unless subject.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
+    return @regexp = expected.message if Regexp === expected.message
+    return @regexp = nil unless expected.message =~ /\A\(\?([mix]*)(-[mix]+)?:(.*)\)\z/
     @regexp = Regexp.new($3,
                          0 |
                          ($1.include?('m') ? Regexp::MULTILINE : 0) |

@@ -23,7 +23,7 @@ module Lookout
         lookout/diff/algorithms.rb
         lookout/diff/algorithms/difflib.rb
         lookout/diff/algorithms/difflib/position.rb
-        lookout/diff/algorithms/difflib/position/to.rb
+        lookout/diff/algorithms/difflib/position/new.rb
         lookout/diff/formats.rb
         lookout/diff/formats/inline.rb
         lookout/diff/formats/set.rb

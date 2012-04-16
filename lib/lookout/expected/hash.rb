@@ -2,14 +2,13 @@
 
 # Represents expected {::Hash}es.
 class Lookout::Expected::Hash < Lookout::Expected::Object
-  # @param [::Hash] other
-  # @return [Lookout::Difference::Hash, nil] A difference report generator
-  #   between _other_ and {#subject}, unless their content exhibit no
-  #   {Object differences}
-  def difference(other)
-    Lookout::Difference::Hash.new(other, subject) unless
-      Hash === other and
-      subject.size == other.size and
-      subject.none?{ |k, v| v.to_lookout_expected.difference(other[k]) }
+  # @param [::Hash] actual
+  # @return [Difference::Hash, nil] A difference report between _actual_ and
+  #   {#expected} unless their content exhibit no {Object differences}
+  def difference(actual)
+    Lookout::Difference::Hash.new(actual, expected) unless
+      Hash === actual and
+      expected.size == actual.size and
+      expected.none?{ |k, v| v.to_lookout_expected.difference(actual[k]) }
   end
 end

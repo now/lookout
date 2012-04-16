@@ -74,7 +74,7 @@ Expectations do
 
   expect Lookout::Diff::Algorithms::Difflib::Position.
            new(Lookout::Diff::Slice.new('dabcX', 4..4),
-               Lookout::Diff::Algorithms::Difflib::Position::To.new('ddabcY', 5..5),
+               Lookout::Diff::Algorithms::Difflib::Position::New.new('ddabcY', 5..5),
                {}) do
     Lookout::Diff::Algorithms::Difflib::Position.origin('dabcX', 'ddabcY').
       begin_after(Lookout::Diff::Match.new(Lookout::Diff::Slice.new('dabcX', 0..3),
@@ -83,7 +83,7 @@ Expectations do
 
   expect Lookout::Diff::Algorithms::Difflib::Position.
            new(Lookout::Diff::Slice.new('dabcX', 0...0),
-               Lookout::Diff::Algorithms::Difflib::Position::To.new('ddabcY', 0..0),
+               Lookout::Diff::Algorithms::Difflib::Position::New.new('ddabcY', 0..0),
                {}) do
     Lookout::Diff::Algorithms::Difflib::Position.origin('dabcX', 'ddabcY').
       end_before(Lookout::Diff::Match.new(Lookout::Diff::Slice.new('dabcX', 0..3),

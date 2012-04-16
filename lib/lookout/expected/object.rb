@@ -6,36 +6,39 @@
 # {#expect} and/or {#difference} to set up type-specific expect blocks and/or
 # difference checks and difference report generation.
 class Lookout::Expected::Object
-  # @param [::Object] subject The test subject (expected value)
-  def initialize(subject)
-    @subject = subject
+  # Wraps the _expected_ value.
+  # @param [::Object] expected
+  def initialize(expected)
+    @expected = expected
   end
 
-  # @param (see Lookout::Expect::Object#initialize)
-  # @yieldparam (see Lookout::Expect::Object#initialize)
-  # @yieldreturn (see Lookout::Expect::Object#initialize)
-  # @return [Lookout::Expect::Object] An expect block for the receiver
+  # @param (see Expect::Object#initialize)
+  # @yieldparam (see Expect::Object#initialize)
+  # @yieldreturn (see Expect::Object#initialize)
+  # @return [Expect::Object] An expect block for the receiver at _line_ in
+  #   _file_ that’ll yield the {#expected} object and expect an object that’ll
+  #   exhibit no {#difference}s from it to be returned
   def expect(file, line, &block)
     Lookout::Expect::Object.new(self, file, line, &block)
   end
 
-  # @param [::Object] other
-  # @return [Lookout::Difference::Object, nil] A difference report generator
-  #   between _other_ and {#subject}, unless they’re `#==`
-  def difference(other)
-    Lookout::Difference::Object.new(other, subject) unless subject == other
+  # @param [::Object] actual
+  # @return [Difference::Object, nil] A difference report generator
+  #   between _actual_ and {#expected} unless they’re `#==`
+  def difference(actual)
+    Lookout::Difference::Object.new(actual, expected) unless expected == actual
   end
 
-  # @param [Lookout::Expected::Object] other
-  # @return [Boolean] True if the receiver’s class and {#subject} `#==` those
+  # @param [Object] other
+  # @return [Boolean] True if the receiver’s class and {#expected} `#==` those
   #   of _other_
   def ==(other)
     self.class == other.class and
-      subject == other.subject
+      expected == other.expected
   end
 
   alias eql? ==
 
-  # @return [::Object] The test subject (expected value)
-  attr_reader :subject
+  # @return [::Object] The expected value
+  attr_reader :expected
 end

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Generates difference reports between {::Regexp}s.  The report differs from
-# that of {Object} in that it uses ‘≉’ instead of ‘≠’ to show that the actual
-# result doesn’t match the expected Regexp.
+# Difference reports between {::Regexp}s.  The report differs from that of
+# {Object} in that it uses ‘≉’ instead of ‘≠’ to show that the actual result
+# doesn’t match the expected Regexp.
 class Lookout::Difference::Regexp < Lookout::Difference::Object
   private
 

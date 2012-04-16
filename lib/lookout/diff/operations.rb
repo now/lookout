@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Represents a sequence of {Operation}s based on a sequence of {Match}es.  Each
-# match is turned into a {Copy}, {Delete}, {Insert}, or {Replace} operation
-# based on its relation to other matches in the sequence of matches.  Empty
-# copy operations will never be a part of this sequence.
+# Sequence of {Operation}s based on a sequence of {Match}es.  Each match is
+# turned into a {Copy}, {Delete}, {Insert}, or {Replace} operation based on its
+# relation to other matches in the sequence of matches.  Empty copy operations
+# will never be a part of this sequence.
 class Lookout::Diff::Operations
   include Enumerable
 
-  # @param [Matches] matches The matches to convert to operations
+  # Initializes a sequence of operations based on _matches_.
+  # @param [Matches] matches
   def initialize(matches)
     @matches = matches
   end
@@ -21,23 +22,23 @@ class Lookout::Diff::Operations
   #   @return [Enumerator] An Enumerator over the operations
   def each
     return enum_for(__method__) unless block_given?
-    from = to = 0
+    old = new = 0
     @matches.each do |match|
-      type = typeify(from, to, match)
-      yield type.new(match.from.at(from...match.from.begin),
-                     match.to.at(to...match.to.begin)) unless type == Copy
-      yield Copy.new(match.from, match.to) unless match.empty?
-      from, to = match.from.end + 1, match.to.end + 1
+      type = typeify(old, new, match)
+      yield type.new(match.old.at(old...match.old.begin),
+                     match.new.at(new...match.new.begin)) unless type == Copy
+      yield Copy.new(match.old, match.new) unless match.empty?
+      old, new = match.old.end + 1, match.new.end + 1
     end
     self
   end
 
   private
 
-  def typeify(from, to, match)
-    if    from < match.from.begin and to < match.to.begin then Replace
-    elsif from < match.from.begin                         then Delete
-    elsif to < match.to.begin                             then Insert
+  def typeify(old, new, match)
+    if    old < match.old.begin and new < match.new.begin then Replace
+    elsif old < match.old.begin                           then Delete
+    elsif new < match.new.begin                           then Insert
     else                                                       Copy
     end
   end

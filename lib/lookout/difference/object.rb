@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 
-# Generates difference reports between {::Object}s.  This is the base
-# difference class and should be subclassed if something more specific fits
-# the bill.  The objects are assumed to differ and you’ll surely get confused
-# if they don’t.  Determining if the objects do differ is, however, up to the
+# Difference reports between {::Object}s.  This is the base difference report
+# class and should be subclassed if something more specific fits the bill.  The
+# actual result and expected value are assumed to differ and you’ll surely get
+# confused if they don’t.  Determining if the objects differ is up to the
 # caller.
 class Lookout::Difference::Object
-  # @param [::Object] actual The actual result
-  # @param [::Object] expected The expected value
+  # Initializes a difference report generator between the _actual_ result and
+  # the _expected_ value.
+  # @param [::Object] actual
+  # @param [::Object] expected
   def initialize(actual, expected)
     @actual, @expected = actual, expected
   end
 
-  # Returns a message explaining how the actual result differs from the
-  # expected value.
+  # Returns a message explaining how {#actual} differs from {#expected}.
   # @return [::String] The concatenation of {#inspect_actual}, {#symbol}, and
   #   {#inspect_expected}
   def message
@@ -22,8 +23,7 @@ class Lookout::Difference::Object
 
   # Returns an Enumerable over the formatted operations that would have to be
   # applied to {#actual} to get {#expected}.
-  # @return [Enumerable<String>] An empty Enumerable unless a subclass manages
-  #   to generate a more specific difference report.
+  # @return [Enumerable<String>] An empty Enumerable
   def diff
     []
   end
@@ -45,12 +45,14 @@ class Lookout::Difference::Object
 
   private
 
-  # @return [::String] The safely inspected value of {#actual}, see {Inspect}
+  # @return [::String] The safely inspected value of {#actual}, see
+  #   {Inspect::Actual}
   def inspect_actual
     Lookout::Inspect::Actual.new(actual).call
   end
 
-  # @return [::String] The safely inspected value of {#expected}, see {Inspect}
+  # @return [::String] The safely inspected value of {#expected}, see
+  #   {Inspect::Expected}
   def inspect_expected
     Lookout::Inspect::Expected.new(expected).call
   end

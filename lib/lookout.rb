@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The main namespace of the Lookout library.
+# Main namespace of the Lookout library.
 module Lookout
   class << self
     def location(location)

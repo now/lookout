@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Represents the expect block of {Expected::Lookout::Warning}s.
+# Expect block of {Expected::Lookout::Warning}s.
 class Lookout::Expect::Lookout::Warning < Lookout::Expect::Object
   private
 
@@ -19,7 +19,7 @@ class Lookout::Expect::Lookout::Warning < Lookout::Expect::Object
         $VERBOSE = true
         begin
           super
-          @expected.subject.class.new(output.string)
+          @expected.expected.class.new(output.string)
         ensure
           $VERBOSE = saved_verbose
         end

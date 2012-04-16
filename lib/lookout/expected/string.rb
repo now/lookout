@@ -2,10 +2,10 @@
 
 # Represents expected {::String}s.
 class Lookout::Expected::String < Lookout::Expected::Object
-  # @param [::String] other
-  # @return [Lookout::Difference::String, nil] A difference report generator
-  #   between _other_ and {#subject}, unless they’re `#==`
-  def difference(other)
-    Lookout::Difference::String.new(other, subject) unless subject == other
+  # @param [::String] actual
+  # @return [Difference::String, nil] A difference report between _actual_ and
+  #   {#expected} unless they’re `#==`
+  def difference(actual)
+    Lookout::Difference::String.new(actual, expected) unless expected == actual
   end
 end

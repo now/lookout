@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 
-# Represents an Unknown exception class.
+# Wraps an exception that was raised while trying to determine an exception’s
+# class to make it behave like an exception class.
 class Lookout::Exception::Unknown
-  # @param [::Exception] exception The exception that was raised while trying
-  #   to determine the exception’s class
+  # Wraps the _exception_ that was raised while trying to determine an
+  # exception’s class.
+  # @param [::Exception] exception
   def initialize(exception)
     @exception = exception
   end
 
-  # @raise [RuntimeError] Containing a message about why the exception’s class
-  #   couldn’t be determined
-  # @return [void] This method doesn’t return
+  # @raise [RuntimeError] Containing a message explaining that the exception’s
+  #   class couldn’t be determined and why that is so
   def name
     raise message
   end
 
-  # @return [String] The message about why the exception’s class couldn’t be
-  #   determined
+  # @return [String] The message explaining that the exception’s class couldn’t
+  #   be determined and why that is so
   def inspect
     '(%s)' % message
   end

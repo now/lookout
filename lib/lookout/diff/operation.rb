@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 
 # Base class for operations describing the changes to perform to get from the
-# original sequence to the new sequence in a “diff”.
+# old version of a sequence to the new in a “diff”.
 class Lookout::Diff::Operation
-  # @param [Slice] from The slice of the original sequence
-  # @param [Slice] to The slice of the new sequence
-  def initialize(from, to)
-    @from, @to = from, to
+  # Initializes the operation with the slices of the _old_ and _new_ sequences.
+  # @param [Slice] old
+  # @param [Slice] new
+  def initialize(old, new)
+    @old, @new = old, new
   end
 
   # @param [Integer] window
   # @return [Boolean] True if the operation is uninteresting to the actual
   #   “diff” and can be meaningfully folded inside _window_, that is, is larger
   #   than _window_
+  # @see Operations::Copy#foldable?
   def foldable?(window)
     false
   end
@@ -36,26 +38,27 @@ class Lookout::Diff::Operation
   end
 
   # @return [Boolean] True if the receiver represents parity
+  # @see Operations::Copy#parity?
   def parity?
     false
   end
 
   # @param [Operation] other
-  # @return [Boolean] True if the receiver’s class, {#from} and {#to} `#==`
+  # @return [Boolean] True if the receiver’s class, {#old} and {#new} `#==`
   #   those of _other_
   def ==(other)
-    self.class == other.class and from == other.from and to == other.to
+    self.class == other.class and old == other.old and new == other.new
   end
 
   def inspect
-    '#<%s %p,%p>' % [self.class, from, to]
+    '#<%s %p,%p>' % [self.class, old, new]
   end
 
   # @return [Slice] The slice of the original sequence
-  attr_reader :from
+  attr_reader :old
 
   # @return [Slice] The slice of the new sequence
-  attr_reader :to
+  attr_reader :new
 
   # Implements a double dispatch for enumerating operations, where _object_ is
   # sent the last part of the receiver’s class’ _name_ with the receiver as the

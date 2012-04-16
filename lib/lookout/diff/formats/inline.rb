@@ -5,10 +5,15 @@
 # insertion.
 #
 # This format is used by {Difference::String} for single-line Strings.
+#
+# This format is inspired by the plain word “diff” format used by
+# [Git](http://git-scm.com/).  That format was surely inspired by something
+# before it, but it’s where I first saw it, so that’s what I’m referencing.
 class Lookout::Diff::Formats::Inline
   include Enumerable
 
-  # @param [Operations] operations Operations to format
+  # Formats _operations_ as they would be applied inline on a String.
+  # @param [Operations] operations
   def initialize(operations)
     @to_s = ToS.new(operations).to_s
   end
@@ -33,22 +38,21 @@ class Lookout::Diff::Formats::Inline
 
   private
 
-  # @private
   class ToS
     def initialize(operations)
       @to_s = operations.map{ |o| o.apply(self) }.join('').freeze
     end
 
     def delete(operation)
-      '[-%s-]' % operation.from.to_items
+      '[-%s-]' % operation.old.to_items
     end
 
     def copy(operation)
-      operation.from.to_items
+      operation.old.to_items
     end
 
     def insert(operation)
-      '{+%s+}' % operation.to.to_items
+      '{+%s+}' % operation.new.to_items
     end
 
     def replace(operation)

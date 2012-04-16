@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Generates difference reports between {::Lookout::Actual::Not::Method}s.
+# Difference reports between {::Lookout::Actual::Not::Method}s.
 class Lookout::Difference::Lookout::Actual::Not::Method < Lookout::Difference::Lookout::Actual::Method
   private
 

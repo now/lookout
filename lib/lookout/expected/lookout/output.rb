@@ -5,16 +5,18 @@ class Lookout::Expected::Lookout::Output < Lookout::Expected::Object
   # @param (see Object#expect)
   # @yieldparam (see Object#expect)
   # @yieldreturn (see Object#expect)
-  # @return [Lookout::Expect::Lookout::Output] An expect block for the receiver
+  # @return [Expect::Lookout::Output] An expect block for the receiver at
+  #   _line_ in _file_ that’ll yield an IO object that’ll expect to see the
+  #   {#expected} output during the execution of the block
   def expect(file, line, &block)
     Lookout::Expect::Lookout::Output.new(self, file, line, &block)
   end
 
-  # @param [::Lookout::Output] other
-  # @return [Lookout::Difference::Lookout::Output, nil] A difference report
-  #   generator between _other_ and {#subject}, unless they’re `#==`
-  def difference(other)
-    Lookout::Difference::Lookout::Output.new(other, subject) unless
-      subject == other
+  # @param [::Lookout::Output] actual
+  # @return [Difference::Lookout::Output, nil] A difference report between
+  #   _actual_ and {#expected} unless they’re `#==`
+  def difference(actual)
+    Lookout::Difference::Lookout::Output.new(actual, expected) unless
+      expected == actual
   end
 end

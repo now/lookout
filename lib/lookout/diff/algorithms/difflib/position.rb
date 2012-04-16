@@ -7,18 +7,18 @@
 # @private
 class Lookout::Diff::Algorithms::Difflib::Position
   class << self
-    def origin(from, to)
-      to = To.new(to)
-      new(Lookout::Diff::Slice.new(from),
-          to,
+    def origin(old, new)
+      new = New.new(new)
+      new(Lookout::Diff::Slice.new(old),
+          new,
           block_given? ?
-            to.indexes.reduce({}){ |j, (k, _)| j[k] = yield(k); j } :
+            new.indexes.reduce({}){ |j, (k, _)| j[k] = yield(k); j } :
             {})
     end
   end
 
-  def initialize(from, to, junk)
-    @from, @to, @junk = from, to, junk
+  def initialize(old, new, junk)
+    @old, @new, @junk = old, new, junk
   end
 
   def match
@@ -27,45 +27,44 @@ class Lookout::Diff::Algorithms::Difflib::Position
   end
 
   def begin_before?(match)
-    from.begin_before? match.from and to.begin_before? match.to
+    old.begin_before? match.old and new.begin_before? match.new
   end
 
   def end_after?(match)
-    from.end_after? match.from and to.end_after? match.to
+    old.end_after? match.old and new.end_after? match.new
   end
 
   def begin_after(match)
-    self.class.new(from.begin_after(match.from), to.begin_after(match.to), junk)
+    self.class.new(old.begin_after(match.old), new.begin_after(match.new), junk)
   end
 
   def end_before(match)
-    self.class.new(from.end_before(match.from), to.end_before(match.to), junk)
+    self.class.new(old.end_before(match.old), new.end_before(match.new), junk)
   end
 
   def ==(other)
-    from == other.from and to == other.to and junk == other.junk
+    old == other.old and new == other.new and junk == other.junk
   end
 
   def inspect
-    '#<%s %p,%p>' % [self.class, from, to]
+    '#<%s %p,%p>' % [self.class, old, new]
   end
 
   protected
 
-  attr_reader :from, :to, :junk
+  attr_reader :old, :new, :junk
 
   private
 
   def leftmost_longest
-    match = Lookout::Diff::Match.new(@from.at(0...0), @to.at(0...0))
+    match = Lookout::Diff::Match.new(@old.at(0...0), @new.at(0...0))
     sizes = Hash.new(0)
-    @from.each_with_index do |item, from|
+    @old.each_with_index do |item, old|
       _sizes = Hash.new(0)
-      @to.each_index(item) do |to|
-        size = _sizes[to] = sizes[to - 1] + 1
-        match = Lookout::Diff::Match.
-          new(@from.at(from - size + 1..from),
-              @to.at(to - size + 1..to)) if size > match.size
+      @new.each_index(item) do |new|
+        size = _sizes[new] = sizes[new - 1] + 1
+        match = match.at(old - size + 1..old,
+                         new - size + 1..new) if size > match.size
       end unless junk[item]
       sizes = _sizes
     end
@@ -73,23 +72,22 @@ class Lookout::Diff::Algorithms::Difflib::Position
   end
 
   def expand(match, junking)
-    from_begin, to_begin = match.from.begin, match.to.begin
-    while from_begin > @from.begin and to_begin > @to.begin and
-          junk[@to[to_begin - 1]] ^ !junking and
-          @from[from_begin - 1] == @to[to_begin - 1]
-      from_begin -= 1
-      to_begin -= 1
+    old_begin, new_begin = match.old.begin, match.new.begin
+    while old_begin > @old.begin and new_begin > @new.begin and
+          junk[@new[new_begin - 1]] ^ !junking and
+          @old[old_begin - 1] == @new[new_begin - 1]
+      old_begin -= 1
+      new_begin -= 1
     end
 
-    from_end, to_end = match.from.end, match.to.end
-    while from_end + 1 <= @from.end and to_end + 1 <= @to.end and
-          junk[@to[to_end + 1]] ^ !junking and
-          @from[from_end + 1] == @to[to_end + 1]
-      from_end += 1
-      to_end += 1
+    old_end, new_end = match.old.end, match.new.end
+    while old_end + 1 <= @old.end and new_end + 1 <= @new.end and
+          junk[@new[new_end + 1]] ^ !junking and
+          @old[old_end + 1] == @new[new_end + 1]
+      old_end += 1
+      new_end += 1
     end
 
-    Lookout::Diff::Match.new(from.at(from_begin..from_end),
-                             to.at(to_begin..to_end))
+    match.at(old_begin..old_end, new_begin..new_end)
   end
 end

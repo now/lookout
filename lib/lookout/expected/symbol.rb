@@ -4,19 +4,19 @@
 # considered to be a query to be invoked on the actual result.  If such a
 # symbol is prefixed by “not_”, the result of the query is inversed.
 class Lookout::Expected::Symbol < Lookout::Expected::Object
-  def initialize(subject)
+  def initialize(expected)
     super
-    @negated, @query = /\A(?:(not)_)?(?:(.+\?)|.*)\z/m.match(subject.to_s)[1..2]
+    @negated, @query = /\A(?:(not)_)?(?:(.+\?)|.*)\z/m.match(expected.to_s)[1..2]
   end
 
-  # @param [::Symbol, ::Object] other
-  # @return [Lookout::Difference::Symbol, nil] A difference report generator
-  #   between _other_ and {#subject}, if {#subject} is a query and the result
-  #   of the query doesn’t equal what’s expected
+  # @param [::Symbol, ::Object] actual
+  # @return [Difference::Symbol, nil] A difference report between _actual_ and
+  #   {#expected} if {#expected} is a query and the result of the query doesn’t
+  #   equal what’s expected
   # @extension
-  def difference(other)
+  def difference(actual)
     return super unless @query
-    Lookout::Difference::Symbol.new(other, subject, @query, @negated) unless
-      (not not other.send(@query)) ^ !!@negated
+    Lookout::Difference::Symbol.new(actual, expected, @query, @negated) unless
+      (not not actual.send(@query)) ^ !!@negated
   end
 end

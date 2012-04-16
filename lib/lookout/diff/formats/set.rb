@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# Formats {Operation}s on an undordered set.  This is used by
-# {Difference::Hash}.  Added subsequences are shown having each element
-# prefixed by “+” and deleted subsequences by “-”.  Replaced subsequences are
-# shown as a deleted subsequence followed by an added subsequence.
+# Formats {Operation}s on an undordered set.  Added subsequences are shown
+# having each element prefixed by “+” and deleted subsequences by “-”.
+# Replaced subsequences are shown as a deleted subsequence followed by an added
+# subsequence.
+#
+# This format is used by {Difference::Hash}.
 class Lookout::Diff::Formats::Set
   include Enumerable
 
-  # @param [Operations] operations Operations to format
+  # Formats _operations_ as they would be applied to an unordered set.
+  # @param [Operations] operations
   def initialize(operations)
     @operations = operations
   end
@@ -35,7 +38,6 @@ class Lookout::Diff::Formats::Set
 
   private
 
-  # @private
   class Operation
     def initialize(operation)
       @lines = operation.apply(self)
@@ -46,14 +48,14 @@ class Lookout::Diff::Formats::Set
     end
 
     def delete(operation)
-      mark('-', operation.from)
+      mark('-', operation.old)
     end
 
     def copy(operation)
     end
 
     def insert(operation)
-      mark('+', operation.to)
+      mark('+', operation.new)
     end
 
     def replace(operation)

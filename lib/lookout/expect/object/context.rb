@@ -3,15 +3,17 @@
 # Context in which expect blocks are evaluated.  Plug-ins may add private
 # methods to this class to make them available to expect blocks.
 class Lookout::Expect::Object::Context
-  # @param [Object, …] *args Arguments to pass to _block_
-  # @param [Proc] &block Expect block to evaluate inside the receiver
+  # Evaluates _block_ inside this context, passing _args_ to it, when
+  #   {#evaluate}d.
+  # @param [Object, …] *args
+  # @param [Proc] &block
   def initialize(*args, &block)
     @args, @block = args, block
     @stubs = nil
   end
 
-  # Evaluates the expect block inside the receiver.
-  # @return [Object, nil] The result of the block, or nil if there is no block
+  # @return [Object, nil] The result of evaluating the block or nil if there’s
+  #   no block
   def evaluate
     instance_exec(*@args, &@block) if @block
   ensure
@@ -22,7 +24,7 @@ class Lookout::Expect::Object::Context
 
   # @overload stub(methods = {})
   #   @param [Hash] methods
-  #   @return [Lookout::Stub::Object] A stub object, set up with _methods_
+  #   @return [Lookout::Stub::Object] A stub object set up with _methods_
   # @overload stub(object)
   #   @param [Object] object
   #   @return [Stub] A delayed wrapper that will set up a stub method on
