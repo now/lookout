@@ -2,14 +2,15 @@
 
 # The “to” keyword on {::Object}s.
 class Lookout::Object::To < Lookout::Aphonic
-  # @param [::Object] subject The object to wrap
-  def initialize(subject)
-    @subject = subject
+  # Wraps _object_ as a “to”.
+  # @param [::Object] object
+  def initialize(object)
+    @object = object
   end
 
-  # @return [Lookout::Object::To::Receive] A wrapper around the object that’ll
-  #   set up a reception expectation on it
+  # @return [Object::To::Receive] A wrapper around the object that’ll set up a
+  #   reception expectation on it
   def receive
-    Lookout::Object::To::Receive.new(@subject)
+    Lookout::Object::To::Receive.new(@object)
   end
 end

@@ -2,9 +2,11 @@
 
 # The “to receive” keywords on {::Object}s.
 class Lookout::Object::To::Receive < Lookout::Aphonic
-  # @param [::Object] subject The object that is expecting a method
-  def initialize(subject)
-    @subject = subject
+  # Stands in for _object_, allowing a {Reception} exception that expects the
+  # given method to be called to be set up.
+  # @param [::Object] object
+  def initialize(object)
+    @object = object
   end
 
   private
@@ -13,6 +15,6 @@ class Lookout::Object::To::Receive < Lookout::Aphonic
   # @return [Reception] A method reception expectation on the subject for
   #   _method_ with _args_, using _body_ as the method definition
   def method_missing(method, *args, &body)
-    Lookout::Reception.new(@subject, method, *args, &body)
+    Lookout::Reception.new(@object, method, *args, &body)
   end
 end

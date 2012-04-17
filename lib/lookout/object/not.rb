@@ -2,9 +2,10 @@
 
 # The “not” keyword on {::Object}s.
 class Lookout::Object::Not < Lookout::Aphonic
-  # @param [::Object] subject The object to wrap
-  def initialize(subject)
-    @subject = subject
+  # Wraps _object_ as a “not”.
+  # @param [::Object] object
+  def initialize(object)
+    @object = object
   end
 
   # Method for improving readability of “not” keyword set-up.
@@ -13,9 +14,9 @@ class Lookout::Object::Not < Lookout::Aphonic
     self
   end
 
-  # @return [Lookout::Object::To::Receive] A wrapper around the object that’ll
-  #   set up a reception expectation on it
+  # @return [Object::To::Receive] A wrapper around the object that’ll set up a
+  #   reception expectation on it
   def receive
-    Lookout::Object::Not::Receive.new(@subject)
+    Lookout::Object::Not::Receive.new(@object)
   end
 end

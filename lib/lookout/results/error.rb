@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
-# Represents an error result.  Used when the evalution of an expect block
-# failed.
+# An error result used when the evalution of an {Expect expect block} failed.
 class Lookout::Results::Error
   include Lookout::Result
 
+  # (see Result#initialize)
+  # An additional _message_ may also be associated with the result, which was
+  # caused by _exception_.
   # @param (see Result#initialize)
-  # @param [String, nil] message Any additional message associated with this
-  #   error
-  # @param [Exception] exception The raised expection
+  # @param [String, nil] message
+  # @param [Exception] exception
   def initialize(file, line, message, exception)
     super file, line
     @message, @exception = message, Lookout::Exception.new(exception)

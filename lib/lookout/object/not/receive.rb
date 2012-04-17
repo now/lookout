@@ -2,17 +2,19 @@
 
 # The “not to receive” keywords on {::Object}s.
 class Lookout::Object::Not::Receive < Lookout::Aphonic
-  # @param [::Object] subject The object that isn’t expecting a method
-  def initialize(subject)
-    @subject = subject
+  # Stands in for _object_, allowing a {Reception} exception that expects the
+  # given method never to be called to be set up.
+  # @param [::Object] object
+  def initialize(object)
+    @object = object
   end
 
   private
 
   # @param (see Reception#initialize)
-  # @return [Reception] A method reception expectation on the subject that expects
-  #   _method_ {Reception#never never} to be called
+  # @return [Reception] A method reception expectation on the object that
+  #   expects _method_ {Reception#never never} to be called
   def method_missing(method, *args, &body)
-    Lookout::Reception.new(@subject, method, *args, &body).never
+    Lookout::Reception.new(@object, method, *args, &body).never
   end
 end

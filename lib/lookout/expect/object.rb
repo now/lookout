@@ -50,16 +50,20 @@ class Lookout::Expect::Object
 
   private
 
-  # Evaluates the expect block in the proper context and returns its result.
-  # @param [::Object] expected The expected value to pass to the expect block
-  # @return [::Object] The actual result of evaluating the expect block
-  def evaluate_block(expected = @expected.expected)
-    Context.new(expected, &@block).evaluate
+  # @param [::Object, …] *args
+  # @return [::Object] The actual result of evaluating the expect block in the
+  #   proper context, passing _args_, which defaults to the expected value, to
+  #   it
+  # @see Context
+  def evaluate_block(*args)
+    (args.empty? ?
+     Context.new(@expected.expected, &@block) :
+     Context.new(*args, &@block)).evaluate
   end
 
-  # Checks for differences between the actual result of evaluating the expect
+  # Checks for differences between the _actual_ result of evaluating the expect
   # block and the expected value.
-  # @param [::Object] actual The actual result of evaluating the expect block
+  # @param [::Object] actual
   # @return [Results::Success] If there are no differences between the actual
   #   result and the expected value
   # @return [Results::Failure] If there are differences between the actual

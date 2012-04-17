@@ -23,8 +23,8 @@ class Lookout::Expected::Object
   end
 
   # @param [::Object] actual
-  # @return [Difference::Object, nil] A difference report generator
-  #   between _actual_ and {#expected} unless they’re `#==`
+  # @return [Difference::Object, nil] A difference report between _actual_ and
+  #   {#expected} unless they’re `#==`
   def difference(actual)
     Lookout::Difference::Object.new(actual, expected) unless expected == actual
   end

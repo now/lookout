@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
-# Method reception expectations builder.  Method reception expectations can set
+# Method reception expectation builder.  Method reception expectations can set
 # expectations on what method is going to be called, with what arguments, and
 # how many times it’s to take place.
 class Lookout::Reception
-  # @param [Object] object The object expecting a method reception
-  # @param [Symbol] method The method name
-  # @param [Object, …] *args The expected method arguments
-  # @param [Proc] &body The block to use as a method definition
+  # Expects _method_ to be called on _object_ with _args_, using _body_ as the
+  # method definition.
+  # @param [Object] object
+  # @param [Symbol] method
+  # @param [Object, …] *args
+  # @param [Proc] &body
   def initialize(object, method, *args, &body)
     @object, @method, @args, @body = object, method, args, body
     at_least_once
@@ -38,8 +40,7 @@ class Lookout::Reception
     exactly(2)
   end
 
-  # Sets the expected maximum number of times the method should be called to
-  # _times_.
+  # Sets the maximum number of _times_ that the method may be called.
   # @param [Integer] times
   # @return [self]
   # @raise [ArgumentError] If _times_ < 1
@@ -51,8 +52,8 @@ class Lookout::Reception
     }
   end
 
-  # Sets the expected minimum and maximum number of times the method should be
-  # called to _times_.
+  # Sets the minimum and maximum number of _times_ that the method may be
+  # called.
   # @param [Integer] times
   # @return [self]
   # @raise [ArgumentError] If _times_ < 0
@@ -64,8 +65,7 @@ class Lookout::Reception
     }
   end
 
-  # Sets the expected minimum number of times the method should be called to
-  # _times_.
+  # Sets the minimum number of times that the method may be called.
   # @param [Integer] times
   # @return [self]
   # @raise [ArgumentError] If _times_ < 1

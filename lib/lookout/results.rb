@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Namespace for result types.
+# Namespace for {Result} types.
 module Lookout::Results
 end

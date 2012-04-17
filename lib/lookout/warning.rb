@@ -6,28 +6,29 @@
 # prefixes.  This is done as Ruby internally uses two different functions to
 # generate warnings (rb_warn() and rb_warning()).
 class Lookout::Warning < Lookout::Output
-  # @param [String] output The expected warning output
-  def initialize(output)
-    super output.chomp
+  # Proxies the _expected_ warning output.
+  # @param (see Output#initialize)
+  def initialize(expected)
+    super expected.chomp
   end
 
   # @param [Warning] other
   # @return [Boolean] True if the receiver `#==` _other_ or if their classes
-  #   and normalized output `#==` each other
+  #   and normalized expected output `#==` each other
   def ===(other)
     self == other or
       (self.class == other.class and normalized == other.normalized)
   end
 
   def inspect
-    'warning(%p)' % output
+    'warning(%p)' % expected
   end
 
-  # @param [Output] other
-  # @return [Enumerable] An Enumerabel over the formatted operations that would
-  #   have to be applied to the actual warning output to get the expected
-  #   warning output after any normalization of the warning outputs have been
-  #   performed
+  # @param [Warning] other
+  # @return [Enumerable<String>] An Enumerable over the formatted operations
+  #   that would have to be applied to the actual warning output to get the
+  #   expected warning output after any normalization of the warning outputs
+  #   have been performed
   def diff(other)
     self == normalized ? super(other.normalized) : normalized.diff(other)
   end
@@ -41,7 +42,7 @@ class Lookout::Warning < Lookout::Output
   protected
 
   def normalized
-    normalized = output.sub(/\A.*?:\d+: warning: /, '')
-    output == normalized ? self : self.class.new(normalized)
+    normalized = expected.sub(/\A.*?:\d+: warning: /, '')
+    expected == normalized ? self : self.class.new(normalized)
   end
 end

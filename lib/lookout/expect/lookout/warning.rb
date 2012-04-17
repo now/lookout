@@ -4,10 +4,9 @@
 class Lookout::Expect::Lookout::Warning < Lookout::Expect::Object
   private
 
-  # Evaluates the expect block with `$stderr` redirected to a temporary IO
-  # object and `$VERBOSE` set to true.
-  # @return [Lookout::Warning] A warning object with the output generated on
-  #   the IO object during the evaluation of the expect block
+  # @return [Lookout::Warning] A warning object wrapping the output generated
+  #   on a temporary IO object that replaces `$stderr` during the evaluation of
+  #   the expect block while `$VERBOSE` has been set to true
   # @extension
   def evaluate_block
     output = StringIO.new

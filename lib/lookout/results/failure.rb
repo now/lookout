@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# Represents a failed result.  Used when the actual result of an expect block
-# exhibits differences from the expected value.
+# A failed result used when the actual result of an expect block exhibits
+# differences from the expected value.
 class Lookout::Results::Failure
   include Lookout::Result
 
-  # @param (see Result#initialize)
-  # @param [Difference::Object] difference Difference report generator
+  # (see Result#initialize)
+  # The _difference_ report between the actual result and the expected value
+  # will be used to display this information to the user.
+  # @param [Difference::Object] difference
   def initialize(file, line, difference)
     super file, line
     @difference = difference
   end
 
   # @param [Failure] other
-  # @return [Boolean] True if super passes and the receiver’s difference `#==`
-  #   that of _other_
+  # @return [Boolean] True if the receiver’s class, {#file}, {#line} and
+  #   difference report `#==` that of _other_
   def ==(other)
     super and difference == other.difference
   end

@@ -5,14 +5,14 @@
 class Lookout::Expect::Object::Context
   # Evaluates _block_ inside this context, passing _args_ to it, when
   #   {#evaluate}d.
-  # @param [Object, …] *args
+  # @param [::Object, …] *args
   # @param [Proc] &block
   def initialize(*args, &block)
     @args, @block = args, block
     @stubs = nil
   end
 
-  # @return [Object, nil] The result of evaluating the block or nil if there’s
+  # @return [::Object, nil] The result of evaluating the block or nil if there’s
   #   no block
   def evaluate
     instance_exec(*@args, &@block) if @block
@@ -23,10 +23,10 @@ class Lookout::Expect::Object::Context
   private
 
   # @overload stub(methods = {})
-  #   @param [Hash<Symbol,Object>] methods
+  #   @param [Hash<Symbol,::Object>] methods
   #   @return [Lookout::Stub::Object] A stub object set up with _methods_
   # @overload stub(object)
-  #   @param [Object] object
+  #   @param [::Object] object
   #   @return [Stub] A delayed wrapper that will set up a stub method on
   #     _object_
   def stub(object = {})
@@ -41,7 +41,7 @@ class Lookout::Expect::Object::Context
   # Sets `$VERBOSE` to _verbose_ during the execution of the given block.
   # @param [true, false, nil] verbose
   # @yield
-  # @return [Object] The result of the block
+  # @return [::Object] The result of the block
   def with_verbose(verbose = true)
     saved_verbose = $VERBOSE
     $VERBOSE = verbose
@@ -57,8 +57,8 @@ class Lookout::Expect::Object::Context
   # intermediate modules that aren’t defined will be set to new {Module}s.
   # These modules will be removed once the block returns.
   # @param [String] name
-  # @param [Object] value
-  # @return [Object] The result of the block
+  # @param [::Object] value
+  # @return [::Object] The result of the block
   def with_constant(name, value)
     missing = nil
     parts = name.split('::')
@@ -92,7 +92,7 @@ class Lookout::Expect::Object::Context
   # Sets environment variables defined in _environment_ during the execution of
   # the given block.
   # @param [Hash] environment
-  # @return [Object] The result of the block
+  # @return [::Object] The result of the block
   def with_environment(environment = {})
     saved = ENV.select{ |key, _| environment.include? key }
     saved = Hash[*saved.flatten] if RUBY_VERSION < '1.9'

@@ -12,6 +12,9 @@ class Lookout::Rake::Tasks::Test
   # _:name_:coverage.  If _:name_ `#==` `:test`, then the default task is set
   # to depend on it, unless the default task has already been defined, as well
   # as the `:check` task.
+  #
+  # Optionally yields the _task_ being created so that it may be adjusted
+  # further before being defined.
   # @param [Hash] options
   # @option options [Symbol] :name (:test) The name of the task
   # @option options [Array<String>] :paths (['lib']) The paths to add to
@@ -25,8 +28,7 @@ class Lookout::Rake::Tasks::Test
   #   been required)
   # @option options [Gem::Specification] :specification The Gem specification
   #   to look for :paths and :requires in, see {#specification=}
-  # @yield [?] The _task_ being created so that it may be adjusted further
-  #   before being defined
+  # @yield [?]
   # @yieldparam [Test] task
   def initialize(options = {})
     self.name = options.fetch(:name, :test)
@@ -84,9 +86,9 @@ class Lookout::Rake::Tasks::Test
   # @return [Inventory] The inventory to use
   attr_reader :inventory
 
-  # @param [Inventory] value
+  # @param [Inventory] inventory
   # @return [Inventory] The new inventory to use for {#paths}, {#requires}, and
-  #   {#files}: _value_
+  #   {#files}: _inventory_
   def inventory=(inventory)
     self.paths = inventory.lib_directories
     self.requires = [inventory.package_require]

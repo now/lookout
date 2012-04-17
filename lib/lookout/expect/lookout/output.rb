@@ -4,9 +4,9 @@
 class Lookout::Expect::Lookout::Output < Lookout::Expect::Object
   private
 
-  # Evaluates the expect block with an IO object as the expected value.
-  # @return [Lookout::Output] The output generated on the IO object during the
-  #   evaluation of the expect block
+  # @return [Lookout::Output] The output generated on an IO object passed to
+  #   the expect block as the expected value during the evaluation of that
+  #   block
   # @extension
   def evaluate_block
     output = StringIO.new
