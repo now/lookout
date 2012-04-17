@@ -79,17 +79,17 @@ class Lookout::Diff::Algorithms::Difflib::Position
 
   def expand(match, junking)
     old_begin, new_begin = match.old.begin, match.new.begin
-    while old_begin > @old.begin and new_begin > @new.begin and
-          junk[@new[new_begin - 1]] ^ !junking and
-          @old[old_begin - 1] == @new[new_begin - 1]
+    while old_begin > old.begin and new_begin > new.begin and
+          junk[new[new_begin - 1]] ^ !junking and
+          old[old_begin - 1] == new[new_begin - 1]
       old_begin -= 1
       new_begin -= 1
     end
 
     old_end, new_end = match.old.end, match.new.end
-    while old_end + 1 <= @old.end and new_end + 1 <= @new.end and
-          junk[@new[new_end + 1]] ^ !junking and
-          @old[old_end + 1] == @new[new_end + 1]
+    while old_end + 1 <= old.end and new_end + 1 <= new.end and
+          junk[new[new_end + 1]] ^ !junking and
+          old[old_end + 1] == new[new_end + 1]
       old_end += 1
       new_end += 1
     end

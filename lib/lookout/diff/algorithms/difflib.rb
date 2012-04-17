@@ -39,9 +39,9 @@ class Lookout::Diff::Algorithms::Difflib
   #     sequences
   def each
     return enum_for(__method__) unless block_given?
-    current = Lookout::Diff::Match.new(Lookout::Diff::Slice.new(@old, 0...0),
-                                       Lookout::Diff::Slice.new(@new, 0...0))
-    stack = [Position.origin(@old, @new, &@ignorable)]
+    current = Lookout::Diff::Match.new(Lookout::Diff::Slice.new(old, 0...0),
+                                       Lookout::Diff::Slice.new(new, 0...0))
+    stack = [Position.origin(old, new, &ignorable)]
     until stack.empty?
       case item = stack.pop
       when Position
@@ -60,7 +60,25 @@ class Lookout::Diff::Algorithms::Difflib
       end
     end
     yield current unless current.empty?
-    yield current.at(@old.size...@old.size, @new.size...@new.size)
+    yield current.at(old.size...old.size, new.size...new.size)
     self
   end
+
+  # @param [Difflib] other
+  # @return [Boolean] True if the receiver’s class, old, new and ignorable
+  # block `#==` those of _other_
+  def ==(other)
+    self.class == other.class and
+      old == other.old and new == other.new and ignorable == other.ignorable
+  end
+
+  alias eql? ==
+
+  def hash
+    @hash ||= [old, new, ignorable].hash
+  end
+
+  protected
+
+  attr_reader :old, :new, :ignorable
 end

@@ -48,6 +48,10 @@ class Lookout::Diff::Match
 
   alias eql? ==
 
+  def hash
+    @hash ||= [old, new].hash
+  end
+
   def inspect
     '#<%s %p==%p>' % [self.class, old, new]
   end

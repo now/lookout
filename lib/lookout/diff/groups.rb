@@ -26,17 +26,17 @@ class Lookout::Diff::Groups
     return enum_for(__method__) unless block_given?
     saved = nil
     group = Lookout::Diff::Group.new
-    @operations.each do |operation|
+    operations.each do |operation|
       if saved
         yield saved
         saved = nil
       end
       if group.empty?
-        operation = operation >> @context
+        operation = operation >> context
         group << operation
-      elsif operation.foldable? @context
-        saved = group << (operation << @context)
-        group = Lookout::Diff::Group.new(operation >> @context)
+      elsif operation.foldable? context
+        saved = group << (operation << context)
+        group = Lookout::Diff::Group.new(operation >> context)
       else
         group << operation
       end
@@ -44,7 +44,25 @@ class Lookout::Diff::Groups
     if saved
       yield saved
     elsif not group.empty?
-      yield group.fold(@context)
+      yield group.fold(context)
     end
   end
+
+  # @param [Groups] other
+  # @return [Boolean] True if the receiver’s class, operations, and context
+  #   `#==` those of _other_
+  def ==(other)
+    self.class == other.class and
+      operations == other.operations and context == other.context
+  end
+
+  alias eql? ==
+
+  def hash
+    [operations, context].hash
+  end
+
+  protected
+
+  attr_reader :operations, :context
 end

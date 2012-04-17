@@ -22,10 +22,27 @@ class Lookout::Exception::Unknown
     '(%s)' % message
   end
 
+  # @param [Unknown] other
+  # @return [Boolean] True if the receiver’s class and exception `#==` those of
+  #   _other_
+  def ==(other)
+    self.class == other.class and exception == other.exception
+  end
+
+  alias eql? ==
+
+  def hash
+    exception.hash
+  end
+
+  protected
+
+  attr_reader :exception
+
   private
 
   def message
     @message ||= 'cannot determine class of exception: %s' %
-      Lookout::Exception.new(@exception).message
+      Lookout::Exception.new(exception).message
   end
 end

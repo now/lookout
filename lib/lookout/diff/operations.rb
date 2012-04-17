@@ -23,8 +23,12 @@ class Lookout::Diff::Operations
   def each
     return enum_for(__method__) unless block_given?
     old = new = 0
-    @matches.each do |match|
-      type = typeify(old, new, match)
+    matches.each do |match|
+      type = if    old < match.old.begin and new < match.new.begin then Replace
+             elsif old < match.old.begin                           then Delete
+             elsif new < match.new.begin                           then Insert
+             else                                                       Copy
+             end
       yield type.new(match.old.at(old...match.old.begin),
                      match.new.at(new...match.new.begin)) unless type == Copy
       yield Copy.new(match.old, match.new) unless match.empty?
@@ -33,13 +37,20 @@ class Lookout::Diff::Operations
     self
   end
 
-  private
-
-  def typeify(old, new, match)
-    if    old < match.old.begin and new < match.new.begin then Replace
-    elsif old < match.old.begin                           then Delete
-    elsif new < match.new.begin                           then Insert
-    else                                                       Copy
-    end
+  # @param [Operations] other
+  # @return [Boolean] True if the receiver’s class and matches `#==` those of
+  #   _other_
+  def ==(other)
+    self.class == other.class and matches == other.matches
   end
+
+  alias eql? ==
+
+  def hash
+    matches.hash
+  end
+
+  protected
+
+  attr_reader :matches
 end

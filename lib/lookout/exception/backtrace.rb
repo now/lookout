@@ -49,12 +49,27 @@ class Lookout::Exception::Backtrace
     '%p.new(%p, %p, %p)' % [self.class, @backtrace, @trim, @filter]
   end
 
-  private
+  # @param [Backtrace] other
+  # @return [Boolean] True if the receiver’s class, backtrace, and trim and
+  #   filter settings `#==` those of _other_
+  def ==(other)
+    self.class == other.class and backtrace == other.backtrace
+  end
+
+  alias eql? ==
+
+  def hash
+    backtrace.hash
+  end
+
+  protected
 
   def backtrace
     return @backtrace unless @filter
     before or outside or @backtrace
   end
+
+  private
 
   def before
     nilify(@backtrace.take_while{ |location| not reject? location })

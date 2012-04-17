@@ -36,6 +36,19 @@ class Lookout::Diff::Formats::Inline
     @to_s
   end
 
+  # @param [Inline] other
+  # @return [Boolean] True if the receiver’s class and {#to_s} `#==` those of
+  #   _other_
+  def ==(other)
+    self.class == other.class and to_s == other.to_s
+  end
+
+  alias eql? ==
+
+  def hash
+    to_s.hash
+  end
+
   private
 
   class ToS

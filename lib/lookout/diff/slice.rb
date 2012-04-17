@@ -142,6 +142,10 @@ class Lookout::Diff::Slice
 
   alias eql? ==
 
+  def hash
+    @hash ||= [items, self.begin, self.end].hash
+  end
+
   def inspect
     '%p[%p]' % [items, range]
   end

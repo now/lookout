@@ -36,6 +36,19 @@ class Lookout::Diff::Formats::Unified
     to_a.join("\n")
   end
 
+  # @param [Unified] other
+  # @return [Boolean] True if the receiver’s class and groups `#==` those
+  #   of _other_
+  def ==(other)
+    self.class == other.class and groups == other.groups
+  end
+
+  alias eql? ==
+
+  def hash
+    groups.hash
+  end
+
   private
 
   # @private

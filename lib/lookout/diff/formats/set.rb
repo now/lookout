@@ -24,7 +24,7 @@ class Lookout::Diff::Formats::Set
   #   @return [Enumerator] An Enumerator over the formatted operations
   def each
     return enum_for(__method__) unless block_given?
-    @operations.each do |op|
+    operations.each do |op|
       operation = Operation.new(op)
       yield operation.to_s unless operation.empty?
     end
@@ -35,6 +35,23 @@ class Lookout::Diff::Formats::Set
   def to_s
     to_a.join("\n")
   end
+
+  # @param [Inline] other
+  # @return [Boolean] True if the receiver’s class and operations `#==` those
+  #   of _other_
+  def ==(other)
+    self.class == other.class and operations == other.operations
+  end
+
+  alias eql? ==
+
+  def hash
+    operations.hash
+  end
+
+  protected
+
+  attr_reader :operations
 
   private
 

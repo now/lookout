@@ -30,11 +30,11 @@ class Lookout::Diff::Algorithms::Difflib::Position::New <
   end
 
   def begin_after(other)
-    self.class.new(items, other.range.end + 1..range.end, indexes)
+    self.class.new(items, other.end + 1..self.end, indexes)
   end
 
   def end_before(other)
-    self.class.new(items, range.begin...other.range.begin, indexes)
+    self.class.new(items, self.begin...other.begin, indexes)
   end
 
   def at(range)
