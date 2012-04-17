@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Inverts {Lookout::Actual}.  This allows the user to set up a query method
-# that should be invoked on the actual result and have the inversion of that
-# result be checked.
+# Inverts {Actual}.  Allows a query method to call on the actual result to be
+# set up and its inversion checked after the expect block returns.
 class Lookout::Actual::Not < Lookout::Actual
-  # @return [Lookout::Actual] A result proxy that is the inversion of the
-  #   receiver
+  # @return [Actual] A result stand-in that’s the inversion of the receiver
   def not
     Lookout::Actual.new
   end

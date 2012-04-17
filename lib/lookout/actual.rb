@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Proxies the actual result of the {Lookout::Expect expect block}.  This allows
-# the user to set up a query method that should be invoked on the actual result
-# and have that result be checked.  This is used by
+# Stands in for the actual result of the {Lookout::Expect expect block},
+# allowing a query method to call on the actual result to be set up and checked
+# after the expect block returns.  Used by
 # {Lookout::Expectations::Context#result}.
 class Lookout::Actual < Lookout::Aphonic
-  # @return [Lookout::Actual::Not] A result proxy that is the inversion of the
+  # @return [Actual::Not] A result stand-in that’s the inversion of the
   #   receiver
   def not
     Lookout::Actual::Not.new
@@ -31,12 +31,10 @@ class Lookout::Actual < Lookout::Aphonic
 
   private
 
-  # @param [Symbol] method
-  # @param [Object, …] *args
-  # @param [Proc] &block
-  # @return [Method] A method wrapper that will invoke _method_ with _args_ and
+  # @param (see Method#initialize)
+  # @return [Method] A method wrapper that’ll call _method_ with _args_ and
   #   _block_ when called
-  def method_missing(name, *args, &block)
-    Method.new(name, *args, &block)
+  def method_missing(method, *args, &block)
+    Method.new(method, *args, &block)
   end
 end

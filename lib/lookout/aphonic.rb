@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# A class whose instances only respond to very small set of methods.  This set
-# consists of `#__send__` and #object_id (and `#__id__` in 1.8).  This makes it
-# useful for DSLs and classes that make use of #method_missing.  Things are set
+# Class that only responds to `#__send__` and #object_id.  Useful for DSLs and
+# classes that make use of #method_missing.  Things are set
 # up so that if methods are added to Kernel, Object, or Method after the
 # initial set-up, such methods will similarly be {.silence}d.
 class Lookout::Aphonic
