@@ -10,30 +10,29 @@ class Lookout::Diff::Operation
     @old, @new = old, new
   end
 
-  # @param [Integer] window
+  # @param [Integer] context
   # @return [Boolean] True if the operation is uninteresting to the actual
-  #   “diff” and can be meaningfully folded inside _window_, that is, is larger
-  #   than _window_
+  #   “diff” and can be meaningfully folded, leaving _context_ elements
   # @see Operations::Copy#foldable?
-  def foldable?(window)
+  def foldable?(context)
     false
   end
 
-  # Folds from the beginning of the receiver, leaving _size_ elements.
-  # @param [Integer] size
+  # Folds from the beginning of the receiver, leaving _context_ elements.
+  # @param [Integer] context
   # @return [self]
-  # @note Logically, the receiver should be {#foldable?} inside _size_ * 2, but
+  # @note Logically, the receiver should be {#foldable?} inside _context_, but
   #   this isn’t enforced.
-  def >>(size)
+  def >>(context)
     self
   end
 
-  # Folds from the end of the receiver, leaving _size_ elements.
-  # @param [Integer] size
+  # Folds from the end of the receiver, leaving _context_ elements.
+  # @param [Integer] context
   # @return [self]
-  # @note Logically, the receiver should be {#foldable?} inside _size_ * 2, but
+  # @note Logically, the receiver should be {#foldable?} inside _context_ , but
   #   this isn’t enforced.
-  def <<(size)
+  def <<(context)
     self
   end
 

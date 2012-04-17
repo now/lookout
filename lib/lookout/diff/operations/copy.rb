@@ -2,23 +2,24 @@
 
 # Slice that should be copied from the old sequence.
 class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
-  # @param [Integer] window
+  # @param [Integer] context
   # @return [Boolean] True if the slice of the old sequence is larger than
-  #   _window_ ({#old}{Slice#size #size} > _window_)
-  def foldable?(window)
-    old.size > window
+  #   _context_ * 2 ({#old}{Slice#size #size} > _context_ * 2) so that it may
+  #   be folded to _context_ at both ends ({#>>}, {#<<})
+  def foldable?(context)
+    old.size > context * 2
   end
 
   # (see Operation#>>)
-  def >>(size)
-    self.class.new(old.begin_at([old.begin, old.end - size + 1].max),
-                   new.begin_at([new.begin, new.end - size + 1].max))
+  def >>(context)
+    self.class.new(old.begin_at([old.begin, old.end - context + 1].max),
+                   new.begin_at([new.begin, new.end - context + 1].max))
   end
 
   # (see Operation#<<)
-  def <<(size)
-    self.class.new(old.end_at([old.end, old.begin + size - 1].min),
-                   new.end_at([new.end, new.begin + size - 1].min))
+  def <<(context)
+    self.class.new(old.end_at([old.end, old.begin + context - 1].min),
+                   new.end_at([new.end, new.begin + context - 1].min))
   end
 
   # @return [Boolean] True if {#old} `#==` {#new}

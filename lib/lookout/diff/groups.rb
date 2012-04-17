@@ -34,7 +34,7 @@ class Lookout::Diff::Groups
       if group.empty?
         operation = operation >> @context
         group << operation
-      elsif operation.foldable? @context * 2
+      elsif operation.foldable? @context
         saved = group << (operation << @context)
         group = Lookout::Diff::Group.new(operation >> @context)
       else
