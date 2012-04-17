@@ -72,7 +72,7 @@ class Lookout::Exception
     "%s\n%s" % [header, backtrace]
   end
 
-  # @param [Lookout::Exception] other
+  # @param [Exception] other
   # @return [Boolean] True if the receiver’s class and exception `#==` those of
   #   _other_
   def ==(other)
