@@ -25,7 +25,7 @@ module Lookout::Result
   alias eql? ==
 
   def hash
-    @hash ||= [self.class, file, line].hash
+    @hash ||= [file, line].hash
   end
 
   # @return [String] A String formatted according to the GNU standard for

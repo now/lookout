@@ -30,14 +30,13 @@ class Lookout::Mock::Method::Arguments
   # @return [Boolean] True if the receiver’s class and expected arguments `#==`
   #   those of _other_
   def ==(other)
-    self.class == other.class and
-      args == other.args
+    self.class == other.class and args == other.args
   end
 
   alias eql? ==
 
   def hash
-    self.class.hash ^ args.hash
+    args.hash
   end
 
   # @return [String] The arguments as a String argument list

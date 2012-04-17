@@ -46,6 +46,12 @@ class Lookout::Diff::Algorithms::Difflib::Position
     old == other.old and new == other.new and junk == other.junk
   end
 
+  alias eql? ==
+
+  def hash
+    @hash ||= [old, new, junk].hash
+  end
+
   def inspect
     '#<%s %p,%p>' % [self.class, old, new]
   end

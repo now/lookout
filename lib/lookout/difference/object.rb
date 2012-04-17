@@ -33,8 +33,11 @@ class Lookout::Difference::Object
   #   equal those of _other_
   def ==(other)
     self.class == other.class and
-      message == other.message and
-      diff.to_s == other.diff.to_s
+      message == other.message and diff.to_s == other.diff.to_s
+  end
+
+  def hash
+    @hash ||= [message, diff.to_s].hash
   end
 
   # @return [::Object] The actual result

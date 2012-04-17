@@ -33,11 +33,14 @@ class Lookout::Expected::Object
   # @return [Boolean] True if the receiver’s class and {#expected} `#==` those
   #   of _other_
   def ==(other)
-    self.class == other.class and
-      expected == other.expected
+    self.class == other.class and expected == other.expected
   end
 
   alias eql? ==
+
+  def hash
+    expected.hash
+  end
 
   # @return [::Object] The expected value
   attr_reader :expected

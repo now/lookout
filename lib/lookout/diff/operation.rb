@@ -49,6 +49,12 @@ class Lookout::Diff::Operation
     self.class == other.class and old == other.old and new == other.new
   end
 
+  alias eql? ==
+
+  def hash
+    @hash ||= [old, new].hash
+  end
+
   def inspect
     '#<%s %p,%p>' % [self.class, old, new]
   end

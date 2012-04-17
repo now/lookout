@@ -24,9 +24,13 @@ class Lookout::Actual::Method
   #   `#==` those of _other_
   def ==(other)
     self.class == other.class and
-      method == other.method and
-      args == other.args and
-      block == other.block
+      method == other.method and args == other.args and block == other.block
+  end
+
+  alias eql? ==
+
+  def hash
+    @hash ||= [method, args, block].hash
   end
 
   def to_s

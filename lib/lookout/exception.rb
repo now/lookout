@@ -76,14 +76,13 @@ class Lookout::Exception
   # @return [Boolean] True if the receiver’s class and exception `#==` those of
   #   _other_
   def ==(other)
-    self.class == other.class and
-      exception == other.exception
+    self.class == other.class and exception == other.exception
   end
 
   alias eql? ==
 
   def hash
-    @hash ||= self.class.hash ^ exception.hash
+    exception.hash
   end
 
   protected

@@ -32,9 +32,13 @@ class Lookout::Mock::Method::Calls
   # @return [Boolean] True if the receiver’s class, expected number of calls,
   #   and actual call count `#==` those of _other_
   def ==(other)
-    self.class == other.class and
-      range == other.range and
-      calls == other.calls
+    self.class == other.class and range == other.range and calls == other.calls
+  end
+
+  alias eql? ==
+
+  def hash
+    [range, calls].hash
   end
 
   # @return [String] A String representation of the expected number of calls

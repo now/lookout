@@ -48,6 +48,12 @@ class Lookout::Stub::Method::Defined::Definition
       unbound == other.unbound
   end
 
+  alias eql? ==
+
+  def hash
+    [object, method, visibility, unbound].hash
+  end
+
   protected
 
   attr_reader :object, :method, :visibility, :unbound

@@ -23,8 +23,10 @@ class Lookout::Results::Error
     super and message == other.message and exception == other.exception
   end
 
+  alias eql? ==
+
   def hash
-    @hash ||= super ^ message.hash ^ exception.hash
+    @hash ||= super ^ [message, exception].hash
   end
 
   def to_s

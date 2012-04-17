@@ -16,9 +16,13 @@ module Lookout::Stub::Method
   #   `#==` those of _other_
   def ==(other)
     self.class == other.class and
-      object == other.object and
-      method == other.method and
-      body == other.body
+      object == other.object and method == other.method and body == other.body
+  end
+
+  alias eql? ==
+
+  def hash
+    [object, method, body].hash
   end
 
   # @return [String] A String representation of the object and method

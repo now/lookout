@@ -16,14 +16,13 @@ class Lookout::Literal
   # @return [Boolean] True if the receiver’s class and subject `#==` those of
   #   _other_
   def ==(other)
-    self.class == other.class and
-      expected == other.expected
+    self.class == other.class and expected == other.expected
   end
 
   alias eql? ==
 
   def hash
-    self.class.hash ^ expected.hash
+    expected.hash
   end
 
   def inspect

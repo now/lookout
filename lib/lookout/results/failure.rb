@@ -21,8 +21,10 @@ class Lookout::Results::Failure
     super and difference == other.difference
   end
 
+  alias eql? ==
+
   def hash
-    super ^ difference.hash
+    @hash ||= super ^ difference.hash
   end
 
   def to_s

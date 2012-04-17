@@ -23,6 +23,10 @@ class Lookout::Mock::Method::Calls::Error < Lookout::Mock::Error
       range == other.range
   end
 
+  def hash
+    @hash ||= [calls, range].hash
+  end
+
   # @return [Integer] The actual number of calls made
   attr_reader :calls
 

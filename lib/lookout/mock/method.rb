@@ -18,9 +18,13 @@ module Lookout::Mock::Method
   # @return [Boolean] True if the receiver {Stub::Method#==}’s _other_ and the
   #   expected number of calls and expected arguments are also `#==`
   def ==(other)
-    super and
-      calls == other.calls and
-      args == other.args
+    super and calls == other.calls and args == other.args
+  end
+
+  alias eql? ==
+
+  def hash
+    @hash ||= super ^ [calls, args].hash
   end
 
   protected

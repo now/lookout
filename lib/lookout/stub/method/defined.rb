@@ -21,6 +21,12 @@ class Lookout::Stub::Method::Defined
     super and definition == other.definition
   end
 
+  alias eql? ==
+
+  def hash
+    @hash ||= super ^ definition.hash
+  end
+
   # @return [Undefined] The undefined version of this mock method after
   #   undefining it
   def undefine

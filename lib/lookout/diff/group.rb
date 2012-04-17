@@ -71,8 +71,13 @@ class Lookout::Diff::Group
   # @return [Boolean] True if the receiver’s class and operations `#==` those of
   #   _other_
   def ==(other)
-    self.class == other.class and
-      operations == other.operations
+    self.class == other.class and operations == other.operations
+  end
+
+  alias eql? ==
+
+  def hash
+    operations.hash
   end
 
   def inspect
