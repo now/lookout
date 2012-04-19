@@ -28,6 +28,8 @@ class Lookout::Rake::Tasks::Test
   #   been required)
   # @option options [Gem::Specification] :specification The Gem specification
   #   to look for :paths and :requires in, see {#specification=}
+  # @option options [Array<String>] :options (['-w']) The options to pass to
+  #   ruby
   # @yield [?]
   # @yieldparam [Test] task
   def initialize(options = {})
@@ -39,6 +41,7 @@ class Lookout::Rake::Tasks::Test
       (provided?('inventory/rake/tasks') and Inventory::Rake::Tasks.inventory) and
       self.inventory = inventory
     self.specification = options.fetch(:specification) if options.include? :specification
+    self.options = options.fetch(:options, %w'-w')
     yield self if block_given?
     define
   end
@@ -118,6 +121,13 @@ class Lookout::Rake::Tasks::Test
     specification
   end
 
+  # @return [Array<String>] The options to pass to ruby
+  attr_reader :options
+
+  # @param [Array<String>] value
+  # @return [Array<String>] The new options to pass to ruby: _value_
+  attr_writer :options
+
   def define
     desc @name == :test ? 'Run tests' : 'Run tests for %s' % @name
     task @name do
@@ -136,28 +146,18 @@ class Lookout::Rake::Tasks::Test
 
   private
 
-  def run(additional = [])
-    ruby '-w %s -- %s %s' % [options, escape(LoaderPath), arguments(additional)]
-  end
-
-  def options
-    paths.uniq.map{ |p| '-I%s' % p }.join(' ')
-  end
-
-  def arguments(additional)
-    requires.uniq.map{ |r| '-r%s' % r }.
-      concat(line).concat(additional).
-      push('--').
-      concat(tests).join(' ')
+  def run(arguments = [])
+    ruby '%s -- %s %s' % [(options + paths.uniq.map{ |e| '-I%s' % e }).join(' '),
+                          escape(LoaderPath),
+                          requires.uniq.map{ |r| '-r%s' % r }.
+                            concat(line).concat(arguments).
+                            push('--').
+                          concat(files.map{ |e| escape(e) }).join(' ')]
   end
 
   def line
     return [] unless ENV['LINE'] and not ENV['LINE'].empty?
     ['-l%d' % ENV['LINE'].to_i]
-  end
-
-  def tests
-    files.map{ |e| escape(e) }
   end
 
   def escape(path)
