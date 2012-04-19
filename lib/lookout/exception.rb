@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Provides non-failing access to some of {::Exception}’s methods.  It’s used in
+# Provides non-failing access to some of {::Exception}’s methods.  Used in
 # subsystems where unhandled failure isn’t an option, such as {Inspect} and
-# {Results::Error}.  It also uses {Encode} so that all strings are ready for
+# {Results::Error}.  Also uses {Encode} so that all strings are ready for
 # output.
 class Lookout::Exception
   # Provides non-failing access to _exception_’s message, backtrace, and type.
