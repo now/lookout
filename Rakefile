@@ -42,6 +42,7 @@ class Yard
       'Generate documentation for %s in HTML format' % name
     task name do
       require 'yard'
+      require 'value/yard'
       yardoc = YARD::CLI::Yardoc.new
       yardoc.parse_arguments(*arguments)
       yardoc.options[:files] = []

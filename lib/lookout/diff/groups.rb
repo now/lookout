@@ -4,16 +4,13 @@
 # to show the subsequences that differ, folding away the subsequences that are
 # the same, only keeping some context around the folding points.
 class Lookout::Diff::Groups
-  include Enumerable
-
   # Initializes the sequence with the _operations_ to group and the number of
   # elements to leave as _context_.
   #
   # @param [Operations] operations
   # @param [Integer] context
-  def initialize(operations, context = 3)
-    @operations, @context = operations, context
-  end
+  Value(:operations, [:context, 3])
+  include Enumerable
 
   # @overload
   #   Enumerates the groups of operations.
@@ -47,22 +44,4 @@ class Lookout::Diff::Groups
       yield group.fold(context)
     end
   end
-
-  # @param [Groups] other
-  # @return [Boolean] True if the receiver’s class, operations, and context
-  #   `#==` those of _other_
-  def ==(other)
-    self.class == other.class and
-      operations == other.operations and context == other.context
-  end
-
-  alias eql? ==
-
-  def hash
-    [operations, context].hash
-  end
-
-  protected
-
-  attr_reader :operations, :context
 end

@@ -7,13 +7,10 @@
 #
 # This format is used by {Difference::Hash}.
 class Lookout::Diff::Formats::Set
-  include Enumerable
-
   # Formats _operations_ as they would be applied to an unordered set.
   # @param [Operations] operations
-  def initialize(operations)
-    @operations = operations
-  end
+  Value(:operations)
+  include Enumerable
 
   # @overload
   #   Enumerates the formatted operations.
@@ -35,23 +32,6 @@ class Lookout::Diff::Formats::Set
   def to_s
     to_a.join("\n")
   end
-
-  # @param [Inline] other
-  # @return [Boolean] True if the receiver’s class and operations `#==` those
-  #   of _other_
-  def ==(other)
-    self.class == other.class and operations == other.operations
-  end
-
-  alias eql? ==
-
-  def hash
-    operations.hash
-  end
-
-  protected
-
-  attr_reader :operations
 
   private
 

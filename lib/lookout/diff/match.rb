@@ -2,14 +2,12 @@
 
 # Matching pair of {Slice}s of the sequences being “diffed”.
 class Lookout::Diff::Match
-  include Comparable
-
   # Initializes a match between _old_ and _new_.
-  # @param [Slice] old
-  # @param [Slice] new
-  def initialize(old, new)
-    @old, @new = old, new
-  end
+  # @param [Slice] old The slice of the old sequence
+  # @param [Slice] new The slice of the new sequence
+  Value(:old, :new)
+  public :old, :new
+  include Comparable
 
   # @return True if the matching sequences are empty
   def empty?
@@ -48,10 +46,6 @@ class Lookout::Diff::Match
 
   alias eql? ==
 
-  def hash
-    @hash ||= [old, new].hash
-  end
-
   def inspect
     '#<%s %p==%p>' % [self.class, old, new]
   end
@@ -63,10 +57,4 @@ class Lookout::Diff::Match
   def at(old, new)
     self.class.new(self.old.at(old), self.new.at(new))
   end
-
-  # @return [Slice] The slice of the old sequence
-  attr_reader :old
-
-  # @return [Slice] The slice of the new sequence
-  attr_reader :new
 end

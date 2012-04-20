@@ -7,13 +7,10 @@
 #
 # This format is used by {Difference::String} for multi-line Strings.
 class Lookout::Diff::Formats::Unified
-  include Enumerable
-
   # Formats _groups_ in unified format.
   # @param [Groups] groups
-  def initialize(groups)
-    @groups = groups
-  end
+  Value(:groups)
+  include Enumerable
 
   # @overload
   #   Enumerates the formatted groups.
@@ -24,7 +21,7 @@ class Lookout::Diff::Formats::Unified
   #   @return [Enumerator] An Enumerator over the formatted groups
   def each
     return enum_for(__method__) unless block_given?
-    @groups.each do |group|
+    groups.each do |group|
       next if group.parity?
       yield Group.new(group).to_s
     end
@@ -34,19 +31,6 @@ class Lookout::Diff::Formats::Unified
   # @return [String] The concatenation of the formatted groups
   def to_s
     to_a.join("\n")
-  end
-
-  # @param [Unified] other
-  # @return [Boolean] True if the receiver’s class and groups `#==` those
-  #   of _other_
-  def ==(other)
-    self.class == other.class and groups == other.groups
-  end
-
-  alias eql? ==
-
-  def hash
-    groups.hash
   end
 
   private

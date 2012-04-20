@@ -7,9 +7,7 @@
 class Lookout::Exception
   # Provides non-failing access to _exception_’s message, backtrace, and type.
   # @param [::Exception] exception
-  def initialize(exception)
-    @exception = exception
-  end
+  Value(:exception)
 
   # @return [String] The UTF-8-encoded exception message or the UTF-8-encoded
   #   exception message of any exception that was raised while trying to retrieve
@@ -71,23 +69,6 @@ class Lookout::Exception
   def to_s
     "%s\n%s" % [header, backtrace]
   end
-
-  # @param [Exception] other
-  # @return [Boolean] True if the receiver’s class and exception `#==` those of
-  #   _other_
-  def ==(other)
-    self.class == other.class and exception == other.exception
-  end
-
-  alias eql? ==
-
-  def hash
-    exception.hash
-  end
-
-  protected
-
-  attr_reader :exception
 
   private
 

@@ -2,13 +2,10 @@
 
 # Ordered sequence of related {Operation}s; type enumerated by {Groups}.
 class Lookout::Diff::Group
-  include Enumerable
-
   # Initializes the group with an initial sequence of _operations_.
   # @param [Operation, …] *operations
-  def initialize(*operations)
-    @operations = operations
-  end
+  Value(:'*operations')
+  include Enumerable
 
   # @return [Boolean] True if the receiver doesn’t contain any operations
   def empty?
@@ -67,26 +64,9 @@ class Lookout::Diff::Group
     slice(:new)
   end
 
-  # @param [Group] other
-  # @return [Boolean] True if the receiver’s class and operations `#==` those of
-  #   _other_
-  def ==(other)
-    self.class == other.class and operations == other.operations
-  end
-
-  alias eql? ==
-
-  def hash
-    operations.hash
-  end
-
   def inspect
     '#<%s %p>' % [self.class, operations]
   end
-
-  protected
-
-  attr_reader :operations
 
   private
 

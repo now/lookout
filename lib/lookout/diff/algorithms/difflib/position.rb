@@ -6,6 +6,8 @@
 #
 # @private
 class Lookout::Diff::Algorithms::Difflib::Position
+  Value(:old, :new, :junk)
+
   class << self
     def origin(old, new)
       new = New.new(new)
@@ -15,10 +17,6 @@ class Lookout::Diff::Algorithms::Difflib::Position
             new.indexes.reduce({}){ |j, (k, _)| j[k] = yield(k); j } :
             {})
     end
-  end
-
-  def initialize(old, new, junk)
-    @old, @new, @junk = old, new, junk
   end
 
   def match
@@ -42,23 +40,9 @@ class Lookout::Diff::Algorithms::Difflib::Position
     self.class.new(old.end_before(match.old), new.end_before(match.new), junk)
   end
 
-  def ==(other)
-    old == other.old and new == other.new and junk == other.junk
-  end
-
-  alias eql? ==
-
-  def hash
-    @hash ||= [old, new, junk].hash
-  end
-
   def inspect
     '#<%s %p,%p>' % [self.class, old, new]
   end
-
-  protected
-
-  attr_reader :old, :new, :junk
 
   private
 

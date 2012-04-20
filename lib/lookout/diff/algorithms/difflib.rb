@@ -8,8 +8,6 @@
 # There are very few requirements on these sequences (see {#initialize}), which
 # makes this implementation useful for a wide class of objects.
 class Lookout::Diff::Algorithms::Difflib
-  include Enumerable
-
   # Initializes the algorithm to generate matches between the _old_ and _new_
   # versions of the indexable sequences.  The sequences must be indexable by
   # {::Range}s and Integers with the semantics that, for example, {::Array}s
@@ -23,9 +21,8 @@ class Lookout::Diff::Algorithms::Difflib
   # @yield [?]
   # @yieldparam element
   # @yieldreturn [Boolean]
-  def initialize(old, new, &ignorable)
-    @old, @new, @ignorable = old, new, ignorable
-  end
+  Value(:old, :new, :'&ignorable')
+  include Enumerable
 
   # @overload
   #   Enumerates the matches between the two sequences.  There’ll always be at
@@ -63,22 +60,4 @@ class Lookout::Diff::Algorithms::Difflib
     yield current.at(old.size...old.size, new.size...new.size)
     self
   end
-
-  # @param [Difflib] other
-  # @return [Boolean] True if the receiver’s class, old, new and ignorable
-  # block `#==` those of _other_
-  def ==(other)
-    self.class == other.class and
-      old == other.old and new == other.new and ignorable == other.ignorable
-  end
-
-  alias eql? ==
-
-  def hash
-    @hash ||= [old, new, ignorable].hash
-  end
-
-  protected
-
-  attr_reader :old, :new, :ignorable
 end

@@ -7,6 +7,7 @@ module Lookout
     def requires
       %w'
         stringio
+        value
       '
     end
 

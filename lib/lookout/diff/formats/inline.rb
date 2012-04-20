@@ -10,13 +10,10 @@
 # [Git](http://git-scm.com/).  That format was surely inspired by something
 # before it, but it’s where I first saw it, so that’s what I’m referencing.
 class Lookout::Diff::Formats::Inline
-  include Enumerable
-
   # Formats _operations_ as they would be applied inline on a String.
   # @param [Operations] operations
-  def initialize(operations)
-    @to_s = ToS.new(operations).to_s
-  end
+  Value(:operations)
+  include Enumerable
 
   # @overload
   #   Enumerates the formatted operations.
@@ -33,20 +30,7 @@ class Lookout::Diff::Formats::Inline
 
   # @return [String] The concatenation of the formatted operations
   def to_s
-    @to_s
-  end
-
-  # @param [Inline] other
-  # @return [Boolean] True if the receiver’s class and {#to_s} `#==` those of
-  #   _other_
-  def ==(other)
-    self.class == other.class and to_s == other.to_s
-  end
-
-  alias eql? ==
-
-  def hash
-    to_s.hash
+    @to_s ||= ToS.new(operations).to_s
   end
 
   private
