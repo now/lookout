@@ -4,9 +4,9 @@
 # turning the Hashes into {::Array}s, sorting them by key, and finally mapping
 # the keys and values to their String inspections.
 class Lookout::Difference::Hash < Lookout::Difference::Object
-  # @return [Lookout::Diff::Formats::Set] A set “diff” unless {#expected}
-  #   contains one element or {#actual} isn’t a Hash
-  # @extension
+  # @return [Lookout::Diff::Formats::Set, super] A set “diff” unless
+  #   {#expected} contains one element or {#actual} isn’t a Hash, {super}
+  #   otherwise
   def diff
     return super if expected.size == 1 or not Hash === actual
     Lookout::Diff::Formats::Set.

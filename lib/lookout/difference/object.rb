@@ -6,8 +6,8 @@
 # confused if they don’t.  Determining if the objects differ is up to the
 # caller.
 class Lookout::Difference::Object
-  # Initializes a difference report generator between the _actual_ result and
-  # the _expected_ value.
+  # Initializes a difference report between the _actual_ result and the
+  # _expected_ value.
   # @param [::Object] actual
   # @param [::Object] expected
   def initialize(actual, expected)

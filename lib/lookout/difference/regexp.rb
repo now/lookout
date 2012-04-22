@@ -6,8 +6,8 @@
 class Lookout::Difference::Regexp < Lookout::Difference::Object
   private
 
-  # @return [::String] The symbol ‘≉’ unless {#actual} is a Regexp
-  # @extension
+  # @return [::String, super] The symbol ‘≉’ unless {#actual} is a Regexp,
+  #   {super} otherwise
   def symbol
     Regexp === actual ? super : '≉'
   end

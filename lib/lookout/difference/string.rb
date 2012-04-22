@@ -2,11 +2,9 @@
 
 # Difference reports between {::String}s.
 class Lookout::Difference::String < Lookout::Difference::Object
-  # @return [super] Unless {#actual} is a String
-  # @return [Lookout::Diff::Formats::Unified] A unified “diff” if {#actual} or
-  #   {#expected} include a newline
-  # @return [Lookout::Diff::Formats::Inline] An inline “diff” otherwise
-  # @extension
+  # @return [Diff::Formats::Unified, Diff::Formats::Inline, super] A unified
+  #   “diff” if {#actual} or {#expected} include a newline, an inline “diff”
+  #   otherwise, or {super} if {#actual} isn’t a String
   def diff
     return super unless String === actual
     (actual.include? "\n" or expected.include? "\n") ?

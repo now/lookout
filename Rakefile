@@ -12,7 +12,6 @@ Inventory::Rake::Tasks.define Lookout::Version, :gem => proc{ |_, s|
   s.homepage = 'https://github.com/now/lookout'
 
   s.add_development_dependency 'yard', '~> 0.7.0'
-  s.add_development_dependency 'yard-method-overrides', '~> 0.1.0'
 
   s.add_runtime_dependency 'inventory', '~> 0.2.0'
 }

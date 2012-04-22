@@ -6,8 +6,8 @@
 class Lookout::Difference::Module < Lookout::Difference::Object
   private
 
-  # @return [::String] The symbol ‘≉’ unless {#actual} is a Module
-  # @extension
+  # @return [::String, super] The symbol ‘≉’ unless {#actual} is a Module,
+  #   {super} otherwise
   def symbol
     Module === actual ? super : '≉'
   end

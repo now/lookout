@@ -18,7 +18,6 @@ class Lookout::Results::Error
   # @param [Error] other
   # @return [Boolean] True if super passes and the receiver’s message and
   #   exception `#==` those of _other_
-  # @extension
   def ==(other)
     super and message == other.message and exception == other.exception
   end

@@ -12,8 +12,7 @@ class Lookout::Expected::Symbol < Lookout::Expected::Object
   # @param [::Symbol, ::Object] actual
   # @return [Difference::Symbol, nil] A difference report between _actual_ and
   #   {#expected} if {#expected} is a query and the result of the query doesn’t
-  #   equal what’s expected
-  # @extension
+  #   equal what’s expected, {super} otherwise
   def difference(actual)
     return super unless @query
     Lookout::Difference::Symbol.new(actual, expected, @query, @negated) unless

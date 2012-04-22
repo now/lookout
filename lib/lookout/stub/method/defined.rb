@@ -15,8 +15,8 @@ class Lookout::Stub::Method::Defined
     }
   end
 
-  # @return [Boolean] True if the receiver’s definition `#==` that of _other_
-  # @extension
+  # @return [Boolean] True if {super} passes and the receiver’s definition
+  #   `#==` that of _other_
   def ==(other)
     super and definition == other.definition
   end

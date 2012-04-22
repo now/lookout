@@ -7,8 +7,7 @@ class Lookout::Expect::Lookout::Reception < Lookout::Expect::Object
   # Delays the evaluation of the expect block until the difference check, at
   # which point {Expected::Lookout::Reception} will set up the proper
   # environment to perform the check.
-  # @return [Proc] A proc that’ll evaluate the expect block when called
-  # @extension
+  # @return [Proc] A proc that’ll evaluate the {super expect block} when called
   def evaluate_block
     proc{ super }
   end

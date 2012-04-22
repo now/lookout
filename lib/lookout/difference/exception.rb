@@ -32,15 +32,14 @@ class Lookout::Difference::Exception < Lookout::Difference::Object
 
   private
 
-  # @return [::String] A specially crafted inspection String containing the
-  #   Regexp if {#expected} contains a Regexp
-  # @extension
+  # @return [::String, super] A specially crafted inspection String containing
+  #   the Regexp if {#expected} contains a Regexp, {super} otherwise
   def inspect_expected
     @regexp ? '#<%s: %p>' % [expected.class, @regexp] : super
   end
 
-  # @return [::String] The symbol ‘≉’ if a Regexp was found inside {#expected}
-  # @extension
+  # @return [::String, super] The symbol ‘≉’ if a Regexp was found inside
+  #   {#expected}, {super} otherwise
   def symbol
     @regexp ? '≉' : super
   end
