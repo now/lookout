@@ -13,9 +13,6 @@ class Lookout::Results::Error
   # @param [Exception] exception The raised exception
   Value(:file, :line, :message, :exception, :comparable => [:file, :line])
   public :message, :exception
-  def initialize(file, line, message, exception)
-    super file, line, message, Lookout::Exception.new(exception)
-  end
 
   def to_s
     [super, message, exception].compact.join(': ')

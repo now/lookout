@@ -16,14 +16,12 @@ class Lookout::Expect::Classes::Exception < Lookout::Expect::Object
     rescue expected.expected
       return Lookout::Results::Success.new(file, line)
     rescue Exception => e
+      exception = Lookout::Exception.new(e)
       return Lookout::Results::Error.
-        new(file,
-            line,
-            expected.difference(Lookout::Exception.new(e).type).message,
-            e)
+        new(file, line, expected.difference(exception.type).message, exception)
     end
     check(result)
   rescue Exception => e
-    Lookout::Results::Error.new(file, line, nil, e)
+    Lookout::Results::Error.new(file, line, nil, Lookout::Exception.new(e))
   end
 end

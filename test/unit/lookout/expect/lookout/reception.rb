@@ -18,7 +18,7 @@ Expectations do
       stub.to.receive.call.to_lookout_expected.expect('test', 1){ raise RuntimeError, 'error', [] }.call
     end
   else
-    expect Lookout::Results::Error.new('test', 1, nil, RuntimeError.new('error').tap{ |e| e.set_backtrace([]) }) do
+    expect Lookout::Results::Error.new('test', 1, nil, Lookout::Exception.new(RuntimeError.new('error').tap{ |e| e.set_backtrace([]) })) do
       stub.to.receive.call.to_lookout_expected.expect('test', 1){ raise RuntimeError, 'error', [] }.call
     end
   end

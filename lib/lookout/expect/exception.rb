@@ -12,18 +12,19 @@ class Lookout::Expect::Exception < Lookout::Expect::Object
     begin
       result = evaluate_block
     rescue Exception => actual
+      exception = Lookout::Exception.new(actual)
       expected_class = expected.expected.class rescue Exception
-      actual_class = Lookout::Exception.new(actual).type
+      actual_class = exception.type
       return ((expected_class == actual_class) rescue false) ?
         check(actual) :
         Lookout::Results::Error.
           new(file,
               line,
               expected_class.to_lookout_expected.difference(actual_class).message,
-              actual)
+              exception)
     end
     check(result)
   rescue Exception => e
-    Lookout::Results::Error.new(file, line, nil, e)
+    Lookout::Results::Error.new(file, line, nil, Lookout::Exception.new(e))
   end
 end

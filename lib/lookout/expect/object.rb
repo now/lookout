@@ -24,7 +24,7 @@ class Lookout::Expect::Object
   def call
     check(evaluate_block)
   rescue Exception => e
-    Lookout::Results::Error.new(file, line, nil, e)
+    Lookout::Results::Error.new(file, line, nil, Lookout::Exception.new(e))
   end
 
   # @param [Match] other
