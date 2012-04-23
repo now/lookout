@@ -6,7 +6,7 @@
 # will never be a part of this sequence.
 class Lookout::Diff::Operations
   # Initializes a sequence of operations based on _matches_.
-  # @param [Matches] matches
+  # @param [Enumerable<Match>] matches
   Value(:matches)
   include Enumerable
 
