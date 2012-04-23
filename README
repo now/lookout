@@ -206,8 +206,9 @@
 
       Symbols are generally matched against symbols, but as a special case,
       symbols ending with ‹?› are seen as expectations on the result of query
-      methods on the result of the block.  Simply expect a symbol ending with
-      ‹?›:
+      methods on the result of the block, given that the method is of zero
+      arity and that the result isn’t a Symbol itself.  Simply expect a symbol
+      ending with ‹?›:
 
         expect :empty? do
           []

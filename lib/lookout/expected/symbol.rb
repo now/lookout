@@ -14,7 +14,7 @@ class Lookout::Expected::Symbol < Lookout::Expected::Object
   #   {#expected} if {#expected} is a query and the result of the query doesn’t
   #   equal what’s expected, {super} otherwise
   def difference(actual)
-    return super unless @query
+    return super if not @query or Symbol === actual or actual.method(@query).arity != 0
     Lookout::Difference::Symbol.new(actual, expected, @query, @negated) unless
       (not not actual.send(@query)) ^ !!@negated
   end

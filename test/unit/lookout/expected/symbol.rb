@@ -24,4 +24,12 @@ Expectations do
   expect Lookout::Difference::Object.new(:b, :a) do
     :a.to_lookout_expected.difference(:b)
   end
+
+  expect Lookout::Difference::Object.new(:eql!, :eql?) do
+    :eql?.to_lookout_expected.difference(:eql!)
+  end
+
+  expect Lookout::Difference::Object.new('', :eql?) do
+    :eql?.to_lookout_expected.difference('')
+  end
 end
