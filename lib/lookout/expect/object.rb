@@ -14,7 +14,7 @@ class Lookout::Expect::Object
   # @param [::Integer] line The line in {#file} on which the expectation is defined
   # @yieldparam [::Object] expected
   # @yieldreturn [::Object]
-  Value(:expected, :file, :line, :'&block')
+  Value(:expected, :file, :line, :'&block', :comparable => [:file, :line])
   include Comparable
 
   # Evaluates the expect block and checks for differences between its result
@@ -26,17 +26,6 @@ class Lookout::Expect::Object
   rescue Exception => e
     Lookout::Results::Error.new(file, line, nil, Lookout::Exception.new(e))
   end
-
-  # @return [Integer, nil] The comparison of the receiver’s {#file} and {#line}
-  #   against those of _other_
-  def <=>(other)
-    return nil unless self.class == other.class
-    (file <=> other.file).nonzero? or
-      (line <=> other.line).nonzero? or
-      0
-  end
-
-  alias eql? ==
 
   private
 
