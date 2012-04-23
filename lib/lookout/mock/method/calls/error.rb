@@ -13,9 +13,8 @@ class Lookout::Mock::Method::Calls::Error < Lookout::Mock::Error
     @calls, @range = calls, range
   end
 
-  # @param [Error] other
-  # @return [Boolean] True if the receiver’s class, {#calls}, and {#range}
-  #   `#==` those of _other_
+  # @return True if the receiver’s class, {#calls}, and {#range} `#==` those of
+  #   _other_
   def ==(other)
     super and
       self.class == other.class and

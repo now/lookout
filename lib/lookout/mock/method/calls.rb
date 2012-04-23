@@ -28,9 +28,8 @@ class Lookout::Mock::Method::Calls
     self
   end
 
-  # @param [Calls] other
-  # @return [Boolean] True if the receiver’s class, expected number of calls,
-  #   and actual call count `#==` those of _other_
+  # @return True if the receiver’s class, expected number of calls, and actual
+  #   call count `#==` those of _other_
   def ==(other)
     self.class == other.class and range == other.range and calls == other.calls
   end

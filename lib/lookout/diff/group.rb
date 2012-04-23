@@ -7,7 +7,7 @@ class Lookout::Diff::Group
   Value(:'*operations')
   include Enumerable
 
-  # @return [Boolean] True if the receiver doesn’t contain any operations
+  # @return True if the receiver doesn’t contain any operations
   def empty?
     operations.empty?
   end
@@ -31,8 +31,8 @@ class Lookout::Diff::Group
     self
   end
 
-  # @return [Boolean] True if the receiver contains one operation and that
-  #   operation represents {Operation#parity? parity}
+  # @return True if the receiver contains one operation and that operation
+  #   represents {Operation#parity? parity}
   def parity?
     operations.size == 1 and operations.first.parity?
   end

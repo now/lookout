@@ -11,7 +11,6 @@ class Lookout::Output
     'output(%p)' % expected
   end
 
-  # @param [Output] other
   # @return [Enumerable<String>] An Enumerable over the formatted operations
   #   that would have to be applied to the actual output to get the expected
   #   output

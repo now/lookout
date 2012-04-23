@@ -10,8 +10,8 @@ class Lookout::Diff::Operation
   public :old, :new
 
   # @param [Integer] context
-  # @return [Boolean] True if the operation is uninteresting to the actual
-  #   “diff” and can be meaningfully folded, leaving _context_ elements
+  # @return True if the operation is uninteresting to the actual “diff” and can
+  #   be meaningfully folded, leaving _context_ elements
   # @see Operations::Copy#foldable?
   def foldable?(context)
     false
@@ -35,7 +35,7 @@ class Lookout::Diff::Operation
     self
   end
 
-  # @return [Boolean] True if the receiver represents parity
+  # @return True if the receiver represents parity
   # @see Operations::Copy#parity?
   def parity?
     false

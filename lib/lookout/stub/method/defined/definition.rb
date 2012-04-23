@@ -38,8 +38,8 @@ class Lookout::Stub::Method::Defined::Definition
     self
   end
 
-  # @return [Boolean] True if the receiver’s class, object, method name,
-  #   visibility, and previous definition `#==` those of _other_
+  # @return True if the receiver’s class, object, method name, visibility, and
+  #   previous definition `#==` those of _other_
   def ==(other)
     self.class == other.class and
       object == other.object and

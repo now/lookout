@@ -19,7 +19,6 @@ class Lookout::Diff::Match
     old.size
   end
 
-  # @param [Match] other
   # @return [Match] A new match {Slice#+ encompassing} the slices of the
   #   receiver and _other_
   # @note Logically, the receiver should {#touch?} _other_, but this isn’t
@@ -28,13 +27,11 @@ class Lookout::Diff::Match
     self.class.new(old + other.old, new + other.new)
   end
 
-  # @param [Match] other
   # @return True if {#old} and {#new} {Slice#touch? #touch?} those of _other_
   def touch?(other)
     old.touch? other.old and new.touch? other.new
   end
 
-  # @param [Match] other
   # @return [Integer, nil] The comparison of the receiver’s {#old} and {#new}
   #   against those of _other_
   def <=>(other)

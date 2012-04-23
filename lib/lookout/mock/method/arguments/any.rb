@@ -2,14 +2,13 @@
 
 # Arguments matcher matching any arguments.
 class Lookout::Mock::Method::Arguments::Any
-  # @param [Object] other
+  # @param [Array<Object>] other
   # @return [true]
   def =~(other)
     true
   end
 
-  # @param [Any] other
-  # @return [Boolean] True if the receiver’s class `#==` that of _other_
+  # @return True if the receiver’s class `#==` that of _other_
   def ==(other)
     self.class == other.class
   end

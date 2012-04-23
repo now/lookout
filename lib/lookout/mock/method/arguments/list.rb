@@ -7,9 +7,9 @@ class Lookout::Mock::Method::Arguments::List
   # @param [Object, …] *args
   Value(:'*args')
 
-  # @param [Object] other
-  # @return [Boolean] True if there are no {Lookout::Difference differences}
-  #   between the expected arguments and _other_
+  # @param [Array<Object>] other
+  # @return True if there are no {Lookout::Difference differences} between the
+  #   expected arguments and _other_
   def =~(other)
     not args.to_lookout_expected.difference(other)
   end

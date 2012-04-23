@@ -19,9 +19,8 @@ class Lookout::Actual::Method
     actual.__send__(method, *args, &block)
   end
 
-  # @param [Actual::Method] other
-  # @return [Boolean] True if the receiver’s class, method, args, and block
-  #   `#==` those of _other_
+  # @return True if the receiver’s class, method, args, and block `#==` those
+  #   of _other_
   def ==(other)
     self.class == other.class and
       method == other.method and args == other.args and block == other.block

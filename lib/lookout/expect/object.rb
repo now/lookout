@@ -27,7 +27,6 @@ class Lookout::Expect::Object
     Lookout::Results::Error.new(file, line, nil, Lookout::Exception.new(e))
   end
 
-  # @param [Match] other
   # @return [Integer, nil] The comparison of the receiver’s {#file} and {#line}
   #   against those of _other_
   def <=>(other)

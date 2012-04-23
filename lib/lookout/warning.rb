@@ -12,9 +12,8 @@ class Lookout::Warning < Lookout::Output
     super expected.chomp
   end
 
-  # @param [Warning] other
-  # @return [Boolean] True if the receiver `#==` _other_ or if their classes
-  #   and normalized expected output `#==` each other
+  # @return True if the receiver `#==` _other_ or if their classes and
+  #   normalized expected output `#==` each other
   def ===(other)
     self == other or
       (self.class == other.class and normalized == other.normalized)
@@ -24,7 +23,6 @@ class Lookout::Warning < Lookout::Output
     'warning(%p)' % expected
   end
 
-  # @param [Warning] other
   # @return [Enumerable<String>] An Enumerable over the formatted operations
   #   that would have to be applied to the actual warning output to get the
   #   expected warning output after any normalization of the warning outputs

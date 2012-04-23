@@ -28,9 +28,8 @@ class Lookout::Difference::Object
     []
   end
 
-  # @param [Object] other
-  # @return [Boolean] True if the receiver’s class, {#message}, and {#diff}
-  #   equal those of _other_
+  # @return True if the receiver’s class, {#message}, and {#diff} equal those
+  #   of _other_
   def ==(other)
     self.class == other.class and
       message == other.message and diff.to_s == other.diff.to_s
