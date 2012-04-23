@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # The “to” keyword on {::Object}s.
-class Lookout::Object::To < Lookout::Aphonic
+class Lookout::Object::To
   # Wraps _object_ as a “to”.
   # @param [::Object] object
   def initialize(object)

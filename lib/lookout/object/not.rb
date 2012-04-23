@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # The “not” keyword on {::Object}s.
-class Lookout::Object::Not < Lookout::Aphonic
+class Lookout::Object::Not
   # Wraps _object_ as a “not”.
   # @param [::Object] object
   def initialize(object)
