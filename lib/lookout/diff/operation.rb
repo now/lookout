@@ -5,7 +5,7 @@
 class Lookout::Diff::Operation
   # Initializes the operation with the slices of the _old_ and _new_ sequences.
   # @param [Slice] old The slice of the old sequence
-  # @param [Slice] new slice of the new sequence
+  # @param [Slice] new The slice of the new sequence
   Value(:old, :new)
   public :old, :new
 
