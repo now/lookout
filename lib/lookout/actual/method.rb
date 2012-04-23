@@ -8,28 +8,13 @@ class Lookout::Actual::Method
   # @param [Symbol] method
   # @param [Object, …] *args
   # @param [Proc] &block
-  def initialize(method, *args, &block)
-    @method, @args, @block = method, args, block
-  end
+  Value(:method, :'*args', :'&block')
 
   # @param [Object] actual
   # @return [Object] The result of invoking the method with the given arguments
   #   on the _actual_ result
   def call(actual)
     actual.__send__(method, *args, &block)
-  end
-
-  # @return True if the receiver’s class, method, args, and block `#==` those
-  #   of _other_
-  def ==(other)
-    self.class == other.class and
-      method == other.method and args == other.args and block == other.block
-  end
-
-  alias eql? ==
-
-  def hash
-    @hash ||= [method, args, block].hash
   end
 
   def to_s
@@ -45,8 +30,4 @@ class Lookout::Actual::Method
   end
 
   alias inspect to_s
-
-  protected
-
-  attr_reader :method, :args, :block
 end
