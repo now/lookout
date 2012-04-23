@@ -5,22 +5,7 @@
 class Lookout::Output
   # Proxies the _expected_ output.
   # @param [String] expected
-  def initialize(expected)
-    @expected = expected
-  end
-
-  # @param [Output] other
-  # @return [Boolean] True if the receiver’s class and expected output `#==`
-  #   those of _other_
-  def ==(other)
-    self.class == other.class and expected == other.expected
-  end
-
-  alias eql? ==
-
-  def hash
-    expected.hash
-  end
+  Value(:expected)
 
   def inspect
     'output(%p)' % expected
@@ -39,8 +24,4 @@ class Lookout::Output
   def to_lookout_expected
     Lookout::Expected::Lookout::Output.new(self)
   end
-
-  protected
-
-  attr_reader :expected
 end

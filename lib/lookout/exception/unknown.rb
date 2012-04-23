@@ -6,9 +6,7 @@ class Lookout::Exception::Unknown
   # Wraps the _exception_ that was raised while trying to determine an
   # exception’s class.
   # @param [::Exception] exception
-  def initialize(exception)
-    @exception = exception
-  end
+  Value(:exception)
 
   # @raise [RuntimeError] Containing a message explaining that the exception’s
   #   class couldn’t be determined and why that is so
@@ -21,23 +19,6 @@ class Lookout::Exception::Unknown
   def inspect
     '(%s)' % message
   end
-
-  # @param [Unknown] other
-  # @return [Boolean] True if the receiver’s class and exception `#==` those of
-  #   _other_
-  def ==(other)
-    self.class == other.class and exception == other.exception
-  end
-
-  alias eql? ==
-
-  def hash
-    exception.hash
-  end
-
-  protected
-
-  attr_reader :exception
 
   private
 

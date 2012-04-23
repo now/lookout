@@ -12,7 +12,7 @@ class Lookout::Expect::Exception < Lookout::Expect::Object
     begin
       result = evaluate_block
     rescue Exception => actual
-      expected_class = @expected.expected.class rescue Exception
+      expected_class = expected.expected.class rescue Exception
       actual_class = Lookout::Exception.new(actual).type
       return ((expected_class == actual_class) rescue false) ?
         check(actual) :

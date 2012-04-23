@@ -8,22 +8,7 @@
 class Lookout::Literal
   # Proxies the _expected_ value, allowing it to be expected literally.
   # @param [Object] expected
-  def initialize(expected)
-    @expected = expected
-  end
-
-  # @param [Literal] other
-  # @return [Boolean] True if the receiver’s class and subject `#==` those of
-  #   _other_
-  def ==(other)
-    self.class == other.class and expected == other.expected
-  end
-
-  alias eql? ==
-
-  def hash
-    expected.hash
-  end
+  Value(:expected)
 
   def inspect
     'literal(%p)' % output
@@ -34,8 +19,4 @@ class Lookout::Literal
   def to_lookout_expected
     Lookout::Expected::Object.new(@expected)
   end
-
-  protected
-
-  attr_reader :expected
 end

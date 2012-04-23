@@ -7,22 +7,9 @@ module Lookout::Stub::Method
   # @param [Object] object
   # @param [Symbol] method
   # @param [Proc] &body
+  Value(:object, :method, :'&body')
   def initialize(object, method, &body)
-    @object, @method, @body = object, method.to_sym, body || Nil
-  end
-
-  # @param [Method] other
-  # @return [Boolean] True if the receiver’s class, object, method, and body
-  #   `#==` those of _other_
-  def ==(other)
-    self.class == other.class and
-      object == other.object and method == other.method and body == other.body
-  end
-
-  alias eql? ==
-
-  def hash
-    [object, method, body].hash
+    super object, method.to_sym, &(body or Nil)
   end
 
   # @return [String] A String representation of the object and method
@@ -31,10 +18,6 @@ module Lookout::Stub::Method
                 Class === object ? '.' : '#',
                 method]
   end
-
-  protected
-
-  attr_reader :object, :method, :body
 
   private
 

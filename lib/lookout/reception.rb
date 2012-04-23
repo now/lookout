@@ -99,7 +99,7 @@ class Lookout::Reception
   alias eql? ==
 
   def hash
-    [object, method, calls, args, body].hash
+    @hash ||= [object, method, calls, args, body].hash
   end
 
   protected

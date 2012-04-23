@@ -6,6 +6,10 @@
 # Implemented as an Enumerable over the expect blocks found in any of the
 # expectations blocks in the expectation file.
 class Lookout::Expectations
+  # Prepares the enumeration of the expect blocks found in the expectations
+  # file pointed to by the expanded _path_.
+  # @param [String] path
+  Value(:path)
   include Enumerable
 
   @@expectations = {}
@@ -17,7 +21,7 @@ class Lookout::Expectations
         begin
           Kernel.load path, true
         rescue LoadError => e
-          raise e, 'cannot load expectations from file: %s: no such file or directory' % path
+          raise e, 'cannot load expectations from file: no such file or directory', ['%s:0' % path]
         rescue SyntaxError => e
           raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
           raise SyntaxError, matches[2], [matches[1]] + e.backtrace
@@ -33,14 +37,6 @@ class Lookout::Expectations
       self
     end
   end
-
-  # Prepares the enumeration of the expect blocks found in the expectations
-  # file pointed to by the expanded _path_.
-  # @param [String] path
-  def initialize(path)
-    @path = path
-  end
-
   # @overload
   #   Enumerates the expect blocks.
   #
@@ -54,7 +50,7 @@ class Lookout::Expectations
   def each
     return enum_for(__method__) unless block_given?
     context = Lookout::Expectations::Context.new{ |expect| yield expect }
-    self.class.load(@path).each do |expectations|
+    self.class.load(path).each do |expectations|
       context.instance_eval(&expectations)
     end
     self

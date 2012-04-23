@@ -21,62 +21,42 @@ class Lookout::Exception::Backtrace
   # @param [Array<String>] backtrace
   # @param [Boolean] trim
   # @param [Boolean] filter
+  Value(:backtrace, :trim, :filter)
   def initialize(backtrace, trim, filter = ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'].nil?)
-    @backtrace = if nil == backtrace
-                   []
-                 elsif String === backtrace or Array === backtrace
-                   (String === backtrace ? [backtrace] : backtrace).map{ |line|
-                     begin
-                       Lookout::Encode.new(line).call
-                     rescue => e
-                       '(cannot retrieve backtrace entry: %s)' %
-                         Lookout::Exception.new(e).message
-                     end
-                   }
-                 else
-                   ['(backtrace is not an Array of String: %s)' %
-                      Lookout::Inspect.new(backtrace, 'backtrace').call]
-                 end
-    @trim, @filter = trim, filter
+    super(if nil == backtrace
+            []
+          elsif String === backtrace or Array === backtrace
+            (String === backtrace ? [backtrace] : backtrace).map{ |line|
+              begin
+                Lookout::Encode.new(line).call
+              rescue => e
+                '(cannot retrieve backtrace entry: %s)' %
+                  Lookout::Exception.new(e).message
+              end
+            }
+          else
+            ['(backtrace is not an Array of String: %s)' %
+             Lookout::Inspect.new(backtrace, 'backtrace').call]
+          end, trim, filter)
   end
 
   # @return [String] The concatenation of the backtrace entries
   def to_s
-    trim(backtrace.map{ |location| "\tfrom %s" % location }).join("\n")
-  end
-
-  def inspect
-    '%p.new(%p, %p, %p)' % [self.class, @backtrace, @trim, @filter]
-  end
-
-  # @param [Backtrace] other
-  # @return [Boolean] True if the receiver’s class, backtrace, and trim and
-  #   filter settings `#==` those of _other_
-  def ==(other)
-    self.class == other.class and backtrace == other.backtrace
-  end
-
-  alias eql? ==
-
-  def hash
-    backtrace.hash
-  end
-
-  protected
-
-  def backtrace
-    return @backtrace unless @filter
-    before or outside or @backtrace
+    trimmed(filtered.map{ |location| "\tfrom %s" % location }).join("\n")
   end
 
   private
 
+  def filtered
+    (filter and (before or outside)) or backtrace
+  end
+
   def before
-    nilify(@backtrace.take_while{ |location| not reject? location })
+    nilify(backtrace.take_while{ |location| not reject? location })
   end
 
   def outside
-    nilify(@backtrace.reject{ |location| reject? location })
+    nilify(backtrace.reject{ |location| reject? location })
   end
 
   def nilify(backtrace)
@@ -87,14 +67,14 @@ class Lookout::Exception::Backtrace
     location.start_with? Root
   end
 
-  def trim(locations)
-    return locations unless @trim and locations.length > Head + Tail + 5
+  def trimmed(locations)
+    return locations unless trim and locations.length > Head + Tail + 5
     locations[0...Head] +
       ["\t ... %d levels ..." % (locations.length - Head - Tail)] +
       locations[-Tail..-1]
   end
 
-  Root = 4.times.reduce(__FILE__){ |path, _| File.dirname(path) }
+  Root = File.expand_path('../../..', __FILE__)
   Head = 8
   Tail = 5
 end

@@ -17,7 +17,7 @@ class Lookout::Expect::Lookout::Warning < Lookout::Expect::Object
         $VERBOSE = true
         begin
           super
-          @expected.expected.class.new(output.string)
+          expected.expected.class.new(output.string)
         ensure
           $VERBOSE = saved_verbose
         end

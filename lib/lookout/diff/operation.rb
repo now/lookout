@@ -4,11 +4,10 @@
 # old version of a sequence to the new in a “diff”.
 class Lookout::Diff::Operation
   # Initializes the operation with the slices of the _old_ and _new_ sequences.
-  # @param [Slice] old
-  # @param [Slice] new
-  def initialize(old, new)
-    @old, @new = old, new
-  end
+  # @param [Slice] old The slice of the old sequence
+  # @param [Slice] new slice of the new sequence
+  Value(:old, :new)
+  public :old, :new
 
   # @param [Integer] context
   # @return [Boolean] True if the operation is uninteresting to the actual
@@ -42,28 +41,9 @@ class Lookout::Diff::Operation
     false
   end
 
-  # @param [Operation] other
-  # @return [Boolean] True if the receiver’s class, {#old} and {#new} `#==`
-  #   those of _other_
-  def ==(other)
-    self.class == other.class and old == other.old and new == other.new
-  end
-
-  alias eql? ==
-
-  def hash
-    @hash ||= [old, new].hash
-  end
-
   def inspect
     '#<%s %p,%p>' % [self.class, old, new]
   end
-
-  # @return [Slice] The slice of the original sequence
-  attr_reader :old
-
-  # @return [Slice] The slice of the new sequence
-  attr_reader :new
 
   # Implements a double dispatch for enumerating operations, where _object_ is
   # sent the last part of the receiver’s class’ _name_ with the receiver as the

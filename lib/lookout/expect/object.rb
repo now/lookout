@@ -6,19 +6,16 @@
 # before the expect block is executed, or if the expect block should receive
 # other arguments than the default (being the expected value).
 class Lookout::Expect::Object
-  include Comparable
-
   # Sets up the expect block on _line_ in _file_ (the expanded path) to
   # expect the value that _expected_ wraps, and using the block’s result as the
   # actual result to pass to {Expected::Object#difference} when {#call}ed.
-  # @param [Expected::Object] expected
-  # @param [::String] file
-  # @param [::Integer] line
+  # @param [Expected::Object] expected The expected value wrapper
+  # @param [::String] file The expanded path to the file containing the expectation
+  # @param [::Integer] line The line in {#file} on which the expectation is defined
   # @yieldparam [::Object] expected
   # @yieldreturn [::Object]
-  def initialize(expected, file, line, &block)
-    @expected, @file, @line, @block = expected, file, line, block
-  end
+  Value(:expected, :file, :line, :'&block')
+  include Comparable
 
   # Evaluates the expect block and checks for differences between its result
   # and the expected value.
@@ -40,13 +37,7 @@ class Lookout::Expect::Object
       0
   end
 
-  protected
-
-  # @return [::String] The expanded path to the file containing the expectation
-  attr_reader :file
-
-  # @return [::Integer] The line in {#file} on which the expectation is defined
-  attr_reader :line
+  alias eql? ==
 
   private
 
@@ -57,8 +48,8 @@ class Lookout::Expect::Object
   # @see Context
   def evaluate_block(*args)
     (args.empty? ?
-     Context.new(@expected.expected, &@block) :
-     Context.new(*args, &@block)).evaluate
+     Context.new(expected.expected, &block) :
+     Context.new(*args, &block)).evaluate
   end
 
   # Checks for differences between the _actual_ result of evaluating the expect
@@ -69,7 +60,7 @@ class Lookout::Expect::Object
   # @return [Results::Failure] If there are differences between the actual
   #   result and the expected value
   def check(actual)
-    (difference = @expected.difference(actual)) ?
+    (difference = expected.difference(actual)) ?
       Lookout::Results::Failure.new(file, line, difference) :
       Lookout::Results::Success.new(file, line)
   end

@@ -2,14 +2,14 @@
 
 # Slice (subsequence) of a sequence being “diffed”.
 class Lookout::Diff::Slice
-  include Enumerable, Comparable
-
   # Initializes a slice of _items_ encompassing _range_.
   # @param [Enumerable] items
   # @param [Range] range
+  Value(:items, :range)
   def initialize(items, range = 0...items.size)
-    @items, @range = items, range.exclude_end? ? range.begin..range.end - 1 : range
+    super items, range.exclude_end? ? range.begin..range.end - 1 : range
   end
+  include Enumerable, Comparable
 
   # @return True if {#size} < 1
   def empty?
@@ -142,15 +142,7 @@ class Lookout::Diff::Slice
 
   alias eql? ==
 
-  def hash
-    @hash ||= [items, self.begin, self.end].hash
-  end
-
   def inspect
     '%p[%p]' % [items, range]
   end
-
-  protected
-
-  attr_reader :items, :range
 end

@@ -8,6 +8,7 @@ class Lookout::Mock::Method::Arguments
   # Sets up the expected _args_ to a mock method.  If _args_ is #empty?, {Any}
   # will be used.  If _args_ contains an {Any} or a {None}, they’ll be used.
   # Otherwise, _args_ will be wrapped in a {List}.  @param [Object, …] *args
+  Value(:'*args')
   def initialize(*args)
     @args = if args.empty? then Any.new
             elsif any = args.find{ |e| Any === e } then any
@@ -26,19 +27,6 @@ class Lookout::Mock::Method::Arguments
       raise Error, 'unexpected arguments ([%s]≠[%s])' % [List.new(*args), self.args]
   end
 
-  # @param [Arguments] other
-  # @return [Boolean] True if the receiver’s class and expected arguments `#==`
-  #   those of _other_
-  def ==(other)
-    self.class == other.class and args == other.args
-  end
-
-  alias eql? ==
-
-  def hash
-    args.hash
-  end
-
   # @return [String] The arguments as a String argument list
   def to_s
     (result = args.to_s).empty? ? result : '(%s)' % result
@@ -48,8 +36,4 @@ class Lookout::Mock::Method::Arguments
   def to_a
     args.to_a
   end
-
-  protected
-
-  attr_reader :args
 end

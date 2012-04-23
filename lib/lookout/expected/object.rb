@@ -7,10 +7,9 @@
 # difference checks and difference report generation.
 class Lookout::Expected::Object
   # Wraps the _expected_ value.
-  # @param [::Object] expected
-  def initialize(expected)
-    @expected = expected
-  end
+  # @param [::Object] expected The expected value
+  Value(:expected)
+  public :expected
 
   # @param (see Expect::Object#initialize)
   # @yieldparam (see Expect::Object#initialize)
@@ -28,20 +27,4 @@ class Lookout::Expected::Object
   def difference(actual)
     Lookout::Difference::Object.new(actual, expected) unless expected == actual
   end
-
-  # @param [Object] other
-  # @return [Boolean] True if the receiver’s class and {#expected} `#==` those
-  #   of _other_
-  def ==(other)
-    self.class == other.class and expected == other.expected
-  end
-
-  alias eql? ==
-
-  def hash
-    expected.hash
-  end
-
-  # @return [::Object] The expected value
-  attr_reader :expected
 end

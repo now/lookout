@@ -51,7 +51,7 @@ class Lookout::Stub::Method::Defined::Definition
   alias eql? ==
 
   def hash
-    [object, method, visibility, unbound].hash
+    @hash ||= [object, method, visibility, unbound].hash
   end
 
   protected

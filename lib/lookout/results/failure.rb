@@ -9,31 +9,11 @@ class Lookout::Results::Failure
   # The _difference_ report between the actual result and the expected value
   # will be used to display this information to the user.
   # @param [Difference::Object] difference
-  def initialize(file, line, difference)
-    super file, line
-    @difference = difference
-  end
-
-  # @param [Failure] other
-  # @return [Boolean] True if the receiver’s class, {#file}, {#line} and
-  #   difference report `#==` that of _other_
-  def ==(other)
-    super and difference == other.difference
-  end
-
-  alias eql? ==
-
-  def hash
-    @hash ||= super ^ difference.hash
-  end
+  Value(:file, :line, :difference, :comparable => [:file, :line])
 
   def to_s
     [super, difference_to_s].join(': ')
   end
-
-  protected
-
-  attr_reader :difference
 
   private
 

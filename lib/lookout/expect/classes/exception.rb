@@ -13,13 +13,13 @@ class Lookout::Expect::Classes::Exception < Lookout::Expect::Object
   def call
     begin
       result = evaluate_block
-    rescue @expected.expected
+    rescue expected.expected
       return Lookout::Results::Success.new(file, line)
     rescue Exception => e
       return Lookout::Results::Error.
         new(file,
             line,
-            @expected.difference(Lookout::Exception.new(e).type).message,
+            expected.difference(Lookout::Exception.new(e).type).message,
             e)
     end
     check(result)

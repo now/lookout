@@ -5,13 +5,10 @@
 # relation to other matches in the sequence of matches.  Empty copy operations
 # will never be a part of this sequence.
 class Lookout::Diff::Operations
-  include Enumerable
-
   # Initializes a sequence of operations based on _matches_.
   # @param [Matches] matches
-  def initialize(matches)
-    @matches = matches
-  end
+  Value(:matches)
+  include Enumerable
 
   # @overload
   #   Enumerates the operations.
@@ -36,21 +33,4 @@ class Lookout::Diff::Operations
     end
     self
   end
-
-  # @param [Operations] other
-  # @return [Boolean] True if the receiver’s class and matches `#==` those of
-  #   _other_
-  def ==(other)
-    self.class == other.class and matches == other.matches
-  end
-
-  alias eql? ==
-
-  def hash
-    matches.hash
-  end
-
-  protected
-
-  attr_reader :matches
 end

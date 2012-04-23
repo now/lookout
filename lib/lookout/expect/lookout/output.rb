@@ -10,6 +10,6 @@ class Lookout::Expect::Lookout::Output < Lookout::Expect::Object
   def evaluate_block
     output = StringIO.new
     super output
-    @expected.expected.class.new(output.string)
+    expected.expected.class.new(output.string)
   end
 end
