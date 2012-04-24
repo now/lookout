@@ -1,24 +1,24 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout/rake/tasks'
+require 'lookout/rake/tasks-1.0'
 
 Expectations do
-  expect '-w -Ilib -- %s -rtest -- test/unit/test.rb test/unit/test/version.rb' %
+  expect '-w -Ilib -- %s -rtest-1.0 -- test/unit/test-1.0.rb test/unit/test/version.rb' %
       Lookout::Rake::Tasks::Test::LoaderPath do
     command = nil
     Rake.application = Rake::Application.new
-    Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(0, 1, 0, 'test/lib/test/version.rb')){ |t|
+    Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(1, 0, 0, 'test/lib/test/version.rb')){ |t|
       stub(t).ruby{ |s| command = s }
     }
     Rake.application[:test].invoke
     command
   end
 
-  expect '-w -Ilib -- %s -rtest -l123 -- test/unit/test.rb test/unit/test/version.rb' %
+  expect '-w -Ilib -- %s -rtest-1.0 -l123 -- test/unit/test-1.0.rb test/unit/test/version.rb' %
       Lookout::Rake::Tasks::Test::LoaderPath do
     command = nil
     Rake.application = Rake::Application.new
-    Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(0, 1, 0, 'test/lib/test/version.rb')){ |t|
+    Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(1, 0, 0, 'test/lib/test/version.rb')){ |t|
       stub(t).ruby{ |s| command = s }
     }
     with_environment 'LINE' => '123' do
@@ -27,22 +27,22 @@ Expectations do
     command
   end
 
-  expect '-w -Ilib -- %s -rtest -c -- test/unit/test.rb test/unit/test/version.rb' %
+  expect '-w -Ilib -- %s -rtest-1.0 -c -- test/unit/test-1.0.rb test/unit/test/version.rb' %
       Lookout::Rake::Tasks::Test::LoaderPath do
     command = nil
     Rake.application = Rake::Application.new
-    Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(0, 1, 0, 'test/lib/test/version.rb')){ |t|
+    Lookout::Rake::Tasks::Test.new(:inventory => Inventory.new(1, 0, 0, 'test/lib/test/version.rb')){ |t|
       stub(t).ruby{ |s| command = s }
     }
     Rake.application[:'test:coverage'].invoke
     command
   end
 
-  expect '-w -Ilib -- %s -rtest -- test/unit/test.rb test/unit/test/version.rb' %
+  expect '-w -Ilib -- %s -rtest-1.0 -- test/unit/test-1.0.rb test/unit/test/version.rb' %
       Lookout::Rake::Tasks::Test::LoaderPath do
     with_constant 'Inventory::Rake::Tasks', Module.new do
       stub(Inventory::Rake::Tasks).inventory{
-        Inventory.new(0, 1, 0, 'test/lib/test/version.rb')
+        Inventory.new(1, 0, 0, 'test/lib/test/version.rb')
       }
       stub($LOADED_FEATURES).any?{ true }
       command = nil

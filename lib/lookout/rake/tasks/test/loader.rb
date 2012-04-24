@@ -21,7 +21,7 @@ ARGV.each do |arg|
   end
 end
 
-require 'lookout'
+require 'lookout-3.0'
 
 failed = false
 files.each do |expanded, file|

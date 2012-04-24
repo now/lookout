@@ -38,7 +38,7 @@ class Lookout::Rake::Tasks::Test
     self.requires = options.fetch(:requires, [])
     self.files = options.fetch(:files){ ENV.include?('TEST') ? FileList[ENV['TEST']] : nil }
     inventory = options[:inventory] ||
-      (provided?('inventory/rake/tasks') and Inventory::Rake::Tasks.inventory) and
+      (provided?('inventory/rake/tasks-1.0') and Inventory::Rake::Tasks.inventory) and
       self.inventory = inventory
     self.specification = options.fetch(:specification) if options.include? :specification
     self.options = options.fetch(:options, %w'-w')

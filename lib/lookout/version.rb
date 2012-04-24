@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-require 'inventory'
+require 'inventory-1.0'
 
 module Lookout
   Version = Inventory.new(3, 0, 0){
     def requires
       %w'
         stringio
-        value
+        value-1.0
       '
     end
 
@@ -140,7 +140,7 @@ module Lookout
 
     def additional_libs
       super + %w'
-        lookout/rake/tasks.rb
+        lookout/rake/tasks-3.0.rb
         lookout/rake/tasks/test.rb
         lookout/rake/tasks/test/loader.rb
       '
