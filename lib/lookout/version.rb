@@ -139,12 +139,11 @@ module Lookout
     end
 
     def additional_libs
-      super +
-        %w'
-          lookout/rake/tasks.rb
-          lookout/rake/tasks/test.rb
-          lookout/rake/tasks/test/loader.rb
-        '
+      super + %w'
+        lookout/rake/tasks.rb
+        lookout/rake/tasks/test.rb
+        lookout/rake/tasks/test/loader.rb
+      '
     end
 
     def unit_tests
