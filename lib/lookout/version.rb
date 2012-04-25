@@ -4,10 +4,17 @@ require 'inventory-1.0'
 
 module Lookout
   Version = Inventory.new(3, 0, 0){
+    def dependencies
+      super + Inventory::Dependencies.new{
+        development 'yard', 0, 7, 0
+
+        runtime 'value', 1, 0, 0
+      }
+    end
+
     def requires
       %w'
         stringio
-        value-1.0
       '
     end
 
