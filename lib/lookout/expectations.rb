@@ -21,10 +21,16 @@ class Lookout::Expectations
         begin
           Kernel.load path, true
         rescue LoadError => e
-          raise e, 'cannot load expectations from file: no such file or directory', ['%s:0' % path]
+          raise e,
+            'cannot load expectations from file: %s' % e.message,
+            [(Array(e.backtrace).find{ |b| b.start_with? path } or '%s:0' % path)] +
+              Array(e.backtrace) unless e.message.end_with? path
+          raise e,
+            'cannot load expectations from file: no such file or directory',
+            ['%s:0' % path]
         rescue SyntaxError => e
-          raise unless matches = /\A(.*?:\d+): (.*)/m.match(e.message)
-          raise SyntaxError, matches[2], [matches[1]] + e.backtrace
+          raise unless matches = (/\A(.*?:\d+): (.*)/m.match(e.message) rescue nil)
+          raise SyntaxError, matches[2], [matches[1]] + Array(e.backtrace)
         end
         @@expectations[path]
       ensure
@@ -37,6 +43,7 @@ class Lookout::Expectations
       self
     end
   end
+
   # @overload
   #   Enumerates the expect blocks.
   #

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'lookout/rake/tasks-1.0'
+require 'lookout/rake/tasks-3.0'
 
 Expectations do
   expect '-w -Ilib -- %s -rtest-1.0 -- test/unit/test-1.0.rb test/unit/test/version.rb' %
