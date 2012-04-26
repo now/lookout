@@ -15,4 +15,6 @@ class Lookout::Encode
     return string unless (string.respond_to?(:encode) rescue true)
     string.encode('UTF-8')
   end
+
+  alias to_s call
 end
