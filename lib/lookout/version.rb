@@ -8,9 +8,10 @@ module Lookout
       super + Inventory::Dependencies.new{
         development 'inventory-rake', 1, 2, 0
         development 'lookout-rake', 3, 0, 0
+        development 'value-yard', 1, 1, 0
         development 'yard', 0, 7, 0
 
-        runtime 'value', 1, 0, 0
+        runtime 'value', 1, 1, 0
       }
     end
 
