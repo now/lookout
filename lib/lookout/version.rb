@@ -6,6 +6,8 @@ module Lookout
   Version = Inventory.new(3, 0, 0){
     def dependencies
       super + Inventory::Dependencies.new{
+        development 'inventory-rake', 1, 2, 0
+        development 'lookout-rake', 3, 0, 0
         development 'yard', 0, 7, 0
 
         runtime 'value', 1, 0, 0
@@ -144,20 +146,6 @@ module Lookout
         lookout/results/failure.rb
         lookout/results/success.rb
         lookout/warning.rb
-      '
-    end
-
-    def additional_libs
-      super + %w'
-        lookout/rake/tasks-3.0.rb
-        lookout/rake/tasks/test.rb
-        lookout/rake/tasks/test/loader.rb
-      '
-    end
-
-    def unit_tests
-      super - %w'
-        lookout/rake/tasks/test/loader.rb
       '
     end
 

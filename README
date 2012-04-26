@@ -524,62 +524,21 @@
 
 § Integration
 
-    Lookout can be used from Rake¹.  Simply include the following code in
-    your ‹Rakefile›:
+    Lookout can be used from Rake¹.  Simply install Lookout-Rake²:
 
-      require 'lookout/rake/tasks'
+      % gem install lookout-rake
+
+    and add the following code to your Rakefile
+
+      require 'lookout/rake-3.0'
 
       Lookout::Rake::Tasks::Test.new
 
-    If the ‹:default› task hasn’t been defined it’ll be set to depend on the
-    ‹:test› task.  The ‹:check› task will also depend on the ‹:test› task.
-    There’s also a ‹:test:coverage› task that gets defined that uses the
-    coverage library that comes with Ruby 1.9 to check the test coverage when
-    the tests are run.
-
-    You can hook up your test task to use your Inventory²:
-
-      require 'library/version.rb'
-
-      Lookout::Rake::Tasks::Test.new :inventory => Library::Version
-
-    Also, if you use the tasks that come with Inventory, the test task will
-    hook into the inventory you tell them to use automatically.
-
-    To use Lookout together with Vim³, place ‹contrib/rakelookout.vim› in
-    ‹~/.vim/compiler› and add
-
-      compiler rakelookout
-
-    to ‹~/.vim/after/ftplugin/ruby.vim›.  Executing ‹:make› from inside Vim
-    will now run your tests and an errors and failures can be visited with
-    ‹:cnext›.  Execute ‹:help quickfix› for additional information.
-
-    Another useful addition to your ‹~/.vim/after/ftplugin/ruby.vim› file may
-    be
-
-      nnoremap <buffer> <silent> <Leader>M <Esc>:call <SID>run_test()<CR>
-      let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>M'
-
-      function! s:run_test()
-        let test = expand('%')
-        let line = 'LINE=' . line('.')
-        if test =~ '^lib/'
-          let test = substitute(test, '^lib/', 'test/', '')
-          let line = ""
-        endif
-        execute 'make' 'TEST=' . shellescape(test) line
-      endfunction
-
-    Now, pressing ‹<Leader>M› will either run all tests for a given class, if
-    the implementation file is active, or run the test at or just before the
-    cursor, if the test file is active.  This is useful if you’re currently
-    receiving a lot of errors and/or failures and want to focus on those
-    associated with a specific class or on a specific test.
+    Make sure to read up on using Lookout-Rake for further benefits and
+    customization.
 
 ¹ Read more about Rake at http://rake.rubyforge.org/
-² Get information on Inventory at http://disu.se/software/inventory/
-³ Find out more about Vim at http://www.vim.org/
+² Get information on Lookout-Rake at http://disu.se/software/lookout-rake/
 
 § Interface Design
 
