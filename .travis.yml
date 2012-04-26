@@ -1,6 +1,7 @@
 language: ruby
 before_script:
   - gem install inventory-rake -v '~> 1.2' --no-rdoc --no-ri
+  - gem install lookout-rake -v '~> 3.0' --no-rdoc --no-ri
   - rake gem:deps:install
 rvm:
   - 1.8.7
