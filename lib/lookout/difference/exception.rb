@@ -16,11 +16,10 @@ class Lookout::Difference::Exception < Lookout::Difference::Object
     super actual, expected
   end
 
-  # @return [Enumerable<String>] The result of {String#diff} between
+  # @return [Enumerable<String>, super] The result of {String#diff} between
   #   {#expected}’s message and {#actual}’s message if {#actual} and
   #   {#expected} are of the same class and {#expected} and {#actual}’s
-  #   messages are Strings
-  # @extension
+  #   messages are Strings, {super} otherwise
   def diff
     return super unless expected.class == actual.class and
       String === expected.message and
