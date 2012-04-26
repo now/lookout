@@ -25,6 +25,8 @@ class Lookout::Inspect
        end]
   end
 
+  alias to_s call
+
   private
 
   def inspect_object

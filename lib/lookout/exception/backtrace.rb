@@ -36,7 +36,7 @@ class Lookout::Exception::Backtrace
             }
           else
             ['(backtrace is not an Array of String: %s)' %
-             Lookout::Inspect.new(backtrace, 'backtrace').call]
+             Lookout::Inspect.new(backtrace, 'backtrace')]
           end, trim, filter)
   end
 

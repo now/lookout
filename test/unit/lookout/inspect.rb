@@ -5,6 +5,14 @@ Expectations do
     Lookout::Inspect.new('v', 'value').call
   end
 
+  expect '"v"' do
+    '%s' % Lookout::Inspect.new('v', 'value')
+  end
+
+  expect '"v"' do
+    [Lookout::Inspect.new('v', 'value')].join('')
+  end
+
   if ''.respond_to? :encode
     expect Encoding::UTF_8 do
       Lookout::Inspect.new('v'.encode('ASCII-8BIT'), 'value').call.encoding
