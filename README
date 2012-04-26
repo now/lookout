@@ -655,7 +655,7 @@
     support for mocks in Lookout is provided through a set of test helper
     methods that make it easier to create mocks than it would have been without
     them.  Lookout-rack³ is another example of a library providing test helper
-    methods (well, one of method, actually) that are very useful in testing web
+    methods (well, one method, actually) that are very useful in testing web
     applications that use Rack⁴.
 
     A final point at which some unit test frameworks try to fragment tests
