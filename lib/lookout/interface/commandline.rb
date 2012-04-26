@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 
+# Command-line interface to Lookout.
 class Lookout::Interface::Commandline
+  # Processes _arguments_, looking for options, running from the directory
+  # _pwd_ and outputting results to _io_.
+  #
+  # Valid arguments are
+  #
+  # * --: Stops processing of options, treating remaining arguments as files
+  # * -rFEATURE: Requires _FEATURE_
+  # * -lLINE: Only runs expectation closest before or on _LINE_
+  # * -c: Reports test coverage
+  # * FILENAME: Loads expectations from _FILENAME_, relative to _pwd_
+  #
+  # @param [Array<String>] arguments
+  # @param [String] pwd
+  # @param [IO] io
+  # @raise [ArgumentError] If an unknown option exists among _arguments_
   def initialize(arguments = ARGV, pwd = Dir.pwd, io = $stderr)
     @pwd, @io = pwd, io
     @line = nil
@@ -25,6 +41,11 @@ class Lookout::Interface::Commandline
     end
   end
 
+  # Requires requested features, sets up coverage reporting, if desired, and
+  # checks the requested expectations.  Coverage reporting will only be done if
+  # all expectations passed.
+  #
+  # @return [Boolean] True if all expectations passed
   def call
     require
     coverage do

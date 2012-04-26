@@ -21,9 +21,9 @@
 # {Exception}s and {Inspect}ions of objects is used, as well as making sure to
 # {Encode} any output properly.
 #
-# Support for {Rake} is also built in, adding a {Rake::Tasks::Test} task that
-# allows things to be easily set up and tries to avoid querying the filesystem
-# unnecessarily.
+# There’s a command-line interface defined in {Interface::Commandline} that can
+# be used by other interfaces that want to invoke Lookout on a set of files.
+# It’s used by the {http://disu.se/software/lookout-rake Lookout-Rake} library.
 module Lookout
   class << self
     def location(location)
