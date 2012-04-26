@@ -152,7 +152,7 @@ class Lookout::Rake::Tasks::Test
                           requires.uniq.map{ |r| '-r%s' % r }.
                             concat(line).concat(arguments).
                             push('--').
-                          concat(files.map{ |e| escape(e) }).join(' ')]
+                            concat(files.map{ |e| escape(e) }).join(' ')]
   end
 
   def line
