@@ -27,12 +27,6 @@ class Lookout::Results::Failure
                                          difference.expected).message,
          e]
     end
-    return 'the actual result differed from the expected value when the
-            expectation was executed, but now either one or both have changed
-            in a way that they now no longer appear different, possibly due to
-            timing-dependent or interoperating expectations; to get a
-            meaningful difference report, make sure that these values don’t
-            change after the expectation is executed'.gsub(/\n\s+/, ' ') if m.empty?
     begin
       d = difference.diff.to_a.join("\n")
     rescue => e
