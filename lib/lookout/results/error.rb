@@ -15,6 +15,6 @@ class Lookout::Results::Error
   public :message, :exception
 
   def to_s
-    [super, message, exception].compact.join(': ')
+    [super, message, exception.format].compact.join(': ')
   end
 end

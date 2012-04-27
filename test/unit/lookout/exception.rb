@@ -90,6 +90,6 @@ Expectations do
   end
 
   expect "line 1 (StandardError)\nline 2\n\tfrom a:1\n\tfrom b:2" do
-    Lookout::Exception.new(StandardError.new("line 1\nline 2").tap{ |e| e.set_backtrace ['a:1', 'b:2'] }).to_s
+    Lookout::Exception.new(StandardError.new("line 1\nline 2").tap{ |e| e.set_backtrace ['a:1', 'b:2'] }).format
   end
 end

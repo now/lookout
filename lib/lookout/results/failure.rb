@@ -25,7 +25,7 @@ class Lookout::Results::Failure
       return '%s (cannot generate more specific failure message: %s)' %
         [Lookout::Difference::Object.new(difference.actual,
                                          difference.expected).message,
-         e.message]
+         e]
     end
     return 'the actual result differed from the expected value when the
             expectation was executed, but now either one or both have changed
@@ -36,7 +36,7 @@ class Lookout::Results::Failure
     begin
       d = difference.diff.to_a.join("\n")
     rescue => e
-      d = '(cannot diff expected value and actual result: %s)' % e.message
+      d = '(cannot diff expected value and actual result: %s)' % e
     end
     d.empty? ? m : (d.include?("\n") ? "%s\n%s" : '%s: %s') % [m, d]
   end

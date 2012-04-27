@@ -24,6 +24,6 @@ class Lookout::Exception::Unknown
 
   def message
     @message ||= 'cannot determine class of exception: %s' %
-      Lookout::Exception.new(exception).message
+      Lookout::Exception.new(exception)
   end
 end

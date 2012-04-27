@@ -22,6 +22,8 @@ class Lookout::Exception
                         end)
   end
 
+  alias to_s message
+
   # @return [String] A heuristically generated UTF-8-encoded exception message
   #   “header”, possibly containing the exception message and the exception’s
   #   class’ name
@@ -61,12 +63,12 @@ class Lookout::Exception
                       Lookout::Encode.new(type.name).call
                     rescue => e
                      'cannot determine name of class of exception: %s' %
-                       self.class.new(e).message
+                       self.class.new(e)
                     end
   end
 
   # @return [String] The {#header} and {#backtrace} separated by a newline
-  def to_s
+  def format
     "%s\n%s" % [header, backtrace]
   end
 

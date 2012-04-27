@@ -31,7 +31,7 @@ class Lookout::Exception::Backtrace
                 Lookout::Encode.new(line).call
               rescue => e
                 '(cannot retrieve backtrace entry: %s)' %
-                  Lookout::Exception.new(e).message
+                  Lookout::Exception.new(e)
               end
             }
           else

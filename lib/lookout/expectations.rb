@@ -22,7 +22,7 @@ class Lookout::Expectations
           Kernel.load path, true
         rescue LoadError => e
           raise e,
-            'cannot load expectations from file: %s' % e.message,
+            'cannot load expectations from file: %s' % e,
             [(Array(e.backtrace).find{ |b| b.start_with? path } or '%s:0' % path)] +
               Array(e.backtrace) unless e.message.end_with? path
           raise e,
