@@ -5,26 +5,6 @@ Expectations do
     Lookout::Results::Failure.new('test', 1, 1.to_lookout_expected.difference(2)).to_s
   end
 
-  expect 'test:1: 2≠1 (cannot generate more specific failure message: error)' do
-    Lookout::Results::Failure.
-      new('test', 1,
-          Class.new(Lookout::Difference::Object){
-            def message
-              raise 'error'
-            end
-          }.new(2, 1)).to_s
-  end
-
-  expect 'test:1: 2≠1: (cannot diff expected value and actual result: error)' do
-    Lookout::Results::Failure.
-      new('test', 1,
-          Class.new(Lookout::Difference::Object){
-            def diff
-              raise 'error'
-            end
-          }.new(2, 1)).to_s
-  end
-
   expect 'test:1: "b"≠"a": [-b-]{+a+}' do
     Lookout::Results::Failure.new('test', 1, 'a'.to_lookout_expected.difference('b')).to_s
   end

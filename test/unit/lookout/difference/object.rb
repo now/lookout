@@ -12,4 +12,20 @@ Expectations do
   expect 'nil≠(cannot inspect expected value: error)' do
     Lookout::Expected::Object.new(stub(:inspect => proc{ raise 'error' })).difference(nil).message
   end
+
+  expect '2≠1 (cannot generate more specific failure message: error)' do
+    Class.new(Lookout::Difference::Object){
+      def message
+        raise 'error'
+      end
+    }.new(2, 1).to_s
+  end
+
+  expect '2≠1: (cannot diff expected value and actual result: error)' do
+    Class.new(Lookout::Difference::Object){
+      def diff
+        raise 'error'
+      end
+    }.new(2, 1).to_s
+  end
 end

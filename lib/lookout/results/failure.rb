@@ -12,26 +12,6 @@ class Lookout::Results::Failure
   Value(:file, :line, :difference, :comparable => [:file, :line])
 
   def to_s
-    [super, difference_to_s].join(': ')
-  end
-
-  private
-
-  def difference_to_s
-    begin
-      m = difference.message
-    rescue => e
-      raise if difference.class == Lookout::Difference::Object rescue true
-      return '%s (cannot generate more specific failure message: %s)' %
-        [Lookout::Difference::Object.new(difference.actual,
-                                         difference.expected).message,
-         e]
-    end
-    begin
-      d = difference.diff.to_a.join("\n")
-    rescue => e
-      d = '(cannot diff expected value and actual result: %s)' % e
-    end
-    d.empty? ? m : (d.include?("\n") ? "%s\n%s" : '%s: %s') % [m, d]
+    [super, difference].join(': ')
   end
 end

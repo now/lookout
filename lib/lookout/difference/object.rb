@@ -28,6 +28,25 @@ class Lookout::Difference::Object
     []
   end
 
+  # @return [::String] The concatenation of {#message} and {#diff}
+  # @note This method should not be overridden by subclasses, as it goes to
+  #   some lengths to safely return a String for display.
+  def to_s
+    begin
+      m = message
+    rescue => e
+      raise if self.class == Lookout::Difference::Object rescue true
+      return '%s (cannot generate more specific failure message: %s)' %
+        [Lookout::Difference::Object.new(actual, expected).message, e]
+    end
+    begin
+      d = diff.to_a.join("\n")
+    rescue => e
+      d = '(cannot diff expected value and actual result: %s)' % e
+    end
+    d.empty? ? m : [m, d].join(d.include?("\n") ? "\n" : ': ')
+  end
+
   # @return True if the receiver’s class, {#message}, and {#diff} equal those
   #   of _other_
   def ==(other)
