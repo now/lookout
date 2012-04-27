@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 require 'inventory/rake-1.0'
-require 'lookout/rake-3.0'
 
 load File.expand_path('../lib/lookout/version.rb', __FILE__)
 
@@ -10,47 +9,16 @@ Inventory::Rake::Tasks.define Lookout::Version, :gem => proc{ |_, s|
   s.email = 'now@bitwi.se'
   s.homepage = 'https://github.com/now/lookout'
 }
-Lookout::Rake::Tasks::Test.new do |t|
-  ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'] = ''
-end
 
-class Yard
-  include Rake::DSL
-
-  def initialize(options = {})
-    require 'shellwords'
-    self.name = options.fetch(:name, :html)
-    self.options = options.fetch(:options, Shellwords.split('--no-private --protected --private --query "(!object.docstring.blank?&&!(YARD::CodeObjects::NamespaceObject===object.namespace&&(a=object.namespace.aliases[object])&&object.name==:eql?&&a==:==)&&!(object.visibility!=:public&&((@return.text==\'\'&&@return.types==%w\'Boolean\')||object.docstring.start_with?(\'Returns the value of attribute \', \'Sets the attribute \')||(@raise&&@raise.types=[]))))||object.root?" --markup markdown --no-stats'))
-    self.options += Shellwords.split(ENV['OPTIONS']) if ENV.include? 'OPTIONS'
-    self.inventory = options.fetch(:inventory, Inventory::Rake::Tasks.inventory)
-    self.files = options.fetch(:files){ ENV.include?('FILES') ? FileList[ENV['FILES']] : inventory.lib_files }
-    yield self if block_given?
-    define
+Inventory::Rake::Tasks.unless_installing_dependencies do
+  require 'lookout/rake-3.0'
+  Lookout::Rake::Tasks::Test.new do |t|
+    ENV['LOOKOUT_DO_NOT_FILTER_BACKTRACE'] = ''
   end
 
-  attr_accessor :name, :options, :files, :inventory
-
-  def define
-    desc name == :html ?
-      'Generate documentation in HTML format' :
-      'Generate documentation for %s in HTML format' % name
-    task name do
-      require 'yard'
-      require 'value/yard-1.0'
-      yardoc = YARD::CLI::Yardoc.new
-      yardoc.parse_arguments(*arguments)
-      yardoc.options[:files] = []
-      yardoc.options[:readme] = nil
-      yardoc.options[:source_code_url] = 'https://github.com/now/lookout/blob/master/%s#L%d'
-      Rake.rake_output_message 'yard doc %s' % Shellwords.join(arguments(yardoc.yardopts)) if verbose
-      yardoc.run(nil)
-    end
-  end
-
-  private
-
-  def arguments(additional = [])
-    options.dup.concat(additional).push('--').concat(files)
+  require 'inventory/rake/tasks/yard-1.0'
+  Inventory::Rake::Tasks::YARD.new do |t|
+    t.options += %w'-e value/yard-1.0'
+    t.globals[:source_code_url] = 'https://github.com/now/%s/blob/v%s/%%s#L%%d' % [t.inventory.package, t.inventory]
   end
 end
-Yard.new
