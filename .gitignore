@@ -2,4 +2,4 @@
 *.gemspec
 doc/
 .yardoc/
-.yardopts
+.yardopts.html
