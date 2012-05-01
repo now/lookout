@@ -13,7 +13,7 @@ class Lookout::Expect::Object::Context::Stub < Lookout::Aphonic
   private
 
   # @param (see Stub::Methods#define)
-  # @param [::Object, …] *args Any additional arguments
+  # @param [::Object, …] args Any additional arguments
   # @return [::Object] The object with _method_ stubbed upon it, using _body_
   #   as the method definition
   # @raise [ArgumentError] If any additional arguments are given

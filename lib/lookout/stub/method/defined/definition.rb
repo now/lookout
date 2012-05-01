@@ -6,7 +6,7 @@ class Lookout::Stub::Method::Defined::Definition
   # it with _body_, maintaining its visibility.
   # @param [Object] object
   # @param [Symbol] method
-  # @param [Proc] &body
+  # @param [Proc] body
   def initialize(object, method, &body)
     @object, @method = object, method
     @visibility, @unbound = meta_exec{

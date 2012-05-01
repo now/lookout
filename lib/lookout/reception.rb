@@ -8,8 +8,8 @@ class Lookout::Reception
   # method definition.
   # @param [Object] object
   # @param [Symbol] method
-  # @param [Object, …] *args
-  # @param [Proc] &body
+  # @param [Object, …] args
+  # @param [Proc] body
   def initialize(object, method, *args, &body)
     @object, @method, @args, @body = object, method, args, body
     at_least_once

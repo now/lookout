@@ -19,9 +19,9 @@ module Lookout::Expect
     # @param [::Object] expected
     # @param [::String] file
     # @param [::Integer] line
-    # @param [Proc] &block
+    # @param [Proc] block
     # @return [Object] The result of calling
-    #   _expected_#to_lookout_expected#expect(_file_, _line_, _&block_)
+    #   _expected_#to_lookout_expected#expect(_file_, _line_, &_block_)
     def expect(expected, file, line, &block)
       begin
         expected.to_lookout_expected

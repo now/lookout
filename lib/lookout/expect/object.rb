@@ -29,7 +29,7 @@ class Lookout::Expect::Object
 
   private
 
-  # @param [::Object, …] *args
+  # @param [::Object, …] args
   # @return [::Object] The actual result of evaluating the expect block in the
   #   proper context, passing _args_, which defaults to the expected value, to
   #   it

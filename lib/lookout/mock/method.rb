@@ -6,7 +6,7 @@ module Lookout::Mock::Method
   # times with _args_ and using _body_ as the method definition.
   # @param (see Stub::Method#initialize)
   # @param [Calls] calls
-  # @param [Object, …] *args
+  # @param [Object, …] args
   # @see Stub::Method::Defined#initialize
   def initialize(object, method, calls, *args, &body)
     super object, method, &body

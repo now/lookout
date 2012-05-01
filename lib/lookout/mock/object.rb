@@ -10,7 +10,7 @@ class Lookout::Mock::Object < Lookout::Stub::Object
   private
 
   # @param [Symbol] method
-  # @param [Object, …] *args
+  # @param [Object, …] args
   # @raise [Method::Calls::TooManyError] When called, including the _method_
   #   that was called and with what _args_ in the messaged and with the proper
   #    backtrace, making it easy to see where things went wrong

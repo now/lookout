@@ -36,7 +36,7 @@ class Lookout::Stub::Object
 
   # Ignores any method calls that it doesn’t know anything about.
   # @param [Symbol] method
-  # @param [Object, …] *args
+  # @param [Object, …] args
   # @return [self]
   def method_missing(method, *args)
     self
