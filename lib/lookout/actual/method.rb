@@ -17,16 +17,18 @@ class Lookout::Actual::Method
     actual.__send__(method, *args, &block)
   end
 
-  def to_s
-    '#%s%s%s' % [method,
-                 args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
-                 block ? '{ … }' : '']
-  end
-
   # @return [Expected::Lookout::Actual::Method] An expected value wrapper of
   #   the receiver
   def to_lookout_expected
     Lookout::Expected::Lookout::Actual::Method.new(self)
+  end
+
+  # @return A string of the form “#_method_(_args_){ … }”, depending on if any
+  #   arguments or block has been given
+  def to_s
+    '#%s%s%s' % [method,
+                 args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
+                 block ? '{ … }' : '']
   end
 
   alias inspect to_s
