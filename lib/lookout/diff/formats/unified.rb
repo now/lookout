@@ -17,7 +17,7 @@ class Lookout::Diff::Formats::Unified
   #
   #   @yieldparam [String] string
   # @overload
-  #   @return [Enumerator] An Enumerator over the formatted groups
+  #   @return [Enumerator<String>] An Enumerator over the formatted groups
   def each
     return enum_for(__method__) unless block_given?
     groups.each do |group|

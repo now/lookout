@@ -20,7 +20,7 @@ class Lookout::Diff::Formats::Inline
   #
   #   @yieldparam [String] string
   # @overload
-  #   @return [Enumerator] An Enumerator over the formatted operations
+  #   @return [Enumerator<String>] An Enumerator over the formatted operations
   def each
     return enum_for(__method__) unless block_given?
     yield to_s

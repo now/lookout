@@ -41,7 +41,7 @@ class Lookout::Diff::Group
   #
   #   @yieldparam [Operation] operation
   # @overload
-  #   @return [Enumerator] An Enumerator over the operations
+  #   @return [Enumerator<Operation>] An Enumerator over the operations
   def each
     return enum_for(__method__) unless block_given?
     operations.each do |operation|

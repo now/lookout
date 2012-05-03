@@ -31,8 +31,8 @@ class Lookout::Diff::Algorithms::Difflib
   #
   #   @yieldparam [Match] match
   # @overload
-  #   @return [Enumerator] An Enumerator over the matches between the two
-  #     sequences
+  #   @return [Enumerator<Match>] An Enumerator over the matches between the
+  #     two sequences
   def each
     return enum_for(__method__) unless block_given?
     current = Lookout::Diff::Match.new(Lookout::Diff::Slice.new(old, 0...0),

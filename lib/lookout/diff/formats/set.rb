@@ -17,7 +17,7 @@ class Lookout::Diff::Formats::Set
   #
   #   @yieldparam [String] string
   # @overload
-  #   @return [Enumerator] An Enumerator over the formatted operations
+  #   @return [Enumerator<String>] Enumerator over the formatted operations
   def each
     return enum_for(__method__) unless block_given?
     operations.each do |op|

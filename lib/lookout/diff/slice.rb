@@ -76,7 +76,7 @@ class Lookout::Diff::Slice
   #
   #   @yieldparam element
   # @overload
-  #   @return [Enumerator] An Enumerator over the encompassed elements
+  #   @return [Enumerator<Object>] An Enumerator over the encompassed elements
   def each
     return enum_for(__method__) unless block_given?
     range.each do |index|
@@ -91,8 +91,8 @@ class Lookout::Diff::Slice
   #   @yieldparam element
   #   @yieldparam [Integer] index
   # @overload
-  #   @return [Enumerator] An Enumerator over the encompassed elements and
-  #     their indexes
+  #   @return [Enumerator<Object, Integer>] An Enumerator over the encompassed
+  #     elements and their indexes
   def each_with_index
     return enum_for(__method__) unless block_given?
     range.each do |index|
@@ -101,7 +101,7 @@ class Lookout::Diff::Slice
     self
   end
 
-  # @return [Enumerable] The encompassed elements
+  # @return [Enumerable<Object>] The encompassed elements
   def to_items
     items[range]
   end

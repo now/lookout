@@ -17,7 +17,7 @@ class Lookout::Diff::Groups
   #
   #   @yieldparam [Group] group
   # @overload
-  #   @return [Enumerator] An Enumerator over the groups of operations
+  #   @return [Enumerator<Group>] An Enumerator over the groups of operations
   def each
     return enum_for(__method__) unless block_given?
     saved = nil

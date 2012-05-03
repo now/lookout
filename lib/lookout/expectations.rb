@@ -52,7 +52,7 @@ class Lookout::Expectations
   #     exceptions are caught and turned into failing expect blocks, located at
   #     the source of the exception
   # @overload
-  #   @return [Enumerator] An Enumerator over the expect blocks
+  #   @return [Enumerator<Expect::Object>] An Enumerator over the expect blocks
   def each
     return enum_for(__method__) unless block_given?
     context = Lookout::Expectations::Context.new{ |expect| yield expect }
