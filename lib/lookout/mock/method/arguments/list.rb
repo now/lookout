@@ -4,7 +4,7 @@
 # {Lookout::Difference} to do the actual work.
 class Lookout::Mock::Method::Arguments::List
   # Expects _args_.
-  # @param [Object, …] *args
+  # @param [Object, …] args
   Value(:'*args')
 
   # @param [Array<Object>] other

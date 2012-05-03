@@ -3,7 +3,7 @@
 # Ordered sequence of related {Operation}s; type enumerated by {Groups}.
 class Lookout::Diff::Group
   # Initializes the group with an initial sequence of _operations_.
-  # @param [Operation, …] *operations
+  # @param [Operation, …] operations
   Value(:'*operations')
   include Enumerable
 

@@ -6,8 +6,8 @@
 class Lookout::Actual::Method
   # Proxies _method_, passing in _args_ and _block_ when {#call}ed.
   # @param [Symbol] method
-  # @param [Object, …] *args
-  # @param [Proc] &block
+  # @param [Object, …] args
+  # @param [Proc] block
   Value(:method, :'*args', :'&block')
 
   # @param [Object] actual
