@@ -46,7 +46,6 @@ class Lookout::Diff::Slice
     end_at(other.begin - 1)
   end
 
-  # @param [Range] range
   # @return [Slice] A new slice encompassing _range_
   def at(range)
     self.class.new(items, range)
@@ -59,13 +58,11 @@ class Lookout::Diff::Slice
     at(self.begin..other.end)
   end
 
-  # @param [Integer] index
   # @return [Slice] A new slice beginning at _index_
   def begin_at(index)
     at(index..self.end)
   end
 
-  # @param [Integer] index
   # @return [Slice] A new slice ending at _index_
   def end_at(index)
     at(self.begin..index)
@@ -106,7 +103,6 @@ class Lookout::Diff::Slice
     items[range]
   end
 
-  # @param [Integer] index
   # @return The _index_’th element
   def [](index)
     items[index]

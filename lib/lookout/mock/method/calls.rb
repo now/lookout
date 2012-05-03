@@ -3,7 +3,6 @@
 # Tracks the range of expected method calls and the actual method calls made.
 class Lookout::Mock::Method::Calls
   # Allows a number of calls within _range_.
-  # @param [Range] range
   def initialize(range)
     @range = range
     @calls = 0

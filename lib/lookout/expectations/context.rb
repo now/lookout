@@ -56,13 +56,11 @@ class Lookout::Expectations::Context
     Lookout::Stub::Object.new(methods)
   end
 
-  # @param [String] string
   # @return [Output] An expected output wrapper around _string_
   def output(string)
     Lookout::Output.new(string)
   end
 
-  # @param [String] string
   # @return [Output] An expected warning wrapper around _string_
   def warning(string)
     Lookout::Warning.new(string)

@@ -29,7 +29,6 @@ class Lookout::Stub::Method::Defined
   private
 
   # @param [Object, …] args
-  # @param [Proc] block
   # @return [Object] The result of calling the method definition with _args_
   #   and _block_
   def call(*args, &block)

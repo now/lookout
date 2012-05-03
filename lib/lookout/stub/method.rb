@@ -6,7 +6,6 @@ module Lookout::Stub::Method
   # definition.
   # @param [Object] object
   # @param [Symbol] method
-  # @param [Proc] body
   Value(:object, :method, :'&body')
   def initialize(object, method, &body)
     super object, method.to_sym, &(body or Nil)

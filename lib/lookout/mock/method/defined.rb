@@ -20,7 +20,6 @@ class Lookout::Mock::Method::Defined < Lookout::Stub::Method::Defined
   private
 
   # @param [Object, …] args
-  # @param [Proc] block
   # @return [Object] The result of {super} after increasing the call count and
   #   checking for {Lookout::Difference differences} between the passed
   #   _args_ and the expected ones

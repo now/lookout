@@ -6,10 +6,8 @@
 class Lookout::Reception
   # Expects _method_ to be called on _object_ with _args_, using _body_ as the
   # method definition.
-  # @param [Object] object
   # @param [Symbol] method
   # @param [Object, …] args
-  # @param [Proc] body
   def initialize(object, method, *args, &body)
     @object, @method, @args, @body = object, method, args, body
     at_least_once

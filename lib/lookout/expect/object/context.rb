@@ -6,7 +6,6 @@ class Lookout::Expect::Object::Context
   # Evaluates _block_ inside this context, passing _args_ to it, when
   #   {#evaluate}d.
   # @param [::Object, …] args
-  # @param [Proc] block
   def initialize(*args, &block)
     @args, @block = args, block
     @stubs = nil

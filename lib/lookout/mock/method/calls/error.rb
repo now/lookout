@@ -7,7 +7,6 @@ class Lookout::Mock::Method::Calls::Error < Lookout::Mock::Error
   # and their expected _range_.
   # @param [String] message
   # @param [Integer] calls
-  # @param [Range] range
   def initialize(message, calls, range)
     super message
     @calls, @range = calls, range

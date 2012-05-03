@@ -46,7 +46,6 @@ class Lookout::Diff::Operation
   # Implements a double dispatch for enumerating operations, where _object_ is
   # sent the last part of the receiver’s class’ _name_ with the receiver as the
   # lone argument.
-  # @param [Object] object
   # @return The result of _object_#_name_(self)
   def apply(object)
     object.send(@apply ||= self.class.name.split('::').last.downcase.to_sym, self)
