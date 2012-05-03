@@ -19,7 +19,7 @@ class Lookout::Mock::Method::Arguments::Any
     self.class.hash
   end
 
-  # @return [String] The receiver as a String argument list
+  # @return The receiver as a String argument list
   def to_s
     '*args, &block'
   end

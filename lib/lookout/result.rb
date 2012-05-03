@@ -11,8 +11,7 @@ module Lookout::Result
   Value(:file, :line, :comparable => true)
   public :file, :line
 
-  # @return [String] A String formatted according to the GNU standard for
-  #   error messages
+  # @return A String formatted according to the GNU standard for error messages
   def to_s
     '%s:%d' % [file, line]
   end

@@ -14,7 +14,7 @@ class Lookout::Mock::Method::Arguments::List
     not args.to_lookout_expected.difference(other)
   end
 
-  # @return [String] The receiver as a String argument list
+  # @return The receiver as a String argument list
   def to_s
     Lookout::Inspect::Argument.list(*args)
   end

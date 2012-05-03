@@ -30,7 +30,6 @@ class Lookout::Diff::Algorithms::Difflib
   #   sequences.
   #
   #   @yieldparam [Match] match
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the matches between the two
   #     sequences

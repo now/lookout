@@ -40,7 +40,7 @@ class Lookout::Mock::Method::Calls
     [range, calls].hash
   end
 
-  # @return [String] A String representation of the expected number of calls
+  # @return A String representation of the expected number of calls
   def to_s
     if range.begin == range.end
       range.begin.to_s

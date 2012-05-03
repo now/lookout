@@ -16,7 +16,6 @@ class Lookout::Diff::Formats::Unified
   #   Enumerates the formatted groups.
   #
   #   @yieldparam [String] string
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the formatted groups
   def each
@@ -28,7 +27,7 @@ class Lookout::Diff::Formats::Unified
     self
   end
 
-  # @return [String] The concatenation of the formatted groups
+  # @return The concatenation of the formatted groups
   def to_s
     to_a.join("\n")
   end

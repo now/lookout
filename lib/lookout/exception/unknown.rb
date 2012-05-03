@@ -14,8 +14,8 @@ class Lookout::Exception::Unknown
     raise message
   end
 
-  # @return [String] The message explaining that the exception’s class couldn’t
-  #   be determined and why that is so
+  # @return The message explaining that the exception’s class couldn’t be
+  #   determined and why that is so
   def inspect
     '(%s)' % message
   end

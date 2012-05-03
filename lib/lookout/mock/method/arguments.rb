@@ -28,7 +28,7 @@ class Lookout::Mock::Method::Arguments
       raise Error, 'unexpected arguments ([%s]≠[%s])' % [List.new(*args), self.args]
   end
 
-  # @return [String] The arguments as a String argument list
+  # @return The arguments as a String argument list
   def to_s
     (result = args.to_s).empty? ? result : '(%s)' % result
   end

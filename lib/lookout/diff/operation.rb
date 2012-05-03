@@ -19,7 +19,6 @@ class Lookout::Diff::Operation
 
   # Folds from the beginning of the receiver, leaving _context_ elements.
   # @param [Integer] context
-  # @return [self]
   # @note Logically, the receiver should be {#foldable?} inside _context_, but
   #   this isn’t enforced.
   def >>(context)
@@ -28,7 +27,6 @@ class Lookout::Diff::Operation
 
   # Folds from the end of the receiver, leaving _context_ elements.
   # @param [Integer] context
-  # @return [self]
   # @note Logically, the receiver should be {#foldable?} inside _context_ , but
   #   this isn’t enforced.
   def <<(context)

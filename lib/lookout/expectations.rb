@@ -48,7 +48,6 @@ class Lookout::Expectations
   #   Enumerates the expect blocks.
   #
   #   @yieldparam [Expect::Object] expect
-  #   @return [self]
   #   @raise [NoMemoryError, SignalException, SystemExit] If raised; all other
   #     exceptions are caught and turned into failing expect blocks, located at
   #     the source of the exception

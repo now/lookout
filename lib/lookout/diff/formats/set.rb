@@ -16,7 +16,6 @@ class Lookout::Diff::Formats::Set
   #   Enumerates the formatted operations.
   #
   #   @yieldparam [String] string
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the formatted operations
   def each
@@ -28,7 +27,7 @@ class Lookout::Diff::Formats::Set
     self
   end
 
-  # @return [String] The concatenation of the formatted operations
+  # @return The concatenation of the formatted operations
   def to_s
     to_a.join("\n")
   end

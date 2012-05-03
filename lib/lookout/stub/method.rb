@@ -12,7 +12,7 @@ module Lookout::Stub::Method
     super object, method.to_sym, &(body or Nil)
   end
 
-  # @return [String] A String representation of the object and method
+  # @return A String representation of the object and method
   def to_s
     '%s%s%s' % [Lookout::Inspect.new(object, 'object'),
                 Class === object ? '.' : '#',

@@ -14,7 +14,6 @@ class Lookout::Diff::Operations
   #   Enumerates the operations.
   #
   #   @yieldparam [Operation] operation
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the operations
   def each

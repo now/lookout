@@ -40,7 +40,7 @@ class Lookout::Exception::Backtrace
           end, trim, filter)
   end
 
-  # @return [String] The concatenation of the backtrace entries
+  # @return The concatenation of the backtrace entries
   def to_s
     trimmed(filtered.map{ |location| "\tfrom %s" % location }).join("\n")
   end

@@ -16,7 +16,6 @@ class Lookout::Diff::Groups
   #   Enumerates the groups of operations.
   #
   #   @yieldparam [Group] group
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the groups of operations
   def each

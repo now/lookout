@@ -16,7 +16,7 @@ class Lookout::Diff::Slice
     size < 1
   end
 
-  # @return [Integer] The number of encompassed elements
+  # @return The number of encompassed elements
   def size
     self.end - self.begin + 1
   end
@@ -52,7 +52,7 @@ class Lookout::Diff::Slice
     self.class.new(items, range)
   end
 
-  # @return [Slice] A new slice encompassing the receiver and _other_
+  # @return A new slice encompassing the receiver and _other_
   # @note Logically, the receiver should {#touch?} _other_, but this isn’t
   #   enforced.
   def +(other)
@@ -75,7 +75,6 @@ class Lookout::Diff::Slice
   #   Enumerates the encompassed elements.
   #
   #   @yieldparam element
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the encompassed elements
   def each
@@ -91,7 +90,6 @@ class Lookout::Diff::Slice
   #
   #   @yieldparam element
   #   @yieldparam [Integer] index
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the encompassed elements and
   #     their indexes
@@ -124,7 +122,7 @@ class Lookout::Diff::Slice
     range.end
   end
 
-  # @return [Integer, nil] The comparison of the receiver’s {#begin} and {#end}
+  # @return The comparison of the receiver’s {#begin} and {#end}
   #   against those of _other_
   def <=>(other)
     return nil unless self.class == other.class and items == other.items

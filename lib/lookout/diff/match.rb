@@ -18,7 +18,7 @@ class Lookout::Diff::Match
     old.size
   end
 
-  # @return [Match] A new match {Slice#+ encompassing} the slices of the
+  # @return A new match {Slice#+ encompassing} the slices of the
   #   receiver and _other_
   # @note Logically, the receiver should {#touch?} _other_, but this isn’t
   #   enforced.

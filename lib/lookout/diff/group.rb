@@ -15,7 +15,6 @@ class Lookout::Diff::Group
   # Adds _operation_ to the receiver.
   #
   # @param [Operation] operation
-  # @return [self]
   def <<(operation)
     operations << operation
     self
@@ -41,7 +40,6 @@ class Lookout::Diff::Group
   #   Enumerates the operations.
   #
   #   @yieldparam [Operation] operation
-  #   @return [self]
   # @overload
   #   @return [Enumerator] An Enumerator over the operations
   def each
