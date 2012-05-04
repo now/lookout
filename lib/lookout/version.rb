@@ -111,8 +111,8 @@ module Lookout
         lookout/inspect/actual.rb
         lookout/inspect/argument.rb
         lookout/inspect/expected.rb
-        lookout/interface.rb
-        lookout/interface/commandline.rb
+        lookout/interfaces.rb
+        lookout/interfaces/commandline.rb
         lookout/literal.rb
         lookout/output.rb
         lookout/reception.rb

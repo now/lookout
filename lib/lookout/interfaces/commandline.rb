@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Command-line interface to Lookout.
-class Lookout::Interface::Commandline
+class Lookout::Interfaces::Commandline
   # Processes _arguments_, looking for options, running from the directory
   # _pwd_ and outputting results to _io_.
   #
