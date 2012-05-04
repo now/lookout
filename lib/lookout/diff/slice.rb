@@ -128,8 +128,4 @@ class Lookout::Diff::Slice
   end
 
   alias eql? ==
-
-  def inspect
-    '%p[%p]' % [items, range]
-  end
 end

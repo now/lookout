@@ -13,7 +13,7 @@ class Lookout::Diff::Match
     old.empty?
   end
 
-  # @return [Integer] The number of matching elements
+  # @return The number of matching elements
   def size
     old.size
   end
@@ -29,10 +29,6 @@ class Lookout::Diff::Match
   # @return True if {#old} and {#new} {Slice#touch? #touch?} those of _other_
   def touch?(other)
     old.touch? other.old and new.touch? other.new
-  end
-
-  def inspect
-    '#<%s %p==%p>' % [self.class, old, new]
   end
 
   # @param [Range] old

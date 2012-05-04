@@ -62,10 +62,6 @@ class Lookout::Diff::Group
     slice(:new)
   end
 
-  def inspect
-    '#<%s %p>' % [self.class, operations]
-  end
-
   private
 
   def slice(target)

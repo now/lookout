@@ -57,6 +57,7 @@ class Lookout::Mock::Method::Calls
 
   private
 
+  # @private
   def error(type)
     raise type.
       new('unexpected number of invocations (%d for %s)' % [calls, self],

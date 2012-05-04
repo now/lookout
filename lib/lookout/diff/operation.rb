@@ -39,10 +39,6 @@ class Lookout::Diff::Operation
     false
   end
 
-  def inspect
-    '#<%s %p,%p>' % [self.class, old, new]
-  end
-
   # Implements a double dispatch for enumerating operations, where _object_ is
   # sent the last part of the receiver’s class’ _name_ with the receiver as the
   # lone argument.

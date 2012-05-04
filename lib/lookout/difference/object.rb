@@ -54,6 +54,7 @@ class Lookout::Difference::Object
       message == other.message and diff.to_s == other.diff.to_s
   end
 
+  # @return Hash value based on {#message} and {#diff}
   def hash
     @hash ||= [message, diff.to_s].hash
   end
