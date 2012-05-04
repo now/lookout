@@ -42,5 +42,6 @@ class Lookout::Diff::Groups
     elsif not group.empty?
       yield group.fold(context)
     end
+    self
   end
 end
