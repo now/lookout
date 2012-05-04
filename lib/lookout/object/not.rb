@@ -14,9 +14,9 @@ class Lookout::Object::Not
     self
   end
 
-  # @return [Object::To::Receive] A wrapper around the object that’ll set up a
-  #   reception expectation on it
+  # @return [Receive] A wrapper around the object that’ll set up a reception
+  #   expectation on it
   def receive
-    Lookout::Object::Not::Receive.new(@object)
+    Receive.new(@object)
   end
 end

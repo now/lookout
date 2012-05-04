@@ -8,9 +8,9 @@ class Lookout::Object::To
     @object = object
   end
 
-  # @return [Object::To::Receive] A wrapper around the object that’ll set up a
-  #   reception expectation on it
+  # @return [Receive] A wrapper around the object that’ll set up a reception
+  #   expectation on it
   def receive
-    Lookout::Object::To::Receive.new(@object)
+    Receive.new(@object)
   end
 end
