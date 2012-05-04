@@ -24,6 +24,8 @@
 # There’s a command-line interface defined in {Interfaces::Commandline} that can
 # be used by other interfaces that want to invoke Lookout on a set of files.
 # It’s used by the {http://disu.se/software/lookout-rake Lookout-Rake} library.
+#
+# Plugins should place their namespace under the {Lookout::Plugins} namespace.
 module Lookout
   class << self
     def location(location)
