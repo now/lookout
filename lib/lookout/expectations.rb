@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 # Represents the “Expectations” keyword in expectation files and the
-# expectation files themselves.  Used by {Interface::Commandline} and should be
-# used by other interfaces as the main access point to expectation files.
+# expectation files themselves.  Used by {Interfaces::Commandline} and should
+# be used by other interfaces as the main access point to expectation files.
 # Implemented as an Enumerable over the expect blocks found in any of the
 # expectations blocks in the expectation file.
 class Lookout::Expectations

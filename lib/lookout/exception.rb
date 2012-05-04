@@ -40,7 +40,7 @@ class Lookout::Exception
       message
     else
       before, newline, after = message.partition("\n")
-      '%s (%s)%s%s' % [before, type_name, newline, after]
+      [before, ' (', type_name, ')', newline, after].join('')
     end
   end
 
@@ -69,7 +69,7 @@ class Lookout::Exception
 
   # @return [String] The {#header} and {#backtrace} separated by a newline
   def format
-    "%s\n%s" % [header, backtrace]
+    [header, "\n", backtrace].join('')
   end
 
   private

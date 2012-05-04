@@ -25,9 +25,10 @@ class Lookout::Actual::Method
   # @return A string of the form “#_method_(_args_){ … }”, depending on if any
   #   arguments or block has been given
   def to_s
-    '#%s%s%s' % [method,
-                 args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
-                 block ? '{ … }' : '']
+    ['#',
+     method,
+     args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
+     block ? '{ … }' : ''].join('')
   end
 
   alias inspect to_s

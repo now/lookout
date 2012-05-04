@@ -16,6 +16,6 @@ class Lookout::Difference::Symbol < Lookout::Difference::Object
   # @return [::String, super] A String of the form {#actual}#_query_, prefixed
   #   by ‘¬’ if the query was negated, if there was a query, {super} otherwise
   def message
-    @query ? '%s%s#%s' % [@negated ? '' : '¬', inspect_actual, @query] : super
+    @query ? [@negated ? '' : '¬', inspect_actual, '#', @query].join('') : super
   end
 end

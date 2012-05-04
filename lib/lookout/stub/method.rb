@@ -13,9 +13,9 @@ module Lookout::Stub::Method
 
   # @return A String representation of the object and method
   def to_s
-    '%s%s%s' % [Lookout::Inspect.new(object, 'object'),
-                Class === object ? '.' : '#',
-                method]
+    [Lookout::Inspect.new(object, 'object'),
+     Class === object ? '.' : '#',
+     method].join('')
   end
 
   private

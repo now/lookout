@@ -69,7 +69,7 @@ class Lookout::Diff::Formats::Unified
     private
 
     def mark(mark, slice)
-      slice.map{ |item| '%s%s' % [mark, item] }
+      slice.map{ |item| [mark, item].join('') }
     end
   end
 end

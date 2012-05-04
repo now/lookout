@@ -19,9 +19,9 @@ class Lookout::Difference::Hash < Lookout::Difference::Object
 
   def array(hash)
     hash.to_a.sort_by{ |key, _| key }.map{ |key, value|
-      '%s => %s' %
-        [Lookout::Inspect.new(key, 'key'),
-         Lookout::Inspect.new(value, 'value')]
+      [Lookout::Inspect.new(key, 'key'),
+       ' => ',
+       Lookout::Inspect.new(value, 'value')].join('')
     }
   end
 end
