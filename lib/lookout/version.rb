@@ -115,6 +115,7 @@ module Lookout
         lookout/interfaces/commandline.rb
         lookout/literal.rb
         lookout/output.rb
+        lookout/plugins.rb
         lookout/reception.rb
         lookout/stub.rb
         lookout/stub/method.rb
