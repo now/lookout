@@ -14,16 +14,19 @@ class Lookout::Difference::Object
     @actual, @expected = actual, expected
   end
 
-  # Returns a message explaining how {#actual} differs from {#expected}.
   # @return [::String] The concatenation of {#inspect_actual}, {#symbol}, and
-  #   {#inspect_expected}
+  #   {#inspect_expected}, explaining how {#actual} differs from {#expected}
+  # @note Subclasses may override this method to provide more specific
+  #   messages for their specific types.
   def message
     [inspect_actual, symbol, inspect_expected].join('')
   end
 
-  # Returns an Enumerable over the formatted operations that would have to be
-  # applied to {#actual} to get {#expected}.
-  # @return [Enumerable<String>] An empty Enumerable
+  # @return [Enumerable<String>] An Enumerable over the formatted operations
+  #   that would have to be applied to {#actual} to get {#expected}
+  # @note The Enumerable returned by this specific implementation is empty.
+  #   Subclasses may provide more detailed information for their specific
+  #   types.
   def diff
     []
   end
@@ -54,7 +57,7 @@ class Lookout::Difference::Object
       message == other.message and diff.to_s == other.diff.to_s
   end
 
-  # @return Hash value based on {#message} and {#diff}
+  # @return a hash value based on {#message} and {#diff}
   def hash
     @hash ||= [message, diff.to_s].hash
   end
