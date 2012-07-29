@@ -34,5 +34,5 @@ class Lookout::Diff::Algorithms::Difflib::Position::New <
   def at(range) Lookout::Diff::Slice.new(items, range) end
   def ==(other) super and indexes == other.indexes end
   alias eql? ==
-  def hash @hash ||= super ^ indexes.hash end
+  def hash; @hash ||= super ^ indexes.hash end
 end
