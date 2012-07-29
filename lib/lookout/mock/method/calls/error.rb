@@ -16,14 +16,10 @@ class Lookout::Mock::Method::Calls::Error < Lookout::Mock::Error
   #   _other_
   def ==(other)
     super and
-      self.class == other.class and
-      calls == other.calls and
-      range == other.range
+      self.class == other.class and calls == other.calls and range == other.range
   end
 
-  def hash
-    @hash ||= [calls, range].hash
-  end
+  def hash; @hash ||= [calls, range].hash end
 
   # @return [Integer] The actual number of calls made
   attr_reader :calls

@@ -10,26 +10,20 @@ class Lookout::Difference::Object
   # _expected_ value.
   # @param [::Object] actual
   # @param [::Object] expected
-  def initialize(actual, expected)
-    @actual, @expected = actual, expected
-  end
+  def initialize(actual, expected) @actual, @expected = actual, expected end
 
   # @return [::String] The concatenation of {#inspect_actual}, {#symbol}, and
   #   {#inspect_expected}, explaining how {#actual} differs from {#expected}
   # @note Subclasses may override this method to provide more specific
   #   messages for their specific types.
-  def message
-    [inspect_actual, symbol, inspect_expected].join('')
-  end
+  def message; [inspect_actual, symbol, inspect_expected].join('') end
 
   # @return [Enumerable<String>] An Enumerable over the formatted operations
   #   that would have to be applied to {#actual} to get {#expected}
   # @note The Enumerable returned by this specific implementation is empty.
   #   Subclasses may provide more detailed information for their specific
   #   types.
-  def diff
-    []
-  end
+  def diff; [] end
 
   # @return [::String] The concatenation of {#message} and {#diff}
   # @note This method should not be overridden by subclasses, as it goes to
@@ -58,9 +52,7 @@ class Lookout::Difference::Object
   end
 
   # @return a hash value based on {#message} and {#diff}
-  def hash
-    @hash ||= [message, diff.to_s].hash
-  end
+  def hash; @hash ||= [message, diff.to_s].hash end
 
   # @return [::Object] The actual result
   attr_reader :actual
@@ -72,18 +64,12 @@ class Lookout::Difference::Object
 
   # @return [::String] The safely inspected value of {#actual}, see
   #   {Inspect::Actual}
-  def inspect_actual
-    Lookout::Inspect::Actual.new(actual).call
-  end
+  def inspect_actual; Lookout::Inspect::Actual.new(actual).call end
 
   # @return [::String] The safely inspected value of {#expected}, see
   #   {Inspect::Expected}
-  def inspect_expected
-    Lookout::Inspect::Expected.new(expected).call
-  end
+  def inspect_expected; Lookout::Inspect::Expected.new(expected).call end
 
   # @return [::String] The inequality symbol to use (‘≠’)
-  def symbol
-    '≠'
-  end
+  def symbol; '≠' end
 end

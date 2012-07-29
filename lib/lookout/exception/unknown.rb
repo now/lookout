@@ -10,15 +10,11 @@ class Lookout::Exception::Unknown
 
   # @raise [RuntimeError] Containing a message explaining that the exception’s
   #   class couldn’t be determined and why that is so
-  def name
-    raise message
-  end
+  def name; raise message end
 
   # @return The message explaining that the exception’s class couldn’t be
   #   determined and why that is so
-  def inspect
-    '(%s)' % message
-  end
+  def inspect; '(%s)' % message end
 
   private
 

@@ -28,44 +28,21 @@ class Lookout::Diff::Formats::Set
   end
 
   # @return The concatenation of the formatted operations
-  def to_s
-    to_a.join("\n")
-  end
+  def to_s; to_a.join("\n") end
 
   private
 
   class Operation
-    def initialize(operation)
-      @lines = operation.apply(self)
-    end
-
-    def empty?
-      @lines.nil?
-    end
-
-    def delete(operation)
-      mark('-', operation.old)
-    end
-
-    def copy(operation)
-    end
-
-    def insert(operation)
-      mark('+', operation.new)
-    end
-
-    def replace(operation)
-      delete(operation) + insert(operation)
-    end
-
-    def to_s
-      @lines.join("\n")
-    end
+    def initialize(operation) @lines = operation.apply(self) end
+    def empty?; @lines.nil? end
+    def delete(operation) mark('-', operation.old) end
+    def copy(operation) end
+    def insert(operation) mark('+', operation.new) end
+    def replace(operation) delete(operation) + insert(operation) end
+    def to_s; @lines.join("\n") end
 
     private
 
-    def mark(mark, slice)
-      slice.map{ |item| [mark, item].join('') }
-    end
+    def mark(mark, slice) slice.map{ |item| [mark, item].join('') } end
   end
 end

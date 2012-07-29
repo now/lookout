@@ -38,10 +38,7 @@ class Lookout::Expectations
       end
     end
 
-    def evaluate(path, &block)
-      @@expectations[path] << block
-      self
-    end
+    def evaluate(path, &block) @@expectations[path] << block; self end
   end
 
   # @overload

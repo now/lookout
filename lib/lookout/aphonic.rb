@@ -5,9 +5,7 @@
 # up so that if methods are added to Kernel, Object, or Method after the
 # initial set-up, such methods will similarly be {.silence}d.
 class Lookout::Aphonic
-  Methods = [
-    :__send__, :object_id # Methods that must be defined
-  ]
+  Methods = [:__send__, :object_id]
   Methods << :__id__ if RUBY_VERSION < '1.9' # Ruby 1.8 warns if __id__ is undefined
 
   class << self
@@ -40,9 +38,7 @@ class Module
   append_features = instance_method(:append_features)
   define_method :append_features do |mod|
     result = append_features.bind(self).call(mod)
-    instance_methods.each do |name|
-      Lookout::Aphonic.silence name
-    end if mod == Object
+    instance_methods.each{ |name| Lookout::Aphonic.silence name } if mod == Object
     result
   end
 end

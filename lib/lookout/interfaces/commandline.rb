@@ -57,9 +57,7 @@ class Lookout::Interfaces::Commandline
   private
 
   def require
-    @requires.each do |feature|
-      super feature
-    end
+    @requires.each do |feature| super feature end
   end
 
   def coverage
@@ -107,7 +105,5 @@ class Lookout::Interfaces::Commandline
     passed
   end
 
-  def relativize(path)
-    path.start_with?(@pwd) ? path[@pwd.length+1..-1] : path
-  end
+  def relativize(path) path.start_with?(@pwd) ? path[@pwd.length+1..-1] : path end
 end

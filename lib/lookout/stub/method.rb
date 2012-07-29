@@ -7,9 +7,7 @@ module Lookout::Stub::Method
   # @param [Object] object
   # @param [Symbol] method
   Value(:object, :method, :'&body')
-  def initialize(object, method, &body)
-    super object, method.to_sym, &(body or Nil)
-  end
+  def initialize(object, method, &body) super object, method.to_sym, &(body or Nil) end
 
   # @return A String representation of the object and method
   def to_s

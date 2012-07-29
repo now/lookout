@@ -16,7 +16,5 @@ class Lookout::Difference::Lookout::Reception < Lookout::Difference::Range
 
   # @return [Enumerable<::String>] An Enumerable containing the difference
   #   report message generated from the method mock
-  def diff
-    [@message]
-  end
+  def diff; [@message] end
 end

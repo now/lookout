@@ -13,15 +13,9 @@ module Lookout::Mock::Method
     @calls, @args = calls, Arguments.new(*args)
   end
 
-  def ==(other)
-    super and calls == other.calls and args == other.args
-  end
-
+  def ==(other) super and calls == other.calls and args == other.args end
   alias eql? ==
-
-  def hash
-    @hash ||= super ^ [calls, args].hash
-  end
+  def hash; @hash ||= super ^ [calls, args].hash end
 
   protected
 

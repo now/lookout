@@ -29,12 +29,8 @@ class Lookout::Mock::Method::Arguments
   end
 
   # @return The arguments as a String argument list
-  def to_s
-    (result = args.to_s).empty? ? result : '(%s)' % result
-  end
+  def to_s; (result = args.to_s).empty? ? result : '(%s)' % result end
 
   # @return [Object, Array<Object>] The expected arguments as an array
-  def to_a
-    args.to_a
-  end
+  def to_a; args.to_a end
 end

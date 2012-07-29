@@ -8,9 +8,7 @@
 class Lookout::Warning < Lookout::Output
   # Proxies the _expected_ warning output.
   # @param (see Output#initialize)
-  def initialize(expected)
-    super expected.chomp
-  end
+  def initialize(expected) super expected.chomp end
 
   # @return True if the receiver `#==` _other_ or if their classes and
   #   normalized expected output `#==` each other
@@ -19,9 +17,7 @@ class Lookout::Warning < Lookout::Output
       (self.class == other.class and normalized == other.normalized)
   end
 
-  def inspect
-    'warning(%p)' % expected
-  end
+  def inspect; 'warning(%p)' % expected end
 
   # @return [Enumerable<String>] An Enumerable over the formatted operations
   #   that would have to be applied to the actual warning output to get the
@@ -33,9 +29,7 @@ class Lookout::Warning < Lookout::Output
 
   # @return [Expected::Lookout::Warning] A wrapper around the receiver, making
   #   it an expected value
-  def to_lookout_expected
-    Lookout::Expected::Lookout::Warning.new(self)
-  end
+  def to_lookout_expected; Lookout::Expected::Lookout::Warning.new(self) end
 
   protected
 

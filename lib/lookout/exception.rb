@@ -46,16 +46,12 @@ class Lookout::Exception
 
   # @return [Backtrace] A non-failing backtrace wrapper of the exception
   #   backtrace
-  def backtrace
-    @backtrace ||= Backtrace.from(exception)
-  end
+  def backtrace; @backtrace ||= Backtrace.from(exception) end
 
   # @return [#name, #inspect] Either the exception’s class or an {Unknown}
   #   wrapper around the exception that was raised while trying to determine
   #   the class
-  def type
-    @type ||= begin exception.class; rescue => e; Unknown.new(e) end
-  end
+  def type; @type ||= begin exception.class; rescue => e; Unknown.new(e) end end
 
   # @return [String] The UTF-8-encoded name of the exception’s class
   def type_name
@@ -68,9 +64,7 @@ class Lookout::Exception
   end
 
   # @return [String] The {#header} and {#backtrace} separated by a newline
-  def format
-    [header, "\n", backtrace].join('')
-  end
+  def format; [header, "\n", backtrace].join('') end
 
   private
 

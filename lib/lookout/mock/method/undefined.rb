@@ -7,7 +7,5 @@ class Lookout::Mock::Method::Undefined < Lookout::Stub::Method::Undefined
   include Lookout::Mock::Method
 
   # @return [Defined] The defined version of this mock method
-  def define
-    Defined.new(object, method, calls, *args, &body)
-  end
+  def define; Defined.new(object, method, calls, *args, &body) end
 end

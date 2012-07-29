@@ -14,7 +14,5 @@ class Lookout::Results::Error
   Value(:file, :line, :message, :exception, :comparable => [:file, :line])
   public :message, :exception
 
-  def to_s
-    [super, message, exception.format].compact.join(': ')
-  end
+  def to_s; [super, message, exception.format].compact.join(': ') end
 end

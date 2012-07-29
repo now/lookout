@@ -7,7 +7,6 @@ class Lookout::Expected::Regexp < Lookout::Expected::Object
   #   {#expected} unless they’re `#==` or _actual_ is matched by {#expected}
   def difference(actual)
     Lookout::Difference::Regexp.new(actual, expected) unless
-      expected == actual or
-      expected === actual
+      expected == actual or expected === actual
   end
 end

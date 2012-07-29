@@ -28,35 +28,16 @@ class Lookout::Diff::Formats::Inline
   end
 
   # @return The concatenation of the formatted operations
-  def to_s
-    @to_s ||= ToS.new(operations).to_s
-  end
+  def to_s; @to_s ||= ToS.new(operations).to_s end
 
   private
 
   class ToS
-    def initialize(operations)
-      @to_s = operations.map{ |o| o.apply(self) }.join('').freeze
-    end
-
-    def delete(operation)
-      '[-%s-]' % operation.old.to_items
-    end
-
-    def copy(operation)
-      operation.old.to_items
-    end
-
-    def insert(operation)
-      '{+%s+}' % operation.new.to_items
-    end
-
-    def replace(operation)
-      delete(operation) + insert(operation)
-    end
-
-    def to_s
-      @to_s
-    end
+    def initialize(operations) @to_s = operations.map{ |o| o.apply(self) }.join('').freeze end
+    def delete(operation) '[-%s-]' % operation.old.to_items end
+    def copy(operation) operation.old.to_items end
+    def insert(operation) '{+%s+}' % operation.new.to_items end
+    def replace(operation) delete(operation) + insert(operation) end
+    def to_s; @to_s end
   end
 end

@@ -8,27 +8,19 @@ class Lookout::Diff::Group
   include Enumerable
 
   # @return True if the receiver doesn’t contain any operations
-  def empty?
-    operations.empty?
-  end
+  def empty?; operations.empty? end
 
   # Adds _operation_ to the receiver.
   #
   # @param [Operation] operation
-  def <<(operation)
-    operations << operation
-    self
-  end
+  def <<(operation) operations << operation; self end
 
   # {Operation#<< Folds} the last operation, leaving _context_ elements of
   # context.
   #
   # @param [Integer] context
   # @return [self]
-  def fold(context)
-    operations[-1] = operations[-1] << context
-    self
-  end
+  def fold(context) operations[-1] = operations[-1] << context; self end
 
   # @return True if the receiver contains one operation and that operation
   #   represents {Operation#parity? parity}
@@ -44,23 +36,17 @@ class Lookout::Diff::Group
   #   @return [Enumerator<Operation>] An Enumerator over the operations
   def each
     return enum_for(__method__) unless block_given?
-    operations.each do |operation|
-      yield operation
-    end
+    operations.each do |operation| yield operation end
     self
   end
 
   # @return [Slice] The slice of the old sequence between the first operation’s
   #   beginning and the last operation’s end
-  def old
-    slice(:old)
-  end
+  def old; slice(:old) end
 
   # @return [Slice] The slice of the new sequence between the first operation’s
   #   beginning and the last operation’s end
-  def new
-    slice(:new)
-  end
+  def new; slice(:new) end
 
   private
 

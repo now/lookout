@@ -14,29 +14,19 @@ class Lookout::Reception
   end
 
   # This is an alias for {#exactly}(0).
-  def never
-    exactly(0)
-  end
+  def never; exactly(0) end
 
   # This is an alias for {#at_most}(1).
-  def at_most_once
-    at_most(1)
-  end
+  def at_most_once; at_most(1) end
 
   # This is an alias for {#exactly}(1).
-  def once
-    exactly(1)
-  end
+  def once; exactly(1) end
 
   # This is an alias for {#at_least}(1).
-  def at_least_once
-    at_least(1)
-  end
+  def at_least_once; at_least(1) end
 
   # This is an alias for {#exactly}(2).
-  def twice
-    exactly(2)
-  end
+  def twice; exactly(2) end
 
   # Sets the maximum number of _times_ that the method may be called.
   # @param [Integer] times
@@ -91,12 +81,8 @@ class Lookout::Reception
       args == other.args and
       body == other.body
   end
-
   alias eql? ==
-
-  def hash
-    @hash ||= [object, method, calls, args, body].hash
-  end
+  def hash; @hash ||= [object, method, calls, args, body].hash end
 
   protected
 

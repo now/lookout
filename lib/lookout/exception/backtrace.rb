@@ -47,25 +47,11 @@ class Lookout::Exception::Backtrace
 
   private
 
-  def filtered
-    (filter and (before or outside)) or backtrace
-  end
-
-  def before
-    nilify(backtrace.take_while{ |location| not reject? location })
-  end
-
-  def outside
-    nilify(backtrace.reject{ |location| reject? location })
-  end
-
-  def nilify(backtrace)
-    backtrace.empty? ? nil : backtrace
-  end
-
-  def reject?(location)
-    location.start_with? Root
-  end
+  def filtered; (filter and (before or outside)) or backtrace end
+  def before; nilify(backtrace.take_while{ |location| not reject? location }) end
+  def outside; nilify(backtrace.reject{ |location| reject? location }) end
+  def nilify(backtrace) backtrace.empty? ? nil : backtrace end
+  def reject?(location) location.start_with? Root end
 
   def trimmed(locations)
     return locations unless trim and locations.length > Head + Tail + 5

@@ -5,9 +5,7 @@ class Lookout::Object::To::Receive < Lookout::Aphonic
   # Stands in for _object_, allowing a {Reception} exception that expects the
   # given method to be called to be set up.
   # @param [::Object] object
-  def initialize(object)
-    @object = object
-  end
+  def initialize(object) @object = object end
 
   private
 

@@ -29,25 +29,10 @@ class Lookout::Diff::Algorithms::Difflib::Position::New <
     @indexes
   end
 
-  def begin_after(other)
-    self.class.new(items, other.end + 1..self.end, indexes)
-  end
-
-  def end_before(other)
-    self.class.new(items, self.begin...other.begin, indexes)
-  end
-
-  def at(range)
-    Lookout::Diff::Slice.new(items, range)
-  end
-
-  def ==(other)
-    super and indexes == other.indexes
-  end
-
+  def begin_after(other) self.class.new(items, other.end + 1..self.end, indexes) end
+  def end_before(other) self.class.new(items, self.begin...other.begin, indexes) end
+  def at(range) Lookout::Diff::Slice.new(items, range) end
+  def ==(other) super and indexes == other.indexes end
   alias eql? ==
-
-  def hash
-    @hash ||= super ^ indexes.hash
-  end
+  def hash @hash ||= super ^ indexes.hash end
 end

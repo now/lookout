@@ -28,9 +28,7 @@ class Lookout::Stub::Object
     end unless methods.empty?
   end
 
-  def inspect
-    'stub'
-  end
+  def inspect; 'stub' end
 
   private
 
@@ -38,7 +36,5 @@ class Lookout::Stub::Object
   # @param [Symbol] method
   # @param [Object, …] args
   # @return [self]
-  def method_missing(method, *args)
-    self
-  end
+  def method_missing(method, *args) self end
 end

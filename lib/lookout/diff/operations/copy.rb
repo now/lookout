@@ -6,9 +6,7 @@ class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
   # @return True if the slice of the old sequence is larger than _context_ * 2
   #   ({#old}{Slice#size #size} > _context_ * 2) so that it may be folded to
   #   _context_ at both ends ({#>>}, {#<<})
-  def foldable?(context)
-    old.size > context * 2
-  end
+  def foldable?(context) old.size > context * 2 end
 
   # (see Operation#>>)
   def >>(context)
@@ -23,7 +21,5 @@ class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
   end
 
   # @return True if {#old} `#==` {#new}
-  def parity?
-    old == new
-  end
+  def parity?; old == new end
 end

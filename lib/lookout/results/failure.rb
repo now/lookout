@@ -11,7 +11,5 @@ class Lookout::Results::Failure
   # @param [Difference::Object] difference
   Value(:file, :line, :difference, :comparable => [:file, :line])
 
-  def to_s
-    [super, difference].join(': ')
-  end
+  def to_s; [super, difference].join(': ') end
 end

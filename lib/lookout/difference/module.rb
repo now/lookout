@@ -4,11 +4,7 @@
 # {Object} in that it uses ‘≉’ instead of ‘≠’ to show that the actual result
 # isn’t an instance of (doesn’t case match) the expected Module.
 class Lookout::Difference::Module < Lookout::Difference::Object
-  private
-
   # @return [::String, super] The symbol ‘≉’ unless {#actual} is a Module,
   #   {super} otherwise
-  def symbol
-    Module === actual ? super : '≉'
-  end
+  private; def symbol; Module === actual ? super : '≉' end
 end

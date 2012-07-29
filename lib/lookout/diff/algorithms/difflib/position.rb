@@ -13,36 +13,16 @@ class Lookout::Diff::Algorithms::Difflib::Position
       new = New.new(new)
       new(Lookout::Diff::Slice.new(old),
           new,
-          block_given? ?
-            new.indexes.reduce({}){ |j, (k, _)| j[k] = yield(k); j } :
-            {})
+          block_given? ? new.indexes.reduce({}){ |j, (k, _)| j[k] = yield(k); j } : {})
     end
   end
 
-  def match
-    match = leftmost_longest
-    junk.empty? ? match : expand(expand(match, false), true)
-  end
-
-  def begin_before?(match)
-    old.begin_before? match.old and new.begin_before? match.new
-  end
-
-  def end_after?(match)
-    old.end_after? match.old and new.end_after? match.new
-  end
-
-  def begin_after(match)
-    self.class.new(old.begin_after(match.old), new.begin_after(match.new), junk)
-  end
-
-  def end_before(match)
-    self.class.new(old.end_before(match.old), new.end_before(match.new), junk)
-  end
-
-  def inspect
-    '#<%s %p,%p>' % [self.class, old, new]
-  end
+  def match; junk.empty? ? leftmost_longest : expand(expand(leftmost_longest, false), true) end
+  def begin_before?(match) old.begin_before? match.old and new.begin_before? match.new end
+  def end_after?(match) old.end_after? match.old and new.end_after? match.new end
+  def begin_after(match) self.class.new(old.begin_after(match.old), new.begin_after(match.new), junk) end
+  def end_before(match) self.class.new(old.end_before(match.old), new.end_before(match.new), junk) end
+  def inspect; '#<%s %p,%p>' % [self.class, old, new] end
 
   private
 

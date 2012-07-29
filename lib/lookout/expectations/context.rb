@@ -7,9 +7,7 @@ class Lookout::Expectations::Context
   # found in the expectations blocks evaluated in this context via
   #  #instance_eval.
   # @yieldparam [Expect] expect
-  def initialize(&block)
-    @block = block
-  end
+  def initialize(&block) @block = block end
 
   private
 
@@ -28,41 +26,27 @@ class Lookout::Expectations::Context
   end
 
   # @return [Actual] A result wrapper for explicit query expectations
-  def result
-    Lookout::Actual.new
-  end
+  def result; Lookout::Actual.new end
 
   # @param [Object] expected
   # @return [Literal] A literal expected value for _expected_
-  def literal(expected)
-    Lookout::Literal.new(expected)
-  end
+  def literal(expected) Lookout::Literal.new(expected) end
 
   # @param (see Stub::Object#initialize)
   # @return [Mock::Object] A mock object set up with _methods_
-  def mock(methods = {})
-    Lookout::Mock::Object.new(methods)
-  end
+  def mock(methods = {}) Lookout::Mock::Object.new(methods) end
 
   # @return [Mock::Method::Arguments::None] An object representing
   #   “without arguments” for mock argument expectations
-  def without_arguments
-    Lookout::Mock::Method::Arguments::None.new
-  end
+  def without_arguments; Lookout::Mock::Method::Arguments::None.new end
 
   # @param (see Stub::Object#initialize)
   # @return [Stub::Object] A stub object set up with _methods_
-  def stub(methods = {})
-    Lookout::Stub::Object.new(methods)
-  end
+  def stub(methods = {}) Lookout::Stub::Object.new(methods) end
 
   # @return [Output] An expected output wrapper around _string_
-  def output(string)
-    Lookout::Output.new(string)
-  end
+  def output(string) Lookout::Output.new(string) end
 
   # @return [Output] An expected warning wrapper around _string_
-  def warning(string)
-    Lookout::Warning.new(string)
-  end
+  def warning(string) Lookout::Warning.new(string) end
 end

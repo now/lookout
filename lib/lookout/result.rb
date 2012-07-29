@@ -12,7 +12,5 @@ module Lookout::Result
   public :file, :line
 
   # @return A String formatted according to the GNU standard for error messages
-  def to_s
-    '%s:%d' % [file, line]
-  end
+  def to_s; '%s:%d' % [file, line] end
 end

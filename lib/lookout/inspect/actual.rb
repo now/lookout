@@ -5,7 +5,5 @@
 class Lookout::Inspect::Actual < Lookout::Inspect
   # Non-failing inspection of an _actual_ result.
   # @param [Object] actual
-  def initialize(actual)
-    super actual, 'actual result'
-  end
+  def initialize(actual) super actual, 'actual result' end
 end

@@ -7,7 +7,5 @@ class Lookout::Stub::Method::Undefined
   include Lookout::Stub::Method
 
   # @return [Defined] The defined version of this stub method
-  def define
-    Defined.new(object, method, &body)
-  end
+  def define; Defined.new(object, method, &body) end
 end

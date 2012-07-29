@@ -10,13 +10,9 @@ class Lookout::Literal
   # @param [Object] expected
   Value(:expected)
 
-  def inspect
-    'literal(%p)' % output
-  end
+  def inspect; 'literal(%p)' % output end
 
   # @return [Expected::Object] An expected value wrapper around the expected
   #   value
-  def to_lookout_expected
-    Lookout::Expected::Object.new(@expected)
-  end
+  def to_lookout_expected; Lookout::Expected::Object.new(@expected) end
 end

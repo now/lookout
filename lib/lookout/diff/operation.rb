@@ -13,31 +13,23 @@ class Lookout::Diff::Operation
   # @return True if the operation is uninteresting to the actual “diff” and can
   #   be meaningfully folded, leaving _context_ elements
   # @see Operations::Copy#foldable?
-  def foldable?(context)
-    false
-  end
+  def foldable?(context) false end
 
   # Folds from the beginning of the receiver, leaving _context_ elements.
   # @param [Integer] context
   # @note Logically, the receiver should be {#foldable?} inside _context_, but
   #   this isn’t enforced.
-  def >>(context)
-    self
-  end
+  def >>(context) self end
 
   # Folds from the end of the receiver, leaving _context_ elements.
   # @param [Integer] context
   # @note Logically, the receiver should be {#foldable?} inside _context_ , but
   #   this isn’t enforced.
-  def <<(context)
-    self
-  end
+  def <<(context) self end
 
   # @return True if the receiver represents parity
   # @see Operations::Copy#parity?
-  def parity?
-    false
-  end
+  def parity?; false end
 
   # Implements a double dispatch for enumerating operations, where _object_ is
   # sent the last part of the receiver’s class’ _name_ with the receiver as the

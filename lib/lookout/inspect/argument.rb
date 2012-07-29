@@ -13,7 +13,5 @@ class Lookout::Inspect::Argument < Lookout::Inspect
 
   # Non-failing inspection of an _argument_.
   # @param [Object] argument
-  def initialize(argument)
-    super argument, 'argument'
-  end
+  def initialize(argument) super argument, 'argument' end
 end

@@ -28,33 +28,17 @@ class Lookout::Diff::Formats::Unified
   end
 
   # @return The concatenation of the formatted groups
-  def to_s
-    to_a.join("\n")
-  end
+  def to_s; to_a.join("\n") end
 
   private
 
   # @private
   class Group
-    def initialize(group)
-      @group = group
-    end
-
-    def delete(operation)
-      mark('-', operation.old)
-    end
-
-    def copy(operation)
-      mark(' ', operation.old)
-    end
-
-    def insert(operation)
-      mark('+', operation.new)
-    end
-
-    def replace(operation)
-      delete(operation).concat(insert(operation))
-    end
+    def initialize(group) @group = group end
+    def delete(operation) mark('-', operation.old) end
+    def copy(operation) mark(' ', operation.old) end
+    def insert(operation) mark('+', operation.new) end
+    def replace(operation) delete(operation).concat(insert(operation)) end
 
     def to_s
       lines = ['@@ -%d,%d +%d,%d @@' %
@@ -68,8 +52,6 @@ class Lookout::Diff::Formats::Unified
 
     private
 
-    def mark(mark, slice)
-      slice.map{ |item| [mark, item].join('') }
-    end
+    def mark(mark, slice) slice.map{ |item| [mark, item].join('') } end
   end
 end

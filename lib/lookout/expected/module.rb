@@ -7,7 +7,6 @@ class Lookout::Expected::Module < Lookout::Expected::Object
   #   {#expected} unless they’re `#==` or _actual_ is an {#expected}
   def difference(actual)
     Lookout::Difference::Module.new(actual, expected) unless
-      expected == actual or
-      expected === actual
+      expected == actual or expected === actual
   end
 end

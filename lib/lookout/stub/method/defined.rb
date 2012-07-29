@@ -31,7 +31,5 @@ class Lookout::Stub::Method::Defined
   # @param [Object, …] args
   # @return [Object] The result of calling the method definition with _args_
   #   and _block_
-  def call(*args, &block)
-    body.call(*args, &block)
-  end
+  def call(*args, &block) body.call(*args, &block) end
 end

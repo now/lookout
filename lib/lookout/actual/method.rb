@@ -12,15 +12,11 @@ class Lookout::Actual::Method
   # @param [Object] actual
   # @return [Object] The result of invoking the method with the given arguments
   #   on the _actual_ result
-  def call(actual)
-    actual.__send__(method, *args, &block)
-  end
+  def call(actual) actual.__send__(method, *args, &block) end
 
   # @return [Expected::Lookout::Actual::Method] An expected value wrapper of
   #   the receiver
-  def to_lookout_expected
-    Lookout::Expected::Lookout::Actual::Method.new(self)
-  end
+  def to_lookout_expected; Lookout::Expected::Lookout::Actual::Method.new(self) end
 
   # @return A string of the form “#_method_(_args_){ … }”, depending on if any
   #   arguments or block has been given

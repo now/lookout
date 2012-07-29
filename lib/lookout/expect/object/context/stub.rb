@@ -6,9 +6,7 @@ class Lookout::Expect::Object::Context::Stub < Lookout::Aphonic
   # Prepares to define a stub method on _object_ inside the _stubs_ container.
   # @param [Stub::Methods] stubs
   # @param [::Object] object
-  def initialize(stubs, object)
-    @stubs, @object = stubs, object
-  end
+  def initialize(stubs, object) @stubs, @object = stubs, object end
 
   private
 

@@ -45,12 +45,8 @@ class Lookout::Stub::Method::Defined::Definition
       visibility == other.visibility and
       unbound == other.unbound
   end
-
   alias eql? ==
-
-  def hash
-    @hash ||= [object, method, visibility, unbound].hash
-  end
+  def hash; @hash ||= [object, method, visibility, unbound].hash end
 
   protected
 
