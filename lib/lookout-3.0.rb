@@ -134,6 +134,6 @@ class Symbol
 end
 
 def Expectations(&block)
-  Lookout::Expectations.evaluate(Lookout.location(caller.first).first, &block)
+  Lookout::Expectations.evaluate Lookout.location(caller.first).first, &block
   self
 end
