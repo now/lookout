@@ -63,12 +63,12 @@ class Lookout::Expect::Object::Context
   # @yield
   # @return [::Object] The result of the block
   def with_verbose(verbose = true)
-    saved_verbose = $VERBOSE
+    saved = $VERBOSE
     $VERBOSE = verbose
     begin
       yield
     ensure
-      $VERBOSE = saved_verbose
+      $VERBOSE = saved
     end
   end
 
