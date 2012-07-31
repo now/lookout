@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Non-failing inspection of arguments.  It’s used by {Mock::Method::Arguments},
+# Non-failing inspection of arguments.  It’s used by {Reception::Arguments},
 # among others.
 class Lookout::Inspect::Argument < Lookout::Inspect
   class << self

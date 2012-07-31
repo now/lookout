@@ -11,8 +11,7 @@
 # the block, reporting any {Difference}s – which may, in turn, be shown as
 # {Diff}s – as its {Result}.
 #
-# To help out, {Stub::Object stub} and {Mock::Object mock} objects as well as
-# {Stub::Methods stub} and {Mock::Methods mock} methods may be created.
+# To help out, {Stub stub} and {Mock mock} objects may be created.
 # Furthermore, all ::Objects have been extended to support easy creation of
 # expected method {Reception}s, using a simple {Object domain-specific
 # language} that uses {Aphonic} receivers to gather the necessary information.
