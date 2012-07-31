@@ -9,6 +9,10 @@ Expectations do
     Lookout::Expect::Object::Context.new{ stub(o, :a => 1){ |e| e } }.evaluate
   end
 
+  expect Object.new do |o|
+    Lookout::Expect::Object::Context.new{ stub(o, :a => 1){ |e| stub(e, :b => 2){ |f| f } } }.evaluate
+  end
+
   expect 1 do
     Lookout::Expect::Object::Context.new{ stub(Object.new, :a => 1){ |o| o.a } }.evaluate
   end
