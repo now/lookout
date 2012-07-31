@@ -75,7 +75,11 @@ Expectations do
 
   expect NameError do
     with_constant '::Inventory::Rake::Tasks::', 'hello' do
-      ::Inventory::Rake::Tasks
+    end
+  end
+
+  expect NameError do
+    with_constant '::::Inventory::Rake::Tasks', 'hello' do
     end
   end
 

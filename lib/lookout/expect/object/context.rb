@@ -84,6 +84,7 @@ class Lookout::Expect::Object::Context
     parts = name.split('::', -1)
     raise NameError, 'illegal constant name: %s' % name if parts.last.empty?
     parts = parts[1..-1] if parts.first.empty?
+    raise NameError, 'illegal constant name: %s' % name if parts.first.empty?
     begin
       parent = parts[0..-2].reduce(Object){ |o, e|
         begin
