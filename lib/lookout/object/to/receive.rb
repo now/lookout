@@ -13,6 +13,6 @@ class Lookout::Object::To::Receive < Lookout::Aphonic
   # @return [Reception] A method reception expectation on the subject for
   #   _method_ with _args_, using _body_ as the method definition
   def method_missing(method, *args, &body)
-    Lookout::Reception.new(@object, method, *args, &body)
+    Lookout::Reception.of(@object, method, *args, &body)
   end
 end

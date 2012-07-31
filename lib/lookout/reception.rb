@@ -4,13 +4,21 @@
 # expectations on what method is going to be called, with what arguments, and
 # how many times it’s to take place.
 class Lookout::Reception
-  # Expects _method_ to be called on _object_ with _args_, using _body_ as the
-  # method definition.
-  # @param [Symbol] method
-  # @param [Object, …] args
-  def initialize(object, method, *args, &body)
-    @object, @method, @args, @body = object, method, args, body
-    at_least_once
+  Value(:object, :method, :range, :'*args', :'&body')
+  # @return [Range] The range of number of times that the method may be called
+  public :range
+
+  class << self
+    # @param [Symbol] method
+    # @param [Object, …] args
+    # @return [Lookout::Reception] A reception expectation expecting _method_
+    #   to be called on _object_ with _args_, using _body_ as the method
+    #   definition.
+    def of(object, method, *args, &body)
+      new(object, method, 1..1.0/0, *args, &body)
+    end
+
+    private :new
   end
 
   # This is an alias for {#exactly}(0).
@@ -28,39 +36,39 @@ class Lookout::Reception
   # This is an alias for {#exactly}(2).
   def twice; exactly(2) end
 
-  # Sets the maximum number of _times_ that the method may be called.
   # @param [Integer] times
-  # @return [self]
+  # @return [Lookout::Reception] A reception expectation with a maximum number
+  #   of _times_ that the method may be called
   # @raise [ArgumentError] If _times_ < 1
   def at_most(times)
-    range('cannot convert upper mock method invocation limit to Integer: %s', times){ |i|
+    limit('cannot convert upper reception limit to Integer: %s', times){ |i|
       raise ArgumentError,
-        'upper mock method invocation limit must be positive: %d < 1' % i if i < 1
+        'upper reception limit must be positive: %d < 1' % i if i < 1
       0..i
     }
   end
 
-  # Sets the minimum and maximum number of _times_ that the method may be
-  # called.
   # @param [Integer] times
-  # @return [self]
+  # @return [Lookout::Reception] A reception expectation with a minimum and
+  #   maximum number of _times_ that the method may be called
   # @raise [ArgumentError] If _times_ < 0
   def exactly(times)
-    range('cannot convert expected mock method invocation count to Integer: %s', times){ |i|
+    limit('cannot convert reception invocation count to Integer: %s', times){ |i|
       raise ArgumentError,
-        'expected mock method invocation count must be non-negative: %d < 0' % i if i < 0
+        'expected reception count must be non-negative: %d < 0' % i if i < 0
       i..i
     }
   end
 
   # Sets the minimum number of times that the method may be called.
   # @param [Integer] times
-  # @return [self]
+  # @return [Lookout::Reception] A reception expectation with a minimum number
+  #   of _times_ that the method may be called
   # @raise [ArgumentError] If _times_ < 1
   def at_least(times)
-    range('cannot convert lower mock method invocation limit to Integer: %s', times){ |i|
+    limit('cannot convert lower reception limit to Integer: %s', times){ |i|
       raise ArgumentError,
-        'lower mock method invocation limit must be positive: %d < 1' % i if i < 1
+        'lower reception limit must be positive: %d < 1' % i if i < 1
       i..1.0/0
     }
   end
@@ -68,35 +76,48 @@ class Lookout::Reception
   # @return [Expected::Lookout::Reception] A wrapper around the object that
   #   represents the expected reception of this method
   def to_lookout_expected
-    Lookout::Expected::Lookout::Reception.new(object, method, calls, *args, &body)
+    Lookout::Expected::Lookout::Reception.new(self)
   end
 
-  # @return True if the receiver’s class, object, method, expected number of
-  #   calls, expected argumets, and method definition `#==` those of _other_
-  def ==(other)
-    self.class == other.class and
-      object == other.object and
-      method == other.method and
-      calls == other.calls and
-      args == other.args and
-      body == other.body
+  def stub(&block)
+    args, calls = Lookout::Reception::Arguments.new(*@args), 0
+    reception, object, method, range, body = self, @object, @method, @range, @body || Nil
+    proc{
+      stub(object, method => proc{ |*mock_args, &mock_block|
+             calls += 1
+             raise Lookout::Reception::Error.
+               from(reception, calls, range) if calls > range.end
+             begin
+               args.verify(*mock_args)
+             rescue Lookout::Reception::Arguments::Error => e
+               raise e, '%s: %s' % [reception, e]
+             end
+             body.call(*mock_args, &mock_block)
+           }, &block) if block
+      calls
+    }
   end
-  alias eql? ==
-  def hash; @hash ||= [object, method, calls, args, body].hash end
 
-  protected
-
-  attr_reader :object, :method, :calls, :args, :body
-  attr_writer :calls
+  def to_s
+    [Lookout::Inspect.new(object, 'object'),
+     Class === object ? '.' : '#',
+     method].join('')
+  end
 
   private
 
-  def range(format, times)
-    self.calls = Lookout::Mock::Method::Calls.new(yield begin
-                                                    times.to_int
-                                                  rescue => e
-                                                    raise e, format % e
-                                                  end)
-    self
+  def limit(format, times)
+    self.class.send(:new,
+                    object,
+                    method,
+                    yield(begin
+                            times.to_int
+                          rescue => e
+                            raise e, format % e
+                          end),
+                    *args,
+                    &body)
   end
+
+  Nil = proc{ Lookout::Stub.new }
 end

@@ -212,14 +212,7 @@ Expectations do
 
   # Stub out a specific method on an object.
   expect 'def' do
-    a = 'abc'
-    stub(a).to_str{ 'def' }
-    a.to_str
-  end
-
-  # Stub out a specific method on an object without an intermediate.
-  expect 'def' do
-    stub('abc').to_str{ 'def' }.to_str
+    stub('abc', :to_str => 'def'){ |a| a.to_str }
   end
 
   # Use a contrete mock to verify that a method is called.
@@ -266,17 +259,15 @@ Expectations do
 
   # Stub out a specific method on an object.
   expect 6 do |m|
-    account = Class.new{
-      def slips
-        raise 'database not available'
-      end
+    stub(Class.new{
+           def slips
+             raise 'database not available'
+           end
 
-      def total
-        slips.reduce(0){ |m, n| m.to_i + n.to_i }
-      end
-    }.new
-    stub(account).slips{ [1, 2, 3] }
-    account.total
+           def total
+             slips.reduce(0){ |m, n| m.to_i + n.to_i }
+           end
+         }.new, :slips => [1, 2, 3]){ |account| account.total }
   end
 
   # Create a stub object that responds to specific methods.

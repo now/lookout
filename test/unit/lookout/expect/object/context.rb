@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
-  expect Lookout::Stub::Object do
+  expect Lookout::Stub do
     Lookout::Expect::Object::Context.new{ stub }.evaluate
   end
 
   expect Object.new do |o|
-    Lookout::Expect::Object::Context.new{ stub(o).a }.evaluate
+    Lookout::Expect::Object::Context.new{ stub(o, :a => 1){ |e| e } }.evaluate
   end
 
-  expect Lookout::Stub::Object do
+  expect 1 do
+    Lookout::Expect::Object::Context.new{ stub(Object.new, :a => 1){ |o| o.a } }.evaluate
+  end
+
+  expect false do
+    Lookout::Expect::Object::Context.new{ stub(o = Object.new, :nil? => true){ }; o.nil? }.evaluate
+  end
+
+  expect Lookout::Stub do
     Lookout::Expect::Object::Context.new{ stub(:a => 1) }.evaluate
   end
 
@@ -22,11 +30,7 @@ Expectations do
   end
 
   expect 1 do
-    Lookout::Expect::Object::Context.new{ Object.new.tap{ |o| stub(o).a{ 1 } }.a }.evaluate
-  end
-
-  expect ArgumentError do
-    Lookout::Expect::Object::Context.new{ Object.new.tap{ |o| stub(o).a(1){ 1 } }.a }.evaluate
+    Lookout::Expect::Object::Context.new{ stub(Object.new, :a => 1){ |o| o.a } }.evaluate
   end
 
   expect true do

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Arguments matcher matching any arguments.
-class Lookout::Mock::Method::Arguments::Any
+class Lookout::Reception::Arguments::Any
   # @param [Array<Object>] other
   # @return [true]
   def =~(other) true end

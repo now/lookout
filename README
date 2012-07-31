@@ -295,8 +295,8 @@
       We expect our objects to be on their best behavior.  Lookout allows you
       to make sure that they are.
 
-      Mocks let us verify that a method is called in the way that we expect it
-      to be:
+      Reception expectations let us verify that a method is called in the way
+      that we expect it to be:
 
         expect mock.to.receive.to_str(without_arguments){ '123' } do |o|
           o.to_str
@@ -304,8 +304,9 @@
 
       Here, ‹#mock› creates a mock object, an object that doesn’t respond to
       anything unless you tell it to.  We tell it to expect to receive a call
-      to ‹#to_str› without arguments.  The mock object is then passed in to the
-      block so that the expectations placed upon it can be fulfilled.
+      to ‹#to_str› without arguments and have ‹#to_str› return ‹'123'› when
+      called.  The mock object is then passed in to the block so that the
+      expectations placed upon it can be fulfilled.
 
       Sometimes we only want to make sure that a method is called in the way
       that we expect it to be, but we don’t care if any other methods are
@@ -334,18 +335,10 @@
       If need be, we can stub out a specific method on an object:
 
         expect 'def' do
-          a = 'abc'
-          stub(a).to_str{ 'def' }
-          a.to_str
+          stub('abc', :to_str => 'def'){ |a| a.to_str }
         end
 
-      This can also be written as
-
-        expect 'def' do
-          stub('abc').to_str{ 'def' }.to_str
-        end
-
-      if the object isn’t needed further.
+      The stub is active during the execution of the block.
 
       You don’t have to use a mock object to verify that a method is called:
 
@@ -355,7 +348,7 @@
 
       As you have figured out by now, the expected method call is set up by
       calling ‹#receive› after ‹#to›.  ‹#Receive› is followed by a call to the
-      method to expect with any expected arguments.  The body of the mocked
+      method to expect with any expected arguments.  The body of the expected
       method can be given as the block to the method.  Finally, an expected
       invocation count may follow the method.  Let’s look at this formal
       specification in more detail.
@@ -401,7 +394,7 @@
           m.a nil, 2, '3'
         end
 
-      The body of the mock method may be given as the block.  Here, calling
+      The body of the expected method may be given as the block.  Here, calling
       ‹#a› on ‹m› will give the result ‹1›:
 
         expect mock.to.receive.a{ 1 } do |m|
@@ -447,21 +440,16 @@
       return something that we can easily control.
 
         expect 6 do |m|
-          account = Class.new{
-            def slips
-              raise 'database not available'
-            end
+          stub(Class.new{
+                 def slips
+                   raise 'database not available'
+                 end
 
-            def total
-              slips.reduce(0){ |m, n| m.to_i + n.to_i }
-            end
-          }.new
-          stub(account).slips{ [1, 2, 3] }
-          account.total
+                 def total
+                   slips.reduce(0){ |m, n| m.to_i + n.to_i }
+                 end
+               }.new, :slips => [1, 2, 3]){ |account| account.total }
         end
-
-      As with mock methods, if no body is given, the result will be a stub
-      object.
 
       To make it easy to create objects with a set of stubbed methods there’s
       also a convenience method:
@@ -470,10 +458,6 @@
           s = stub(:a => 1, :b => 2)
           s.a + s.b
         end
-
-      Please note that this makes it impossible to stub a method on a Hash, but
-      you shouldn’t be doing that anyway.  In fact, you should never mock or
-      stub methods on value objects or aggregate objects of value objects.
 
       This short-hand notation can also be used for the expected value:
 
@@ -569,15 +553,16 @@
     detail.
 
     Lookout only allows you to set one expectation per test.  If you’re testing
-    behavior with a mock, then only one method-invocation expectation can be
-    set.  If you’re testing state, then only one result can be verified.  It
-    may seem like this would cause unnecessary duplication between tests.
-    While this is certainly a possibility, when you actually begin to try to
-    avoid such duplication you find that you often do so by improving your
-    interfaces.  This kind of restriction tends to encourage the use of value
-    objects, which are easy to test, and more focused objects, which require
-    simpler tests, as they have less behavior to test, per method.  By keeping
-    your interfaces focused you’re also keeping your tests focused.
+    behavior with a reception expectation, then only one method-invocation
+    expectation can be set.  If you’re testing state, then only one result can
+    be verified.  It may seem like this would cause unnecessary duplication
+    between tests.  While this is certainly a possibility, when you actually
+    begin to try to avoid such duplication you find that you often do so by
+    improving your interfaces.  This kind of restriction tends to encourage the
+    use of value objects, which are easy to test, and more focused objects,
+    which require simpler tests, as they have less behavior to test, per
+    method.  By keeping your interfaces focused you’re also keeping your tests
+    focused.
 
     Keeping your tests focused improves, in itself, test isolation, but let’s
     look at something that hinders it: setup and teardown methods.  Most unit
@@ -746,22 +731,9 @@
       removed.  They were slightly weird and their use case can be implemented
       using block parameters instead.
 
-      The ‹stub› method inside ‹expect› blocks now returns the object that’s
-      having a method stubbed instead of the stub method object.  That means
-      that you can now write
-
-        expect 2 do
-          stub(Object.new).two{ 2 }.two
-        end
-
-      instead of
-
-        expect 2 do
-          Object.new.tap{ |o| stub(o).two{ 2 } }.two
-        end
-
-      This change was enabled by the removal of ‹#yield› and ‹#each› from stub
-      methods, which rendered the return of those method objects useless.
+      The ‹stub› method inside ‹expect› blocks now stubs out the methods during
+      the execution of a provided block instead of during the execution of the
+      whole except block.
 
       When a mock method is called too many times, this is reported
       immediately, with a full backtrace.  This makes it easier to pin down

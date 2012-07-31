@@ -8,33 +8,54 @@ class Lookout::Expect::Object::Context
   # @param [::Object, …] args
   def initialize(*args, &block)
     @args, @block = args, block
-    @stubs = nil
   end
 
   # @return [::Object, nil] The result of evaluating the block or nil if there’s
   #   no block
   def evaluate
     instance_exec(*@args, &@block) if @block
-  ensure
-    @stubs.undefine if @stubs
   end
 
   private
 
+  # @overload stub(object, methods)
+  #   Sets up stubs for each method name key in _methods_ to its value
+  #   definition during the execution of the given block.  If the value of the
+  #   key is a Proc it’ll be used as the method definition.  Otherwise, the
+  #   method definition will be set up to return the value.
+  #   @param [::Object] object
+  #   @param [Hash<Symbol,Object>] methods
+  #   @yieldparam [::Object] object
+  #   @return [::Object] The result of the block
   # @overload stub(methods = {})
   #   @param [Hash<Symbol,::Object>] methods
   #   @return [Lookout::Stub::Object] A stub object set up with _methods_
-  # @overload stub(object)
-  #   @param [::Object] object
-  #   @return [Stub] A delayed wrapper that will set up a stub method on
-  #     _object_
-  def stub(object = {})
-    case object
-    when Hash
-      Lookout::Stub::Object.new(object)
-    else
-      Stub.new(@stubs ||= Lookout::Stub::Methods.new, object)
-    end
+  def stub(object = {}, methods = nil)
+    return Lookout::Stub.new(object) unless methods
+    recursion = proc{ |ms|
+      return yield(object) if ms.empty?
+      name, value = ms[0].first.to_sym, ms[0].last
+      (Kernel == object ? object : (class << object; self; end)).module_exec{
+        visibility, own =
+          private_method_defined?(name) ? [:private, private_instance_methods(false)] :
+          protected_method_defined?(name) ? [:protected, protected_instance_methods(false)] :
+          public_method_defined?(name) ? [nil, instance_methods(false)] : [nil, []]
+        unbound = own.include?(RUBY_VERSION < '1.9' ? name.to_s : name) ?
+          instance_method(name) : nil
+        Lookout::Stub.define self, name, value
+        send visibility, name if visibility
+        begin
+          recursion.call(ms[1..-1])
+        ensure
+          remove_method name
+          if unbound
+            define_method name, unbound
+            send visibility, name if visibility
+          end
+        end
+      }
+    }
+    recursion.call(methods.to_a)
   end
 
   # Sets `$VERBOSE` to _verbose_ during the execution of the given block.

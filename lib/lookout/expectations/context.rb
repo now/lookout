@@ -34,15 +34,15 @@ class Lookout::Expectations::Context
 
   # @param (see Stub::Object#initialize)
   # @return [Mock::Object] A mock object set up with _methods_
-  def mock(methods = {}) Lookout::Mock::Object.new(methods) end
+  def mock(methods = {}) Lookout::Mock.new(methods) end
 
   # @return [Mock::Method::Arguments::None] An object representing
   #   “without arguments” for mock argument expectations
-  def without_arguments; Lookout::Mock::Method::Arguments::None.new end
+  def without_arguments; Lookout::Reception::Arguments::None.new end
 
   # @param (see Stub::Object#initialize)
   # @return [Stub::Object] A stub object set up with _methods_
-  def stub(methods = {}) Lookout::Stub::Object.new(methods) end
+  def stub(methods = {}) Lookout::Stub.new(methods) end
 
   # @return [Output] An expected output wrapper around _string_
   def output(string) Lookout::Output.new(string) end

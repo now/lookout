@@ -27,9 +27,9 @@ Expectations do
     end
 
     expect '(cannot encode inspected value for output: "\xE2" from ASCII-8BIT to UTF-8; dumping also failed: error)' do
-      message = 'can’t'.force_encoding('ASCII-8BIT')
-      stub(message).dump{ raise 'error' }
-      Lookout::Inspect.new(stub(:inspect => message), 'value').call
+      stub('can’t'.force_encoding('ASCII-8BIT'), :dump => proc{ raise 'error' }){ |message|
+        Lookout::Inspect.new(stub(:inspect => message), 'value').call
+      }
     end
   end
 end

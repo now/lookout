@@ -38,11 +38,15 @@ Expectations do
   end
 
   expect "\tfrom (cannot retrieve backtrace entry: error)" do
-    Lookout::Exception::Backtrace.new(stub('a:1').encode{ raise 'error' }, false).to_s
+    stub('a:1', :encode => proc{ raise 'error' }){ |entry|
+      Lookout::Exception::Backtrace.new([entry], false).to_s
+    }
   end
 
   expect "\tfrom a:1\n\tfrom (cannot retrieve backtrace entry: error)\n\tfrom c:3" do
-    Lookout::Exception::Backtrace.new(['a:1', stub('a:1').encode{ raise 'error' }, 'c:3'], false).to_s
+    stub('b:2', :encode => proc{ raise 'error' }){ |entry|
+      Lookout::Exception::Backtrace.new(['a:1', entry, 'c:3'], false).to_s
+    }
   end
 
   expect "\tfrom (backtrace is not an Array of String: 1)" do

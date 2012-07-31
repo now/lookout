@@ -75,13 +75,11 @@ module Lookout
         lookout/expect.rb
         lookout/expect/object.rb
         lookout/expect/object/context.rb
-        lookout/expect/object/context/stub.rb
         lookout/expect/classes.rb
         lookout/expect/classes/exception.rb
         lookout/expect/exception.rb
         lookout/expect/lookout.rb
         lookout/expect/lookout/output.rb
-        lookout/expect/lookout/reception.rb
         lookout/expect/lookout/warning.rb
         lookout/expected.rb
         lookout/expected/object.rb
@@ -114,32 +112,17 @@ module Lookout
         lookout/interfaces.rb
         lookout/interfaces/commandline.rb
         lookout/literal.rb
+        lookout/stub.rb
+        lookout/mock.rb
         lookout/output.rb
         lookout/plugins.rb
         lookout/reception.rb
-        lookout/stub.rb
-        lookout/stub/method.rb
-        lookout/stub/method/defined.rb
-        lookout/stub/method/defined/definition.rb
-        lookout/stub/method/undefined.rb
-        lookout/stub/methods.rb
-        lookout/stub/object.rb
-        lookout/mock.rb
-        lookout/mock/error.rb
-        lookout/mock/method.rb
-        lookout/mock/method/arguments.rb
-        lookout/mock/method/arguments/any.rb
-        lookout/mock/method/arguments/error.rb
-        lookout/mock/method/arguments/list.rb
-        lookout/mock/method/arguments/none.rb
-        lookout/mock/method/calls.rb
-        lookout/mock/method/calls/error.rb
-        lookout/mock/method/calls/toofewerror.rb
-        lookout/mock/method/calls/toomanyerror.rb
-        lookout/mock/method/defined.rb
-        lookout/mock/method/undefined.rb
-        lookout/mock/methods.rb
-        lookout/mock/object.rb
+        lookout/reception/arguments.rb
+        lookout/reception/arguments/any.rb
+        lookout/reception/arguments/error.rb
+        lookout/reception/arguments/list.rb
+        lookout/reception/arguments/none.rb
+        lookout/reception/error.rb
         lookout/object/not.rb
         lookout/object/not/receive.rb
         lookout/object/to.rb

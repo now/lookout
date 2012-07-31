@@ -6,7 +6,9 @@ Expectations do
   end
 
   expect RuntimeError.new('cannot determine class of exception: cannot retrieve error message: inner') do
-    Lookout::Exception::Unknown.new(stub(RuntimeError.new).message{ raise 'inner' }).name
+    stub(RuntimeError.new, :message => proc{ raise 'inner' }){ |exception|
+      Lookout::Exception::Unknown.new(exception).name
+    }
   end
 
   expect '(cannot determine class of exception: inner)' do
@@ -14,6 +16,8 @@ Expectations do
   end
 
   expect '(cannot determine class of exception: cannot retrieve error message: inner)' do
-    Lookout::Exception::Unknown.new(stub(RuntimeError.new).message{ raise 'inner' }).inspect
+    stub(RuntimeError.new, :message => proc{ raise 'inner' }){ |exception|
+      Lookout::Exception::Unknown.new(exception).inspect
+    }
   end
 end

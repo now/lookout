@@ -2,7 +2,7 @@
 
 # Arguments matcher matching a list of arguments.  It uses
 # {Lookout::Difference} to do the actual work.
-class Lookout::Mock::Method::Arguments::List
+class Lookout::Reception::Arguments::List
   # Expects _args_.
   # @param [Object, …] args
   Value(:'*args')

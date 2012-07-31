@@ -10,7 +10,7 @@ Expectations do
       Lookout::Exception.new(stub(:to_str => proc{ raise 'error' })).message
     end
 
-    expect "cannot retrieve error message: can't convert Lookout::Stub::Object to String (Lookout::Stub::Object#to_s gives NilClass)" do
+    expect "cannot retrieve error message: can't convert Lookout::Stub to String (Lookout::Stub#to_s gives NilClass)" do
       Lookout::Exception.new(stub(:to_str => nil, :to_s => nil)).message
     end
 
@@ -19,14 +19,16 @@ Expectations do
     end
 
     expect 'cannot encode error message for output: "\xE2" from ASCII-8BIT to UTF-8' do
-      message = 'can’t'.force_encoding('ASCII-8BIT')
-      stub(message).dump{ raise 'error' }
-      Lookout::Exception.new(stub(:to_str => message)).message
+      stub('can’t'.force_encoding('ASCII-8BIT'), :dump => proc{ raise 'error' }){ |message|
+        Lookout::Exception.new(stub(:to_str => message)).message
+      }
     end
   end
 
   expect 'unhandled exception' do
-    Lookout::Exception.new(stub(RuntimeError.new('')).message{ raise 'inner' }).header
+    stub(RuntimeError.new(''), :message => proc{ raise 'inner' }){ |exception|
+      Lookout::Exception.new(exception).header
+    }
   end
 
   expect 'unhandled exception' do
@@ -42,11 +44,15 @@ Expectations do
   end
 
   expect 'error' do
-    Lookout::Exception.new(stub(Class.new(StandardError).new('error')).class{ stub(:name => nil) }).header
+    stub(Class.new(StandardError).new('error'), :class => stub(:name => nil)){ |exception|
+      Lookout::Exception.new(exception).header
+    }
   end
 
   expect 'error (cannot determine name of class of exception: inner)' do
-    Lookout::Exception.new(stub(StandardError.new('error')).class{ stub(:name => proc{ raise 'inner' }) }).header
+    stub(Class.new(StandardError).new('error'), :class => stub(:name => proc{ raise 'inner' })){ |exception|
+      Lookout::Exception.new(exception).header
+    }
   end
 
   expect 'error' do
@@ -74,7 +80,9 @@ Expectations do
   end
 
   expect Lookout::Exception::Unknown do
-    Lookout::Exception.new(stub(StandardError.new('error')).class{ raise 'inner' }).type
+    stub(StandardError.new('error'), :class => proc{ raise 'inner' }){ |exception|
+      Lookout::Exception.new(exception).type
+    }
   end
 
   expect 'StandardError' do
@@ -82,11 +90,15 @@ Expectations do
   end
 
   expect 'cannot determine name of class of exception: inner' do
-    Lookout::Exception.new(stub(StandardError.new('error')).class{ stub(:name => proc{ raise 'inner' }) }).type_name
+    stub(StandardError.new('error'), :class => stub(:name => proc{ raise 'inner' })){ |exception|
+      Lookout::Exception.new(exception).type_name
+    }
   end
 
   expect 'cannot determine name of class of exception: cannot determine class of exception: inner' do
-    Lookout::Exception.new(stub(StandardError.new('error')).class{ raise 'inner' }).type_name
+    stub(StandardError.new('error'), :class => proc{ raise 'inner' }){ |exception|
+      Lookout::Exception.new(exception).type_name
+    }
   end
 
   expect "line 1 (StandardError)\nline 2\n\tfrom a:1\n\tfrom b:2" do

@@ -13,6 +13,6 @@ class Lookout::Object::Not::Receive < Lookout::Aphonic
   # @return [Reception] A method reception expectation on the object that
   #   expects _method_ {Reception#never never} to be called
   def method_missing(method, *args, &body)
-    Lookout::Reception.new(@object, method, *args, &body).never
+    Lookout::Reception.of(@object, method, *args, &body).never
   end
 end

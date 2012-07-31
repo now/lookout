@@ -10,11 +10,15 @@ Expectations do
   end
 
   expect [] do
-    RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).message{ raise } }).diff
+    stub(RuntimeError.new('b'), :message => proc{ raise }){ |b|
+      RuntimeError.new('a').to_lookout_expected.difference(b).diff
+    }
   end
 
   expect [] do
-    RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).message{ nil } }).diff
+    stub(RuntimeError.new('b'), :message => nil){ |b|
+      RuntimeError.new('a').to_lookout_expected.difference(b).diff
+    }
   end
 
   expect '[-b-]{+a+}' do
@@ -26,7 +30,9 @@ Expectations do
   end
 
   expect '(cannot inspect actual result: error)≠#<RuntimeError: a>' do
-    RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } }).message
+    stub(RuntimeError.new('b'), :inspect => proc{ raise 'error' }){ |b|
+      RuntimeError.new('a').to_lookout_expected.difference(b).message
+    }
   end
 
   expect '#<RuntimeError: b>≉#<RuntimeError: /a/>' do
@@ -50,10 +56,14 @@ Expectations do
   end
 
   expect '(cannot inspect actual result: error)≠#<RuntimeError: a>' do
-    RuntimeError.new('a').to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } }).message
+    stub(RuntimeError.new('b'), :inspect => proc{ raise 'error' }){ |b|
+      RuntimeError.new('a').to_lookout_expected.difference(b).message
+    }
   end
 
   expect '(cannot inspect actual result: error)≉#<RuntimeError: /a/>' do
-    RuntimeError.new(/a/).to_lookout_expected.difference(RuntimeError.new('b').tap{ |o| stub(o).inspect{ raise 'error' } }).message
+    stub(RuntimeError.new('b'), :inspect => proc{ raise 'error' }){ |b|
+      RuntimeError.new(/a/).to_lookout_expected.difference(b).message
+    }
   end
 end
