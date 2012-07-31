@@ -81,7 +81,8 @@ class Lookout::Expect::Object::Context
   # @return [::Object] The result of the block
   def with_constant(name, value)
     missing = nil
-    parts = name.split('::')
+    parts = name.split('::', -1)
+    parts.shift if parts.first.empty?
     begin
       parent = parts[0..-2].reduce(Object){ |o, e|
         begin

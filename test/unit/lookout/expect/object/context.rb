@@ -63,6 +63,18 @@ Expectations do
     end
   end
 
+  expect 'hello' do
+    with_constant '::Inventory::Rake::Tasks', 'hello' do
+      ::Inventory::Rake::Tasks
+    end
+  end
+
+  expect NameError do
+    with_constant '::Inventory::Rake::Tasks::', 'hello' do
+      ::Inventory::Rake::Tasks
+    end
+  end
+
   expect '123' do
     with_environment 'LINE' => '123' do
       ENV['LINE']
