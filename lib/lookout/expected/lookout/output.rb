@@ -9,7 +9,11 @@ class Lookout::Expected::Lookout::Output < Lookout::Expected::Object
   #   _line_ in _file_ that’ll yield an IO object that’ll expect to see the
   #   {#expected} output during the execution of the block
   def expect(file, line, &block)
-    Lookout::Expect::Lookout::Output.new(self, file, line, &block)
+    super(file, line){ |expected|
+      output = StringIO.new
+      block.call output
+      expected.class.new(output.string)
+    }
   end
 
   # @param [::Lookout::Output] actual
