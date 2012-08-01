@@ -37,6 +37,20 @@ Expectations do
     Lookout::Expect::Object::Context.new{ stub(Object.new, :a => 1){ |o| o.a } }.evaluate
   end
 
+  expect 'hello' do
+    with_global :$stdout, StringIO.new do
+      print 'hello'
+      $stdout.string
+    end
+  end
+
+  expect ArgumentError.new('no such global variable: $THIS_IS_NOT_THE_NAME_OF_A_GLOBAL') do
+    with_global :$THIS_IS_NOT_THE_NAME_OF_A_GLOBAL, StringIO.new do
+      print 'hello'
+      $stdout.string
+    end
+  end
+
   expect true do
     Lookout::Expect::Object::Context.new{ with_verbose{ $VERBOSE }  }.evaluate
   end

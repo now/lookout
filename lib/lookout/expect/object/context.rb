@@ -58,17 +58,34 @@ class Lookout::Expect::Object::Context
     recursion.call(methods.to_a)
   end
 
+  # Sets _global_ to _value_ during the execution of the given block, yielding
+  # the _overridden_ value.
+  # @param [Symbol] global
+  # @param [::Object] value
+  # @yieldparam [::Object] overridden
+  # @return [::Object] The result of the block
+  # @raise [ArgumentError] If _global_ isn’t the name of a global variable
+  def with_global(global, value)
+    symbol = global.to_sym
+    raise ArgumentError,
+      'no such global variable: %s' % global unless
+        global_variables.include?(RUBY_VERSION < '1.9' ? symbol.to_s : symbol)
+    saved = eval(symbol.to_s)
+    eval '%s = value' % symbol
+    begin
+      yield saved
+    ensure
+      eval '%s = saved' % symbol
+    end
+  end
+
   # Sets `$VERBOSE` to _verbose_ during the execution of the given block.
   # @param [true, false, nil] verbose
   # @yield
   # @return [::Object] The result of the block
   def with_verbose(verbose = true)
-    saved = $VERBOSE
-    $VERBOSE = verbose
-    begin
+    with_global :$VERBOSE, verbose do
       yield
-    ensure
-      $VERBOSE = saved
     end
   end
 
@@ -78,6 +95,7 @@ class Lookout::Expect::Object::Context
   # These modules will be removed once the block returns.
   # @param [String] name
   # @param [::Object] value
+  # @yield
   # @return [::Object] The result of the block
   def with_constant(name, value)
     missing = nil
@@ -115,6 +133,7 @@ class Lookout::Expect::Object::Context
   # Sets environment variables defined in _environment_ during the execution of
   # the given block.
   # @param [Hash] environment
+  # @yield
   # @return [::Object] The result of the block
   def with_environment(environment = {})
     saved = ENV.select{ |key, _| environment.include? key }

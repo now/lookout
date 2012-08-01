@@ -110,7 +110,7 @@ Expectations do
 
   # Use #with_verbose to set $VERBOSE during the execution of a block.
   expect nil do
-    with_verbose(nil) do
+    with_verbose nil do
       $VERBOSE
     end
   end
@@ -270,6 +270,7 @@ Expectations do
          }.new, :slips => [1, 2, 3]){ |account| account.total }
   end
 
+
   # Create a stub object that responds to specific methods.
   expect 3 do
     s = stub(:a => 1, :b => 2)
@@ -301,6 +302,21 @@ Expectations do
   expect 'hello' do
     with_environment 'INTRO' => 'hello' do
       ENV['INTRO']
+    end
+  end
+
+  # Override the value of a global during the execution of a block.
+  expect 'hello' do
+    with_global :$stdout, StringIO.new do
+      print 'hello'
+      $stdout.string
+    end
+  end
+
+  # Use the overridden value of a global during the execution of a block.
+  expect true do
+    with_global :$stdout, StringIO.new do |overridden|
+      $stdout != overridden
     end
   end
 end

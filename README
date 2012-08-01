@@ -179,7 +179,7 @@
       value of $VERBOSE, that can be done with ‹#with_verbose›
 
         expect nil do
-          with_verbose(nil) do
+          with_verbose nil do
             $VERBOSE
           end
         end
@@ -505,6 +505,25 @@
 
       Any overridden values are restored and any keys that weren’t previously a
       part of the environment are removed when the block returns.
+
+      You may also want to override the value of a global temporarily:
+
+        expect 'hello' do
+          with_global :$stdout, StringIO.new do
+            print 'hello'
+            $stdout.string
+          end
+        end
+
+      You thus provide the name of the global and a value that it should take
+      during the execution of a block of code.  The block gets passed the
+      overriden value, should you need it:
+
+        expect true do
+          with_global :$stdout, StringIO.new do |overridden|
+            $stdout != overridden
+          end
+        end
 
 § Integration
 
