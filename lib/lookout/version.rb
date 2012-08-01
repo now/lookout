@@ -80,7 +80,6 @@ module Lookout
         lookout/expect/exception.rb
         lookout/expect/lookout.rb
         lookout/expect/lookout/output.rb
-        lookout/expect/lookout/warning.rb
         lookout/expected.rb
         lookout/expected/object.rb
         lookout/expected/array.rb
