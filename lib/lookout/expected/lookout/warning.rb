@@ -3,11 +3,11 @@
 # Represents expected {::Lookout::Warning}s.
 class Lookout::Expected::Lookout::Warning < Lookout::Expected::Object
   # @param (see Object#expect)
-  # @yieldparam (see Object#expect)
-  # @yieldreturn (see Object#expect)
-  # @return [Expect::Lookout::Warning] An expect block for the receiver at
-  #   _line_ in _file_ that’ll yield the {#expected} warning and expect the
-  #   warning to be output output during the execution of the block
+  # @yield
+  # @yieldreturn [::Lookout::Warning]
+  # @return [Expected::Output] An expect block for the receiver at _line_ in
+  #   _file_ that’ll yield and expect the warning to be output to `$stderr`
+  #   during the execution of the block
   def expect(file, line, &block)
     super(file, line){ |expected|
       with_global :$stderr, StringIO.new do

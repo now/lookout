@@ -3,8 +3,8 @@
 # Represents expected {::Lookout::Output}s.
 class Lookout::Expected::Lookout::Output < Lookout::Expected::Object
   # @param (see Object#expect)
-  # @yieldparam (see Object#expect)
-  # @yieldreturn (see Object#expect)
+  # @yieldparam [::IO] io
+  # @yieldreturn [::Lookout::Output]
   # @return [Expect::Lookout::Output] An expect block for the receiver at
   #   _line_ in _file_ that’ll yield an IO object that’ll expect to see the
   #   {#expected} output during the execution of the block
