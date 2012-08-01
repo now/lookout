@@ -85,18 +85,16 @@ class Lookout::Reception
   #   verify that any arguments are what they’re expected to be and then invoke
   #   _block_
   def block(&block)
-    args, calls = Lookout::Reception::Arguments.new(*@args), 0
+    args, calls = Arguments.for(*@args), 0
     reception, object, method, range, body = self, @object, @method, @range, @body || Nil
     proc{
       stub(object, method => proc{ |*mock_args, &mock_block|
              calls += 1
-             raise Lookout::Reception::Error.
-               from(reception, calls, range) if calls > range.end
-             begin
-               args.verify(*mock_args)
-             rescue Lookout::Reception::Arguments::Error => e
-               raise e, '%s: %s' % [reception, e]
-             end
+             raise Error.from(reception, calls, range) if calls > range.end
+             raise Arguments::Error,
+               '%s: unexpected arguments: [%s]≠[%s]' %
+                 [reception, Arguments::List.new(*mock_args), args] unless
+                   args =~ mock_args
              body.call(*mock_args, &mock_block)
            }, &block) if block
       calls

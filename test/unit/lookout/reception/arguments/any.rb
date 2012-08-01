@@ -12,8 +12,4 @@ Expectations do
   expect true do
     Lookout::Reception::Arguments::Any.new =~ [1, 2, 3]
   end
-
-  expect [Lookout::Reception::Arguments::Any] do
-    Lookout::Reception::Arguments::Any.new.to_a
-  end
 end

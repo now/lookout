@@ -12,8 +12,4 @@ Expectations do
   expect '' do
     Lookout::Reception::Arguments::None.new.to_s
   end
-
-  expect [Lookout::Reception::Arguments::None] do
-    Lookout::Reception::Arguments::None.new.to_a
-  end
 end

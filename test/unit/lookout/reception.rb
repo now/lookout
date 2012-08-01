@@ -72,7 +72,15 @@ Expectations do
     stub.to.receive.call(1).to_lookout_expected.expect('test', 1){ |o| o.call }.call
   end
 
-  expect 'stub#call: unexpected arguments ([]≠[1])' do
+  expect 'stub#call: unexpected arguments: []≠[1]' do
     stub.to.receive.call(1).to_lookout_expected.expect('test', 1){ |o| o.call }.call.exception.message
+  end
+
+  expect Lookout::Results::Error do
+    stub.to.receive.call(1).to_lookout_expected.expect('test', 1){ |o| o.call(1, 2) }.call
+  end
+
+  expect 'stub#call: unexpected arguments: [1, 2]≠[1]' do
+    stub.to.receive.call(1).to_lookout_expected.expect('test', 1){ |o| o.call(1, 2) }.call.exception.message
   end
 end

@@ -14,7 +14,4 @@ class Lookout::Reception::Arguments::List
 
   # @return The receiver as a String argument list
   def to_s; Lookout::Inspect::Argument.list(*args) end
-
-  # @return [Object, Array<Object>] The expected arguments
-  def to_a; args.to_a end
 end
