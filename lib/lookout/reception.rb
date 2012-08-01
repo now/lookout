@@ -79,7 +79,12 @@ class Lookout::Reception
     Lookout::Expected::Lookout::Reception.new(self)
   end
 
-  def stub(&block)
+  # @return [Proc] A block to be used by {Expected::Lookout::Reception#expect}
+  #   that’ll set up a stub for the expected method reception that’ll check
+  #   that the call count doesn’t exceed any upper limit imposed upon it and
+  #   verify that any arguments are what they’re expected to be and then invoke
+  #   _block_
+  def block(&block)
     args, calls = Lookout::Reception::Arguments.new(*@args), 0
     reception, object, method, range, body = self, @object, @method, @range, @body || Nil
     proc{

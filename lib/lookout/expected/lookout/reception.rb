@@ -10,7 +10,7 @@ class Lookout::Expected::Lookout::Reception < Lookout::Expected::Object
   #   _file_ that’ll yield the {#expected} object and expect the block to call
   #   the method the appropriate number of times
   def expect(file, line, &block)
-    super file, line, &expected.stub(&block)
+    super file, line, &expected.block(&block)
   end
 
   # @param [Integer] actual
