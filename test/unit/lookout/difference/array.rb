@@ -1,6 +1,18 @@
 # -*- coding: utf-8 -*-
 
 Expectations do
+  expect '1≠[1]' do
+    [1].to_lookout_expected.difference(1).message
+  end
+
+  expect '[1]≠[1, 2]' do
+    [1, 2].to_lookout_expected.difference([1]).message
+  end
+
+  expect '[1, 3]≉[1, 2]' do
+    [1, 2].to_lookout_expected.difference([1, 3]).message
+  end
+
   expect [] do
     %w[abc].to_lookout_expected.difference(%w[def]).diff
   end

@@ -13,4 +13,10 @@ class Lookout::Difference::Array < Lookout::Difference::Object
                   new(Lookout::Diff::Algorithms::Difflib.
                         new(actual, expected))))
   end
+
+  private
+
+  # @return [::String, super] The symbol ‘≉’ if {#actual} is an Array of the
+  #   same #size as {#expected}, {super} otherwise
+  def symbol; Array === actual && expected.size == actual.size ? '≉' : super end
 end
