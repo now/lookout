@@ -6,7 +6,7 @@
 class Lookout::Difference::Range < Lookout::Difference::Object
   private
 
-  # @return [::String, super] The symbol ‘∉’ unless {#actual} is a Range, {super}
-  #   otherwise
+  # @return [::String, super] The symbol ‘∉’ unless {#actual} is a Range,
+  #   {super} otherwise
   def symbol; Range === actual ? super : '∉' end
 end
