@@ -293,14 +293,14 @@ Expectations do
 
   # Override the value of a constant during the execution of a block.
   expect 'hello' do
-    with_constant 'A::B::C', 'hello' do
+    with_const 'A::B::C', 'hello' do
       A::B::C
     end
   end
 
   # Override/add environment keys/values during the execution of a block.
   expect 'hello' do
-    with_environment 'INTRO' => 'hello' do
+    with_env 'INTRO' => 'hello' do
       ENV['INTRO']
     end
   end

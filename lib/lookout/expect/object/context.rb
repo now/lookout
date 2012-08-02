@@ -97,7 +97,7 @@ class Lookout::Expect::Object::Context
   # @param [::Object] value
   # @yield
   # @return [::Object] The result of the block
-  def with_constant(name, value)
+  def with_const(name, value)
     missing = nil
     parts = name.split('::', -1)
     parts = parts[1..-1] if parts.first.empty?
@@ -130,17 +130,17 @@ class Lookout::Expect::Object::Context
     end
   end
 
-  # Sets environment variables defined in _environment_ during the execution of
-  # the given block.
-  # @param [Hash] environment
+  # Sets environment variables defined in _env_ during the execution of the
+  # given block.
+  # @param [Hash] env
   # @yield
   # @return [::Object] The result of the block
-  def with_environment(environment = {})
-    saved = ENV.select{ |key, _| environment.include? key }
+  def with_env(env = {})
+    saved = ENV.select{ |key, _| env.include? key }
     saved = Hash[*saved.flatten] if RUBY_VERSION < '1.9'
-    missing = environment.reject{ |key, _| ENV.include? key }
+    missing = env.reject{ |key, _| ENV.include? key }
     begin
-      ENV.update environment
+      ENV.update env
       yield
     ensure
       ENV.update saved

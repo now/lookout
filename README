@@ -474,10 +474,10 @@
   § Utilities
 
       Sometimes you need to override the value of a constant during the
-      execution of some code.  Use ‹#with_constant› to do just that:
+      execution of some code.  Use ‹#with_const› to do just that:
 
         expect 'hello' do
-          with_constant 'A::B::C', 'hello' do
+          with_const 'A::B::C', 'hello' do
             A::B::C
           end
         end
@@ -491,14 +491,14 @@
       Another thing you often need to control in your tests is the value of
       environment variables.  Depending on such global values is, of course,
       not a good practice, but is often unavoidable when working with external
-      libraries.  ‹#With_environment› allows you to override the value of
-      environment variables during the execution of a block by giving it a
-      ‹Hash› of key/value pairs where the key is the name of the environment
-      variable and the value is the value that it should have during the
-      execution of that block:
+      libraries.  ‹#With_env› allows you to override the value of environment
+      variables during the execution of a block by giving it a ‹Hash› of
+      key/value pairs where the key is the name of the environment variable and
+      the value is the value that it should have during the execution of that
+      block:
 
         expect 'hello' do
-          with_environment 'INTRO' => 'hello' do
+          with_env 'INTRO' => 'hello' do
             ENV['INTRO']
           end
         end

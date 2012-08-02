@@ -76,44 +76,44 @@ Expectations do
   end
 
   expect 'hello' do
-    with_constant 'Inventory::Rake::Tasks', 'hello' do
+    with_const 'Inventory::Rake::Tasks', 'hello' do
       ::Inventory::Rake::Tasks
     end
   end
 
   expect 'hello' do
-    with_constant '::Inventory::Rake::Tasks', 'hello' do
+    with_const '::Inventory::Rake::Tasks', 'hello' do
       ::Inventory::Rake::Tasks
     end
   end
 
   expect NameError do
-    with_constant '::', 'hello' do
+    with_const '::', 'hello' do
     end
   end
 
   expect NameError do
-    with_constant '::::', 'hello' do
+    with_const '::::', 'hello' do
     end
   end
 
   expect NameError do
-    with_constant '::::::', 'hello' do
+    with_const '::::::', 'hello' do
     end
   end
 
   expect NameError do
-    with_constant '::Inventory::Rake::Tasks::', 'hello' do
+    with_const '::Inventory::Rake::Tasks::', 'hello' do
     end
   end
 
   expect NameError do
-    with_constant '::::Inventory::Rake::Tasks', 'hello' do
+    with_const '::::Inventory::Rake::Tasks', 'hello' do
     end
   end
 
   expect '123' do
-    with_environment 'LINE' => '123' do
+    with_env 'LINE' => '123' do
       ENV['LINE']
     end
   end
