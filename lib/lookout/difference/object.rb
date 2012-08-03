@@ -64,11 +64,11 @@ class Lookout::Difference::Object
 
   # @return [::String] The safely inspected value of {#actual}, see
   #   {Inspect::Actual}
-  def inspect_actual; Lookout::Inspect::Actual.new(actual).call end
+  def inspect_actual; Lookout::Inspect.new(actual, 'actual result').call end
 
   # @return [::String] The safely inspected value of {#expected}, see
   #   {Inspect::Expected}
-  def inspect_expected; Lookout::Inspect::Expected.new(expected).call end
+  def inspect_expected; Lookout::Inspect.new(expected, 'expected value').call end
 
   # @return [::String] The inequality symbol to use (‘≠’)
   def symbol; '≠' end
