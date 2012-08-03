@@ -13,5 +13,5 @@ class Lookout::Reception::Arguments::List
   def =~(other) not args.to_lookout_expected.difference(other) end
 
   # @return The receiver as a String argument list
-  def to_s; Lookout::Inspect::Argument.list(*args) end
+  def to_s; Lookout::Inspect.args(*args) end
 end

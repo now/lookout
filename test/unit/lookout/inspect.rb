@@ -32,4 +32,8 @@ Expectations do
       }
     end
   end
+
+  expect '1, (cannot inspect argument: error), 3' do
+    Lookout::Inspect.args(1, stub(:inspect => proc{ raise 'error' }), 3)
+  end
 end

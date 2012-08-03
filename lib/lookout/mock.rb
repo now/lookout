@@ -16,7 +16,7 @@ class Lookout::Mock < Lookout::Stub
     raise Lookout::Reception::Error.
       from('%p#%s(%s)%s' % [self,
                             method,
-                            Lookout::Inspect::Argument.list(*args),
+                            Lookout::Inspect.args(*args),
                             block_given? ? '{ … }' : ''],
            1,
            0..0)

@@ -103,7 +103,6 @@ module Lookout
         lookout/expectations.rb
         lookout/expectations/context.rb
         lookout/inspect.rb
-        lookout/inspect/argument.rb
         lookout/interfaces.rb
         lookout/interfaces/commandline.rb
         lookout/literal.rb

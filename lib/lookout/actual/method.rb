@@ -23,7 +23,7 @@ class Lookout::Actual::Method
   def to_s
     ['#',
      method,
-     args.empty? ? '' : '(%s)' % Lookout::Inspect::Argument.list(*args),
+     args.empty? ? '' : '(%s)' % Lookout::Inspect.args(*args),
      block ? '{ … }' : ''].join('')
   end
 
