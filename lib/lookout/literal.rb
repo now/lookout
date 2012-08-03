@@ -6,7 +6,7 @@
 # the object would normally return.  This allows us to expect a literal {Range}
 # instead of allowing either a Range or an item included in the range.
 class Lookout::Literal
-  # Proxies the _expected_ value, allowing it to be expected literally.
+  # Proxies the EXPECTED value, allowing it to be expected literally.
   # @param [Object] expected
   Value(:expected)
 

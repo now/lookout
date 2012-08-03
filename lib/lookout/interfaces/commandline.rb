@@ -2,8 +2,8 @@
 
 # Command-line interface to Lookout.
 class Lookout::Interfaces::Commandline
-  # Processes _arguments_, looking for options, running from the directory
-  # _pwd_ and outputting results to _io_.
+  # Processes ARGUMENTS, looking for options, running from the directory
+  # PWD and outputting results to IO.
   #
   # Valid arguments are
   #
@@ -11,12 +11,12 @@ class Lookout::Interfaces::Commandline
   # * -rFEATURE: Requires _FEATURE_
   # * -lLINE: Only runs expectation closest before or on _LINE_
   # * -c: Reports test coverage
-  # * FILENAME: Loads expectations from _FILENAME_, relative to _pwd_
+  # * FILENAME: Loads expectations from _FILENAME_, relative to PWD
   #
   # @param [Array<String>] arguments
   # @param [String] pwd
   # @param [IO] io
-  # @raise [ArgumentError] If an unknown option exists among _arguments_
+  # @raise [ArgumentError] If an unknown option exists among ARGUMENTS
   def initialize(arguments = ARGV, pwd = Dir.pwd, io = $stderr)
     @pwd, @io = pwd, io
     @line = nil

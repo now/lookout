@@ -9,9 +9,9 @@ class Lookout::Mock < Lookout::Stub
 
   # @param [Symbol] method
   # @param [Object, …] args
-  # @raise [Reception::Error] When called, including the _method_ that was
-  #   called and with what _args_ in the messaged and with the proper
-  #   backtrace, making it easy to see where things went wrong
+  # @raise [Reception::Error] When called, including the METHOD that was called
+  #   and with what ARGS in the messaged and with the proper backtrace, making
+  #   it easy to see where things went wrong
   def method_missing(method, *args)
     raise Lookout::Reception::Error.
       from('%p#%s(%s)%s' % [self,

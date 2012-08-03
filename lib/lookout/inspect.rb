@@ -3,7 +3,7 @@
 # Non-failing inspection of objects.  The inspection is {Lookout::Encode
 # encoded} for output.
 class Lookout::Inspect
-  # Non-failing inspection of _object_, using _type_ as a description of the
+  # Non-failing inspection of OBJECT, using TYPE as a description of the
   # type of object being inspected for failure outputs.
   # @param [Object] object
   # @param [String] type

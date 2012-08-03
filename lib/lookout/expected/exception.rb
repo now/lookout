@@ -5,15 +5,15 @@ class Lookout::Expected::Exception < Lookout::Expected::Object
   # @param (see Object#expect)
   # @yieldparam [::Exception] exception
   # @yieldreturn [::Exception]
-  # @return [Expect::Exception] An expect block for the receiver at
-  #   _line_ in _file_ that’ll yield the expected _exception_ and expect the
-  #   exception to be raised
+  # @return [Expect::Exception] An expect block for the receiver at LINE in
+  #   FILE that’ll yield the expected EXCEPTION and expect the exception to be
+  #   raised
   def expect(file, line, &block)
     Lookout::Expect::Exception.new(self, file, line, &block)
   end
 
   # @param [::Exception] actual
-  # @return [Difference::Exception, nil] A difference report between _actual_
+  # @return [Difference::Exception, nil] A difference report between ACTUAL
   #   and {#expected} unless they’re #equal? or their classes are `#==` and
   #   their messages match or {#expected}s message is a Regexp that matches
   #   actual’s message

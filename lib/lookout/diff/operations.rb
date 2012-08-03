@@ -5,7 +5,7 @@
 # relation to other matches in the sequence of matches.  Empty copy operations
 # will never be a part of this sequence.
 class Lookout::Diff::Operations
-  # Initializes a sequence of operations based on _matches_.
+  # Initializes a sequence of operations based on MATCHES.
   # @param [Enumerable<Match>] matches
   Value(:matches)
   include Enumerable

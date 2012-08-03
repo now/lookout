@@ -6,8 +6,8 @@
 class Lookout::Exception::Backtrace
   class << self
     # @param [::Exception] exception
-    # @return [Backtrace] A backtrace wrapper of _exception_’s backtrace,
-    #   trimmed if _exception_ is a SystemStackError, and empty if the
+    # @return [Backtrace] A backtrace wrapper of EXCEPTION’s backtrace,
+    #   trimmed if EXCEPTION is a SystemStackError, and empty if the
     #   backtrace can’t be retrieved
     def from(exception)
       new(nil == exception ? nil : (exception.backtrace rescue nil),
@@ -15,9 +15,8 @@ class Lookout::Exception::Backtrace
     end
   end
 
-  # Wraps _backtrace_ and optionally _trim_ the backtrace to only contain a
-  # couple of leading and trailing entries and _filter_ out entries from inside
-  # Lookout.
+  # Wraps BACKTRACE and optionally TRIM the backtrace to only contain a couple
+  # of leading and trailing entries and FILTER out entries from inside Lookout.
   # @param [Array<String>] backtrace
   # @param [Boolean] trim
   # @param [Boolean] filter

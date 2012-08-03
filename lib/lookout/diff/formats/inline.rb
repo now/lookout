@@ -10,7 +10,7 @@
 # [Git](http://git-scm.com/).  That format was surely inspired by something
 # before it, but it’s where I first saw it, so that’s what I’m referencing.
 class Lookout::Diff::Formats::Inline
-  # Formats _operations_ as they would be applied inline on a String.
+  # Formats OPERATIONS as they would be applied inline on a String.
   # @param [Operations] operations
   Value(:operations)
   include Enumerable

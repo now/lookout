@@ -6,7 +6,7 @@
 # {#expect} and/or {#difference} to set up type-specific expect blocks and/or
 # difference checks and difference report generation.
 class Lookout::Expected::Object
-  # Wraps the _expected_ value.
+  # Wraps the EXPECTED value.
   # @param [::Object] expected The expected value
   Value(:expected)
   public :expected
@@ -14,15 +14,15 @@ class Lookout::Expected::Object
   # @param (see Expect::Object#initialize)
   # @yieldparam (see Expect::Object#initialize)
   # @yieldreturn (see Expect::Object#initialize)
-  # @return [Expect::Object] An expect block for the receiver at _line_ in
-  #   _file_ that’ll yield the {#expected} object and expect an object that’ll
-  #   exhibit no {#difference}s from it to be returned
+  # @return [Expect::Object] An expect block for the receiver at LINE in FILE
+  #   that’ll yield the {#expected} object and expect an object that’ll exhibit
+  #   no {#difference}s from it to be returned
   def expect(file, line, &block)
     Lookout::Expect::Object.new(self, file, line, &block)
   end
 
   # @param [::Object] actual
-  # @return [Difference::Object, nil] A difference report between _actual_ and
+  # @return [Difference::Object, nil] A difference report between ACTUAL and
   #   {#expected} unless they’re `#==`
   def difference(actual)
     Lookout::Difference::Object.new(actual, expected) unless expected == actual

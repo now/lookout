@@ -11,8 +11,8 @@ class Lookout::Expectations::Context
 
   private
 
-  # Sets up an expect block, expecting _expected_ and evaluating _&block_ for
-  # the actual result, then passes it to the block given to the constructor.
+  # Sets up an expect block, expecting EXPECTED and evaluating BLOCK for the
+  # actual result, then passes it to the block given to the constructor.
   # @param (see Expect.expect)
   # @return [self]
   # @see Expect.expect
@@ -29,11 +29,11 @@ class Lookout::Expectations::Context
   def result; Lookout::Actual.new end
 
   # @param [Object] expected
-  # @return [Literal] A literal expected value for _expected_
+  # @return [Literal] A literal expected value for EXPECTED
   def literal(expected) Lookout::Literal.new(expected) end
 
   # @param (see Stub::Object#initialize)
-  # @return [Mock::Object] A mock object set up with _methods_
+  # @return [Mock::Object] A mock object set up with METHODS
   def mock(methods = {}) Lookout::Mock.new(methods) end
 
   # @return [Mock::Method::Arguments::None] An object representing
@@ -41,12 +41,12 @@ class Lookout::Expectations::Context
   def without_arguments; Lookout::Reception::Arguments::None.new end
 
   # @param (see Stub::Object#initialize)
-  # @return [Stub::Object] A stub object set up with _methods_
+  # @return [Stub::Object] A stub object set up with METHODS
   def stub(methods = {}) Lookout::Stub.new(methods) end
 
-  # @return [Output] An expected output wrapper around _string_
+  # @return [Output] An expected output wrapper around STRING
   def output(string) Lookout::Output.new(string) end
 
-  # @return [Output] An expected warning wrapper around _string_
+  # @return [Output] An expected warning wrapper around STRING
   def warning(string) Lookout::Warning.new(string) end
 end

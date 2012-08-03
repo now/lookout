@@ -5,9 +5,8 @@
 # ‘≉’ instead of ‘≠’ to show that the actual result doesn’t match an expected
 # Regexp.
 class Lookout::Difference::Exception < Lookout::Difference::Object
-  # Initializes a difference report between the _actual_ result and the
-  # _expected_ value, where _regexp_ is the {::Regexp} found inside _expected_,
-  # if any.
+  # Initializes a difference report between the ACTUAL result and the EXPECTED
+  # value, where REGEXP is the {::Regexp} found inside EXPECTED, if any.
   # @param [::Exception] actual
   # @param [::Exception] expected
   # @param [::Regexp, nil] regexp

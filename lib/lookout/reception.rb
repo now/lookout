@@ -11,9 +11,8 @@ class Lookout::Reception
   class << self
     # @param [Symbol] method
     # @param [Object, …] args
-    # @return [Lookout::Reception] A reception expectation expecting _method_
-    #   to be called on _object_ with _args_, using _body_ as the method
-    #   definition.
+    # @return [Lookout::Reception] A reception expectation expecting METHOD to
+    #   be called on OBJECT with ARGS, using BODY as the method definition.
     def of(object, method, *args, &body)
       new(object, method, 1..1.0/0, *args, &body)
     end
@@ -38,8 +37,8 @@ class Lookout::Reception
 
   # @param [Integer] times
   # @return [Lookout::Reception] A reception expectation with a maximum number
-  #   of _times_ that the method may be called
-  # @raise [ArgumentError] If _times_ < 1
+  #   of TIMES that the method may be called
+  # @raise [ArgumentError] If TIMES < 1
   def at_most(times)
     limit('cannot convert upper reception limit to Integer: %s', times){ |i|
       raise ArgumentError,
@@ -50,8 +49,8 @@ class Lookout::Reception
 
   # @param [Integer] times
   # @return [Lookout::Reception] A reception expectation with a minimum and
-  #   maximum number of _times_ that the method may be called
-  # @raise [ArgumentError] If _times_ < 0
+  #   maximum number of TIMES that the method may be called
+  # @raise [ArgumentError] If TIMES < 0
   def exactly(times)
     limit('cannot convert reception invocation count to Integer: %s', times){ |i|
       raise ArgumentError,
@@ -63,8 +62,8 @@ class Lookout::Reception
   # Sets the minimum number of times that the method may be called.
   # @param [Integer] times
   # @return [Lookout::Reception] A reception expectation with a minimum number
-  #   of _times_ that the method may be called
-  # @raise [ArgumentError] If _times_ < 1
+  #   of TIMES that the method may be called
+  # @raise [ArgumentError] If TIMES < 1
   def at_least(times)
     limit('cannot convert lower reception limit to Integer: %s', times){ |i|
       raise ArgumentError,
@@ -83,7 +82,7 @@ class Lookout::Reception
   #   that’ll set up a stub for the expected method reception that’ll check
   #   that the call count doesn’t exceed any upper limit imposed upon it and
   #   verify that any arguments are what they’re expected to be and then invoke
-  #   _block_
+  #   BLOCK
   def block(&block)
     args, calls = Arguments.for(*@args), 0
     reception, object, method, range, body = self, @object, @method, @range, @body || Nil
@@ -101,6 +100,9 @@ class Lookout::Reception
     }
   end
 
+  # @return A String consisting of the inspection of the object, followed by
+  #   either ‘.’ or ‘#’ depending on whether the object is a Class or not, and
+  #   the method name
   def to_s
     [Lookout::Inspect.new(object, 'object'),
      Class === object ? '.' : '#',

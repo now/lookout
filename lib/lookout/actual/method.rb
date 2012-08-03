@@ -4,14 +4,14 @@
 # information is stored and used when this method is {#call}ed, which passes it
 # along to the given actual result.
 class Lookout::Actual::Method
-  # Proxies _method_, passing in _args_ and _block_ when {#call}ed.
+  # Proxies METHOD, passing in ARGS and BLOCK when {#call}ed.
   # @param [Symbol] method
   # @param [Object, …] args
   Value(:method, :'*args', :'&block')
 
   # @param [Object] actual
   # @return [Object] The result of invoking the method with the given arguments
-  #   on the _actual_ result
+  #   on the ACTUAL result
   def call(actual) actual.__send__(method, *args, &block) end
 
   # @return [Expected::Lookout::Actual::Method] An expected value wrapper of

@@ -5,8 +5,8 @@ class Lookout::Results::Error
   include Lookout::Result
 
   # (see Result#initialize)
-  # An additional _message_ may also be associated with the result, which was
-  # caused by _exception_.
+  # An additional MESSAGE may also be associated with the result, which was
+  # caused by EXCEPTION.
   # @param (see Result#initialize)
   # @param [String, nil] message Any additional message associated with this
   #   error

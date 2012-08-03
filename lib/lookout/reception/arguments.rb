@@ -7,8 +7,8 @@
 module Lookout::Reception::Arguments
   class << self
     # @param [Object, …] args
-    # @return [Any, List, None] {Any} if _args_ is #empty?, {Any} or {None} if
-    #   _args_ contain either, or a {List} wrapping _args_
+    # @return [Any, List, None] {Any} if ARGS is #empty?, {Any} or {None} if
+    #   ARGS contain either, or a {List} wrapping ARGS
     def for(*args)
       if args.empty? then Any.new
       elsif any = args.find{ |e| Any === e } then any

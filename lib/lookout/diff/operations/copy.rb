@@ -3,9 +3,9 @@
 # Slice that should be copied from the old sequence.
 class Lookout::Diff::Operations::Copy < Lookout::Diff::Operation
   # @param [Integer] context
-  # @return True if the slice of the old sequence is larger than _context_ * 2
-  #   ({#old}{Slice#size #size} > _context_ * 2) so that it may be folded to
-  #   _context_ at both ends ({#>>}, {#<<})
+  # @return True if the slice of the old sequence is larger than CONTEXT * 2
+  #   ({#old}{Slice#size #size} > CONTEXT * 2) so that it may be folded to
+  #   CONTEXT at both ends ({#>>}, {#<<})
   def foldable?(context) old.size > context * 2 end
 
   # (see Operation#>>)

@@ -2,7 +2,7 @@
 
 # Slice (subsequence) of a sequence being “diffed”.
 class Lookout::Diff::Slice
-  # Initializes a slice of _items_ encompassing _range_.
+  # Initializes a slice of ITEMS encompassing RANGE.
   # @param [Enumerable] items
   # @param [Range] range
   Value(:items, :range)
@@ -17,33 +17,33 @@ class Lookout::Diff::Slice
   # @return The number of encompassed elements
   def size; self.end - self.begin + 1 end
 
-  # @return True if {#end} + 1 = _other_{#begin}
+  # @return True if {#end} + 1 = OTHER{#begin}
   def touch?(other) self.end + 1 == other.begin end
 
-  # @return True if {#begin} < _other_{#begin}
+  # @return True if {#begin} < OTHER{#begin}
   def begin_before?(other) self.begin < other.begin end
 
-  # @return True if {#end} > _other_{#end}
+  # @return True if {#end} > OTHER{#end}
   def end_after?(other) self.end > other.end end
 
-  # @return [Slice] A new slice beginning at _other_{#end} + 1
+  # @return [Slice] A new slice beginning at OTHER{#end} + 1
   def begin_after(other) begin_at(other.end + 1) end
 
-  # @return [Slice] A new slice ending at _other_{#begin} - 1
+  # @return [Slice] A new slice ending at OTHER{#begin} - 1
   def end_before(other) end_at(other.begin - 1) end
 
-  # @return [Slice] A new slice encompassing _range_
+  # @return [Slice] A new slice encompassing RANGE
   def at(range) self.class.new(items, range) end
 
-  # @return A new slice encompassing the receiver and _other_
-  # @note Logically, the receiver should {#touch?} _other_, but this isn’t
+  # @return A new slice encompassing the receiver and OTHER
+  # @note Logically, the receiver should {#touch?} OTHER, but this isn’t
   #   enforced.
   def +(other) at(self.begin..other.end) end
 
-  # @return [Slice] A new slice beginning at _index_
+  # @return [Slice] A new slice beginning at INDEX
   def begin_at(index) at(index..self.end) end
 
-  # @return [Slice] A new slice ending at _index_
+  # @return [Slice] A new slice ending at INDEX
   def end_at(index) at(self.begin..index) end
 
   # @overload
@@ -75,7 +75,7 @@ class Lookout::Diff::Slice
   # @return [Enumerable<Object>] The encompassed elements
   def to_items; items[range] end
 
-  # @return The _index_’th element
+  # @return The INDEXth element
   def [](index) items[index] end
 
   # @return [Integer] The index of the first element
@@ -85,7 +85,7 @@ class Lookout::Diff::Slice
   def end; range.end end
 
   # @return The comparison of the receiver’s {#begin} and {#end}
-  #   against those of _other_
+  #   against those of OTHER
   def <=>(other)
     return nil unless self.class == other.class and items == other.items
     (self.begin <=> other.begin).nonzero? or

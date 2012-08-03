@@ -9,9 +9,9 @@ module Lookout::Expect
   class << self
     # Wraps the creation of an {Object} or one of its sub-classes by
     # dispatching #to_lookout_expected on the _expected_ value and then calling
-    #  #expect on the result, passing the expanded path to the _file_
-    # containing the expectation, the _line_ in _file_ on which the expectation
-    # is defined, and the _block_ to evaluate for the actual result.
+    #  #expect on the result, passing the expanded path to the FILE
+    # containing the expectation, the LINE in _file_ on which the expectation
+    # is defined, and the BLOCK to evaluate for the actual result.
     #
     # If #to_lookout_expected raises NoMethodError, the result will be an
     # {Object}, so that at least something gets set up.
@@ -20,7 +20,7 @@ module Lookout::Expect
     # @param [::String] file
     # @param [::Integer] line
     # @return [Object] The result of calling
-    #   _expected_#to_lookout_expected#expect(_file_, _line_, &_block_)
+    #   _expected_#to_lookout_expected#expect(FILE, LINE, &BLOCK)
     def expect(expected, file, line, &block)
       begin
         expected.to_lookout_expected

@@ -7,7 +7,7 @@
 # expectations blocks in the expectation file.
 class Lookout::Expectations
   # Prepares the enumeration of the expect blocks found in the expectations
-  # file pointed to by the expanded _path_.
+  # file pointed to by the expanded PATH.
   # @param [String] path
   Value(:path)
   include Enumerable

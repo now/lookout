@@ -4,10 +4,10 @@
 # whenever it receives a method call it doesn’t know anything about.
 class Lookout::Stub
   class << self
-    # Defines _method_ on an objects _meta_ object to _value_.  If _value_ is a
-    # Proc it’ll be used as a method definition with rules that depend on if
-    # whether it’s a lambda or not.  Otherwise, the method definition will be
-    # set up to return _value_.
+    # Defines METHOD on an objects META object to VALUE.  If _value_ is a Proc
+    # it’ll be used as a method definition with rules that depend on if whether
+    # it’s a lambda or not.  Otherwise, the method definition will be set up to
+    # return VALUE.
     # @param [Object] meta
     # @param [Symbol] method
     # @param [Object] value
@@ -31,9 +31,9 @@ class Lookout::Stub
     end
   end
 
-  # Maps each method name key in _methods_ to its value definition.  If the
-  # value of the key is a Proc it’ll be used as the method definition.
-  # Otherwise, the method definition will be set up to return _value_.
+  # Maps each method name key in METHODS to its value definition.  If the value
+  # of the key is a Proc it’ll be used as the method definition.  Otherwise,
+  # the method definition will be set up to return VALUE.
   # @param [Hash<Symbol,Object>] methods
   def initialize(methods = {})
     (class << self; self; end).module_eval do

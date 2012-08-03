@@ -5,7 +5,7 @@
 # the result responds to it.  This is primarily useful for compatibility
 # between Ruby 1.8 and 1.9.
 class Lookout::Encode
-  # Encodes _object_ as an UTF-8-encoded String.
+  # Encodes OBJECT as an UTF-8-encoded String.
   # @param [#to_s] object
   Value(:object)
 

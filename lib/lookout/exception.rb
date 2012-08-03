@@ -5,7 +5,7 @@
 # {Results::Error}.  Also uses {Encode} so that all strings are ready for
 # output.
 class Lookout::Exception
-  # Provides non-failing access to _exception_’s message, backtrace, and type.
+  # Provides non-failing access to EXCEPTION’s message, backtrace, and type.
   # @param [::Exception] exception
   Value(:exception)
 

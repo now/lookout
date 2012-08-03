@@ -3,15 +3,14 @@
 # Context in which expect blocks are evaluated.  Plug-ins may add private
 # methods to this class to make them available to expect blocks.
 class Lookout::Expect::Object::Context
-  # Evaluates _block_ inside this context, passing _args_ to it, when
-  #   {#evaluate}d.
+  # Evaluates BLOCK inside this context, passing ARGS to it, when {#evaluate}d.
   # @param [::Object, …] args
   def initialize(*args, &block)
     @args, @block = args, block
   end
 
-  # @return [::Object, nil] The result of evaluating the block or nil if there’s
-  #   no block
+  # @return [::Object, nil] The result of evaluating the block or nil if
+  #   there’s no block
   def evaluate
     instance_exec(*@args, &@block) if @block
   end
@@ -19,7 +18,7 @@ class Lookout::Expect::Object::Context
   private
 
   # @overload stub(object, methods)
-  #   Sets up stubs for each method name key in _methods_ to its value
+  #   Sets up stubs on OBJECT for each method name key in METHODS to its value
   #   definition during the execution of the given block.  If the value of the
   #   key is a Proc it’ll be used as the method definition.  Otherwise, the
   #   method definition will be set up to return the value.
@@ -29,7 +28,7 @@ class Lookout::Expect::Object::Context
   #   @return [::Object] The result of the block
   # @overload stub(methods = {})
   #   @param [Hash<Symbol,::Object>] methods
-  #   @return [Lookout::Stub::Object] A stub object set up with _methods_
+  #   @return [Lookout::Stub::Object] A stub object set up with METHODS
   def stub(object = {}, methods = nil)
     return Lookout::Stub.new(object) unless methods
     recursion = proc{ |ms|
@@ -58,13 +57,13 @@ class Lookout::Expect::Object::Context
     recursion.call(methods.to_a)
   end
 
-  # Sets _global_ to _value_ during the execution of the given block, yielding
-  # the _overridden_ value.
+  # Sets GLOBAL to VALUE during the execution of the given block, yielding the
+  # overridden value.
   # @param [Symbol] global
   # @param [::Object] value
   # @yieldparam [::Object] overridden
   # @return [::Object] The result of the block
-  # @raise [ArgumentError] If _global_ isn’t the name of a global variable
+  # @raise [ArgumentError] If GLOBAL isn’t the name of a global variable
   def with_global(global, value)
     symbol = global.to_sym
     raise ArgumentError,
@@ -79,7 +78,7 @@ class Lookout::Expect::Object::Context
     end
   end
 
-  # Sets `$VERBOSE` to _verbose_ during the execution of the given block.
+  # Sets `$VERBOSE` to VERBOSE during the execution of the given block.
   # @param [true, false, nil] verbose
   # @yield
   # @return [::Object] The result of the block
@@ -89,8 +88,8 @@ class Lookout::Expect::Object::Context
     end
   end
 
-  # Sets the constant identified by (the possibly qualified) _name_ to _value_
-  # during the execution of the given block.  If _name_ is qualified, any
+  # Sets the constant identified by (the possibly qualified) NAME to VALUE
+  # during the execution of the given block.  If NAME is qualified, any
   # intermediate modules that aren’t defined will be set to new {Module}s.
   # These modules will be removed once the block returns.
   # @param [String] name
@@ -130,8 +129,8 @@ class Lookout::Expect::Object::Context
     end
   end
 
-  # Sets environment variables defined in _env_ during the execution of the
-  # given block.
+  # Sets environment variables defined in ENV during the execution of the given
+  # block.
   # @param [Hash] env
   # @yield
   # @return [::Object] The result of the block

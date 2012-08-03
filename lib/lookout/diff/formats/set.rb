@@ -7,7 +7,7 @@
 #
 # This format is used by {Difference::Hash}.
 class Lookout::Diff::Formats::Set
-  # Formats _operations_ as they would be applied to an unordered set.
+  # Formats OPERATIONS as they would be applied to an unordered set.
   # @param [Operations] operations
   Value(:operations)
   include Enumerable

@@ -24,7 +24,7 @@ class Lookout::Actual < Lookout::Aphonic
   private
 
   # @param (see Method#initialize)
-  # @return [Method] A method wrapper that’ll call _method_ with _args_ and
-  #   _block_ when called
+  # @return [Method] A method wrapper that’ll call METHOD with ARGS and BLOCK
+  #   when called
   def method_missing(method, *args, &block) Method.new(method, *args, &block) end
 end

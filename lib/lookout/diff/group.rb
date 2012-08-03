@@ -2,7 +2,7 @@
 
 # Ordered sequence of related {Operation}s; type enumerated by {Groups}.
 class Lookout::Diff::Group
-  # Initializes the group with an initial sequence of _operations_.
+  # Initializes the group with an initial sequence of OPERATIONS.
   # @param [Operation, …] operations
   Value(:'*operations')
   include Enumerable
@@ -10,12 +10,12 @@ class Lookout::Diff::Group
   # @return True if the receiver doesn’t contain any operations
   def empty?; operations.empty? end
 
-  # Adds _operation_ to the receiver.
+  # Adds OPERATION to the receiver.
   #
   # @param [Operation] operation
   def <<(operation) operations << operation; self end
 
-  # {Operation#<< Folds} the last operation, leaving _context_ elements of
+  # {Operation#<< Folds} the last operation, leaving CONTEXT elements of
   # context.
   #
   # @param [Integer] context

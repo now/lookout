@@ -7,7 +7,7 @@
 #
 # This format is used by {Difference::String} for multi-line Strings.
 class Lookout::Diff::Formats::Unified
-  # Formats _groups_ in unified format.
+  # Formats GROUPS in unified format.
   # @param [Groups] groups
   Value(:groups)
   include Enumerable

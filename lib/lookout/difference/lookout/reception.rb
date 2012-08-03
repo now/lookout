@@ -4,8 +4,8 @@
 # when the number of times a method call is received isn’t within the range of
 # expected number of receptions.
 class Lookout::Difference::Lookout::Reception < Lookout::Difference::Range
-  # Initializes a difference report between the _actual_ number of receptions
-  # against the range of _expected_ number of receptions.
+  # Initializes a difference report between the ACTUAL number of receptions
+  # against the range of EXPECTED number of receptions.
   # @param [Integer] actual
   # @param [Range] expected
   def initialize(actual, expected)

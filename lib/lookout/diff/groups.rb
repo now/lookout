@@ -4,8 +4,8 @@
 # to show the subsequences that differ, folding away the subsequences that are
 # the same, only keeping some context around the folding points.
 class Lookout::Diff::Groups
-  # Initializes the sequence with the _operations_ to group and the number of
-  # elements to leave as _context_.
+  # Initializes the sequence with the OPERATIONS to group and the number of
+  # elements to leave as CONTEXT.
   #
   # @param [Operations] operations
   # @param [Integer] context

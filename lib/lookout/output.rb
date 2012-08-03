@@ -3,7 +3,7 @@
 # Output expectation proxy.  Used to expect output on an IO object during the
 # execution of an {Lookout::Expect expect block}.
 class Lookout::Output
-  # Proxies the _expected_ output.
+  # Proxies the EXPECTED output.
   # @param [String] expected
   Value(:expected)
 

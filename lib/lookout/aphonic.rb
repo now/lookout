@@ -9,7 +9,7 @@ class Lookout::Aphonic
   Methods << :__id__ if RUBY_VERSION < '1.9' # Ruby 1.8 warns if __id__ is undefined
 
   class << self
-    # Undefines _method_ unless it’s on the short-list of methods to keep.
+    # Undefines METHOD unless it’s on the short-list of methods to keep.
     # @param [Symbol] method
     # @return [self]
     def silence(method)

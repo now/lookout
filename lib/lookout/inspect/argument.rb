@@ -5,13 +5,13 @@
 class Lookout::Inspect::Argument < Lookout::Inspect
   class << self
     # @param [Object, …] arguments
-    # @return [String] The inspections of _arguments_, separated by “, ”’s
+    # @return [String] The inspections of ARGUMENTS, separated by “, ”’s
     def list(*arguments)
       arguments.map{ |e| Lookout::Inspect::Argument.new(e) }.join(', ')
     end
   end
 
-  # Non-failing inspection of an _argument_.
+  # Non-failing inspection of an ARGUMENT.
   # @param [Object] argument
   def initialize(argument) super argument, 'argument' end
 end

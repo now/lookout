@@ -3,7 +3,7 @@
 # Represents expected {::Array}s.
 class Lookout::Expected::Array < Lookout::Expected::Object
   # @param [::Array] actual
-  # @return [Difference::Array, nil] A difference report between _actual_ and
+  # @return [Difference::Array, nil] A difference report between ACTUAL and
   #   {#expected} unless their content exhibit no {Object differences}
   def difference(actual)
     Lookout::Difference::Array.new(actual, expected) unless

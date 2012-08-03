@@ -2,7 +2,7 @@
 
 # The “to” keyword on {::Object}s.
 class Lookout::Object::To
-  # Wraps _object_ as a “to”.
+  # Wraps OBJECT as a “to”.
   # @param [::Object] object
   def initialize(object) @object = object end
 

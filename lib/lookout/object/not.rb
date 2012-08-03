@@ -2,7 +2,7 @@
 
 # The “not” keyword on {::Object}s.
 class Lookout::Object::Not
-  # Wraps _object_ as a “not”.
+  # Wraps OBJECT as a “not”.
   # @param [::Object] object
   def initialize(object) @object = object end
 

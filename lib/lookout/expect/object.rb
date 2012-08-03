@@ -6,9 +6,9 @@
 # before the expect block is executed, or if the expect block should receive
 # other arguments than the default (being the expected value).
 class Lookout::Expect::Object
-  # Sets up the expect block on _line_ in _file_ (the expanded path) to
-  # expect the value that _expected_ wraps, and using the block’s result as the
-  # actual result to pass to {Expected::Object#difference} when {#call}ed.
+  # Sets up the expect block on LINE in FILE (the expanded path) to expect the
+  # value that EXPECTED wraps, and using the block’s result as the actual
+  # result to pass to {Expected::Object#difference} when {#call}ed.
   # @param [Expected::Object] expected The expected value wrapper
   # @param [::String] file The expanded path to the file containing the expectation
   # @param [::Integer] line The line in {#file} on which the expectation is defined
@@ -31,8 +31,7 @@ class Lookout::Expect::Object
 
   # @param [::Object, …] args
   # @return [::Object] The actual result of evaluating the expect block in the
-  #   proper context, passing _args_, which defaults to the expected value, to
-  #   it
+  #   proper context, passing ARGS, which defaults to the expected value, to it
   # @see Context
   def evaluate_block(*args)
     (args.empty? ?
@@ -40,7 +39,7 @@ class Lookout::Expect::Object
      Context.new(*args, &block)).evaluate
   end
 
-  # Checks for differences between the _actual_ result of evaluating the expect
+  # Checks for differences between the ACTUAL result of evaluating the expect
   # block and the expected value.
   # @param [::Object] actual
   # @return [Results::Success] If there are no differences between the actual

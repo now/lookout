@@ -8,12 +8,12 @@
 # There are very few requirements on these sequences (see {#initialize}), which
 # makes this implementation useful for a wide class of objects.
 class Lookout::Diff::Algorithms::Difflib
-  # Initializes the algorithm to generate matches between the _old_ and _new_
+  # Initializes the algorithm to generate matches between the OLD and NEW
   # versions of the indexable sequences.  The sequences must be indexable by
   # {::Range}s and Integers with the semantics that, for example, {::Array}s
   # have, and their elements must also respond to #hash and #==.
   #
-  # A block may be given to determine what elements in _new_ are to be ignored.
+  # A block may be given to determine what elements in NEW are to be ignored.
   # This can be used to, for example, ignore whitespace differences.
   #
   # @param [#each, #[::Range, Integer]] old

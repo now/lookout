@@ -3,7 +3,7 @@
 # Base class for operations describing the changes to perform to get from the
 # old version of a sequence to the new in a “diff”.
 class Lookout::Diff::Operation
-  # Initializes the operation with the slices of the _old_ and _new_ sequences.
+  # Initializes the operation with the slices of the OLD and NEW sequences.
   # @param [Slice] old The slice of the old sequence
   # @param [Slice] new The slice of the new sequence
   Value(:old, :new)
@@ -11,19 +11,19 @@ class Lookout::Diff::Operation
 
   # @param [Integer] context
   # @return True if the operation is uninteresting to the actual “diff” and can
-  #   be meaningfully folded, leaving _context_ elements
+  #   be meaningfully folded, leaving CONTEXT elements
   # @see Operations::Copy#foldable?
   def foldable?(context) false end
 
-  # Folds from the beginning of the receiver, leaving _context_ elements.
+  # Folds from the beginning of the receiver, leaving CONTEXT elements.
   # @param [Integer] context
-  # @note Logically, the receiver should be {#foldable?} inside _context_, but
+  # @note Logically, the receiver should be {#foldable?} inside CONTEXT, but
   #   this isn’t enforced.
   def >>(context) self end
 
-  # Folds from the end of the receiver, leaving _context_ elements.
+  # Folds from the end of the receiver, leaving CONTEXT elements.
   # @param [Integer] context
-  # @note Logically, the receiver should be {#foldable?} inside _context_ , but
+  # @note Logically, the receiver should be {#foldable?} inside CONTEXT, but
   #   this isn’t enforced.
   def <<(context) self end
 
@@ -31,10 +31,10 @@ class Lookout::Diff::Operation
   # @see Operations::Copy#parity?
   def parity?; false end
 
-  # Implements a double dispatch for enumerating operations, where _object_ is
-  # sent the last part of the receiver’s class’ _name_ with the receiver as the
+  # Implements a double dispatch for enumerating operations, where OBJECT is
+  # sent the last part of the receiver’s class’ name with the receiver as the
   # lone argument.
-  # @return The result of _object_#_name_(self)
+  # @return The result of OBJECT#name(self)
   def apply(object)
     object.send(@apply ||= self.class.name.split('::').last.downcase.to_sym, self)
   end

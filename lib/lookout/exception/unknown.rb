@@ -3,7 +3,7 @@
 # Wraps an exception that was raised while trying to determine an exception’s
 # class to make it behave like an exception class.
 class Lookout::Exception::Unknown
-  # Wraps the _exception_ that was raised while trying to determine an
+  # Wraps the EXCEPTION that was raised while trying to determine an
   # exception’s class.
   # @param [::Exception] exception
   Value(:exception)

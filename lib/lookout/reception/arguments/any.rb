@@ -6,7 +6,7 @@ class Lookout::Reception::Arguments::Any
   # @return [true]
   def =~(other) true end
 
-  # @return True if the receiver’s class `#==` that of _other_
+  # @return True if the receiver’s class `#==` that of OTHER
   def ==(other) self.class == other.class end
   alias eql? ==
   def hash; self.class.hash end

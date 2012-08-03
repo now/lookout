@@ -6,7 +6,7 @@ class Lookout::Results::Failure
   include Lookout::Result
 
   # (see Result#initialize)
-  # The _difference_ report between the actual result and the expected value
+  # The DIFFERENCE report between the actual result and the expected value
   # will be used to display this information to the user.
   # @param [Difference::Object] difference
   Value(:file, :line, :difference, :comparable => [:file, :line])
