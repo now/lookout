@@ -58,7 +58,7 @@ class Lookout::Expect::Object::Context
   end
 
   # Sets GLOBAL to VALUE during the execution of the given block, yielding the
-  # overridden value.
+  # OVERRIDDEN value.
   # @param [Symbol] global
   # @param [::Object] value
   # @yieldparam [::Object] overridden
