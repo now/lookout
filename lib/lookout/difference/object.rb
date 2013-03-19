@@ -62,12 +62,10 @@ class Lookout::Difference::Object
 
   private
 
-  # @return [::String] The safely inspected value of {#actual}, see
-  #   {Inspect::Actual}
+  # @return [::String] The safely inspected value of {#actual}, see {Inspect}
   def inspect_actual; Lookout::Inspect.new(actual, 'actual result').call end
 
-  # @return [::String] The safely inspected value of {#expected}, see
-  #   {Inspect::Expected}
+  # @return [::String] The safely inspected value of {#expected}, see {Inspect}
   def inspect_expected; Lookout::Inspect.new(expected, 'expected value').call end
 
   # @return [::String] The inequality symbol to use (‘≠’)
