@@ -17,8 +17,8 @@ class Lookout::Difference::Hash < Lookout::Difference::Object
 
   private
 
-  # @return [::String, super] The symbol ‘≉’ if {#actual} is a Hash of the same
-  #   #size as {#expected}, {super} otherwise
+  # @return [::String, super] The symbol ‘≉’ if {#actual} is a Hash of the
+  #   same #size as {#expected}, {super} otherwise
   def symbol; Hash === actual && expected.size == actual.size ? '≉' : super end
 
   def array(hash)
