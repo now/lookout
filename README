@@ -237,7 +237,7 @@
 
       There’s also a way to make the expectations of query methods explicit by
       invoking methods on the result of the block.  For example, to check that
-      the Array ‹[1, 2, 3]› includes ‹1› you could write
+      the even elements of the Array ‹[1, 2, 3]› include ‹1› you could write
 
         expect result.to.include? 1 do
           [1, 2, 3].reject{ |e| e.even? }
