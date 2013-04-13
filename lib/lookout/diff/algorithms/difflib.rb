@@ -16,8 +16,8 @@ class Lookout::Diff::Algorithms::Difflib
   # A block may be given to determine what elements in NEW are to be ignored.
   # This can be used to, for example, ignore whitespace differences.
   #
-  # @param [#each, #[::Range, Integer]] old
-  # @param [#each, #[::Range, Integer]] new
+  # @param [#each, #[]] old
+  # @param [#each, #[]] new
   # @yield [?]
   # @yieldparam element
   # @yieldreturn [Boolean]

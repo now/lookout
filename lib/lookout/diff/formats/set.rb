@@ -21,7 +21,7 @@ class Lookout::Diff::Formats::Set
   def each
     return enum_for(__method__) unless block_given?
     operations.each do |op|
-      operation = Operation.new(op)
+      operation = ToS.new(op)
       yield operation.to_s unless operation.empty?
     end
     self
@@ -32,7 +32,7 @@ class Lookout::Diff::Formats::Set
 
   private
 
-  class Operation
+  class ToS
     def initialize(operation) @lines = operation.apply(self) end
     def empty?; @lines.nil? end
     def delete(operation) mark('-', operation.old) end

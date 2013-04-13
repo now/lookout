@@ -22,7 +22,7 @@ class Lookout::Diff::Formats::Unified
     return enum_for(__method__) unless block_given?
     groups.each do |group|
       next if group.parity?
-      yield Group.new(group).to_s
+      yield ToS.new(group).to_s
     end
     self
   end
@@ -32,8 +32,7 @@ class Lookout::Diff::Formats::Unified
 
   private
 
-  # @private
-  class Group
+  class ToS
     def initialize(group) @group = group end
     def delete(operation) mark('-', operation.old) end
     def copy(operation) mark(' ', operation.old) end
