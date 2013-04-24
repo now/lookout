@@ -533,7 +533,7 @@
 
     and add the following code to your Rakefile
 
-      require 'lookout/rake-3.0'
+      require 'lookout-rake-3.0'
 
       Lookout::Rake::Tasks::Test.new
 

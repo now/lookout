@@ -33,7 +33,7 @@ module Lookout
     end
   end
 
-  load File.expand_path('../lookout/version.rb', __FILE__)
+  load File.expand_path('../lookout-3.0/version.rb', __FILE__)
   Version.load
 end
 
