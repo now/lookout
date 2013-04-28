@@ -198,23 +198,6 @@ Expectations do
     o.to_str if o.convertable?
   end
 
-  # Use a stub that’s set up with a set of methods.
-  expect 3 do
-    s = stub(:a => 1, :b => 2)
-    s.a + s.b
-  end
-
-  # Use a stub that’s set up with a set of procs as methods.
-  expect 3 do
-    s = stub(:a => proc{ |a, b| a + b })
-    s.a(1, 2)
-  end
-
-  # Stub out a specific method on an object.
-  expect 'def' do
-    stub('abc', :to_str => 'def'){ |a| a.to_str }
-  end
-
   # Use a contrete mock to verify that a method is called.
   expect Object.to.receive.name do
     Object.name
@@ -286,6 +269,18 @@ Expectations do
   expect mock(:a => 2, :b => 2).to.receive.a do |o|
     o.a + o.b
   end
+
+  # Use a stub that’s set up with a set of procs as methods.
+  expect 3 do
+    s = stub(:a => proc{ |a, b| a + b })
+    s.a(1, 2)
+  end
+
+  # Stub out a specific method on an object.
+  expect 'def' do
+    stub('abc', :to_str => 'def'){ |a| a.to_str }
+  end
+
 
 
 

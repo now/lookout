@@ -1,7 +1,7 @@
                                 Lookout
 
-  Lookout is a unit testing framework that puts your results in focus. Tests
-  (expectations) are written as follows
+  Lookout is a unit testing framework for Ruby¹ that puts your results in
+  focus. Tests (expectations) are written as follows
 
     expect 2 do
       1 + 1
@@ -42,15 +42,17 @@
 •   A unified syntax for setting up both state-based and behavior-based
     expectations
 
-  The way Lookout works has been heavily influenced by expectations¹, by
-  {Jay Fields}².  The code base was once also heavily based on expectations¹,
-  based at Subversion {revision 76}³.  A lot has happened since then and all of
-  the work past that revision are due to {Nikolai Weibull}⁴.
+  The way Lookout works has been heavily influenced by expectations², by
+  {Jay Fields}³.  The code base was once also heavily based on expectations,
+  based at Subversion {revision 76}⁴.  A lot has happened since then and all of
+  the work past that revision are due to {Nikolai Weibull}⁵.
 
-¹ Get more information on the expectations library at http://expectations.rubyforge.org/
-² Read Jay Fields’s blog at http://blog.jayfields.com/
-³ Review Lookout revision 76 at https://github.com/now/lookout/commit/537bedf3e5b3eb4b31c066b3266f42964ac35ebe
-⁴ Visit Nikolai Weibull’s home page at http://bitwi.se/
+¹ Ruby: http://ruby-lang.org/
+² Expectations: http://expectations.rubyforge.org/
+³ Jay Fields’s blog: http://blog.jayfields.com/
+⁴ Lookout revision 76:
+  https://github.com/now/lookout/commit/537bedf3e5b3eb4b31c066b3266f42964ac35ebe
+⁵ Nikolai Weibull’s home page: http://disu.se/
 
 § Installation
 
@@ -65,7 +67,7 @@
     We’ll begin by looking at state expectations and then take a look at
     expectations on behavior.
 
-  § Expectations on State
+  § Expectations on State: Literals
 
       An expectation can be made on the result of a computation:
 
@@ -84,6 +86,8 @@
 
       Here, the more general ‹#===› is being used on the ‹Range›.
 
+  § Regexps
+
       ‹Strings› of course match against ‹Strings›:
 
         expect 'ab' do
@@ -98,6 +102,8 @@
 
       (Note the use of ‹%r{…}› to avoid warnings that will be generated when
       Ruby parses ‹expect /…/›.)
+
+  § Modules
 
       Checking that the result includes a certain module is done by expecting the
       ‹Module›.
@@ -131,6 +137,8 @@
       trying ‹#==› and, if it returns ‹false›, then trying ‹#===› on the
       expected ‹Module›.  This is also true of ‹Ranges› and ‹Regexps›.
 
+  § Booleans
+
       Truthfulness is expected with ‹true› and ‹false›:
 
         expect true do
@@ -155,6 +163,8 @@
       computation evaluates to a value that Ruby considers to be either true or
       false, not the exact literals ‹true› or ‹false›.
 
+  § IO
+
       Expecting output on an IO object is also common:
 
         expect output("abc\ndef\n") do |io|
@@ -163,6 +173,8 @@
 
       This can be used to capture the output of a formatter that takes an
       output object as a parameter.
+
+  § Warnings
 
       Expecting warnings from code isn’t very common, but should be done:
 
@@ -184,6 +196,8 @@
           end
         end
 
+  § Errors
+
       You should always be expecting errors from – and in, but that’s a
       different story – your code:
 
@@ -203,6 +217,8 @@
         expect StandardError.new(/mess/) do
           raise StandardError.new('message')
         end
+
+  § Queries Through Symbols
 
       Symbols are generally matched against symbols, but as a special case,
       symbols ending with ‹?› are seen as expectations on the result of query
@@ -234,6 +250,8 @@
 
       but provides much clearer failure messages.  It also makes the
       expectation’s intent a lot clearer.
+
+  § Queries By Proxy
 
       There’s also a way to make the expectations of query methods explicit by
       invoking methods on the result of the block.  For example, to check that
@@ -271,6 +289,8 @@
       or any other method you will want to call on the result.  The methods
       ‹#to›, ‹#be›, and ‹#have› do nothing except improve readability.  The
       ‹#not› method inverts the expectation.
+
+  § Literal Literals
 
       If you need to literally check against any of the types of objects
       otherwise treated specially, that is, any instances of
@@ -317,28 +337,6 @@
         expect stub.to.receive.to_str(without_arguments){ '123' } do |o|
           o.to_str if o.convertable?
         end
-
-      We can also use stubs without any expectations on them:
-
-        expect 3 do
-          s = stub(:a => 1, :b => 2)
-          s.a + s.b
-        end
-
-      Blocks are also allowed:
-
-        expect 3 do
-          s = stub(:a => proc{ |a, b| a + b })
-          s.a(1, 2)
-        end
-
-      If need be, we can stub out a specific method on an object:
-
-        expect 'def' do
-          stub('abc', :to_str => 'def'){ |a| a.to_str }
-        end
-
-      The stub is active during the execution of the block.
 
       You don’t have to use a mock object to verify that a method is called:
 
@@ -428,6 +426,8 @@
     •   ‹#exactly(N)›
     •   ‹#at_least(N)›
 
+  § Utilities: Stubs
+
       Method stubs are another useful thing to have in a unit testing
       framework.  Sometimes you need to override a method that does something a
       test shouldn’t do, like access and alter bank accounts.  We can override
@@ -471,7 +471,22 @@
           o.a + o.b
         end
 
-  § Utilities
+      Blocks are also allowed when defining stub methods:
+
+        expect 3 do
+          s = stub(:a => proc{ |a, b| a + b })
+          s.a(1, 2)
+        end
+
+      If need be, we can stub out a specific method on an object:
+
+        expect 'def' do
+          stub('abc', :to_str => 'def'){ |a| a.to_str }
+        end
+
+      The stub is active during the execution of the block.
+
+  § Overriding Constants
 
       Sometimes you need to override the value of a constant during the
       execution of some code.  Use ‹#with_const› to do just that:
@@ -487,6 +502,8 @@
       this to work.  If a costant doesn’t exist it’s created and set to a new,
       empty, ‹Module›. The value of ‹A::B::C›, if any, is restored after the
       block returns and any constants that didn’t previously exist are removed.
+
+  § Overriding Environment Variables
 
       Another thing you often need to control in your tests is the value of
       environment variables.  Depending on such global values is, of course,
@@ -505,6 +522,8 @@
 
       Any overridden values are restored and any keys that weren’t previously a
       part of the environment are removed when the block returns.
+
+  § Overriding Globals
 
       You may also want to override the value of a global temporarily:
 
