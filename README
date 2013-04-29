@@ -29,8 +29,8 @@
   This is done by
 
 •   Only allowing one expectation to be set per test
-•   Providing no (additonal) way of accessing private state
-•   Providing no setup and teardown methods, nor a method of providing test
+•   Providing no (additional) way of accessing private state
+•   Providing no setup and tear-down methods, nor a method of providing test
     helpers
 
   Other important points are
@@ -499,7 +499,7 @@
 
       Here, the constant ‹A::B::C› is set to ‹'hello'› during the execution of
       the block.  None of the constants ‹A›, ‹B›, and ‹C› need to exist for
-      this to work.  If a costant doesn’t exist it’s created and set to a new,
+      this to work.  If a constant doesn’t exist it’s created and set to a new,
       empty, ‹Module›. The value of ‹A::B::C›, if any, is restored after the
       block returns and any constants that didn’t previously exist are removed.
 
@@ -536,7 +536,7 @@
 
       You thus provide the name of the global and a value that it should take
       during the execution of a block of code.  The block gets passed the
-      overriden value, should you need it:
+      overridden value, should you need it:
 
         expect true do
           with_global :$stdout, StringIO.new do |overridden|
@@ -610,9 +610,9 @@
     focused.
 
     Keeping your tests focused improves, in itself, test isolation, but let’s
-    look at something that hinders it: setup and teardown methods.  Most unit
+    look at something that hinders it: setup and tear-down methods.  Most unit
     testing frameworks encourage test fragmentation by providing setup and
-    teardown methods.
+    tear-down methods.
 
     Setup methods create objects and, perhaps, just their behavior for a set of
     tests.  This means that you have to look in two places to figure out what’s
@@ -622,15 +622,15 @@
     set-up object before performing any verifications, further complicating the
     process of figuring out what state an object has in a given test.
 
-    Teardown methods clean up after tests, perhaps by removing records from a
+    Tear-down methods clean up after tests, perhaps by removing records from a
     database or deleting files from the file-system.
 
-    The duplication that setup methods and teardown methods hope to remove is
+    The duplication that setup methods and tear-down methods hope to remove is
     better avoided by improving your interfaces.  This can be done by providing
     better set-up methods for your objects and using idioms such as {Resource
     Acquisition Is Initialization}¹ for guaranteed clean-up, test or no test.
 
-    By not using setup and teardown methods we keep everything pertinent to a
+    By not using setup and tear-down methods we keep everything pertinent to a
     test in the test itself, thus improving test isolation.  (You also won’t
     {slow down your tests}² by keeping unnecessary state.)
 
@@ -694,7 +694,7 @@
 
       backtrace.reject{ |l| Regexp.new(@lib).match(File.expand_path(l)) }
 
-    Here ‹@lib› is a ‹String› containing the path to the lib subdirectory in
+    Here ‹@lib› is a ‹String› containing the path to the lib sub-directory in
     the Mocha installation directory.  I reported it, provided a patch five
     days later, then waited.  Nothing happened.  {254 days later}¹, according
     to {Wolfram Alpha}², half of my patch was, apparently – I say “apparently”,
