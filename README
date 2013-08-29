@@ -830,9 +830,12 @@
 
 ¹ Add an issue to the Lookout issue tracker at https://github.com/now/lookout/issues
 
-§ License
+§ Licensing
 
-    You may use, copy, and redistribute this library under the same terms¹
-    as Ruby itself.
+    Lookout is free software: you may redistribute it and/or modify it under
+    the terms of the {GNU Lesser General Public License, version 3}¹ or later²,
+    as published by the {Free Software Foundation}³.
 
-¹ Read the Ruby licensing terms at http://www.ruby-lang.org/en/LICENSE.txt
+¹ See http://disu.se/licenses/lgpl-3.0/
+² See http://gnu.org/licenses/
+³ See http://fsf.org/

@@ -8,6 +8,7 @@ Inventory::Rake::Tasks.define Lookout::Version, :gem => proc{ |_, s|
   s.author = 'Nikolai Weibull'
   s.email = 'now@bitwi.se'
   s.homepage = 'https://github.com/now/lookout'
+  s.license = 'LGPLv3+'
 }
 
 Inventory::Rake::Tasks.unless_installing_dependencies do
