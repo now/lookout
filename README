@@ -666,8 +666,8 @@
   http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
 ² Read how 37signals had problems with slow Test::Unit tests at
   http://37signals.com/svn/posts/2742-the-road-to-faster-tests/
-³ Visit the Lookout-rack GitHub project page at
-  http://github.com/now/lookout-rack/
+³ Visit the Lookout-rack home page at
+  http://disu.se/software/lookout-rack/
 ⁴ Visit the Rack Rubyforge project page at
   http://rack.rubyforge.org/
 
