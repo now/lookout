@@ -3,7 +3,19 @@
 require 'inventory-1.0'
 
 module Lookout
-  Version = Inventory.new(3, 0, 0){
+  Version = Inventory.new(3, 0, 1){
+    authors{
+      author 'Nikolai Weibull', 'now@disu.se'
+    }
+
+    homepage 'http://disu.se/software/lookout'
+
+    licenses{
+      license 'LGPLv3+',
+              'GNU Lesser General Public License, version 3 or later',
+              'http://www.gnu.org/licenses/'
+    }
+
     def dependencies
       super + Inventory::Dependencies.new{
         development 'inventory-rake', 1, 4, 0
