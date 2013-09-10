@@ -643,7 +643,7 @@
     they should be general enough that they reside in their own library.  The
     support for mocks in Lookout is provided through a set of test helper
     methods that make it easier to create mocks than it would have been without
-    them.  Lookout-rack³ is another example of a library providing test helper
+    them.  Lookout-Rack³ is another example of a library providing test helper
     methods (well, one method, actually) that are very useful in testing web
     applications that use Rack⁴.
 
@@ -666,8 +666,8 @@
   http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
 ² Read how 37signals had problems with slow Test::Unit tests at
   http://37signals.com/svn/posts/2742-the-road-to-faster-tests/
-³ Visit the Lookout-rack home page at
-  http://disu.se/software/lookout-rack/
+³ Visit the Lookout-Rack home page at
+  http://disu.se/software/lookout-rack-1.0/
 ⁴ Visit the Rack Rubyforge project page at
   http://rack.rubyforge.org/
 
