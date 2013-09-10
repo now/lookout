@@ -560,14 +560,14 @@
     customization.
 
 ¹ Read more about Rake at http://rake.rubyforge.org/
-² Get information on Lookout-Rake at http://disu.se/software/lookout-rake/
+² Get information on Lookout-Rake at http://disu.se/software/lookout-rake-3.0/
 
 § API
 
     Lookout comes with an API¹ that let’s you create things such as new
     expected values, difference reports for your types, and so on.
 
-¹ See http://disu.se/software/lookout/api/
+¹ See http://disu.se/software/lookout-3.0/api/
 
 § Interface Design
 
