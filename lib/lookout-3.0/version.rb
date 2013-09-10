@@ -8,7 +8,7 @@ module Lookout
       author 'Nikolai Weibull', 'now@disu.se'
     }
 
-    homepage 'http://disu.se/software/lookout/'
+    homepage 'http://disu.se/software/lookout-3.0/'
 
     licenses{
       license 'LGPLv3+',
